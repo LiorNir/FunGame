@@ -421,6 +421,85 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(20f, engine.PlayerHealth, Tolerance);
         }
 
+        // ---------- a hit equal to a chain's whole value ----------
+
+        // R -> S, both ends of the lane's chains: attack and defense read the same two slots.
+        private static BoardGraph TwoSlotChain(Operation operation)
+        {
+            var nodes = new[] { new SlotNode("R"), new SlotNode("S", "R", operation) };
+            return new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "S"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "S")
+            });
+        }
+
+        private static BattleEngine ChainHitForItsWholeValue(Operation operation, int hit)
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", hit, 0));
+            var deck = new[] { new PilotStats("A", 0f, 2f), new PilotStats("B", 0f, 3f), new PilotStats("Fresh", 0f, 4f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(operation), new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "A", "R");
+            PlaceByName(engine, "B", "S");
+            engine.ResolveTurn();
+            return engine;
+        }
+
+        [Test]
+        public void HitEqualToTheChainsValue_LeavesItStandingAtZero()
+        {
+            var engine = ChainHitForItsWholeValue(Operation.Add, 5); // 2 + 3 = 5
+
+            Assert.IsFalse(engine.PilotBySlot["R"].Fallen);
+            Assert.IsFalse(engine.PilotBySlot["S"].Fallen);
+            Assert.AreEqual(1f, engine.PilotBySlot["R"].DefenseWound);
+            Assert.AreEqual(1f, engine.PilotBySlot["S"].DefenseWound);
+            Assert.AreEqual(0f, engine.SumChains(ChainRole.Defense));
+            Assert.AreEqual(20f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void ChainLeftAtZero_IsDestroyedByTheNextHit_WhichPassesOnInFull()
+        {
+            var engine = ChainHitForItsWholeValue(Operation.Add, 5);
+
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.IsTrue(engine.PilotBySlot["S"].Fallen);
+            Assert.AreEqual(15f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void ChainLeftAtZero_ComesBackWhenOnePilotIsReplaced_IfItsOperatorAdds()
+        {
+            var engine = ChainHitForItsWholeValue(Operation.Add, 5);
+
+            PlaceByName(engine, "Fresh", "S");
+
+            Assert.AreEqual(4f, engine.SumChains(ChainRole.Defense), Tolerance); // 0 + 4
+        }
+
+        [Test]
+        public void ChainLeftAtZero_StaysAtZeroWhenOnePilotIsReplaced_IfItsOperatorMultiplies()
+        {
+            var engine = ChainHitForItsWholeValue(Operation.Multiply, 6); // 2 x 3 = 6
+
+            PlaceByName(engine, "Fresh", "S");
+
+            Assert.AreEqual(0f, engine.SumChains(ChainRole.Defense), Tolerance); // 0 x 4
+        }
+
+        [Test]
+        public void HitAboveTheChainsValue_StillDestroysIt()
+        {
+            var engine = ChainHitForItsWholeValue(Operation.Add, 6);
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.AreEqual(19f, engine.PlayerHealth, Tolerance);
+        }
+
         [Test]
         public void ChainZeroedByDivideByZero_IsStillLeftAlone()
         {

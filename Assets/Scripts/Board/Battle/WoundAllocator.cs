@@ -50,9 +50,10 @@ namespace FunGame.Battle
                 return false;
             }
 
+            // a hit equal to the chain's whole value wounds every contributor completely (exactly, not by bisection)
             var low = 0f;
-            var high = 1f;
-            for (var i = 0; i < 40; i++)
+            var high = target <= Epsilon ? 0f : 1f;
+            for (var i = 0; i < 40 && high > 0f; i++)
             {
                 var middle = (low + high) * 0.5f;
                 if (EvaluateScaled(graph, chain, contentOf, contributors, middle) > target)

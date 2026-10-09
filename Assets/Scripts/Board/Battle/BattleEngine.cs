@@ -511,7 +511,9 @@ namespace FunGame.Battle
                 var absorbed = Math.Min(value, remaining);
                 Stats.DamageAbsorbed += absorbed;
                 List<string> wounded = null;
-                var chainSurvives = absorbed < value - Epsilon &&
+                // A hit equal to the chain's whole value leaves it standing at 0 (its pilots fully wounded); only a hit
+                // above its value destroys it. The next hit that reaches a chain at 0 destroys it (see above).
+                var chainSurvives = remaining <= value + Epsilon &&
                                     WoundAllocator.TryApplyDamage(Setup.Board, chain, value, absorbed, ContentOf, _pilotBySlot, out wounded);
                 if (chainSurvives)
                 {
