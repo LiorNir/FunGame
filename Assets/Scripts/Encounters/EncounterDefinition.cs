@@ -45,6 +45,13 @@ namespace Encounters
             _lanes = lanes;
             _rewardSkillPoints = rewardSkillPoints;
         }
+
+        /// <summary>Which pilot tools this encounter allows (off until the game has taught them).</summary>
+        public void SetAllowedTools(bool allowReplace, bool allowEject)
+        {
+            _allowReplace = allowReplace;
+            _allowEject = allowEject;
+        }
     }
 
     /// <summary>The enemies of one lane, in the order they appear: the first at the start, each next after the previous dies.</summary>

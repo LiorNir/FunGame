@@ -12,3 +12,7 @@
 # Encounter 1|Tutorial|1.0|World 1|1|placing pilots; a chain adds up
 # Encounter 2|Tutorial|1.0|World 1|2|a slot that opens on a turn
 # Encounter 3|Early|1.0|World 1|3|operators: add, subtract, multiply
+World 1-1: First steps|Tutorial|1.0|World 1|1|placing pilots; a chain adds up
+World 1-2: A door opens|Tutorial|1.0|World 1|2|a slot that opens on a turn
+World 1-3: The gatekeeper (boss)|Early|1.0|World 1|3|operators: add, subtract and multiply
+Lock sample: Pinned down|Early|1.0|||reacting to Lock

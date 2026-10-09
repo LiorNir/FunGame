@@ -16,6 +16,12 @@ namespace BoardAuthoring
         /// <summary>How far a new root slot stays clear of the bottom edge of the board area (and of the summoner below it).</summary>
         public const float RootBottomClearance = 0.25f;
 
+        /// <summary>
+        /// For boards generated from code: how far a branch stands from the middle of the board, so that slots above the root
+        /// row sit beside the enemy (which stands above the middle) rather than under it, as on the hand-made boards.
+        /// </summary>
+        public const float BranchSideOffset = 2.5f;
+
         /// <summary>From a pilot slot to the operator slot placed after it.</summary>
         public static float OperatorOffsetY(float pilotRadius, float operatorRadius)
         {
