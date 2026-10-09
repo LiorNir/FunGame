@@ -183,7 +183,7 @@ namespace FunGame.Battle
                 _lockedSlots.Add(rule.SlotId);
             }
 
-            var deck = Setup.Deck.Select(stats => new PilotUnit(stats.Name, stats.Attack, stats.Defense, stats.Source)).ToList();
+            var deck = Setup.Deck.Select((stats, index) => new PilotUnit(stats.Name, stats.Attack, stats.Defense, stats.Source) { Id = index }).ToList();
             Shuffle(deck);
             Bank.AddRange(deck);
 
@@ -220,7 +220,7 @@ namespace FunGame.Battle
             }
 
             _pilotBySlot.TryGetValue(slotId, out var occupant);
-            return (occupant == null || (!occupant.Fallen && Setup.Rules.AllowReplace)) && PlacementCost(slotId) <= ActionPoints;
+            return (occupant == null || (!occupant.Fallen && !occupant.IsLocked && Setup.Rules.AllowReplace)) && PlacementCost(slotId) <= ActionPoints;
         }
 
         public bool TryPlace(int handIndex, string slotId)
@@ -280,8 +280,38 @@ namespace FunGame.Battle
 
         public bool CanEject(string slotId)
         {
-            return Outcome == BattleOutcome.InProgress && Setup.Rules.AllowEject && _pilotBySlot.TryGetValue(slotId, out var pilot) && !pilot.Fallen &&
-                   Setup.Rules.EjectPilotCost <= ActionPoints && Hand.Count < Setup.Rules.HandSize;
+            return EjectBlocker(slotId) == null;
+        }
+
+        /// <summary>Why the pilot in the slot cannot be ejected right now, in a few words; null if it can.</summary>
+        public string EjectBlocker(string slotId)
+        {
+            if (Outcome != BattleOutcome.InProgress)
+            {
+                return "the battle is over";
+            }
+
+            if (!Setup.Rules.AllowEject)
+            {
+                return "not available yet";
+            }
+
+            if (!_pilotBySlot.TryGetValue(slotId, out var pilot) || pilot.Fallen)
+            {
+                return "no living pilot";
+            }
+
+            if (pilot.IsLocked)
+            {
+                return $"locked for {pilot.LockedTurns} turn{(pilot.LockedTurns == 1 ? string.Empty : "s")}";
+            }
+
+            if (Setup.Rules.EjectPilotCost > ActionPoints)
+            {
+                return "not enough AP";
+            }
+
+            return Hand.Count < Setup.Rules.HandSize ? null : "hand is full";
         }
 
         /// <summary>
@@ -368,6 +398,13 @@ namespace FunGame.Battle
             }
 
             Stats.ApWasted += ActionPoints;
+
+            // a lock counts the player's turns: the planning phase that just ended was one of them
+            foreach (var pilot in _pilotBySlot.Values.Where(pilot => pilot.IsLocked))
+            {
+                pilot.LockedTurns--;
+            }
+
             Emit(BattleEventType.TurnResolving, a: Turn);
 
             // the board does not change while the player attacks, so its chains are read once
@@ -435,8 +472,15 @@ namespace FunGame.Battle
             var action = lane.Current.Intent;
             Emit(BattleEventType.EnemyActed, lane.Spec.Id, action.Name);
             var context = new EnemyEffectContext(this, lane, action);
-            foreach (var effect in action.Effects.Where(effect => effect.Phase == EnemyEffectPhase.Act))
+            for (var index = 0; index < action.Effects.Count; index++)
             {
+                var effect = action.Effects[index];
+                if (effect.Phase != EnemyEffectPhase.Act)
+                {
+                    continue;
+                }
+
+                context.Targets = index < lane.Current.IntentTargets.Count ? lane.Current.IntentTargets[index] : new int[0];
                 effect.Resolve(context);
                 if (PlayerHealth <= Epsilon)
                 {
@@ -519,6 +563,150 @@ namespace FunGame.Battle
             }
         }
 
+        /// <summary>
+        /// Locks the targeted pilots for the given number of the player's turns (a longer lock already on a pilot is kept).
+        /// A target that has left the board, or fallen, is missed. Used by <see cref="LockEffect"/>.
+        /// </summary>
+        internal void LockPilots(LaneState lane, IReadOnlyList<int> targetIds, int turns, string effectName)
+        {
+            if (targetIds.Count == 0)
+            {
+                Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "there was no pilot to target");
+                return;
+            }
+
+            foreach (var id in targetIds)
+            {
+                var slotId = SlotOfPilot(id);
+                if (slotId == null)
+                {
+                    Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "its target left the board");
+                    continue;
+                }
+
+                var pilot = _pilotBySlot[slotId];
+                pilot.LockedTurns = Math.Max(pilot.LockedTurns, turns);
+                Stats.PilotsLocked++;
+                Emit(BattleEventType.PilotLocked, lane.Spec.Id, pilot.Name, pilot.LockedTurns, slots: new[] { slotId });
+            }
+        }
+
+        /// <summary>The slot of a living pilot on the board, or null if the pilot is not there.</summary>
+        public string SlotOfPilot(int pilotId)
+        {
+            foreach (var pair in _pilotBySlot)
+            {
+                if (pair.Value.Id == pilotId && !pair.Value.Fallen)
+                {
+                    return pair.Key;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>The pilots the revealed enemy intents are aimed at, with the effect and lane, for markers on the board.</summary>
+        public IEnumerable<IntentTarget> IntentTargets()
+        {
+            foreach (var lane in Lanes.Where(lane => lane.Current != null))
+            {
+                var enemy = lane.Current;
+                for (var index = 0; index < enemy.Intent.Effects.Count && index < enemy.IntentTargets.Count; index++)
+                {
+                    foreach (var id in enemy.IntentTargets[index])
+                    {
+                        var slotId = SlotOfPilot(id);
+                        if (slotId != null)
+                        {
+                            yield return new IntentTarget(lane.Spec.Id, enemy.Intent.Effects[index], slotId, _pilotBySlot[slotId]);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>Slots whose pilot counts in at least one chain right now (placed, living and not cut off by a gap).</summary>
+        private List<string> ActiveSlots()
+        {
+            var active = new HashSet<string>();
+            foreach (var result in EvaluateChains().Values)
+            {
+                foreach (var step in result.Steps.Where(step => step.Status == SlotStatus.Active))
+                {
+                    active.Add(step.NodeId);
+                }
+            }
+
+            return active.Where(slotId => _pilotBySlot.ContainsKey(slotId)).OrderBy(slotId => slotId, StringComparer.Ordinal).ToList();
+        }
+
+        private IReadOnlyList<int> ChooseTarget(PilotTargetRule rule)
+        {
+            var candidates = ActiveSlots();
+            if (candidates.Count == 0)
+            {
+                return new int[0];
+            }
+
+            string chosen;
+            switch (rule)
+            {
+                case PilotTargetRule.MostWounded:
+                    chosen = Best(candidates, pilot => pilot.DefenseWound);
+                    break;
+                case PilotTargetRule.HighestAttack:
+                    chosen = Best(candidates, pilot => pilot.EffectiveAttack);
+                    break;
+                case PilotTargetRule.HighestDefense:
+                    chosen = Best(candidates, pilot => pilot.EffectiveDefense);
+                    break;
+                case PilotTargetRule.Trunk:
+                    chosen = Trunk(candidates);
+                    break;
+                default:
+                    chosen = candidates[_random.Next(candidates.Count)];
+                    break;
+            }
+
+            return new[] { _pilotBySlot[chosen].Id };
+        }
+
+        /// <summary>The active slot in the most chains; ties go to the one with the fewest slots between it and its root.</summary>
+        private string Trunk(List<string> slotIds)
+        {
+            var chainCount = new Dictionary<string, int>();
+            var depth = new Dictionary<string, int>();
+            foreach (var result in EvaluateChains().Values)
+            {
+                for (var index = 0; index < result.Steps.Count && result.Steps[index].Status == SlotStatus.Active; index++)
+                {
+                    var slotId = result.Steps[index].NodeId;
+                    chainCount[slotId] = chainCount.TryGetValue(slotId, out var count) ? count + 1 : 1;
+                    depth[slotId] = index;
+                }
+            }
+
+            return slotIds.OrderByDescending(slotId => chainCount.TryGetValue(slotId, out var count) ? count : 0)
+                .ThenBy(slotId => depth.TryGetValue(slotId, out var steps) ? steps : int.MaxValue)
+                .ThenBy(slotId => slotId, StringComparer.Ordinal)
+                .First();
+        }
+
+        /// <summary>The slot whose pilot scores highest; ties go to the first slot in id order.</summary>
+        private string Best(List<string> slotIds, Func<PilotUnit, float> score)
+        {
+            var best = slotIds[0];
+            foreach (var slotId in slotIds)
+            {
+                if (score(_pilotBySlot[slotId]) > score(_pilotBySlot[best]) + Epsilon)
+                {
+                    best = slotId;
+                }
+            }
+
+            return best;
+        }
+
         private void DestroyChain(LaneState lane, ChainDefinition chain, float absorbed, float value)
         {
             var result = ChainEvaluator.Evaluate(Setup.Board, chain, ContentOf);
@@ -528,6 +716,7 @@ namespace FunGame.Battle
                 if (_pilotBySlot.TryGetValue(step.NodeId, out var pilot) && !pilot.Fallen)
                 {
                     pilot.Fallen = true;
+                    pilot.LockedTurns = 0;
                     fallenSlots.Add(step.NodeId);
                 }
             }
@@ -588,7 +777,21 @@ namespace FunGame.Battle
                 enemy.NextSequentialAction++;
             }
 
-            Emit(BattleEventType.IntentRevealed, lane.Spec.Id, enemy.Intent.Name, enemy.Intent.Attack, enemy.Intent.Defense);
+            // targets are chosen now, so the player sees them while planning (see ITargetedEffect)
+            var targets = new List<IReadOnlyList<int>>();
+            List<string> targetSlots = null;
+            foreach (var effect in enemy.Intent.Effects)
+            {
+                var chosen = effect is ITargetedEffect targeted ? ChooseTarget(targeted.TargetRule) : new int[0];
+                targets.Add(chosen);
+                foreach (var id in chosen)
+                {
+                    (targetSlots = targetSlots ?? new List<string>()).Add(SlotOfPilot(id));
+                }
+            }
+
+            enemy.IntentTargets = targets;
+            Emit(BattleEventType.IntentRevealed, lane.Spec.Id, enemy.Intent.Name, enemy.Intent.Attack, enemy.Intent.Defense, slots: targetSlots);
         }
 
         private void ApplyUnlocks()

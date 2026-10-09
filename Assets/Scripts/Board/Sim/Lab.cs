@@ -22,6 +22,7 @@ namespace FunGame.Sim
         public static PlayerSpec Greedy => new PlayerSpec("Greedy", () => new GreedyPlayer());
         public static PlayerSpec Casual => new PlayerSpec("Casual", () => new SearchPlayer(BotProfile.Casual));
         public static PlayerSpec Careful => new PlayerSpec("Careful", () => new SearchPlayer(BotProfile.Careful));
+        public static PlayerSpec CarefulIgnoringLocks => new PlayerSpec("Careful, ignoring locks", () => new SearchPlayer(BotProfile.CarefulIgnoringLocks));
         public static PlayerSpec Gambler => new PlayerSpec("Gambler", () => new SearchPlayer(BotProfile.Gambler));
         public static PlayerSpec Reference => new PlayerSpec("Reference", () => new SearchPlayer(BotProfile.Reference));
     }
@@ -80,6 +81,10 @@ namespace FunGame.Sim
         }
 
         public bool HasLockedSlots => Setup.SlotRules.Any(rule => rule.Locked);
+
+        /// <summary>True if any enemy action of the encounter can lock a pilot.</summary>
+        public bool HasEnemyLocks => Setup.Lanes.SelectMany(lane => lane.Enemies).SelectMany(enemy => enemy.Actions)
+            .Any(action => action.Effects.Any(effect => effect is LockEffect));
 
         /// <summary>The same encounter placed in a world (or moved to another tier).</summary>
         public EncounterCase Placed(string tier, string world, int position, string teaches)

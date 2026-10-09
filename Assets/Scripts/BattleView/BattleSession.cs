@@ -431,6 +431,22 @@ namespace BattleView
                         await _hud.SetHealthAnimated(battleEvent.B).AwaitForComplete(cancellationToken: token);
                         break;
 
+                    case BattleEventType.PilotLocked:
+                        var lockedSlot = _board.GetSlot(battleEvent.Slots.FirstOrDefault() ?? string.Empty);
+                        if (lockedSlot != null)
+                        {
+                            lockedSlot.Punch(0.3f);
+                        }
+
+                        PopupAtFirstSlot(battleEvent, $"Locked {DisplayFormat.Value(battleEvent.A)}!", new Color(1f, 0.55f, 0.35f));
+                        await Wait(0.6f, token);
+                        break;
+
+                    case BattleEventType.EffectFizzled:
+                        ViewFactory.ShowPopup(_enemies.PositionOf(battleEvent.LaneId) + Vector3.down * 1.9f, $"{battleEvent.Subject} missed", Color.gray, 0.4f);
+                        await Wait(0.5f, token);
+                        break;
+
                     case BattleEventType.SlotUnlocked:
                         _board.GetSlot(battleEvent.Subject)?.PlayUnlock();
                         await Wait(0.4f, token);
@@ -442,7 +458,7 @@ namespace BattleView
                         break;
 
                     case BattleEventType.IntentRevealed:
-                        _enemies.SetIntent(battleEvent.LaneId, battleEvent.Subject, Mathf.RoundToInt(battleEvent.A), Mathf.RoundToInt(battleEvent.B));
+                        _enemies.SetIntent(battleEvent.LaneId);
                         break;
                 }
             }

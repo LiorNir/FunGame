@@ -500,6 +500,104 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(19f, engine.PlayerHealth, Tolerance);
         }
 
+        // ---------- lock ----------
+
+        private static EnemyActionData Pin(int turns, PilotTargetRule rule = PilotTargetRule.MostWounded)
+        {
+            return new EnemyActionData("Pin", new IEnemyEffect[] { new LockEffect(turns, rule) });
+        }
+
+        // R -> S with a subtract toll: Wall (R) takes the wounds, Toll (S) none, so Wall is the most wounded pilot.
+        // The enemy pokes on turn 1, reveals Pin on turn 2 (resolving it at the end of turn 2), then does what follows.
+        private static BattleEngine PinnedBoard(int turns, params EnemyActionData[] afterPin)
+        {
+            var actions = new List<EnemyActionData> { new EnemyActionData("Poke", 1, 0), Pin(turns) };
+            actions.AddRange(afterPin.Length > 0 ? afterPin : new[] { new EnemyActionData("Idle", 0, 0) });
+            var deck = new[] { new PilotStats("Wall", 0f, 5f), new PilotStats("Toll", 0f, 1f), new PilotStats("Fresh", 0f, 3f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(Operation.Subtract), new[] { new EnemySpec("E", 100, actions, false) }, deck));
+            engine.Start();
+            PlaceByName(engine, "Wall", "R");
+            PlaceByName(engine, "Toll", "S");
+            engine.ResolveTurn();
+            return engine;
+        }
+
+        [Test]
+        public void Lock_ChoosesItsTargetWhenRevealed_SoThePlayerSeesIt()
+        {
+            var engine = PinnedBoard(1);
+
+            var targets = engine.IntentTargets().ToList();
+            Assert.AreEqual(1, targets.Count);
+            Assert.AreEqual("R", targets[0].SlotId);
+            Assert.AreEqual("Wall", targets[0].Pilot.Name);
+            Assert.IsFalse(engine.PilotBySlot["R"].IsLocked); // not yet: it resolves on the enemy's turn
+        }
+
+        [Test]
+        public void LockedPilot_CanBeNeitherEjectedNorReplaced()
+        {
+            var engine = PinnedBoard(2);
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.PilotBySlot["R"].IsLocked);
+            Assert.IsFalse(engine.CanEject("R"));
+            Assert.IsTrue(engine.EjectBlocker("R").Contains("locked"));
+            Assert.IsFalse(engine.CanPlace(engine.Hand.FindIndex(pilot => pilot.Name == "Fresh"), "R"));
+            Assert.IsTrue(engine.CanEject("S")); // the other pilot is free
+        }
+
+        [Test]
+        public void Lock_LastsItsNumberOfPlayerTurns()
+        {
+            var engine = PinnedBoard(2);
+            engine.ResolveTurn(); // Pin resolves at the end of turn 2
+
+            Assert.IsFalse(engine.CanEject("R")); // turn 3
+            engine.ResolveTurn();
+            Assert.IsFalse(engine.CanEject("R")); // turn 4
+            engine.ResolveTurn();
+            Assert.IsTrue(engine.CanEject("R")); // turn 5
+        }
+
+        [Test]
+        public void Lock_Fizzles_WhenItsTargetLeftTheBoardBeforeItResolves()
+        {
+            var engine = PinnedBoard(2);
+            Assert.IsTrue(engine.TryEject("R"));
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(0, engine.Stats.PilotsLocked);
+            Assert.IsTrue(engine.PilotBySlot.Values.All(pilot => !pilot.IsLocked));
+        }
+
+        [Test]
+        public void Lock_TargetsOnlyActivePilots()
+        {
+            var actions = new[] { new EnemyActionData("Idle", 0, 0), Pin(1, PilotTargetRule.HighestDefense) };
+            var deck = new[] { new PilotStats("Behind", 0f, 9f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(Operation.Add), new[] { new EnemySpec("E", 100, actions, false) }, deck));
+            engine.Start();
+            PlaceByName(engine, "Behind", "S"); // R is empty, so S is cut off
+            engine.ResolveTurn();
+
+            Assert.AreEqual(0, engine.IntentTargets().Count());
+            engine.ResolveTurn();
+            Assert.IsFalse(engine.PilotBySlot["S"].IsLocked);
+        }
+
+        [Test]
+        public void LockedPilotThatFalls_CanStillBeCleared()
+        {
+            var engine = PinnedBoard(3, new EnemyActionData("Smash", 10, 0));
+            engine.ResolveTurn(); // locked
+            engine.ResolveTurn(); // Smash destroys the chain
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.IsTrue(engine.ClearFallen("R"));
+        }
+
         [Test]
         public void ChainZeroedByDivideByZero_IsStillLeftAlone()
         {

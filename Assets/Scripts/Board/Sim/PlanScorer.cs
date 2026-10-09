@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FunGame.Battle;
 using FunGame.Board;
@@ -29,11 +30,34 @@ namespace FunGame.Sim
         /// <summary>Per AP spent, so that a plan that gains nothing is not preferred over doing nothing.</summary>
         public float ApSpent = 0.05f;
 
+        /// <summary>Per pilot locked by an enemy at the end of the turn: it can no longer be swapped out.</summary>
+        public float Locked = 0f;
+
+        /// <summary>Per full wound on a locked pilot: a wounded pilot that cannot be replaced keeps its chain weak until the lock ends.</summary>
+        public float LockedWound = 0f;
+
+        /// <summary>
+        /// Per locked pilot standing in a defense chain weaker than the lane enemy's biggest attack: it cannot be pulled out
+        /// before that attack breaks the chain, so it may fall. A player reacting to a telegraphed lock moves such a target
+        /// out first.
+        /// </summary>
+        public float LockedAtRisk = 15f;
+
         /// <summary>Looks at the turn and its result only.</summary>
-        public static ScoreWeights Short => new ScoreWeights { KillNext = 0f, CoverNext = 0f, PilotLost = 3f, Wound = 0.5f };
+        public static ScoreWeights Short => new ScoreWeights { KillNext = 0f, CoverNext = 0f, PilotLost = 3f, Wound = 0.5f, Locked = 0f, LockedWound = 0f, LockedAtRisk = 0f };
 
         /// <summary>Also judges how ready the board is for the next turn.</summary>
         public static ScoreWeights Full => new ScoreWeights();
+
+        /// <summary>The same weights, blind to enemy locks (for checking whether an encounter rewards reacting to them).</summary>
+        public ScoreWeights IgnoringLocks()
+        {
+            var copy = (ScoreWeights)MemberwiseClone();
+            copy.Locked = 0f;
+            copy.LockedWound = 0f;
+            copy.LockedAtRisk = 0f;
+            return copy;
+        }
     }
 
     /// <summary>What a plan is expected to do this turn, from playing the turn out on a copy of the battle.</summary>
@@ -124,6 +148,10 @@ namespace FunGame.Sim
 
             var score = weights.Hp * healthFraction + weights.Progress * progress - weights.PilotLost * lost - weights.ApSpent * apSpent;
             score -= weights.Wound * afterCombat.PilotBySlot.Values.Where(pilot => !pilot.Fallen).Sum(pilot => pilot.DefenseWound);
+            if (afterCombat.PilotBySlot.Values.Any(pilot => !pilot.Fallen && pilot.IsLocked))
+            {
+                score -= LockPenalty(afterCombat, weights);
+            }
 
             if (weights.KillNext > 0f || weights.CoverNext > 0f)
             {
@@ -156,6 +184,43 @@ namespace FunGame.Sim
             }
 
             return new Prediction(score, afterCombat.Outcome, afterCombat.PlayerHealth, dealt, taken, lost);
+        }
+
+        private static float LockPenalty(BattleEngine afterCombat, ScoreWeights weights)
+        {
+            var penalty = 0f;
+            foreach (var pilot in afterCombat.PilotBySlot.Values.Where(pilot => !pilot.Fallen && pilot.IsLocked))
+            {
+                penalty += weights.Locked + weights.LockedWound * pilot.DefenseWound;
+            }
+
+            if (weights.LockedAtRisk <= 0f)
+            {
+                return penalty;
+            }
+
+            // locked pilots in a defense chain that the lane's enemy can break with its biggest attack
+            var atRisk = new HashSet<string>();
+            foreach (var result in afterCombat.EvaluateChains().Values.Where(result => result.Chain.Role == ChainRole.Defense))
+            {
+                var lane = afterCombat.Lanes.FirstOrDefault(candidate => candidate.Spec.Id == result.Chain.LaneId);
+                var enemy = lane?.Current?.Spec ?? (lane != null && lane.HasMoreEnemies ? lane.Spec.Enemies[lane.EnemiesSpawned] : null);
+                var biggestAttack = enemy == null || enemy.Actions.Count == 0 ? 0 : enemy.Actions.Max(action => action.Attack);
+                if (biggestAttack <= result.Value)
+                {
+                    continue;
+                }
+
+                foreach (var step in result.Steps.Where(step => step.Status == SlotStatus.Active))
+                {
+                    if (afterCombat.PilotBySlot.TryGetValue(step.NodeId, out var pilot) && pilot.IsLocked)
+                    {
+                        atRisk.Add(step.NodeId);
+                    }
+                }
+            }
+
+            return penalty + weights.LockedAtRisk * atRisk.Count;
         }
     }
 }

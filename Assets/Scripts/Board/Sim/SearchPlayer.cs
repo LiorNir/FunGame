@@ -41,6 +41,9 @@ namespace FunGame.Sim
         public static BotProfile Careful => new BotProfile("Careful", 48, true, ScoreWeights.Full);
 
         /// <summary>Like Careful, but happy to lose pilots for damage: sacrifices what a careful player protects.</summary>
+        /// <summary>Careful, but blind to enemy locks: it never swaps a pilot out because a lock is coming.</summary>
+        public static BotProfile CarefulIgnoringLocks => new BotProfile("Careful, ignoring locks", 48, true, ScoreWeights.Full.IgnoringLocks());
+
         public static BotProfile Gambler => new BotProfile("Gambler", 48, true, new ScoreWeights { PilotLost = 6f, Wound = 1f });
 
         /// <summary>Tries everything. Slow: for checking the others, not for batches.</summary>

@@ -26,6 +26,7 @@ namespace BattleView
     /// border and number.</item>
     /// <item>LockIcon and LockText: shown while the slot is locked, the text under the icon says how it unlocks.</item>
     /// <item>BonusBadge and BonusText: the slot's bonus, shown only when it has one.</item>
+    /// <item>PilotStatusText: above the pilot, its lock ("LOCKED 2") or the enemy effect aimed at it ("next: LOCK 2").</item>
     /// <item>Ring: a decorative frame around the slot with the lerp-colour material. This script sets its colours (and the
     /// stat borders') by state: empty, locked, inactive or active (see <see cref="SlotTints"/>).</item>
     /// </list>
@@ -52,6 +53,8 @@ namespace BattleView
         [SerializeField] private TextMeshPro _lockText;
         [Tooltip("Shown when the slot has a bonus, under the bonus text.")]
         [SerializeField] private SpriteRenderer _bonusBadge;
+        [Tooltip("Above the pilot: its lock, or an enemy effect aimed at it (for example a coming lock).")]
+        [SerializeField] private TextMeshPro _pilotStatusText;
         [Tooltip("The pilot's name, only for a pilot that has no picture yet.")]
         [FormerlySerializedAs("_centerText")]
         [SerializeField] private TextMeshPro _pilotNameText;
@@ -134,6 +137,7 @@ namespace BattleView
             _defenseBox.HideFill();
             SetText(_lockText, string.Empty);
             SetText(_pilotNameText, string.Empty);
+            SetText(_pilotStatusText, string.Empty);
             // INACTIVE LABEL: SetText(_inactiveText, string.Empty);
             _bonusText.text = FormatBonus(bonus);
             _bonusBaseColor = _bonusText.color;
@@ -208,6 +212,12 @@ namespace BattleView
 
             SetPilotPartsVisible(hasPilot && !fallen);
             UpdateWoundVisual();
+        }
+
+        /// <summary>The line above the pilot (a lock, or an enemy effect aimed at it); empty hides it.</summary>
+        public void SetStatus(string text)
+        {
+            SetText(_pilotStatusText, text);
         }
 
         public void SetHighlight(bool on)

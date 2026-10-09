@@ -137,6 +137,13 @@ namespace FunGame.EditorTools
             //     inactiveText.text = "<b>INACTIVE</b>";
             // }
 
+            var statusText = EnsureText(parent, "PilotStatusText", null, 0.15f, new Color(1f, 0.55f, 0.35f), OrderTexts, new Vector3(0f, 0.62f, 0f), out created);
+            if (created)
+            {
+                statusText.fontStyle = FontStyles.Bold;
+                statusText.text = "next: LOCK 2";
+            }
+
             var serialized = new SerializedObject(view);
             Assign(serialized, "_pilotBackground", background);
             Assign(serialized, "_pilotRenderer", pilot);
@@ -149,6 +156,7 @@ namespace FunGame.EditorTools
             Assign(serialized, "_lockText", lockText);
             Assign(serialized, "_bonusBadge", bonusBadge);
             Assign(serialized, "_pilotNameText", nameText);
+            Assign(serialized, "_pilotStatusText", statusText);
             // INACTIVE LABEL: Assign(serialized, "_inactiveText", inactiveText);
             serialized.ApplyModifiedPropertiesWithoutUndo();
 

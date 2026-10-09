@@ -82,7 +82,7 @@ namespace BattleView
 
                 view.transform.localScale = Vector3.one;
                 view.Show(enemy.Spec, enemy.Health);
-                view.SetIntent(enemy.Intent.Name, enemy.Intent.Attack, enemy.Intent.Defense);
+                view.SetIntent(enemy.Intent);
             }
         }
 
@@ -96,9 +96,16 @@ namespace BattleView
             view.PlaySpawn();
         }
 
-        public void SetIntent(string laneId, string actionName, int attack, int defense)
+        /// <summary>Shows the lane's revealed intent (read from the battle, whose state is already final while events play).</summary>
+        public void SetIntent(string laneId)
         {
-            _views[laneId].SetIntent(actionName, attack, defense);
+            var enemy = _engine.Lanes.First(candidate => candidate.Spec.Id == laneId).Current;
+            if (enemy == null)
+            {
+                return;
+            }
+
+            _views[laneId].SetIntent(enemy.Intent);
             _views[laneId].PunchIntent();
         }
 

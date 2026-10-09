@@ -187,10 +187,9 @@ namespace BattleView
                 else
                 {
                     var cost = engine.Setup.Rules.EjectPilotCost;
-                    var reason = engine.CanEject(slotId)
-                        ? string.Empty
-                        : (engine.ActionPoints < cost ? ", not enough AP" : ", hand is full");
-                    options.Add(new ActionMenuView.Option($"Eject {pilot.Name} to hand  ({cost} AP{reason})", engine.CanEject(slotId), () => _session.Eject(slotId)));
+                    var blocker = engine.EjectBlocker(slotId);
+                    var reason = blocker == null ? string.Empty : ", " + blocker;
+                    options.Add(new ActionMenuView.Option($"Eject {pilot.Name} to hand  ({cost} AP{reason})", blocker == null, () => _session.Eject(slotId)));
                 }
             }
 

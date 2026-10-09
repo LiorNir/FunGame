@@ -34,7 +34,8 @@ namespace FunGame.Sim
                 MidTwoLanes(),
                 MidDivideTrap(),
                 LateGate(),
-                LateBoss()
+                LateBoss(),
+                LockPinnedDown()
             }).ToList();
         }
 
@@ -111,6 +112,31 @@ namespace FunGame.Sim
                 "Multiply on the attack branch, a subtract toll on the defense branch.", "World 1", 3, "operators: add, subtract and multiply");
 
             return new[] { first, second, boss };
+        }
+
+        // ---------- enemy mechanics ----------
+
+        /// <summary>
+        /// Teaches reacting to Lock. The root slot is in both the attack and the defense chain, so the natural play is to put
+        /// a strong pilot there. The enemy telegraphs a lock on that trunk pilot, then crushes the defense with more than it
+        /// can hold. Normally a pilot can be ejected before a hit like that; a locked one cannot, so the trunk pilot falls with
+        /// the chain. The reaction is to swap the marked pilot out (the lock then misses) before it lands.
+        /// </summary>
+        public static EncounterCase LockPinnedDown()
+        {
+            var board = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("R"),
+                    new SlotNode("A1", "R", Operation.Add),
+                    new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+            var pin = new EnemyActionData("Pin", new IEnemyEffect[] { new AttackEffect(1), new LockEffect(2, PilotTargetRule.Trunk) });
+            var warden = Enemy("Warden", 18, false, Act("Jab", 2, 0), pin, Act("Crush", 6, 0));
+            return new EncounterCase("Lock sample: Pinned down", "Early",
+                new BattleSetup(board, new List<SlotRule>(), new[] { new LaneSpec("lane1", new[] { warden }) }, new BattleRules(), StarterRoster, 1),
+                "Pin locks the trunk pilot for 2 turns, then Crush breaks the defense; the root is in both chains.", null, 0, "reacting to Lock");
         }
 
         // ---------- encounters ----------

@@ -62,8 +62,19 @@ namespace Encounters
 
         private static EnemySpec ToSpec(EnemyDefinition enemy)
         {
-            var actions = enemy.Actions.Select(action => new EnemyActionData(action.Name, action.Attack, action.Defense)).ToList();
+            var actions = enemy.Actions.Select(ToActionData).ToList();
             return new EnemySpec(enemy.DisplayName, enemy.MaxHealth, actions, enemy.SelectionMode == EnemyActionSelectionMode.Random, enemy);
+        }
+
+        private static EnemyActionData ToActionData(EnemyAction action)
+        {
+            var effects = new EnemyActionData(action.Name, action.Attack, action.Defense).Effects.ToList();
+            if (action.LockTurns > 0)
+            {
+                effects.Add(new LockEffect(action.LockTurns, action.LockTarget));
+            }
+
+            return new EnemyActionData(action.Name, effects);
         }
     }
 }

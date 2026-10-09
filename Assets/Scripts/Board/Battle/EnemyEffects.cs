@@ -1,5 +1,31 @@
+using System.Collections.Generic;
+
 namespace FunGame.Battle
 {
+    /// <summary>How an effect that targets a pilot picks it when the intent is revealed. Only active pilots can be picked.</summary>
+    public enum PilotTargetRule
+    {
+        Random,
+
+        /// <summary>The pilot that has lost the largest share of its defense.</summary>
+        MostWounded,
+
+        HighestAttack,
+        HighestDefense,
+
+        /// <summary>The pilot that counts in the most chains (a shared trunk); ties go to the one nearest the root.</summary>
+        Trunk
+    }
+
+    /// <summary>
+    /// An effect aimed at one pilot. The pilot is chosen when the intent is revealed, so the player sees it and can react; if
+    /// the pilot has left the board by the time the effect resolves, the effect fizzles.
+    /// </summary>
+    public interface ITargetedEffect : IEnemyEffect
+    {
+        PilotTargetRule TargetRule { get; }
+    }
+
     /// <summary>When an enemy effect happens during a turn's resolution.</summary>
     public enum EnemyEffectPhase
     {
@@ -34,6 +60,12 @@ namespace FunGame.Battle
 
         /// <summary>Guard phase: the enemy's defense against the player's attack this turn, summed over its Guard effects.</summary>
         public float Block { get; set; }
+
+        /// <summary>
+        /// For an <see cref="ITargetedEffect"/>: the ids of the pilots it chose when the intent was revealed (see
+        /// <see cref="PilotUnit.Id"/>). Empty if there was nobody to target.
+        /// </summary>
+        public IReadOnlyList<int> Targets { get; set; } = new int[0];
 
         public EnemyEffectContext(BattleEngine engine, LaneState lane, EnemyActionData action)
         {
@@ -84,6 +116,33 @@ namespace FunGame.Battle
         public string Describe()
         {
             return $"DEF {Amount}";
+        }
+    }
+
+    /// <summary>
+    /// Locks the targeted pilot for a number of the player's turns: while locked it can be neither ejected nor replaced.
+    /// A fallen pilot can still be cleared.
+    /// </summary>
+    public sealed class LockEffect : ITargetedEffect
+    {
+        public int Turns { get; }
+        public PilotTargetRule TargetRule { get; }
+        public EnemyEffectPhase Phase => EnemyEffectPhase.Act;
+
+        public LockEffect(int turns, PilotTargetRule targetRule)
+        {
+            Turns = turns;
+            TargetRule = targetRule;
+        }
+
+        public void Resolve(EnemyEffectContext context)
+        {
+            context.Engine.LockPilots(context.Lane, context.Targets, Turns, Describe());
+        }
+
+        public string Describe()
+        {
+            return $"LOCK {Turns}";
         }
     }
 }

@@ -128,17 +128,17 @@ namespace BalanceLab
         }
 
         /// <summary>
-        /// Plays the careful player at the intended power with replacing, ejecting and self-opening slots taken away, one at a
+        /// Plays the careful player at the intended power with replacing, ejecting, self-opening slots or seeing locks coming taken away, one at a
         /// time. A big drop in win rate means the encounter needs that mechanic; no drop means it does not teach it.
         /// </summary>
         private static void RunWithoutMechanics(EncounterStudy study, IReadOnlyList<PilotStats> deck, StudySettings settings, Action<string> progress)
         {
             var encounter = study.Encounter;
             var runs = Math.Max(100, settings.RunsAtIntended / 2);
-            void Test(string name, EncounterCase variant)
+            void Test(string name, EncounterCase variant, PlayerSpec player = null)
             {
                 progress($"{encounter.Name}: without {name}");
-                study.WithoutMechanic[name] = BatchSummary.From(Lab.PlayBatch(variant, deck, PlayerSpec.Careful, 5000, runs));
+                study.WithoutMechanic[name] = BatchSummary.From(Lab.PlayBatch(variant, deck, player ?? PlayerSpec.Careful, 5000, runs));
             }
 
             if (encounter.Setup.Rules.AllowReplace)
@@ -159,6 +159,12 @@ namespace BalanceLab
             {
                 Test("slots that open by themselves", encounter.WithoutUnlocks());
             }
+
+            if (encounter.HasEnemyLocks)
+            {
+                // the same encounter, played by a careful player that does not see locks coming
+                Test("reacting to locks", encounter, PlayerSpec.CarefulIgnoringLocks);
+            }
         }
 
         public static PlayerSpec Spec(string bot)
@@ -171,6 +177,8 @@ namespace BalanceLab
                     return PlayerSpec.Casual;
                 case "Gambler":
                     return PlayerSpec.Gambler;
+                case "Blind":
+                    return PlayerSpec.CarefulIgnoringLocks;
                 default:
                     return PlayerSpec.Careful;
             }

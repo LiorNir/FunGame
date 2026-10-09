@@ -31,6 +31,9 @@ namespace FunGame.Battle
         public int EnemiesDefeated { get; set; }
         public int DivideByZeros { get; set; }
 
+        /// <summary>Pilots an enemy locked (a target that had left the board is not counted).</summary>
+        public int PilotsLocked { get; set; }
+
         /// <summary>A separate copy with the same counts (all counters, including ones added later).</summary>
         public BattleStats Copy()
         {

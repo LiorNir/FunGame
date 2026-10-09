@@ -66,20 +66,18 @@ namespace BattleView
             UpdateHealthVisual();
         }
 
-        public void SetIntent(string actionName, int attack, int defense)
+        /// <summary>Shows the revealed action: its name and each effect (attack and defense in their colours).</summary>
+        public void SetIntent(EnemyActionData action)
         {
             var parts = new System.Collections.Generic.List<string>();
-            if (attack > 0)
+            foreach (var effect in action.Effects)
             {
-                parts.Add(_visuals.AttackText($"ATK {attack}"));
+                parts.Add(effect is AttackEffect ? _visuals.AttackText(effect.Describe())
+                    : effect is DefendEffect ? _visuals.DefenseText(effect.Describe())
+                    : effect.Describe());
             }
 
-            if (defense > 0)
-            {
-                parts.Add(_visuals.DefenseText($"DEF {defense}"));
-            }
-
-            _intent.text = parts.Count == 0 ? actionName : $"{actionName}  {string.Join("  ", parts)}";
+            _intent.text = parts.Count == 0 ? action.Name : $"{action.Name}  {string.Join("  ", parts)}";
         }
 
         public void PunchIntent()

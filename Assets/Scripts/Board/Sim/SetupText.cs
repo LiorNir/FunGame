@@ -56,7 +56,9 @@ namespace FunGame.Sim
                     text.AppendLine($"enemy|{lane.Id}|{Clean(enemy.Name)}|{enemy.MaxHealth}|{(enemy.RandomSelection ? 1 : 0)}");
                     foreach (var action in enemy.Actions)
                     {
-                        text.AppendLine($"action|{Clean(action.Name)}|{action.Attack}|{action.Defense}");
+                        // attack and defense are the plain columns; any other effect follows as one field each ("lock 2 MostWounded")
+                        var extras = action.Effects.Where(effect => !(effect is AttackEffect) && !(effect is DefendEffect)).Select(WriteEffect);
+                        text.AppendLine(string.Join("|", new[] { "action", Clean(action.Name), action.Attack.ToString(CultureInfo.InvariantCulture), action.Defense.ToString(CultureInfo.InvariantCulture) }.Concat(extras)));
                     }
                 }
             }
@@ -156,7 +158,9 @@ namespace FunGame.Sim
                             enemyActions = new List<EnemyActionData>();
                             break;
                         case "action":
-                            enemyActions.Add(new EnemyActionData(fields[1], Int(fields[2]), Int(fields[3])));
+                            var effects = new EnemyActionData(fields[1], Int(fields[2]), Int(fields[3])).Effects.ToList();
+                            effects.AddRange(fields.Skip(4).Where(field => field.Trim().Length > 0).Select(ReadEffect));
+                            enemyActions.Add(new EnemyActionData(fields[1], effects));
                             break;
                         case "pilot":
                             pilots.Add(new PilotStats(fields[1], Float(fields[2]), Float(fields[3])));
@@ -185,6 +189,29 @@ namespace FunGame.Sim
         private static string Number(float value)
         {
             return value.ToString("R", Culture);
+        }
+
+        private static string WriteEffect(IEnemyEffect effect)
+        {
+            if (effect is LockEffect lockEffect)
+            {
+                return $"lock {lockEffect.Turns} {lockEffect.TargetRule}";
+            }
+
+            throw new FormatException($"no text form for the effect {effect.GetType().Name}");
+        }
+
+        /// <summary>An effect field of an action line: "lock TURNS TARGETRULE" (target rule: Random, MostWounded, HighestAttack, HighestDefense).</summary>
+        private static IEnemyEffect ReadEffect(string field)
+        {
+            var parts = field.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            switch (parts[0].ToLowerInvariant())
+            {
+                case "lock":
+                    return new LockEffect(Int(parts[1]), parts.Length > 2 ? (PilotTargetRule)Enum.Parse(typeof(PilotTargetRule), parts[2], true) : PilotTargetRule.Random);
+                default:
+                    throw new FormatException($"unknown effect '{parts[0]}'");
+            }
         }
 
         private static int Int(string value)

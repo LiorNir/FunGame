@@ -267,12 +267,13 @@ namespace BalanceLab
                 return html.ToString();
             }
 
-            html.Append("<table class=\"stats\"><thead><tr><th>Taken away</th><th>Wins</th><th>Change</th><th>So</th></tr></thead><tbody>");
+            html.Append("<table class=\"stats\"><thead><tr><th>Taken away</th><th>Wins</th><th>Change</th><th>So</th><th>Pilots lost<br>per battle</th><th>Health left<br>on a win</th></tr></thead><tbody>");
+            html.Append($"<tr><td><i>nothing (as designed)</i></td><td>{Pct(careful.WinRate)}</td><td></td><td></td><td>{careful.AveragePilotsFallen.ToString("0.0", Culture)}</td><td>{Pct(careful.AverageHealthLeftOnWin)}</td></tr>");
             foreach (var pair in study.WithoutMechanic)
             {
                 var change = (pair.Value.WinRate - careful.WinRate) * 100;
                 var verdict = -change >= NeededDrop * 100 ? "needed" : -change >= 5 ? "helps" : "not needed";
-                html.Append($"<tr><td>{Html.Esc(pair.Key)}</td><td>{Pct(pair.Value.WinRate)}</td><td>{(change >= 0 ? "+" : "-")}{Math.Abs(change).ToString("0", Culture)}</td><td>{verdict}</td></tr>");
+                html.Append($"<tr><td>{Html.Esc(pair.Key)}</td><td>{Pct(pair.Value.WinRate)}</td><td>{(change >= 0 ? "+" : "-")}{Math.Abs(change).ToString("0", Culture)}</td><td>{verdict}</td><td>{pair.Value.AveragePilotsFallen.ToString("0.0", Culture)}</td><td>{Pct(pair.Value.AverageHealthLeftOnWin)}</td></tr>");
             }
 
             html.Append("</tbody></table>");

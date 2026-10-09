@@ -28,7 +28,7 @@ namespace FunGame.Battle
         /// <summary>LaneId, Subject = enemy name, A = health, B = max health, C = the enemy's number in the lane (1 = first).</summary>
         EnemySpawned,
 
-        /// <summary>LaneId, Subject = action name, A = attack, B = defense.</summary>
+        /// <summary>LaneId, Subject = action name, A = attack, B = defense, Slots = the slots of the pilots its effects target.</summary>
         IntentRevealed,
 
         /// <summary>Subject = slot id, Detail = why it opened. Raised for slots that open by themselves (turn or wave).</summary>
@@ -60,6 +60,12 @@ namespace FunGame.Battle
 
         /// <summary>LaneId, A = damage, B = player health after.</summary>
         PlayerDamaged,
+
+        /// <summary>LaneId, Subject = pilot name, Slots = its slot, A = the turns it is locked for.</summary>
+        PilotLocked,
+
+        /// <summary>LaneId, Subject = the effect (for example "LOCK 2"), Detail = why it did nothing (its target left the board, or there was none).</summary>
+        EffectFizzled,
 
         Victory,
         Defeat,

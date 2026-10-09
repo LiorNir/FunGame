@@ -24,7 +24,10 @@ namespace FunGame.Battle
                     foreach (var state in engine.Lanes.Where(state => state.Current != null))
                     {
                         var enemy = state.Current;
-                        log.Add($"  [{state.Spec.Id}] {enemy.Spec.Name} HP {Fmt(enemy.Health)}/{enemy.Spec.MaxHealth} intends: {enemy.Intent}");
+                        var aimedAt = engine.IntentTargets().Where(target => target.LaneId == state.Spec.Id)
+                            .Select(target => $"{target.Effect.Describe()} on {target.Pilot.Name}@{target.SlotId}").ToList();
+                        var aims = aimedAt.Count == 0 ? string.Empty : $" -> {string.Join(", ", aimedAt)}";
+                        log.Add($"  [{state.Spec.Id}] {enemy.Spec.Name} HP {Fmt(enemy.Health)}/{enemy.Spec.MaxHealth} intends: {enemy.Intent}{aims}");
                     }
 
                     break;
@@ -96,6 +99,14 @@ namespace FunGame.Battle
 
                 case BattleEventType.PlayerDamaged:
                     log.Add($"  [{lane}] {Fmt(battleEvent.A)} reaches the player, HP {Fmt(battleEvent.B)}/{engine.Setup.Rules.PlayerMaxHealth}");
+                    break;
+
+                case BattleEventType.PilotLocked:
+                    log.Add($"  [{lane}] {battleEvent.Subject}@{SlotOf(battleEvent)} is locked for {Fmt(battleEvent.A)} turn(s)");
+                    break;
+
+                case BattleEventType.EffectFizzled:
+                    log.Add($"  [{lane}] {battleEvent.Subject} does nothing: {battleEvent.Detail}");
                     break;
 
                 case BattleEventType.Victory:

@@ -26,6 +26,14 @@ namespace FunGame.Battle
         /// <summary>True once the pilot's chain was destroyed. A fallen pilot is gone from the battle.</summary>
         public bool Fallen { get; set; }
 
+        /// <summary>Identifies the pilot within its battle (its position in the deck), so an intent can name it even in a copy of the battle.</summary>
+        public int Id { get; internal set; }
+
+        /// <summary>How many more of the player's turns the pilot is locked for (cannot be ejected or replaced). 0 = free.</summary>
+        public int LockedTurns { get; set; }
+
+        public bool IsLocked => LockedTurns > 0;
+
         public float EffectiveAttack => BaseAttack;
         public float EffectiveDefense => BaseDefense * (1f - DefenseWound);
 
@@ -40,12 +48,13 @@ namespace FunGame.Battle
         /// <summary>A separate pilot with the same stats and the same wounds, for copying a battle.</summary>
         public PilotUnit Copy()
         {
-            return new PilotUnit(Name, BaseAttack, BaseDefense, Source) { DefenseWound = DefenseWound, Fallen = Fallen };
+            return new PilotUnit(Name, BaseAttack, BaseDefense, Source) { DefenseWound = DefenseWound, Fallen = Fallen, Id = Id, LockedTurns = LockedTurns };
         }
 
         public override string ToString()
         {
-            return Fallen ? $"{Name} (fallen)" : $"{Name} {DisplayFormat.Value(BaseAttack)}/{DisplayFormat.Value(EffectiveDefense)}";
+            return Fallen ? $"{Name} (fallen)"
+                : $"{Name} {DisplayFormat.Value(BaseAttack)}/{DisplayFormat.Value(EffectiveDefense)}{(IsLocked ? $" [locked {LockedTurns}]" : string.Empty)}";
         }
     }
 
@@ -57,6 +66,12 @@ namespace FunGame.Battle
         /// <summary>The action revealed for the current turn.</summary>
         public EnemyActionData Intent { get; set; }
 
+        /// <summary>
+        /// For each effect of <see cref="Intent"/> (same order), the ids of the pilots it targets, chosen when the intent was
+        /// revealed. Empty lists for effects that target nobody.
+        /// </summary>
+        public IReadOnlyList<IReadOnlyList<int>> IntentTargets { get; set; } = new IReadOnlyList<int>[0];
+
         public int NextSequentialAction { get; set; }
 
         public EnemyUnit(EnemySpec spec)
@@ -67,7 +82,7 @@ namespace FunGame.Battle
 
         public EnemyUnit Copy()
         {
-            return new EnemyUnit(Spec) { Health = Health, Intent = Intent, NextSequentialAction = NextSequentialAction };
+            return new EnemyUnit(Spec) { Health = Health, Intent = Intent, IntentTargets = IntentTargets, NextSequentialAction = NextSequentialAction };
         }
     }
 
@@ -86,6 +101,23 @@ namespace FunGame.Battle
         public LaneState(LaneSpec spec)
         {
             Spec = spec;
+        }
+    }
+
+    /// <summary>A pilot on the board that a revealed enemy intent is aimed at.</summary>
+    public readonly struct IntentTarget
+    {
+        public string LaneId { get; }
+        public IEnemyEffect Effect { get; }
+        public string SlotId { get; }
+        public PilotUnit Pilot { get; }
+
+        public IntentTarget(string laneId, IEnemyEffect effect, string slotId, PilotUnit pilot)
+        {
+            LaneId = laneId;
+            Effect = effect;
+            SlotId = slotId;
+            Pilot = pilot;
         }
     }
 }

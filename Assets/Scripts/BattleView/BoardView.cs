@@ -113,6 +113,22 @@ namespace BattleView
             Refresh();
         }
 
+        /// <summary>The line above a pilot: its lock, or the enemy effect aimed at it. Empty when there is nothing to say.</summary>
+        private static string DescribePilotStatus(PilotUnit pilot, string aimedAt)
+        {
+            if (pilot == null || pilot.Fallen)
+            {
+                return string.Empty;
+            }
+
+            if (pilot.IsLocked)
+            {
+                return $"LOCKED {pilot.LockedTurns}" + (aimedAt != null ? $"  next: {aimedAt}" : string.Empty);
+            }
+
+            return aimedAt != null ? $"next: {aimedAt}" : string.Empty;
+        }
+
         public void Clear()
         {
             foreach (var created in _created)
@@ -148,11 +164,16 @@ namespace BattleView
                 }
             }
 
+            // pilots that a revealed enemy effect is aimed at (for example a coming lock), so the player can react
+            var aimedAt = _engine.IntentTargets().GroupBy(target => target.SlotId)
+                .ToDictionary(group => group.Key, group => string.Join(" ", group.Select(target => target.Effect.Describe())));
+
             foreach (var pair in _slots)
             {
                 _engine.PilotBySlot.TryGetValue(pair.Key, out var pilot);
                 var locked = !_engine.IsUnlocked(pair.Key);
                 pair.Value.Apply(pilot, locked, _activeSlots.Contains(pair.Key), DescribeLock(pair.Key));
+                pair.Value.SetStatus(DescribePilotStatus(pilot, aimedAt.TryGetValue(pair.Key, out var aimed) ? aimed : null));
             }
 
             foreach (var segment in _lines)
