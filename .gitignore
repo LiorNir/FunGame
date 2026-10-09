@@ -1,0 +1,65 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Visual Studio / Rider / local IDE state
+.vs/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity crash and memory captures
+[Mm]emoryCaptures/
+sysinfo.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Secrets and local environment files
+.env
+.env.*
+
+
+# Additional standard Unity entries
+[Mm]emory[Cc]aptures/
+[Rr]ecordings/
+.vscode/
+.consulo/
+*.sln.docstates
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+ExportedObj/
+.utmp/
+/[Aa]ssets/AssetStoreTools*
+/[Aa]ssets/Plugins/Editor/JetBrains*
+.gradle/
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-build.properties
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+InitTestScene*.unity*
+
+# balance lab build output and reports
+Tools/BalanceLab/bin/
+Tools/BalanceLab/reports/
+Tools/TestRunner/bin/

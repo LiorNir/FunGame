@@ -1,0 +1,63 @@
+using System;
+using System.Collections.Generic;
+using BoardAuthoring;
+using Combat;
+using UnityEngine;
+
+namespace Encounters
+{
+    /// <summary>
+    /// Everything needed to run one battle: the board, which enemies queue up in each lane, and the reward. Global
+    /// rules (starting AP, AP per turn, hand size, action costs) live in the GameRules asset, and the player's pilot
+    /// deck is separate.
+    /// </summary>
+    [CreateAssetMenu(fileName = "Encounter", menuName = "ScriptableObjects/Encounter")]
+    public class EncounterDefinition : ScriptableObject
+    {
+        [SerializeField] private string _displayName;
+
+        [Tooltip("A board prefab: a prefab with a Board Layout Authoring component on its root.")]
+        [SerializeField] private BoardLayoutAuthoring _board;
+
+        [Tooltip("One entry per lane of the board. Lane ids must match the lane names on the board's chain markers.")]
+        [SerializeField] private List<LaneEnemies> _lanes = new List<LaneEnemies>();
+
+        [Min(0)] [SerializeField] private int _rewardSkillPoints;
+
+        [Header("Mechanics the encounter allows")]
+        [Tooltip("Off until the game has taught replacing a pilot that is already on the board. Early encounters switch it off.")]
+        [SerializeField] private bool _allowReplace = true;
+
+        [Tooltip("Off until the game has taught taking a pilot back into the hand. Early encounters switch it off.")]
+        [SerializeField] private bool _allowEject = true;
+
+        public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
+        public BoardLayoutAuthoring Board => _board;
+        public IReadOnlyList<LaneEnemies> Lanes => _lanes;
+        public int RewardSkillPoints => _rewardSkillPoints;
+        public bool AllowReplace => _allowReplace;
+        public bool AllowEject => _allowEject;
+
+        public void SetData(string displayName, BoardLayoutAuthoring board, List<LaneEnemies> lanes, int rewardSkillPoints)
+        {
+            _displayName = displayName;
+            _board = board;
+            _lanes = lanes;
+            _rewardSkillPoints = rewardSkillPoints;
+        }
+    }
+
+    /// <summary>The enemies of one lane, in the order they appear: the first at the start, each next after the previous dies.</summary>
+    [Serializable]
+    public class LaneEnemies
+    {
+        [LaneId] public string LaneId;
+        public List<EnemyDefinition> Enemies = new List<EnemyDefinition>();
+
+        public LaneEnemies(string laneId = "", List<EnemyDefinition> enemies = null)
+        {
+            LaneId = laneId;
+            Enemies = enemies ?? new List<EnemyDefinition>();
+        }
+    }
+}

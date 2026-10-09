@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e139a0af1c94a64290fa8be43056b05, type: 3}
+  m_Name: BattleVisuals
+  m_EditorClassIdentifier: Assembly-CSharp::BattleView.BattleVisuals
+  PilotSlotPrefab: {fileID: 1344897703199363403, guid: bcf05bd66f7cdc240b3d7c4b3eba68d8, type: 3}
+  OperatorPrefab: {fileID: 420008157185764252, guid: 62a1e9f486c344849871318bc087d337, type: 3}
+  EnemyPrefab: {fileID: 8923943824044947414, guid: 4a10763e33c8eda44af7a330c42cece9, type: 3}
+  CardPrefab: {fileID: 6385874264758196699, guid: bb9c3f5c79d7a0e4097b38fb92f07960, type: 3}
+  HudPrefab: {fileID: 2012466026040743306, guid: 9bee7f6221f0b1f49b5b80b10c9d8055, type: 3}
+  ChainLabelPrefab: {fileID: 3195405671152437349, guid: d6a544f14eaf8f4468040aa7f4946970, type: 3}
+  PopupPrefab: {fileID: 6568395860748345552, guid: 814eba75090fda64ab9297e4825a0378, type: 3}
+  SlotBase: {fileID: 21300000, guid: 80ad388f502e1144d92759598a413967, type: 3}
+  RingSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  BarSprite: {fileID: 3138510424397660209, guid: 848ad01151527f14d91249b054ce6630, type: 3}
+  AddSprite: {fileID: 21300000, guid: 8e17a765917ca5a4ebf9258f6f90389f, type: 3}
+  SubtractSprite: {fileID: 21300000, guid: b88fd10f7ed7ce946b1f4cf46dea9df1, type: 3}
+  MultiplySprite: {fileID: 21300000, guid: 49fb85358c8f95a46b7f5dc17753c6cd, type: 3}
+  DivideSprite: {fileID: 21300000, guid: 839e51ecbff03c5478c50c955198d45c, type: 3}
+  AttackIcon: {fileID: 21300000, guid: 6131852b416ab564bb5101c9b7c0b5a8, type: 3}
+  DefenseIcon: {fileID: 21300000, guid: 8573391030ded704cb562f56fd2bdfea, type: 3}
+  AttackColor: {r: 1, g: 0.4, b: 0.3, a: 1}
+  DefenseColor: {r: 0.35, g: 0.65, b: 1, a: 1}
+  BothColor: {r: 0.8, g: 0.45, b: 1, a: 1}
+  UnusedColor: {r: 0.55, g: 0.55, b: 0.6, a: 1}
+  HighlightColor: {r: 0.4, g: 1, b: 0.5, a: 1}
+  LockedColor: {r: 0.25, g: 0.25, b: 0.3, a: 1}
+  SlotColor: {r: 0.12, g: 0.12, b: 0.2, a: 1}
+  OperatorColor: {r: 0.95, g: 0.8, b: 0.3, a: 1}
+  BonusColor: {r: 1, g: 0.85, b: 0.3, a: 1}

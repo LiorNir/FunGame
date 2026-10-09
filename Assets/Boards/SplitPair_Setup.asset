@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2340d139353a20e41b84bb9c79c717d8, type: 3}
+  m_Name: SplitPair_Setup
+  m_EditorClassIdentifier: Assembly-CSharp::BoardAuthoring.BoardSetupDefinition
+  _layout: {fileID: 6827842427888817434, guid: 48164ff06fc8116488e7e51687d4aef9, type: 3}
+  _slots:
+  - SlotId: root
+    ConnectionOperation: 0
+    BonusKind: 0
+    BonusAmount: 0
+    Locked: 0
+    UnlockApCost: 0
+    UnlockAtWave: 0
+  - SlotId: atk1
+    ConnectionOperation: 0
+    BonusKind: 0
+    BonusAmount: 0
+    Locked: 0
+    UnlockApCost: 0
+    UnlockAtWave: 0
+  - SlotId: atk2
+    ConnectionOperation: 2
+    BonusKind: 0
+    BonusAmount: 0
+    Locked: 0
+    UnlockApCost: 0
+    UnlockAtWave: 0
+  - SlotId: def1
+    ConnectionOperation: 0
+    BonusKind: 0
+    BonusAmount: 0
+    Locked: 0
+    UnlockApCost: 0
+    UnlockAtWave: 0
+  - SlotId: def2
+    ConnectionOperation: 1
+    BonusKind: 0
+    BonusAmount: 0
+    Locked: 0
+    UnlockApCost: 0
+    UnlockAtWave: 0

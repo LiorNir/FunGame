@@ -1,0 +1,14 @@
+# Optional. One encounter per line:  encounter name | tier | intended roster power | world | position in the world | what it teaches
+#   tier:      Tutorial, Early, Mid or Late. It decides the win rates the report checks the encounter against.
+#   power:     the roster power the encounter is meant to be played at (1.0 = the starter roster as it is, 1.5 = every stat +50%).
+#              Leave it out for 1.0. Raise it for encounters that come later, once pilots have been upgraded.
+#   world:     the world the encounter belongs to (any name). Encounters with a world get a "how it ramps" section.
+#   position:  1 for the first encounter of the world, 2 for the second, and so on. The boss is the last.
+#   teaches:   a few words about what the encounter introduces.
+# Every field after the name is optional (leave it empty to keep the default). Encounters that are not listed here are
+# treated as Mid, power 1.0, in no world.
+#
+# Examples (the names must match the encounters' display names exactly):
+# Encounter 1|Tutorial|1.0|World 1|1|placing pilots; a chain adds up
+# Encounter 2|Tutorial|1.0|World 1|2|a slot that opens on a turn
+# Encounter 3|Early|1.0|World 1|3|operators: add, subtract, multiply

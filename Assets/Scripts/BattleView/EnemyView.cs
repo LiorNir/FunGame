@@ -1,0 +1,137 @@
+using Combat;
+using DG.Tweening;
+using FunGame.Battle;
+using TMPro;
+using UnityEngine;
+
+namespace BattleView
+{
+    /// <summary>
+    /// The look of one enemy, as a prefab: its picture, name, revealed action and health bar. All parts are children of
+    /// the prefab, so sizes, positions and text sizes are set there. The health bar's full size is whatever the
+    /// "Bar Back" child is.
+    /// </summary>
+    public class EnemyView : MonoBehaviour
+    {
+        [SerializeField] private SpriteRenderer _picture;
+        [SerializeField] private TextMeshPro _title;
+        [SerializeField] private TextMeshPro _intent;
+        [SerializeField] private SpriteRenderer _barBack;
+        [SerializeField] private SpriteRenderer _barFill;
+        [SerializeField] private TextMeshPro _healthText;
+
+        [Tooltip("The enemy's picture is scaled to fit in a square of this size (world units).")]
+        [SerializeField] private float _pictureSize = 2.3f;
+
+        private BattleVisuals _visuals;
+        private float _barWidth;
+        private float _barHeight;
+        private Vector3 _barCenter;
+        private float _displayHealth;
+        private float _maxHealth;
+
+        public void Init(BattleVisuals visuals)
+        {
+            _visuals = visuals;
+            if (_barBack.sprite == null)
+            {
+                _barBack.sprite = visuals.BarSprite != null ? visuals.BarSprite : ViewFactory.WhiteSprite;
+            }
+
+            if (_barFill.sprite == null)
+            {
+                _barFill.sprite = _barBack.sprite;
+            }
+
+            _barWidth = _barBack.transform.localScale.x;
+            _barHeight = _barBack.transform.localScale.y;
+            _barCenter = _barBack.transform.localPosition;
+        }
+
+        public void Show(EnemySpec spec, float health)
+        {
+            var source = spec.Source as EnemyDefinition;
+            _picture.sprite = source != null ? source.Sprite : null;
+            _picture.color = _picture.sprite != null ? Color.white : new Color(0.8f, 0.3f, 0.3f);
+            if (_picture.sprite == null)
+            {
+                _picture.sprite = ViewFactory.WhiteSprite;
+            }
+
+            ViewFactory.FitSprite(_picture, _pictureSize);
+
+            _title.text = spec.Name;
+            _maxHealth = spec.MaxHealth;
+            _displayHealth = health;
+            UpdateHealthVisual();
+        }
+
+        public void SetIntent(string actionName, int attack, int defense)
+        {
+            var parts = new System.Collections.Generic.List<string>();
+            if (attack > 0)
+            {
+                parts.Add(_visuals.AttackText($"ATK {attack}"));
+            }
+
+            if (defense > 0)
+            {
+                parts.Add(_visuals.DefenseText($"DEF {defense}"));
+            }
+
+            _intent.text = parts.Count == 0 ? actionName : $"{actionName}  {string.Join("  ", parts)}";
+        }
+
+        public void PunchIntent()
+        {
+            _intent.transform.DOKill(true);
+            _intent.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f);
+        }
+
+        public Tween SetHealthAnimated(float health, float max)
+        {
+            _maxHealth = max;
+            return DOTween.To(() => _displayHealth, value =>
+            {
+                _displayHealth = value;
+                UpdateHealthVisual();
+            }, health, 0.4f).SetEase(Ease.OutCubic);
+        }
+
+        public void PlayHit()
+        {
+            transform.DOKill(true);
+            transform.DOShakePosition(0.3f, 0.2f, 20);
+        }
+
+        public void PlayAttack()
+        {
+            transform.DOKill(true);
+            transform.DOPunchPosition(new Vector3(0f, -0.8f, 0f), 0.4f, 6);
+        }
+
+        public Tween PlaySpawn()
+        {
+            gameObject.SetActive(true);
+            transform.localScale = Vector3.zero;
+            return transform.DOScale(1f, 0.4f).SetEase(Ease.OutBack);
+        }
+
+        public Tween PlayDefeat()
+        {
+            transform.DOKill(true);
+            var sequence = DOTween.Sequence();
+            sequence.Append(transform.DOScale(0f, 0.5f).SetEase(Ease.InBack));
+            sequence.OnComplete(() => gameObject.SetActive(false));
+            return sequence;
+        }
+
+        private void UpdateHealthVisual()
+        {
+            var fraction = _maxHealth > 0f ? Mathf.Clamp01(_displayHealth / _maxHealth) : 0f;
+            _barFill.transform.localScale = new Vector3(_barWidth * fraction, _barHeight, 1f);
+            _barFill.transform.localPosition = _barCenter + new Vector3(-_barWidth * 0.5f + _barWidth * fraction * 0.5f, 0f, 0f);
+            _healthText.text = $"{DisplayFormat.Value(_displayHealth)} / {DisplayFormat.Value(_maxHealth)}";
+        }
+    }
+}

@@ -1,0 +1,492 @@
+using System.Collections.Generic;
+using System.Linq;
+using FunGame.Battle;
+using FunGame.Board;
+using NUnit.Framework;
+
+namespace FunGame.Board.Tests
+{
+    public class BattleTests
+    {
+        private const float Tolerance = 0.001f;
+
+        // ---------- helpers ----------
+
+        private static BoardGraph StraightDefenseChain(Operation ab, Operation bc, NodeBonus bonusOnC = default)
+        {
+            var nodes = new[]
+            {
+                new SlotNode("a"),
+                new SlotNode("b", "a", ab),
+                new SlotNode("c", "b", bc, bonusOnC)
+            };
+            return new BoardGraph(nodes, new[] { new ChainDefinition("def", "lane", ChainRole.Defense, "c") });
+        }
+
+        private static Dictionary<string, PilotUnit> Pilots(float a, float b, float c)
+        {
+            return new Dictionary<string, PilotUnit>
+            {
+                ["a"] = new PilotUnit("A", 0f, a),
+                ["b"] = new PilotUnit("B", 0f, b),
+                ["c"] = new PilotUnit("C", 0f, c)
+            };
+        }
+
+        private static System.Func<string, SlotContent> ContentOf(Dictionary<string, PilotUnit> pilots)
+        {
+            return id => pilots.TryGetValue(id, out var pilot) && !pilot.Fallen
+                ? new SlotContent(pilot.EffectiveAttack, pilot.EffectiveDefense)
+                : SlotContent.Empty;
+        }
+
+        // A one-slot board whose single slot ends both an attack and a defense chain of one lane.
+        private static BoardGraph OneSlotBoard(params SlotNode[] extraNodes)
+        {
+            var nodes = new List<SlotNode> { new SlotNode("R") };
+            nodes.AddRange(extraNodes);
+            var chains = new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "R"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "R")
+            };
+            return new BoardGraph(nodes, chains);
+        }
+
+        private static EnemySpec Enemy(string name, int health, params EnemyActionData[] actions)
+        {
+            return new EnemySpec(name, health, actions, false);
+        }
+
+        private static BattleSetup Setup(
+            BoardGraph board,
+            IReadOnlyList<EnemySpec> enemies,
+            IReadOnlyList<PilotStats> deck,
+            IReadOnlyList<SlotRule> slotRules = null,
+            BattleRules rules = null,
+            int seed = 1)
+        {
+            return new BattleSetup(
+                board,
+                slotRules ?? new List<SlotRule>(),
+                new[] { new LaneSpec("lane1", enemies) },
+                rules ?? new BattleRules(),
+                deck,
+                seed);
+        }
+
+        private static PilotStats[] Strong(int count)
+        {
+            return Enumerable.Range(0, count).Select(i => new PilotStats("P" + i, 5f, 5f)).ToArray();
+        }
+
+        // ---------- wounds ----------
+
+        [Test]
+        public void Wounds_OnAnAddChain_AreProportional()
+        {
+            var graph = StraightDefenseChain(Operation.Add, Operation.Add);
+            var pilots = Pilots(3f, 5f, 2f);
+
+            var applied = WoundAllocator.TryApplyDamage(graph, graph.Chains[0], 10f, 5f, ContentOf(pilots), pilots);
+
+            Assert.IsTrue(applied);
+            foreach (var pilot in pilots.Values)
+            {
+                Assert.AreEqual(0.5f, pilot.DefenseWound, Tolerance);
+            }
+
+            Assert.AreEqual(5f, ChainEvaluator.Evaluate(graph, graph.Chains[0], ContentOf(pilots)).Value, Tolerance);
+            Assert.AreEqual(1.5f, pilots["a"].EffectiveDefense, Tolerance);
+            Assert.AreEqual(2.5f, pilots["b"].EffectiveDefense, Tolerance);
+            Assert.AreEqual(1f, pilots["c"].EffectiveDefense, Tolerance);
+        }
+
+        [Test]
+        public void Wounds_OnAMultiplyChain_RemoveExactlyTheDamage()
+        {
+            var graph = StraightDefenseChain(Operation.Multiply, Operation.Multiply);
+            var pilots = Pilots(3f, 5f, 2f);
+
+            var applied = WoundAllocator.TryApplyDamage(graph, graph.Chains[0], 30f, 15f, ContentOf(pilots), pilots);
+
+            Assert.IsTrue(applied);
+            Assert.AreEqual(15f, ChainEvaluator.Evaluate(graph, graph.Chains[0], ContentOf(pilots)).Value, 0.01f);
+            Assert.AreEqual(0.2063f, pilots["a"].DefenseWound, 0.001f);
+        }
+
+        [Test]
+        public void Wounds_SkipTheOperandOfASubtract()
+        {
+            var nodes = new[] { new SlotNode("a"), new SlotNode("b", "a", Operation.Subtract) };
+            var graph = new BoardGraph(nodes, new[] { new ChainDefinition("def", "lane", ChainRole.Defense, "b") });
+            var pilots = new Dictionary<string, PilotUnit>
+            {
+                ["a"] = new PilotUnit("A", 0f, 5f),
+                ["b"] = new PilotUnit("B", 0f, 1f)
+            };
+
+            var applied = WoundAllocator.TryApplyDamage(graph, graph.Chains[0], 4f, 2f, ContentOf(pilots), pilots);
+
+            Assert.IsTrue(applied);
+            Assert.AreEqual(0f, pilots["b"].DefenseWound, Tolerance);
+            Assert.AreEqual(0.4f, pilots["a"].DefenseWound, Tolerance); // 5 x 0.6 - 1 = 2
+            Assert.AreEqual(2f, ChainEvaluator.Evaluate(graph, graph.Chains[0], ContentOf(pilots)).Value, 0.01f);
+        }
+
+        [Test]
+        public void Wounds_CannotLowerAChainBelowItsBonus_SoTheChainIsDestroyed()
+        {
+            var graph = StraightDefenseChain(Operation.Add, Operation.Add, new NodeBonus(BonusKind.Add, 10f));
+            var pilots = Pilots(1f, 1f, 1f);
+            var value = ChainEvaluator.Evaluate(graph, graph.Chains[0], ContentOf(pilots)).Value; // 13
+
+            var applied = WoundAllocator.TryApplyDamage(graph, graph.Chains[0], value, 5f, ContentOf(pilots), pilots);
+
+            Assert.IsFalse(applied);
+        }
+
+        // ---------- battle flow ----------
+
+        [Test]
+        public void Start_DealsTheHand_AndSetsHealthAndAp()
+        {
+            var setup = Setup(OneSlotBoard(), new[] { Enemy("E", 10, new EnemyActionData("Hit", 1, 0)) }, Strong(6));
+            var engine = new BattleEngine(setup);
+            engine.Start();
+
+            Assert.AreEqual(4, engine.Hand.Count);
+            Assert.AreEqual(2, engine.Bank.Count);
+            Assert.AreEqual(20f, engine.PlayerHealth, Tolerance);
+            Assert.AreEqual(3, engine.ActionPoints);
+            Assert.AreEqual(1, engine.Turn);
+        }
+
+        [Test]
+        public void Placing_CostsAp_AndIsRefusedWithoutEnough()
+        {
+            var rules = new BattleRules { StartingActionPoints = 1, ActionPointsPerTurn = 1 };
+            var nodes = new[] { new SlotNode("R"), new SlotNode("S", "R", Operation.Add) };
+            var board = new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "S"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "S")
+            });
+            var engine = new BattleEngine(Setup(board, new[] { Enemy("E", 10, new EnemyActionData("Hit", 1, 0)) }, Strong(4), rules: rules));
+            engine.Start();
+
+            Assert.IsTrue(engine.TryPlace(0, "R"));
+            Assert.AreEqual(0, engine.ActionPoints);
+            Assert.IsFalse(engine.TryPlace(0, "S"));
+        }
+
+        [Test]
+        public void Ap_IsRefreshedToTheFixedValue_NotAccumulated()
+        {
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { Enemy("E", 100, new EnemyActionData("Hit", 1, 0)) }, Strong(6)));
+            engine.Start();
+            engine.ResolveTurn(); // nothing was placed or spent, so 3 AP are left over
+
+            Assert.AreEqual(2, engine.Turn);
+            Assert.AreEqual(3, engine.ActionPoints);
+        }
+
+        [Test]
+        public void Hand_IsRefilledAtTheStartOfEachTurn()
+        {
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { Enemy("E", 100, new EnemyActionData("Hit", 1, 0)) }, Strong(6)));
+            engine.Start();
+            engine.TryPlace(0, "R");
+            Assert.AreEqual(3, engine.Hand.Count);
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(4, engine.Hand.Count);
+        }
+
+        [Test]
+        public void Slot_UnlocksByTurn_AtTheStartOfThatTurn()
+        {
+            var nodes = new[] { new SlotNode("R"), new SlotNode("S", "R", Operation.Add) };
+            var board = new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "S"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "S")
+            });
+            var slotRules = new[] { new SlotRule("S", true, 0, 0, 2) };
+            var engine = new BattleEngine(Setup(board, new[] { Enemy("E", 100, new EnemyActionData("Hit", 1, 0)) }, Strong(6), slotRules));
+            engine.Start();
+            Assert.IsFalse(engine.IsUnlocked("S"));
+
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.IsUnlocked("S"));
+        }
+
+        [Test]
+        public void Slot_UnlocksForAp()
+        {
+            var slotRules = new[] { new SlotRule("S", true, 2, 0, 0) };
+            var nodes = new[] { new SlotNode("R"), new SlotNode("S", "R", Operation.Add) };
+            var board = new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "S"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "S")
+            });
+            var engine = new BattleEngine(Setup(board, new[] { Enemy("E", 100, new EnemyActionData("Hit", 1, 0)) }, Strong(6), slotRules));
+            engine.Start();
+
+            Assert.IsTrue(engine.TryUnlock("S"));
+            Assert.AreEqual(1, engine.ActionPoints);
+            Assert.IsTrue(engine.IsUnlocked("S"));
+        }
+
+        [Test]
+        public void NextEnemy_AppearsAtTheStartOfTheNextTurn_AndVictoryNeedsTheQueueCleared()
+        {
+            var weak = Enemy("Weak", 1, new EnemyActionData("Hit", 0, 0));
+            var second = Enemy("Second", 1, new EnemyActionData("Hit", 0, 0));
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { weak, second }, Strong(6)));
+            engine.Start();
+            engine.TryPlace(0, "R");
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(BattleOutcome.InProgress, engine.Outcome);
+            Assert.AreEqual("Second", engine.Lanes[0].Current.Spec.Name);
+            Assert.AreEqual(2, engine.Wave);
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(BattleOutcome.Victory, engine.Outcome);
+        }
+
+        [Test]
+        public void WaveUnlock_FollowsTheNamedLane_NotAnyLane()
+        {
+            var nodes = new[]
+            {
+                new SlotNode("R1"), new SlotNode("R2"),
+                new SlotNode("OnLane1", "R1", Operation.Add), new SlotNode("OnLane2", "R2", Operation.Add)
+            };
+            var chains = new[]
+            {
+                new ChainDefinition("a1", "lane1", ChainRole.Attack, "R1"), new ChainDefinition("d1", "lane1", ChainRole.Defense, "R1"),
+                new ChainDefinition("a2", "lane2", ChainRole.Attack, "R2"), new ChainDefinition("d2", "lane2", ChainRole.Defense, "R2")
+            };
+            var slotRules = new[]
+            {
+                new SlotRule("OnLane1", true, 0, 2, 0, "lane1"),
+                new SlotRule("OnLane2", true, 0, 2, 0, "lane2")
+            };
+            var lanes = new[]
+            {
+                new LaneSpec("lane1", new[] { Enemy("Quick", 1, new EnemyActionData("Idle", 0, 0)), Enemy("Next", 50, new EnemyActionData("Idle", 0, 0)) }),
+                new LaneSpec("lane2", new[] { Enemy("Tank", 500, new EnemyActionData("Idle", 0, 0)), Enemy("Never", 50, new EnemyActionData("Idle", 0, 0)) })
+            };
+            var setup = new BattleSetup(new BoardGraph(nodes, chains), slotRules, lanes, new BattleRules(), Strong(6), 1);
+            var engine = new BattleEngine(setup);
+            engine.Start();
+            engine.TryPlace(0, "R1");
+
+            engine.ResolveTurn(); // lane1's first enemy dies; its second appears at the start of turn 2
+
+            Assert.IsTrue(engine.IsUnlocked("OnLane1"));
+            Assert.IsFalse(engine.IsUnlocked("OnLane2"));
+        }
+
+        [Test]
+        public void Eject_ReturnsALivingPilotToTheHand_ForAp()
+        {
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { Enemy("E", 100, new EnemyActionData("Hit", 0, 0)) }, Strong(6)));
+            engine.Start();
+            engine.TryPlace(0, "R");
+            Assert.AreEqual(3, engine.Hand.Count);
+
+            Assert.IsTrue(engine.TryEject("R"));
+
+            Assert.AreEqual(4, engine.Hand.Count);
+            Assert.AreEqual(1, engine.ActionPoints);
+            Assert.IsFalse(engine.PilotBySlot.ContainsKey("R"));
+        }
+
+        [Test]
+        public void Eject_IsRefusedWhenTheHandIsFull()
+        {
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { Enemy("E", 100, new EnemyActionData("Hit", 0, 0)) }, Strong(6)));
+            engine.Start();
+            engine.TryPlace(0, "R");
+            // refill the hand to the limit by hand-feeding the bank, as a later turn would
+            engine.Hand.Add(engine.Bank[0]);
+            engine.Bank.RemoveAt(0);
+            Assert.AreEqual(4, engine.Hand.Count);
+
+            Assert.IsFalse(engine.TryEject("R"));
+        }
+
+        [Test]
+        public void EnemyDefense_AbsorbsThePlayersAttackFirst()
+        {
+            var enemy = Enemy("E", 10, new EnemyActionData("Guard", 0, 3));
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("P", 5f, 0f) }));
+            engine.Start();
+            engine.TryPlace(0, "R");
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(8f, engine.Lanes[0].Current.Health, Tolerance); // attack 5 - defense 3 = 2 damage
+        }
+
+        [Test]
+        public void ChainDestroyed_MakesItsPilotsFall_AndRemainderHurtsThePlayer()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Smash", 10, 0));
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("P", 0f, 4f) }));
+            engine.Start();
+            engine.TryPlace(0, "R");
+
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.AreEqual(14f, engine.PlayerHealth, Tolerance); // 10 attack - 4 absorbed = 6
+        }
+
+        // ---------- chains worth zero ----------
+
+        private static void PlaceByName(BattleEngine engine, string pilotName, string slotId)
+        {
+            var index = engine.Hand.FindIndex(pilot => pilot.Name == pilotName);
+            Assert.IsTrue(index >= 0);
+            Assert.IsTrue(engine.TryPlace(index, slotId));
+        }
+
+        // Two separate root slots, each ending a defense chain of the lane (the first is hit first).
+        private static BoardGraph TwoDefenseChains()
+        {
+            var nodes = new[] { new SlotNode("R1"), new SlotNode("R2") };
+            return new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "R1"),
+                new ChainDefinition("def1", "lane1", ChainRole.Defense, "R1"),
+                new ChainDefinition("def2", "lane1", ChainRole.Defense, "R2")
+            });
+        }
+
+        [Test]
+        public void ZeroValueDefenseChain_IsDestroyedByAHit_AndTheAttackPassesOnInFull()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 5, 0));
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("P", 3f, 0f) }));
+            engine.Start();
+            engine.TryPlace(0, "R");
+
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.AreEqual(15f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void ZeroValueChain_InFrontOfAnother_FallsAndTheNextChainAbsorbs()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 3, 0));
+            var deck = new[] { new PilotStats("Zero", 0f, 0f), new PilotStats("Wall", 0f, 5f) };
+            var engine = new BattleEngine(Setup(TwoDefenseChains(), new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "Zero", "R1");
+            PlaceByName(engine, "Wall", "R2");
+
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.PilotBySlot["R1"].Fallen);
+            Assert.IsFalse(engine.PilotBySlot["R2"].Fallen);
+            Assert.AreEqual(0.6f, engine.PilotBySlot["R2"].DefenseWound, Tolerance);
+            Assert.AreEqual(20f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void ZeroValueChain_BehindOneThatAbsorbsEverything_IsNotReached()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 3, 0));
+            var deck = new[] { new PilotStats("Zero", 0f, 0f), new PilotStats("Wall", 0f, 5f) };
+            var engine = new BattleEngine(Setup(TwoDefenseChains(), new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "Wall", "R1");
+            PlaceByName(engine, "Zero", "R2");
+
+            engine.ResolveTurn();
+
+            Assert.IsFalse(engine.PilotBySlot["R1"].Fallen);
+            Assert.IsFalse(engine.PilotBySlot["R2"].Fallen);
+            Assert.AreEqual(20f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void ChainZeroedByDivideByZero_IsStillLeftAlone()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 5, 0));
+            var nodes = new[] { new SlotNode("R"), new SlotNode("S", "R", Operation.Divide) };
+            var board = new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "S"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "S")
+            });
+            var deck = new[] { new PilotStats("Top", 0f, 4f), new PilotStats("Zero", 0f, 0f) };
+            var engine = new BattleEngine(Setup(board, new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "Top", "R");
+            PlaceByName(engine, "Zero", "S");
+
+            engine.ResolveTurn();
+
+            Assert.IsFalse(engine.PilotBySlot["R"].Fallen);
+            Assert.IsFalse(engine.PilotBySlot["S"].Fallen);
+            Assert.AreEqual(15f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void Defeat_WhenTheEnemyOutDamagesThePlayer()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Smash", 25, 0));
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, Strong(4)));
+            engine.Start();
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(BattleOutcome.Defeat, engine.Outcome);
+        }
+
+        [Test]
+        public void ScriptedPlayer_ConcludesABattle()
+        {
+            var enemies = new[]
+            {
+                Enemy("Slime", 8, new EnemyActionData("Hit", 2, 0), new EnemyActionData("Guard", 0, 1)),
+                Enemy("Golem", 12, new EnemyActionData("Smash", 3, 0))
+            };
+            var result = BattleRunner.Run(Setup(OneSlotBoard(), enemies, Strong(6)));
+
+            Assert.AreEqual(BattleOutcome.Victory, result.Outcome);
+            Assert.Greater(result.PlayerHealth, 0f);
+        }
+
+        [Test]
+        public void ScriptedPlayer_BattleThatCannotBeWon_EndsInStalemateAtTheTurnLimit()
+        {
+            var enemy = Enemy("Wall", 1000, new EnemyActionData("Idle", 0, 99));
+            var result = BattleRunner.Run(Setup(OneSlotBoard(), new[] { enemy }, Strong(4)), turnLimit: 5);
+
+            Assert.AreEqual(BattleOutcome.Stalemate, result.Outcome);
+        }
+
+        [Test]
+        public void SameSeed_GivesTheSameBattle()
+        {
+            var enemy = new EnemySpec("E", 15, new[] { new EnemyActionData("A", 1, 0), new EnemyActionData("B", 2, 0), new EnemyActionData("C", 0, 1) }, true);
+            var first = BattleRunner.Run(Setup(OneSlotBoard(), new[] { enemy }, Strong(6), seed: 7));
+            var second = BattleRunner.Run(Setup(OneSlotBoard(), new[] { enemy }, Strong(6), seed: 7));
+
+            CollectionAssert.AreEqual(first.Log, second.Log);
+        }
+    }
+}

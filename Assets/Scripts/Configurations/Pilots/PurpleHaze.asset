@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57faf7e97175d6d44a9ed5d22fca88c4, type: 3}
+  m_Name: PurpleHaze
+  m_EditorClassIdentifier: 
+  Name: PurpleHaze
+  DisplayName: Haze
+  Sprite: {fileID: 4621721856859205188, guid: bf924e7443c28b440bd979e76b09738a, type: 3}
+  AttackValue: 1.5
+  DefenseValue: 0.5
+  Ability: 0

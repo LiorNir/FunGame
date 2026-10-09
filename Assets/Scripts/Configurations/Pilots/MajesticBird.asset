@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57faf7e97175d6d44a9ed5d22fca88c4, type: 3}
+  m_Name: MajesticBird
+  m_EditorClassIdentifier: 
+  Name: MajesticBird
+  DisplayName: Osis
+  Sprite: {fileID: 856299790192629088, guid: 0b48c207f9c3b344db3f5f5bc5648500, type: 3}
+  AttackValue: 2
+  DefenseValue: 1
+  Ability: 0
