@@ -30,5 +30,11 @@ namespace FunGame.Battle
         public int ChainsDestroyed { get; set; }
         public int EnemiesDefeated { get; set; }
         public int DivideByZeros { get; set; }
+
+        /// <summary>A separate copy with the same counts (all counters, including ones added later).</summary>
+        public BattleStats Copy()
+        {
+            return (BattleStats)MemberwiseClone();
+        }
     }
 }

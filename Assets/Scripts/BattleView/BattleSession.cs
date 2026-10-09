@@ -369,6 +369,11 @@ namespace BattleView
                         break;
 
                     case BattleEventType.PlayerAttacked:
+                        if (battleEvent.A <= 0.0001f)
+                        {
+                            break; // no attack value: nothing to show
+                        }
+
                         _board.PulseChains(battleEvent.LaneId, ChainRole.Attack);
                         if (battleEvent.C > 0.0001f)
                         {

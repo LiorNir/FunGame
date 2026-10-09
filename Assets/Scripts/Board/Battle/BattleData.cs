@@ -34,22 +34,65 @@ namespace FunGame.Battle
         }
     }
 
+    /// <summary>One action an enemy can take: a name and the effects it has, resolved by phase and then in list order.</summary>
     public sealed class EnemyActionData
     {
         public string Name { get; }
+        public IReadOnlyList<IEnemyEffect> Effects { get; }
+
+        /// <summary>The action's total attack (for intent boxes).</summary>
         public int Attack { get; }
+
+        /// <summary>The action's total defense (for intent boxes).</summary>
         public int Defense { get; }
 
-        public EnemyActionData(string name, int attack, int defense)
+        public EnemyActionData(string name, IReadOnlyList<IEnemyEffect> effects)
         {
             Name = name;
-            Attack = attack;
-            Defense = defense;
+            Effects = effects;
+            foreach (var effect in effects)
+            {
+                if (effect is AttackEffect attack)
+                {
+                    Attack += attack.Amount;
+                }
+                else if (effect is DefendEffect defend)
+                {
+                    Defense += defend.Amount;
+                }
+            }
+        }
+
+        /// <summary>A plain attack-and-defend action. A zero amount adds no effect.</summary>
+        public EnemyActionData(string name, int attack, int defense) : this(name, AttackAndDefend(attack, defense))
+        {
+        }
+
+        private static IReadOnlyList<IEnemyEffect> AttackAndDefend(int attack, int defense)
+        {
+            var effects = new List<IEnemyEffect>();
+            if (attack > 0)
+            {
+                effects.Add(new AttackEffect(attack));
+            }
+
+            if (defense > 0)
+            {
+                effects.Add(new DefendEffect(defense));
+            }
+
+            return effects;
         }
 
         public override string ToString()
         {
-            return $"{Name} (ATK {Attack} / DEF {Defense})";
+            var parts = new List<string>();
+            foreach (var effect in Effects)
+            {
+                parts.Add(effect.Describe());
+            }
+
+            return $"{Name} ({(parts.Count == 0 ? "nothing" : string.Join(" / ", parts))})";
         }
     }
 

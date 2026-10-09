@@ -1,0 +1,31 @@
+# encounter for the balance lab; written by the Unity export, read by SetupText.Read
+name|Test3
+tier|Mid
+note|from Assets/Encounters/Encounter 2.asset
+rules|20|3|3|4|1|1|1|1|1|1
+node|S1|||None|0
+node|S2|S1|Add|None|0
+node|S3|S1|Subtract|None|0
+node|S4|S3|Subtract|None|0
+node|S5|S4|Multiply|Add|10
+node|S6|S2|Add|None|0
+node|S7|S6|Add|None|0
+chain|lane1-Attack-1|lane1|Attack|S5
+chain|lane1-Defense-1|lane1|Defense|S7
+slot|S1|0|0|0|0|
+slot|S2|0|0|0|0|
+slot|S3|0|0|0|0|
+slot|S4|1|0|0|2|
+slot|S5|1|0|0|2|
+slot|S6|0|0|0|0|
+slot|S7|1|0|0|2|
+lane|lane1
+enemy|lane1|Rectum|8|1
+action|Die|2|0
+action|Ouch|0|2
+action|IDK|2|2
+pilot|Osis|2|1
+pilot|Sil|2|1
+pilot|Quill|1|2
+pilot|Yawn|1|1
+pilot|Haze|1.5|0.5

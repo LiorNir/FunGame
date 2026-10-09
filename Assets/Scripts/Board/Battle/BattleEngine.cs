@@ -126,13 +126,7 @@ namespace FunGame.Battle
                 copy.EnemiesSpawned = lane.EnemiesSpawned;
             }
 
-            clone.Stats = new BattleStats
-            {
-                Places = Stats.Places, Replaces = Stats.Replaces, Ejects = Stats.Ejects, Unlocks = Stats.Unlocks,
-                ApSpent = Stats.ApSpent, ApWasted = Stats.ApWasted, DamageDealt = Stats.DamageDealt,
-                DamageTaken = Stats.DamageTaken, DamageAbsorbed = Stats.DamageAbsorbed, PilotsFallen = Stats.PilotsFallen,
-                ChainsDestroyed = Stats.ChainsDestroyed, EnemiesDefeated = Stats.EnemiesDefeated, DivideByZeros = Stats.DivideByZeros
-            };
+            clone.Stats = Stats.Copy();
             return clone;
         }
 
@@ -142,6 +136,38 @@ namespace FunGame.Battle
             var drained = new List<BattleEvent>(_events);
             _events.Clear();
             return drained;
+        }
+
+        /// <summary>True if anyone reads events or the log. Look-ahead copies switch both off and skip building them.</summary>
+        private bool Observed => RecordEvents || Logging;
+
+        /// <summary>Records an event and writes its log line. Every line of the log comes from an event (see <see cref="BattleLogWriter"/>).</summary>
+        private void Emit(
+            BattleEventType type,
+            string laneId = null,
+            string subject = null,
+            float a = 0f,
+            float b = 0f,
+            float c = 0f,
+            IReadOnlyList<string> slots = null,
+            IReadOnlyList<float> slotValues = null,
+            string detail = null)
+        {
+            if (!Observed)
+            {
+                return;
+            }
+
+            var battleEvent = new BattleEvent(type, laneId, subject, a, b, c, slots, slotValues, detail);
+            if (RecordEvents)
+            {
+                _events.Add(battleEvent);
+            }
+
+            if (Logging)
+            {
+                BattleLogWriter.Write(battleEvent, this, Log);
+            }
         }
 
         public void Start()
@@ -161,10 +187,7 @@ namespace FunGame.Battle
             Shuffle(deck);
             Bank.AddRange(deck);
 
-            if (RecordEvents)
-            {
-                _events.Add(new BattleEvent(BattleEventType.TurnStarted, a: Turn));
-            }
+            Emit(BattleEventType.TurnStarted, a: Turn);
             foreach (var lane in Lanes)
             {
                 SpawnNextEnemy(lane);
@@ -172,11 +195,7 @@ namespace FunGame.Battle
 
             ApplyUnlocks();
             DrawToHandSize();
-            if (Logging)
-            {
-                Log.Add($"Battle start. HP {Fmt(PlayerHealth)}, AP {ActionPoints}, hand: {string.Join(", ", Hand)}");
-            }
-            LogIntents();
+            Emit(BattleEventType.PlanningStarted, a: PlayerHealth, b: ActionPoints);
         }
 
         // ---------- planning phase ----------
@@ -233,10 +252,7 @@ namespace FunGame.Battle
                 Stats.Replaces++;
             }
 
-            if (Logging)
-            {
-                Log.Add($"  Place {pilot.Name} in {slotId}{(occupant == null ? string.Empty : $" (replacing {occupant.Name})")} [-{cost} AP, {ActionPoints} left]");
-            }
+            Emit(BattleEventType.PilotPlaced, subject: pilot.Name, a: cost, b: ActionPoints, slots: new[] { slotId }, detail: occupant?.Name);
             return true;
         }
 
@@ -258,10 +274,7 @@ namespace FunGame.Battle
             Stats.ApSpent += cost;
             Stats.Unlocks++;
             _lockedSlots.Remove(slotId);
-            if (Logging)
-            {
-                Log.Add($"  Unlock {slotId} [-{cost} AP, {ActionPoints} left]");
-            }
+            Emit(BattleEventType.SlotBought, subject: slotId, a: cost, b: ActionPoints);
             return true;
         }
 
@@ -289,10 +302,7 @@ namespace FunGame.Battle
             ActionPoints -= cost;
             Stats.ApSpent += cost;
             Stats.Ejects++;
-            if (Logging)
-            {
-                Log.Add($"  Eject {pilot.Name} from {slotId} [-{cost} AP, {ActionPoints} left]");
-            }
+            Emit(BattleEventType.PilotEjected, subject: pilot.Name, a: cost, b: ActionPoints, slots: new[] { slotId });
             return true;
         }
 
@@ -305,10 +315,7 @@ namespace FunGame.Battle
             }
 
             _pilotBySlot.Remove(slotId);
-            if (Logging)
-            {
-                Log.Add($"  Cleared fallen {pilot.Name} from {slotId}");
-            }
+            Emit(BattleEventType.FallenCleared, subject: pilot.Name, slots: new[] { slotId });
             return true;
         }
 
@@ -349,7 +356,7 @@ namespace FunGame.Battle
         }
 
         /// <summary>
-        /// Only the fighting of a turn: the player attacks, then the enemies attack. The battle is left at the end of the
+        /// Only the fighting of a turn: the player attacks, then the enemies act. The battle is left at the end of the
         /// turn, before the next one starts, so nothing random (new intents, new hand) has happened yet. A player that looks
         /// ahead stops here. Call it once per turn.
         /// </summary>
@@ -361,11 +368,7 @@ namespace FunGame.Battle
             }
 
             Stats.ApWasted += ActionPoints;
-            if (Logging)
-            {
-                Log.Add($"--- Turn {Turn} resolves ---");
-                LogBoard();
-            }
+            Emit(BattleEventType.TurnResolving, a: Turn);
 
             // the board does not change while the player attacks, so its chains are read once
             var chainResults = EvaluateChains();
@@ -377,32 +380,14 @@ namespace FunGame.Battle
             if (Lanes.All(lane => lane.IsCleared))
             {
                 Outcome = BattleOutcome.Victory;
-                if (RecordEvents)
-                {
-                    _events.Add(new BattleEvent(BattleEventType.Victory));
-                }
-                if (Logging)
-                {
-                    Log.Add("VICTORY");
-                }
+                Emit(BattleEventType.Victory);
                 return;
             }
 
             foreach (var lane in Lanes.Where(lane => lane.Current != null))
             {
-                EnemyAttacks(lane);
-                if (PlayerHealth <= Epsilon)
+                if (EnemyActs(lane))
                 {
-                    PlayerHealth = Math.Max(0f, PlayerHealth);
-                    Outcome = BattleOutcome.Defeat;
-                    if (RecordEvents)
-                    {
-                        _events.Add(new BattleEvent(BattleEventType.Defeat));
-                    }
-                    if (Logging)
-                    {
-                        Log.Add("DEFEAT");
-                    }
                     return;
                 }
             }
@@ -415,76 +400,69 @@ namespace FunGame.Battle
             foreach (var result in results.Where(result => result.DividedByZero))
             {
                 Stats.DivideByZeros++;
-                if (RecordEvents)
-                {
-                    _events.Add(new BattleEvent(BattleEventType.DivideByZero, lane.Spec.Id, result.Chain.Id, slots: new[] { result.DivideByZeroNodeId }));
-                }
-                if (Logging)
-                {
-                    Log.Add($"  !! DIVIDE BY ZERO in chain {result.Chain.Id} at {result.DivideByZeroNodeId}: the chain collapses to 0");
-                }
+                Emit(BattleEventType.DivideByZero, lane.Spec.Id, result.Chain.Id, slots: new[] { result.DivideByZeroNodeId });
+            }
+
+            var guard = new EnemyEffectContext(this, lane, enemy.Intent);
+            foreach (var effect in enemy.Intent.Effects.Where(effect => effect.Phase == EnemyEffectPhase.Guard))
+            {
+                effect.Resolve(guard);
             }
 
             var attack = results.Where(result => result.Chain.Role == ChainRole.Attack).Sum(result => result.Value);
-            var defense = (float)enemy.Intent.Defense;
+            var defense = guard.Block;
             var damage = Math.Max(0f, attack - defense);
             enemy.Health -= damage;
             Stats.DamageDealt += damage;
-            // No attack, no event: the views have nothing to show when the player has no attack value.
-            if (attack > Epsilon)
-            {
-                if (RecordEvents)
-                {
-                    _events.Add(new BattleEvent(BattleEventType.PlayerAttacked, lane.Spec.Id, a: attack, b: defense, c: damage));
-                }
-            }
-
-            if (Logging)
-            {
-                Log.Add($"  [{lane.Spec.Id}] player attacks {enemy.Spec.Name}: {Fmt(attack)} vs defense {Fmt(defense)} -> {Fmt(damage)} damage, enemy HP {Fmt(Math.Max(0f, enemy.Health))}/{enemy.Spec.MaxHealth}");
-            }
+            Emit(BattleEventType.PlayerAttacked, lane.Spec.Id, a: attack, b: defense, c: damage);
             if (damage > Epsilon)
             {
-                if (RecordEvents)
-                {
-                    _events.Add(new BattleEvent(BattleEventType.EnemyDamaged, lane.Spec.Id, a: Math.Max(0f, enemy.Health), b: enemy.Spec.MaxHealth));
-                }
+                Emit(BattleEventType.EnemyDamaged, lane.Spec.Id, a: Math.Max(0f, enemy.Health), b: enemy.Spec.MaxHealth);
             }
 
             if (enemy.Health <= Epsilon)
             {
                 enemy.Health = 0f;
                 Stats.EnemiesDefeated++;
-                if (RecordEvents)
-                {
-                    _events.Add(new BattleEvent(BattleEventType.EnemyDefeated, lane.Spec.Id, enemy.Spec.Name));
-                }
-                if (Logging)
-                {
-                    Log.Add($"  [{lane.Spec.Id}] {enemy.Spec.Name} is defeated");
-                }
+                Emit(BattleEventType.EnemyDefeated, lane.Spec.Id, enemy.Spec.Name);
                 lane.Current = null;
             }
         }
 
-        private void EnemyAttacks(LaneState lane)
+        /// <summary>The lane's enemy carries out its revealed action. Returns true if the player was defeated.</summary>
+        private bool EnemyActs(LaneState lane)
         {
-            var enemy = lane.Current;
-            var attack = enemy.Intent.Attack;
-            if (RecordEvents)
+            var action = lane.Current.Intent;
+            Emit(BattleEventType.EnemyActed, lane.Spec.Id, action.Name);
+            var context = new EnemyEffectContext(this, lane, action);
+            foreach (var effect in action.Effects.Where(effect => effect.Phase == EnemyEffectPhase.Act))
             {
-                _events.Add(new BattleEvent(BattleEventType.EnemyAttacked, lane.Spec.Id, enemy.Intent.Name, attack));
-            }
-            if (attack <= 0)
-            {
-                if (Logging)
+                effect.Resolve(context);
+                if (PlayerHealth <= Epsilon)
                 {
-                    Log.Add($"  [{lane.Spec.Id}] {enemy.Spec.Name} uses {enemy.Intent.Name} (no attack)");
+                    PlayerHealth = Math.Max(0f, PlayerHealth);
+                    Outcome = BattleOutcome.Defeat;
+                    Emit(BattleEventType.Defeat);
+                    return true;
                 }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// An enemy attack on a lane: the lane's defense chains absorb it in order (as wounds on their pilots, or by being
+        /// destroyed), and what they cannot absorb hurts the player. Used by <see cref="AttackEffect"/>.
+        /// </summary>
+        internal void HitLane(LaneState lane, string actionName, float attack)
+        {
+            Emit(BattleEventType.EnemyAttacked, lane.Spec.Id, actionName, attack);
+            if (attack <= 0f)
+            {
                 return;
             }
 
-            var remaining = (float)attack;
+            var remaining = attack;
             foreach (var chain in Setup.Board.Chains.Where(chain => chain.LaneId == lane.Spec.Id && chain.Role == ChainRole.Defense))
             {
                 if (remaining <= Epsilon)
@@ -510,26 +488,18 @@ namespace FunGame.Battle
 
                 var absorbed = Math.Min(value, remaining);
                 Stats.DamageAbsorbed += absorbed;
-                List<string> wounded = null;
                 // A hit equal to the chain's whole value leaves it standing at 0 (its pilots fully wounded); only a hit
                 // above its value destroys it. The next hit that reaches a chain at 0 destroys it (see above).
+                List<string> wounded = null;
                 var chainSurvives = remaining <= value + Epsilon &&
                                     WoundAllocator.TryApplyDamage(Setup.Board, chain, value, absorbed, ContentOf, _pilotBySlot, out wounded);
                 if (chainSurvives)
                 {
-                    if (RecordEvents || Logging)
+                    if (Observed)
                     {
                         var after = ChainEvaluator.Evaluate(Setup.Board, chain, ContentOf).Value;
-                        if (RecordEvents)
-                        {
-                            _events.Add(new BattleEvent(BattleEventType.ChainAbsorbed, lane.Spec.Id, chain.Id, absorbed, value, after,
-                                wounded, wounded.Select(slotId => _pilotBySlot[slotId].DefenseWound).ToList()));
-                        }
-
-                        if (Logging)
-                        {
-                            Log.Add($"  [{lane.Spec.Id}] chain {chain.Id} absorbs {Fmt(absorbed)} of {Fmt(value)} (now {Fmt(after)}); pilots wounded");
-                        }
+                        Emit(BattleEventType.ChainAbsorbed, lane.Spec.Id, chain.Id, absorbed, value, after,
+                            wounded, wounded.Select(slotId => _pilotBySlot[slotId].DefenseWound).ToList());
                     }
                 }
                 else
@@ -545,15 +515,7 @@ namespace FunGame.Battle
             Stats.DamageTaken += damageToPlayer;
             if (damageToPlayer > 0f)
             {
-                if (RecordEvents)
-                {
-                    _events.Add(new BattleEvent(BattleEventType.PlayerDamaged, lane.Spec.Id, a: damageToPlayer, b: Math.Max(0f, PlayerHealth)));
-                }
-            }
-
-            if (Logging)
-            {
-                Log.Add($"  [{lane.Spec.Id}] {enemy.Spec.Name} attacks for {attack} ({enemy.Intent.Name}): {Fmt(damageToPlayer)} reaches the player, HP {Fmt(Math.Max(0f, PlayerHealth))}/{Setup.Rules.PlayerMaxHealth}");
+                Emit(BattleEventType.PlayerDamaged, lane.Spec.Id, a: damageToPlayer, b: Math.Max(0f, PlayerHealth));
             }
         }
 
@@ -573,14 +535,7 @@ namespace FunGame.Battle
             Stats.PilotsFallen += fallenSlots.Count;
             Stats.ChainsDestroyed++;
 
-            if (RecordEvents)
-            {
-                _events.Add(new BattleEvent(BattleEventType.ChainDestroyed, lane.Spec.Id, chain.Id, absorbed, value, slots: fallenSlots));
-            }
-            if (Logging)
-            {
-                Log.Add($"  chain {chain.Id} absorbs {Fmt(absorbed)} of {Fmt(value)} and is destroyed; fallen: {string.Join(", ", fallenSlots.Select(slot => $"{_pilotBySlot[slot].Name}@{slot}"))}");
-            }
+            Emit(BattleEventType.ChainDestroyed, lane.Spec.Id, chain.Id, absorbed, value, slots: fallenSlots);
         }
 
         private void StartNextTurn()
@@ -588,14 +543,7 @@ namespace FunGame.Battle
             Turn++;
             _placedThisTurn.Clear();
             ActionPoints = Setup.Rules.ActionPointsPerTurn;
-            if (RecordEvents)
-            {
-                _events.Add(new BattleEvent(BattleEventType.TurnStarted, a: Turn));
-            }
-            if (Logging)
-            {
-                Log.Add($"--- Turn {Turn} begins ---");
-            }
+            Emit(BattleEventType.TurnStarted, a: Turn);
 
             foreach (var lane in Lanes)
             {
@@ -614,11 +562,7 @@ namespace FunGame.Battle
 
             ApplyUnlocks();
             DrawToHandSize();
-            if (Logging)
-            {
-                Log.Add($"  HP {Fmt(PlayerHealth)}, AP {ActionPoints}, hand: {string.Join(", ", Hand)}");
-            }
-            LogIntents();
+            Emit(BattleEventType.PlanningStarted, a: PlayerHealth, b: ActionPoints);
         }
 
         private void SpawnNextEnemy(LaneState lane)
@@ -626,15 +570,8 @@ namespace FunGame.Battle
             var enemy = new EnemyUnit(lane.Spec.Enemies[lane.EnemiesSpawned]);
             lane.EnemiesSpawned++;
             lane.Current = enemy;
-            if (RecordEvents)
-            {
-                _events.Add(new BattleEvent(BattleEventType.EnemySpawned, lane.Spec.Id, enemy.Spec.Name, enemy.Health, enemy.Spec.MaxHealth, lane.EnemiesSpawned));
-            }
+            Emit(BattleEventType.EnemySpawned, lane.Spec.Id, enemy.Spec.Name, enemy.Health, enemy.Spec.MaxHealth, lane.EnemiesSpawned);
             RevealIntent(lane);
-            if (Logging)
-            {
-                Log.Add($"  [{lane.Spec.Id}] enemy {lane.EnemiesSpawned} appears: {enemy.Spec.Name} HP {Fmt(enemy.Health)}");
-            }
         }
 
         private void RevealIntent(LaneState lane)
@@ -651,10 +588,7 @@ namespace FunGame.Battle
                 enemy.NextSequentialAction++;
             }
 
-            if (RecordEvents)
-            {
-                _events.Add(new BattleEvent(BattleEventType.IntentRevealed, lane.Spec.Id, enemy.Intent.Name, enemy.Intent.Attack, enemy.Intent.Defense));
-            }
+            Emit(BattleEventType.IntentRevealed, lane.Spec.Id, enemy.Intent.Name, enemy.Intent.Attack, enemy.Intent.Defense);
         }
 
         private void ApplyUnlocks()
@@ -671,14 +605,8 @@ namespace FunGame.Battle
                 if (byTurn || byWave)
                 {
                     _lockedSlots.Remove(rule.SlotId);
-                    if (RecordEvents)
-                    {
-                        _events.Add(new BattleEvent(BattleEventType.SlotUnlocked, subject: rule.SlotId));
-                    }
-                    if (Logging)
-                    {
-                        Log.Add($"  Slot {rule.SlotId} unlocks ({(byTurn ? $"turn {Turn}" : $"wave {rule.UnlockAtWave} of lane {rule.UnlockLaneId}")})");
-                    }
+                    Emit(BattleEventType.SlotUnlocked, subject: rule.SlotId,
+                        detail: byTurn ? $"turn {Turn}" : $"wave {rule.UnlockAtWave} of lane {rule.UnlockLaneId}");
                 }
             }
         }
@@ -717,38 +645,8 @@ namespace FunGame.Battle
             if (Outcome == BattleOutcome.InProgress)
             {
                 Outcome = BattleOutcome.Stalemate;
-                if (Logging)
-                {
-                    Log.Add("STALEMATE (turn limit reached)");
-                }
+                Emit(BattleEventType.Stalemate);
             }
-        }
-
-        private void LogIntents()
-        {
-            foreach (var lane in Lanes.Where(lane => lane.Current != null))
-            {
-                if (Logging)
-                {
-                    Log.Add($"  [{lane.Spec.Id}] {lane.Current.Spec.Name} HP {Fmt(lane.Current.Health)}/{lane.Current.Spec.MaxHealth} intends: {lane.Current.Intent}");
-                }
-            }
-        }
-
-        private void LogBoard()
-        {
-            var results = EvaluateChains().Values.OrderBy(result => result.Chain.Id)
-                .Select(result => $"{result.Chain.Id}={Fmt(result.Value)}");
-            var placed = _pilotBySlot.OrderBy(pair => pair.Key).Select(pair => $"{pair.Key}:{pair.Value}");
-            if (Logging)
-            {
-                Log.Add($"  board: {string.Join(" ", placed)} | chains: {string.Join(", ", results)}");
-            }
-        }
-
-        private static string Fmt(float value)
-        {
-            return DisplayFormat.Value(value);
         }
     }
 }
