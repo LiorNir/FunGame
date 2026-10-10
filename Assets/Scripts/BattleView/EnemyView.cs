@@ -19,6 +19,8 @@ namespace BattleView
         [SerializeField] private SpriteRenderer _barBack;
         [SerializeField] private SpriteRenderer _barFill;
         [SerializeField] private TextMeshPro _healthText;
+        [Tooltip("Optional: which enemy of the lane this is and who comes next (Enemy 1/2, next: Grinder); empty for a lane with one enemy.")]
+        [SerializeField] private TextMeshPro _queueText;
 
         [Tooltip("The enemy's picture is scaled to fit in a square of this size (world units).")]
         [SerializeField] private float _pictureSize = 2.3f;
@@ -78,6 +80,14 @@ namespace BattleView
             }
 
             _intent.text = parts.Count == 0 ? action.Name : $"{action.Name}  {string.Join("  ", parts)}";
+        }
+
+        public void SetQueue(string text)
+        {
+            if (_queueText != null)
+            {
+                _queueText.text = text;
+            }
         }
 
         public void PunchIntent()

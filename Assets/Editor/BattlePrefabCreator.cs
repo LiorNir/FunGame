@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using BattleView;
 using BoardAuthoring;
@@ -45,6 +46,99 @@ namespace FunGame.EditorTools
 
             var visuals = BattleSceneCreator.EnsureVisuals();
             EnsurePrefabs(visuals, overwrite: true);
+        }
+
+        /// <summary>
+        /// Adds parts that newer code expects to the existing card and enemy prefabs (the card's stat bars, the enemy's
+        /// queue line). Only missing parts are added; everything already on the prefabs is kept.
+        /// </summary>
+        [MenuItem("Tools/Fun Game/Add Missing Parts To Battle Prefabs")]
+        private static void AddMissingParts()
+        {
+            var changed = new List<string>();
+            AddParts($"{Folder}/CardView.prefab", EnsureCardStatBars, changed);
+            AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
+            Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
+        }
+
+        private static void AddParts(string path, System.Func<GameObject, bool> ensure, List<string> changed)
+        {
+            if (AssetDatabase.LoadAssetAtPath<GameObject>(path) == null)
+            {
+                return;
+            }
+
+            var contents = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                if (ensure(contents))
+                {
+                    PrefabUtility.SaveAsPrefabAsset(contents, path);
+                    changed.Add(path);
+                }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(contents);
+            }
+        }
+
+        /// <summary>Attack and defense bars where the card's stats text sits. Returns true if anything was added.</summary>
+        private static bool EnsureCardStatBars(GameObject card)
+        {
+            var view = card.GetComponent<CardView>();
+            if (view == null || card.transform.Find("AttackBar") != null)
+            {
+                return false;
+            }
+
+            var attack = CreateStatBar(card.transform, "AttackBar", new Vector2(0f, -72f));
+            var defense = CreateStatBar(card.transform, "DefenseBar", new Vector2(0f, -108f));
+            Assign(view, "_attackBar", attack);
+            Assign(view, "_defenseBar", defense);
+            return true;
+        }
+
+        private static CardStatBar CreateStatBar(Transform parent, string name, Vector2 position)
+        {
+            var size = new Vector2(150f, 30f);
+            var rect = ViewFactory.CreateUiRoot(parent, name, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), position, size);
+            var back = rect.gameObject.AddComponent<Image>();
+            back.color = new Color(0f, 0f, 0f, 0.55f);
+            back.raycastTarget = false;
+
+            var fill = ViewFactory.CreateImage(rect, "Fill", Color.white, size, Vector2.zero);
+            fill.raycastTarget = false;
+            fill.rectTransform.anchorMin = Vector2.zero;
+            fill.rectTransform.anchorMax = Vector2.one;
+            fill.rectTransform.pivot = new Vector2(0f, 0.5f);
+            fill.rectTransform.offsetMin = new Vector2(2f, 2f);
+            fill.rectTransform.offsetMax = new Vector2(-2f, -2f);
+
+            var label = ViewFactory.CreateUiText(rect, "Label", "ATK 3", 22f, Color.white, size, Vector2.zero);
+            label.raycastTarget = false;
+
+            var bar = rect.gameObject.AddComponent<CardStatBar>();
+            Assign(bar, "_fill", fill);
+            Assign(bar, "_label", label);
+            return bar;
+        }
+
+        /// <summary>A line under the enemy's health: which enemy of the lane it is and who comes next.</summary>
+        private static bool EnsureEnemyQueueText(GameObject enemy)
+        {
+            var view = enemy.GetComponent<EnemyView>();
+            if (view == null || enemy.transform.Find("QueueText") != null)
+            {
+                return false;
+            }
+
+            var health = enemy.transform.Find("HealthText");
+            var position = (health != null ? health.localPosition : new Vector3(0f, -1.63f, 0f)) + new Vector3(0f, -0.3f, 0f);
+            var queue = WorldText(enemy.transform, "QueueText", 0.22f, new Color(0.75f, 0.75f, 0.8f), 6, position);
+            queue.text = "Enemy 1/2   next: Grinder";
+            Assign(view, "_queueText", queue);
+            return true;
         }
 
         [MenuItem("Tools/Fun Game/Upgrade Pilot Slot Prefab")]
@@ -227,6 +321,7 @@ namespace FunGame.EditorTools
             Assign(view, "_barBack", barBack);
             Assign(view, "_barFill", barFill);
             Assign(view, "_healthText", health);
+            EnsureEnemyQueueText(root);
             return root;
         }
 
@@ -279,6 +374,7 @@ namespace FunGame.EditorTools
             Assign(view, "_picture", picture);
             Assign(view, "_name", name);
             Assign(view, "_stats", stats);
+            EnsureCardStatBars(rect.gameObject);
             return rect.gameObject;
         }
 

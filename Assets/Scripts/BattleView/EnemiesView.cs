@@ -67,6 +67,19 @@ namespace BattleView
             return _views.TryGetValue(laneId, out var view) ? view.transform.position : transform.position;
         }
 
+        /// <summary>"Enemy 1/2  next: Grinder" for a lane with several enemies; empty for a lane with one.</summary>
+        private static string QueueText(LaneState lane, int ordinal)
+        {
+            var count = lane.Spec.Enemies.Count;
+            if (count <= 1)
+            {
+                return string.Empty;
+            }
+
+            var next = ordinal < count ? $"   next: {lane.Spec.Enemies[ordinal].Name}" : "   last one";
+            return $"Enemy {ordinal}/{count}{next}";
+        }
+
         /// <summary>Shows the current state of every lane.</summary>
         public void Refresh()
         {
@@ -83,6 +96,7 @@ namespace BattleView
                 view.transform.localScale = Vector3.one;
                 view.Show(enemy.Spec, enemy.Health);
                 view.SetIntent(enemy.Intent);
+                view.SetQueue(QueueText(lane, lane.EnemiesSpawned));
             }
         }
 
@@ -93,6 +107,7 @@ namespace BattleView
             var view = _views[laneId];
             view.gameObject.SetActive(true);
             view.Show(spec, spec.MaxHealth);
+            view.SetQueue(QueueText(lane, ordinal));
             view.PlaySpawn();
         }
 

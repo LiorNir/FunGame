@@ -17,9 +17,15 @@ namespace BattleView
         [SerializeField] private Image _background;
         [SerializeField] private Image _picture;
         [SerializeField] private TextMeshProUGUI _name;
+        [Tooltip("Shown only when the card has no stat bars.")]
         [SerializeField] private TextMeshProUGUI _stats;
+        [Tooltip("Optional: attack and defense as bars (the defense bar shows how much of it is left). Without them the Stats text is used.")]
+        [SerializeField] private CardStatBar _attackBar;
+        [SerializeField] private CardStatBar _defenseBar;
         [SerializeField] private Color _normalColor = new Color(0.14f, 0.16f, 0.28f, 0.96f);
         [SerializeField] private Color _selectedColor = new Color(0.25f, 0.4f, 0.3f, 0.98f);
+
+        private PilotUnit _shownPilot;
 
         public event Action<CardView> Clicked;
         public int Index { get; private set; }
@@ -51,6 +57,17 @@ namespace BattleView
 
             var attack = DisplayFormat.Value(pilot.EffectiveAttack);
             var defense = DisplayFormat.Value(pilot.EffectiveDefense);
+            if (_attackBar != null && _defenseBar != null)
+            {
+                // the same pilot as last time: its defense slides to the new value (for example while it recovers in the hand)
+                var samePilot = pilot == _shownPilot;
+                _shownPilot = pilot;
+                _stats.text = string.Empty;
+                _attackBar.Set($"ATK {attack}", 1f, visuals.AttackColor, samePilot);
+                _defenseBar.Set($"DEF {defense}", 1f - pilot.DefenseWound, visuals.DefenseColor, samePilot);
+                return;
+            }
+
             var wounded = pilot.DefenseWound > 0.001f ? $" <size=60%>(of {DisplayFormat.Value(pilot.BaseDefense)})</size>" : string.Empty;
             _stats.text = visuals.AttackText($"ATK {attack}") + "\n" + visuals.DefenseText($"DEF {defense}") + wounded;
         }

@@ -62,9 +62,10 @@ Last updated: 2026-10-09. This file has three parts: **start here** (where the w
 - *Post-battle score for currency (shop money):* points from mechanics used (pilots placed, ejected, abilities activated...) minus penalties (pilots lost, HP lost...). To stop grinding weak levels, a multiplier that shrinks the reward more the further the player has progressed past that world.
 - *Enemy moveset knowledge as progression:* the first fight against an enemy is played blind; later fights benefit from knowing its moves.
 
-**UI to do (from the playtests):**
-- Hand cards: fill bars for the stats, like the board's stat boxes, so a recovering pilot shows a part-filled defense bar (animated at the turn change), instead of the "(of 3)" text. The bar shows the share left, not the maximum value.
-- Enemy queue: show that more enemies are coming (enemy 1/2) and, once enemy types repeat across the game, which one is next ("next: Grinder").
+**UI from the playtests (done 2026-10-10, not yet seen by the user):**
+- Hand cards show attack and defense as bars (`CardStatBar`, parts AttackBar/DefenseBar on the CardView prefab) instead of the "(of 3)" text; a recovering pilot's defense bar is part full and slides at the turn change. The bar shows the share left, not the maximum value. Without the bars the card falls back to its Stats text.
+- Enemies in a lane with several enemies show "Enemy 1/2   next: Big grinder" under their health (`QueueText` on the EnemyView prefab); a lane with one enemy shows nothing.
+- Both parts were added to the existing prefabs by *Tools > Fun Game > Add Missing Parts To Battle Prefabs* (only missing parts are added) and are part of *Create Battle Prefabs* too.
 
 **Tutorial notes** (things a real tutorial or UI pointer must teach, collected from the playtests):
 - World 1: place a pilot and attack; a chain only counts up to its first gap (prefix rule); a hit equal to a defense chain's value leaves it standing at 0, and the next hit breaks it; a broken chain's pilots fall, and the fallen block the chain until a pilot is placed on top of them; a chain at 0 under multiply is not revived by swapping one pilot.
