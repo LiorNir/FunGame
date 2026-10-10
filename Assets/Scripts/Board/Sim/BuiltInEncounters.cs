@@ -25,6 +25,12 @@ namespace FunGame.Sim
             new PilotStats("Pion", 1f, 1f)
         };
 
+        /// <summary>
+        /// The game's global rules as set in the Unity GameRules asset (Assets/Rules/GameRules.asset): a copy for the lab, keep it
+        /// in step. Player health 10 since 2026-10-10.
+        /// </summary>
+        public static BattleRules GameRules => new BattleRules { PlayerMaxHealth = 10 };
+
         /// <summary>World 1 followed by the loose samples.</summary>
         public static IReadOnlyList<EncounterCase> All()
         {
@@ -62,7 +68,7 @@ namespace FunGame.Sim
             IReadOnlyList<SlotRule> slotRules = null,
             string note = null)
         {
-            var setup = new BattleSetup(board, slotRules ?? new List<SlotRule>(), lanes, new BattleRules(), StarterRoster, 1);
+            var setup = new BattleSetup(board, slotRules ?? new List<SlotRule>(), lanes, GameRules, StarterRoster, 1);
             return new EncounterCase(name, tier, setup, note);
         }
 
@@ -80,7 +86,9 @@ namespace FunGame.Sim
         /// </summary>
         public static IReadOnlyList<EncounterCase> WorldOne()
         {
-            var rules = new BattleRules { AllowReplace = false, AllowEject = false };
+            var rules = GameRules;
+            rules.AllowReplace = false;
+            rules.AllowEject = false;
 
             // 1: two slots in a line, a harmless enemy
             var firstBoard = new BoardGraph(
@@ -100,19 +108,21 @@ namespace FunGame.Sim
                     new[] { new LaneSpec("lane1", new[] { Enemy("Scrapper", 7, false, Act("Shell", 1, 1)) }) }, rules, StarterRoster, 1),
                 "A third slot opens on turn 2, and the enemy is too sturdy to beat without it.", "World 1", 2, "a slot that opens on a turn");
 
-            // 3 (boss): attack and defense branch off one root, with multiply on the attack and a subtract toll on the defense
+            // 3 (boss): attack and defense branch off one root, with multiply on the attack. The defense branch is short on
+            // purpose (it had a subtract toll, which no pilot could use well; removed after the first playtest), so the defense
+            // breaks during the battle and the player sees a broken chain.
             var bossBoard = new BoardGraph(
                 new[]
                 {
                     new SlotNode("R"),
                     new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
-                    new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Subtract)
+                    new SlotNode("D1", "R", Operation.Add)
                 },
-                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var boss = new EncounterCase("World 1-3: The gatekeeper (boss)", "Early",
                 new BattleSetup(bossBoard, new List<SlotRule>(),
                     new[] { new LaneSpec("lane1", new[] { Enemy("Gatekeeper", 14, false, Act("Slam", 3, 0), Act("Brace", 0, 2), Act("Slam", 3, 0)) }) }, rules, StarterRoster, 1),
-                "Multiply on the attack branch, a subtract toll on the defense branch.", "World 1", 3, "operators: add, subtract and multiply");
+                "Multiply on the attack branch, a short defense branch that breaks.", "World 1", 3, "operators: add and multiply; a broken chain");
 
             return new[] { first, second, boss };
         }
@@ -138,7 +148,7 @@ namespace FunGame.Sim
             var pin = new EnemyActionData("Pin", new IEnemyEffect[] { new AttackEffect(1), new LockEffect(2, PilotTargetRule.Trunk) });
             var warden = Enemy("Warden", 18, false, Act("Jab", 2, 0), pin, Act("Crush", 6, 0));
             return new EncounterCase("Lock sample: Pinned down", "Early",
-                new BattleSetup(board, new List<SlotRule>(), new[] { new LaneSpec("lane1", new[] { warden }) }, new BattleRules(), StarterRoster, 1),
+                new BattleSetup(board, new List<SlotRule>(), new[] { new LaneSpec("lane1", new[] { warden }) }, GameRules, StarterRoster, 1),
                 "Pin locks the trunk pilot for 2 turns, then Crush breaks the defense; the root is in both chains.", null, 0, "reacting to Lock");
         }
 

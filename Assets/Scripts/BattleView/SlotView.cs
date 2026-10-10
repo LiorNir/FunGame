@@ -79,7 +79,7 @@ namespace BattleView
         [SerializeField] private Color _highlightColor = new Color(0.4f, 1f, 0.5f);
         [SerializeField] private Color _lockedColor = new Color(0.25f, 0.25f, 0.3f);
         [SerializeField] private Color _inactiveColor = new Color(0.45f, 0.45f, 0.45f, 0.8f);
-        [SerializeField] private Color _fallenColor = new Color(0.35f, 0.35f, 0.35f, 0.7f);
+        [SerializeField] private Color _fallenColor = new Color(0.04f, 0.04f, 0.05f, 1f);
 
         private BattleVisuals _visuals;
         private bool _ready;

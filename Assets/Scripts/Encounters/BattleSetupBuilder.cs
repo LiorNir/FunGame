@@ -11,8 +11,14 @@ namespace Encounters
     /// <summary>Turns the authored assets (encounter, game rules, pilot deck) into the pure data the battle engine runs on.</summary>
     public static class BattleSetupBuilder
     {
+        /// <param name="deck">The starter deck; an encounter with a test deck (<see cref="EncounterDefinition.TestDeck"/>) uses that instead.</param>
         public static BattleSetup Build(EncounterDefinition encounter, GameRules gameRules, PilotDeck deck, int seed)
         {
+            if (encounter.TestDeck != null)
+            {
+                deck = encounter.TestDeck;
+            }
+
             var board = encounter.Board;
             var graph = BoardConverter.ToGraph(board);
 

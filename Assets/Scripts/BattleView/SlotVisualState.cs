@@ -34,7 +34,7 @@ namespace BattleView
         [SerializeField] private ColorPair _locked = new ColorPair(new Color(0.05f, 0.05f, 0.07f), new Color(0.2f, 0.2f, 0.25f));
         [SerializeField] private ColorPair _inactive = new ColorPair(new Color(0.15f, 0.15f, 0.15f), new Color(0.5f, 0.5f, 0.5f));
         [Tooltip("A fallen pilot's ring: much darker than inactive, so a dead pilot never looks like one that is only cut off.")]
-        [SerializeField] private ColorPair _fallen = new ColorPair(new Color(0.02f, 0.02f, 0.02f), new Color(0.12f, 0.1f, 0.1f));
+        [SerializeField] private ColorPair _fallen = new ColorPair(new Color(0f, 0f, 0f), new Color(0.05f, 0.045f, 0.045f));
 
         [Header("Active (chain colour)")]
         [Tooltip("How bright the dark colour is compared with the bright one (0 = black).")]

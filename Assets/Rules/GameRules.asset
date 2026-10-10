@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f87c848c861584e9c17ce9404c55e7, type: 3}
   m_Name: GameRules
   m_EditorClassIdentifier: Assembly-CSharp::Configurations.GameRules
-  PlayerMaxHealth: 20
+  PlayerMaxHealth: 10
   StartingActionPoints: 3
   ActionPointsPerTurn: 3
   HandSize: 4

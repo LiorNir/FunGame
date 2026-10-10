@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BoardAuthoring;
 using Combat;
+using Configurations;
 using UnityEngine;
 
 namespace Encounters
@@ -31,12 +32,19 @@ namespace Encounters
         [Tooltip("Off until the game has taught taking a pilot back into the hand. Early encounters switch it off.")]
         [SerializeField] private bool _allowEject = true;
 
+        [Header("Testing (until progression exists)")]
+        [Tooltip("Optional. Plays this encounter with this deck instead of the starter deck: the pilots the player would have by this point (upgrades and recruited pilots), until SP spending and rewards exist.")]
+        [SerializeField] private PilotDeck _testDeck;
+
         public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
         public BoardLayoutAuthoring Board => _board;
         public IReadOnlyList<LaneEnemies> Lanes => _lanes;
         public int RewardSkillPoints => _rewardSkillPoints;
         public bool AllowReplace => _allowReplace;
         public bool AllowEject => _allowEject;
+
+        /// <summary>The deck this encounter is played with instead of the starter deck, or null for the starter deck.</summary>
+        public PilotDeck TestDeck => _testDeck;
 
         public void SetData(string displayName, BoardLayoutAuthoring board, List<LaneEnemies> lanes, int rewardSkillPoints)
         {
@@ -51,6 +59,11 @@ namespace Encounters
         {
             _allowReplace = allowReplace;
             _allowEject = allowEject;
+        }
+
+        public void SetTestDeck(PilotDeck deck)
+        {
+            _testDeck = deck;
         }
     }
 
