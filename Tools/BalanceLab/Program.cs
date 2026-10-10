@@ -11,7 +11,8 @@ namespace BalanceLab
 {
     /// <summary>
     /// The balance lab: plays encounters with simulated players at different roster power and writes a report.
-    ///   report [--runs N] [--builtin] [--only text] [--out file.html]   the full report (encounters from Tools/BalanceLab/encounters, or the built-in samples)
+    ///   report [--runs N] [--builtin] [--only text] [--out file.html] [--player-hp N]   the full report (encounters from Tools/BalanceLab/encounters, or the built-in samples);
+    ///                                                      --player-hp replays every encounter with that starting player health, to compare values
     ///   quick [N]                                          a short table in the console
     ///   botcheck [N]                                       compares the search player's beam widths with exhaustive search
     /// Tools/BalanceLab/tiers.txt (optional) sets each encounter's tier and intended power: lines of "name|Tier|power".
@@ -78,6 +79,18 @@ namespace BalanceLab
             {
                 encounters = encounters.Where(encounter => encounter.Name.Contains(only) || (encounter.World != null && encounter.World.Contains(only))).ToList();
                 source += $" (only: {only})";
+            }
+
+            var playerHealth = Option(args, "--player-hp", null);
+            if (playerHealth != null)
+            {
+                encounters = encounters.Select(encounter =>
+                {
+                    var rules = encounter.Setup.Rules.Copy();
+                    rules.PlayerMaxHealth = int.Parse(playerHealth);
+                    return encounter.WithRules(rules);
+                }).ToList();
+                source += $" (player health {playerHealth})";
             }
 
             var clock = Stopwatch.StartNew();

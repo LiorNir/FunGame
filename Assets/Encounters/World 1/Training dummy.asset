@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Training dummy
   _sprite: {fileID: 0}
-  _maxHealth: 8
+  _maxHealth: 4
   _selectionMode: 0
   _actions:
   - Name: Poke

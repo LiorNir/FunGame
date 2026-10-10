@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Scrapper
   _sprite: {fileID: 0}
-  _maxHealth: 14
+  _maxHealth: 7
   _selectionMode: 0
   _actions:
   - Name: Shell

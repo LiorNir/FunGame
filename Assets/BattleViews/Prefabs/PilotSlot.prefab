@@ -757,6 +757,9 @@ MonoBehaviour:
     _inactive:
       Dark: {r: 0.15, g: 0.15, b: 0.15, a: 1}
       Bright: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    _fallen:
+      Dark: {r: 0.02, g: 0.02, b: 0.02, a: 1}
+      Bright: {r: 0.12, g: 0.1, b: 0.1, a: 1}
     _activeDarkShade: 0.3
     _emptyBrightness: 0.4
     _emptyDarkShade: 0.3
@@ -765,7 +768,7 @@ MonoBehaviour:
   _highlightColor: {r: 1, g: 0.96387804, b: 0.39999998, a: 1}
   _lockedColor: {r: 0.25, g: 0.25, b: 0.3, a: 1}
   _inactiveColor: {r: 0.45, g: 0.45, b: 0.45, a: 0.8}
-  _fallenColor: {r: 0.35, g: 0.35, b: 0.35, a: 0.7}
+  _fallenColor: {r: 0.15, g: 0.15, b: 0.17, a: 0.85}
 --- !u!1 &6888806168979003734
 GameObject:
   m_ObjectHideFlags: 0

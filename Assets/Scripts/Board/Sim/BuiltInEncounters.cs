@@ -88,7 +88,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "S2"), Chain("def", "lane1", ChainRole.Defense, "S2") });
             var first = new EncounterCase("World 1-1: First steps", "Tutorial",
                 new BattleSetup(firstBoard, new List<SlotRule>(),
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Training dummy", 8, false, Act("Poke", 1, 0)) }) }, rules, StarterRoster, 1),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Training dummy", 4, false, Act("Poke", 1, 0)) }) }, rules, StarterRoster, 1),
                 "Place pilots and win.", "World 1", 1, "placing pilots; a chain adds up");
 
             // 2: the same line with a third slot that opens on turn 2
@@ -97,7 +97,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "S3"), Chain("def", "lane1", ChainRole.Defense, "S3") });
             var second = new EncounterCase("World 1-2: A door opens", "Tutorial",
                 new BattleSetup(secondBoard, new[] { new SlotRule("S3", true, 0, 0, 2) },
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Scrapper", 14, false, Act("Shell", 1, 1)) }) }, rules, StarterRoster, 1),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Scrapper", 7, false, Act("Shell", 1, 1)) }) }, rules, StarterRoster, 1),
                 "A third slot opens on turn 2, and the enemy is too sturdy to beat without it.", "World 1", 2, "a slot that opens on a turn");
 
             // 3 (boss): attack and defense branch off one root, with multiply on the attack and a subtract toll on the defense

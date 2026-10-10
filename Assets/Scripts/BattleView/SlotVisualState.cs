@@ -12,15 +12,18 @@ namespace BattleView
         /// <summary>The slot cannot hold a pilot yet.</summary>
         Locked,
 
-        /// <summary>A pilot stands here but does not count: the chain is broken closer to the root, or the pilot fell.</summary>
+        /// <summary>A living pilot stands here but does not count: the chain is broken closer to the root.</summary>
         Inactive,
+
+        /// <summary>The pilot here fell: it is gone from the battle and only waits to be cleared. Darker than inactive.</summary>
+        Fallen,
 
         /// <summary>A pilot stands here and counts.</summary>
         Active
     }
 
     /// <summary>
-    /// The colours of a slot's ring and stat borders for each state. Locked and inactive have colours of their own. Active
+    /// The colours of a slot's ring and stat borders for each state. Locked, inactive and fallen have colours of their own. Active
     /// takes the colour of the chain the slot belongs to (attack, defense or both, from the Battle Visuals), and empty is
     /// the same colour dimmed, as a hint of which chain the slot would feed. In both the dark side is derived from the
     /// bright one. Lives on the slot prefab, so changing it touches that prefab only.
@@ -30,6 +33,8 @@ namespace BattleView
     {
         [SerializeField] private ColorPair _locked = new ColorPair(new Color(0.05f, 0.05f, 0.07f), new Color(0.2f, 0.2f, 0.25f));
         [SerializeField] private ColorPair _inactive = new ColorPair(new Color(0.15f, 0.15f, 0.15f), new Color(0.5f, 0.5f, 0.5f));
+        [Tooltip("A fallen pilot's ring: much darker than inactive, so a dead pilot never looks like one that is only cut off.")]
+        [SerializeField] private ColorPair _fallen = new ColorPair(new Color(0.02f, 0.02f, 0.02f), new Color(0.12f, 0.1f, 0.1f));
 
         [Header("Active (chain colour)")]
         [Tooltip("How bright the dark colour is compared with the bright one (0 = black).")]
@@ -62,7 +67,9 @@ namespace BattleView
         /// <summary>The colour of the fill inside a stat box: the box's colour toned down, or the inactive grey.</summary>
         public Color FillFor(SlotVisualState state, Color boxColor)
         {
-            return state == SlotVisualState.Inactive ? _inactive.Dark : Scaled(boxColor, _fillBrightness);
+            return state == SlotVisualState.Inactive ? _inactive.Dark
+                : state == SlotVisualState.Fallen ? _fallen.Dark
+                : Scaled(boxColor, _fillBrightness);
         }
 
         /// <param name="chainColor">The colour of the chain this ring or border belongs to; used when empty or active.</param>
@@ -76,6 +83,8 @@ namespace BattleView
                     return _locked;
                 case SlotVisualState.Inactive:
                     return _inactive;
+                case SlotVisualState.Fallen:
+                    return _fallen;
                 default:
                     return ColorPair.FromBright(chainColor, _activeDarkShade);
             }

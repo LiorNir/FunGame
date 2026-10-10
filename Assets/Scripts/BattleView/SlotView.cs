@@ -186,7 +186,8 @@ namespace BattleView
             RefreshBackgroundColor();
             SetState(locked ? SlotVisualState.Locked
                 : !hasPilot ? SlotVisualState.Empty
-                : fallen || _inactive ? SlotVisualState.Inactive
+                : fallen ? SlotVisualState.Fallen
+                : _inactive ? SlotVisualState.Inactive
                 : SlotVisualState.Active);
 
             var source = hasPilot ? pilot.Source as PilotTokenConfiguration : null;
@@ -246,7 +247,7 @@ namespace BattleView
             ViewFactory.TweenColor(_pilotRenderer, _fallenColor, 0.4f);
             transform.DOPunchScale(Vector3.one * 0.25f, 0.35f);
             SetPilotPartsVisible(false);
-            SetState(SlotVisualState.Inactive);
+            SetState(SlotVisualState.Fallen);
         }
 
         public void Punch(float strength = 0.2f)
