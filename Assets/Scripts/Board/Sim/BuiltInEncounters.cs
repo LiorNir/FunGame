@@ -27,14 +27,14 @@ namespace FunGame.Sim
 
         /// <summary>
         /// The game's global rules as set in the Unity GameRules asset (Assets/Rules/GameRules.asset): a copy for the lab, keep it
-        /// in step. Player health 10 since 2026-10-10.
+        /// in step. Player health 10 and half a pilot's defense recovered per turn in the hand since 2026-10-10.
         /// </summary>
-        public static BattleRules GameRules => new BattleRules { PlayerMaxHealth = 10 };
+        public static BattleRules GameRules => new BattleRules { PlayerMaxHealth = 10, HandRecoveryPerTurn = 0.5f };
 
-        /// <summary>World 1 followed by the loose samples.</summary>
+        /// <summary>World 1 and World 2 followed by the loose samples.</summary>
         public static IReadOnlyList<EncounterCase> All()
         {
-            return WorldOne().Concat(new[]
+            return WorldOne().Concat(WorldTwo()).Concat(new[]
             {
                 TutorialStraight(),
                 EarlySplitPair(),
@@ -123,6 +123,78 @@ namespace FunGame.Sim
                 new BattleSetup(bossBoard, new List<SlotRule>(),
                     new[] { new LaneSpec("lane1", new[] { Enemy("Gatekeeper", 14, false, Act("Slam", 3, 0), Act("Brace", 0, 2), Act("Slam", 3, 0)) }) }, rules, StarterRoster, 1),
                 "Multiply on the attack branch, a short defense branch that breaks.", "World 1", 3, "operators: add and multiply; a broken chain");
+
+            return new[] { first, second, boss };
+        }
+
+        // ---------- World 2: changing your board (replacing and ejecting) ----------
+
+        /// <summary>
+        /// The pilots the player has by World 2, standing in for progression until SP and rewards exist: the starter deck
+        /// with the first upgrade (+1 to one stat of one pilot: Quill's defense, 2 -> 3) and the World 1 boss's reward pilot
+        /// Spark (strong but fragile). Mirrors the Unity test deck of the World 2 encounters.
+        /// </summary>
+        public static IReadOnlyList<PilotStats> WorldTwoRoster => new[]
+        {
+            new PilotStats("Osis", 2f, 1f),
+            new PilotStats("Sil", 2f, 1f),
+            new PilotStats("Quill", 1f, 3f),
+            new PilotStats("Yawn", 1f, 1f),
+            new PilotStats("Haze", 1.5f, 0.5f),
+            new PilotStats("Pion", 1f, 1f),
+            new PilotStats("Spark", 3f, 0.5f)
+        };
+
+        /// <summary>
+        /// The second world: changing pilots that are already on the board. 2-1 teaches replacing (ejecting is still off),
+        /// 2-2 teaches ejecting, the boss needs both and has a slot opened with AP. Each step is built so that it cannot be won
+        /// comfortably without its tool; the lab checks this with the "Does it need...?" table.
+        /// </summary>
+        public static IReadOnlyList<EncounterCase> WorldTwo()
+        {
+            // 2-1: a short board whose defense wears down every turn; fresh pilots keep it standing
+            var replaceRules = GameRules;
+            replaceRules.AllowEject = false;
+            var firstBoard = new BoardGraph(
+                new[] { new SlotNode("R"), new SlotNode("A1", "R", Operation.Add), new SlotNode("D1", "R", Operation.Add) },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D1") });
+            var first = new EncounterCase("World 2-1: Fresh legs", "Early",
+                new BattleSetup(firstBoard, new List<SlotRule>(),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Grinder", 9, false, Act("Grind", 3, 0)), Enemy("Big grinder", 10, false, Act("Grind", 3, 0)) }) },
+                    replaceRules, WorldTwoRoster, 1),
+                "The defense wears down every turn; swapping a worn pilot for a fresh one keeps it standing.", "World 2", 1, "replacing pilots");
+
+            // 2-2: a long defense chain and a telegraphed crush that no chain can hold. Ejecting the root breaks the chain on
+            // purpose, so the pilots behind it are not hit (the player takes the damage instead).
+            var ejectRules = GameRules;
+            var secondBoard = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("RA"), new SlotNode("A1", "RA", Operation.Add),
+                    new SlotNode("RD"), new SlotNode("D1", "RD", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+            var second = new EncounterCase("World 2-2: Duck!", "Early",
+                new BattleSetup(secondBoard, new List<SlotRule>(),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Crusher", 20, false, Act("Jab", 1, 0), Act("Crush", 6, 0), Act("Jab", 1, 0), Act("Jab", 1, 0)) }) },
+                    ejectRules, WorldTwoRoster, 1),
+                "A telegraphed crush breaks any defense chain; pulling the root out first saves the pilots behind it.", "World 2", 2, "ejecting pilots");
+
+            // 2-3 (boss): one operator feeds both branches; multiply on the attack, a defense slot opened with AP
+            var bossRules = GameRules;
+            var bossBoard = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("R"),
+                    new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
+                    new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+            var boss = new EncounterCase("World 2-3: The foreman (boss)", "Early",
+                new BattleSetup(bossBoard, new[] { new SlotRule("D2", true, 1, 0, 0) },
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Foreman", 30, false, Act("Grind", 3, 0), Act("Crush", 7, 0), Act("Brace", 1, 3)) }) },
+                    bossRules, WorldTwoRoster, 1),
+                "Wear, a guard and a crush in turn; a defense slot that costs 1 AP to open.", "World 2", 3, "replacing and ejecting together; a slot opened with AP");
 
             return new[] { first, second, boss };
         }

@@ -59,6 +59,7 @@ namespace Encounters
                 StartingActionPoints = gameRules.StartingActionPoints,
                 ActionPointsPerTurn = gameRules.ActionPointsPerTurn,
                 HandSize = gameRules.HandSize,
+                HandRecoveryPerTurn = gameRules.HandRecoveryPerTurn,
                 PlacePilotCost = gameRules.PlacePilotCost,
                 ReplacePilotCost = gameRules.ReplacePilotCost,
                 EjectPilotCost = gameRules.EjectPilotCost,

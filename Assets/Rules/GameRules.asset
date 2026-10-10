@@ -16,6 +16,7 @@ MonoBehaviour:
   StartingActionPoints: 3
   ActionPointsPerTurn: 3
   HandSize: 4
+  HandRecoveryPerTurn: 0.5
   PlacePilotCost: 1
   ReplacePilotCost: 1
   EjectPilotCost: 1

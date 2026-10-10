@@ -28,6 +28,13 @@ namespace FunGame.Battle
         /// <summary>Whether a living pilot may be taken off the board. Switched off like <see cref="AllowReplace"/> until taught.</summary>
         public bool AllowEject { get; set; } = true;
 
+        /// <summary>
+        /// How much of a pilot's defense comes back each turn it spends in the hand (after being replaced or ejected), as a
+        /// share of its full defense: 0.5 heals a pilot in two turns. 0 = wounds stay. Makes taking a worn pilot off the board
+        /// worth something: it can rest and come back.
+        /// </summary>
+        public float HandRecoveryPerTurn { get; set; }
+
         public BattleRules Copy()
         {
             return (BattleRules)MemberwiseClone();

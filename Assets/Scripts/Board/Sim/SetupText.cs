@@ -30,7 +30,7 @@ namespace FunGame.Sim
 
             var rules = setup.Rules;
             text.AppendLine($"rules|{rules.PlayerMaxHealth}|{rules.StartingActionPoints}|{rules.ActionPointsPerTurn}|{rules.HandSize}|" +
-                            $"{rules.PlacePilotCost}|{rules.ReplacePilotCost}|{rules.EjectPilotCost}|{rules.ActivateAbilityCost}|{(rules.AllowReplace ? 1 : 0)}|{(rules.AllowEject ? 1 : 0)}");
+                            $"{rules.PlacePilotCost}|{rules.ReplacePilotCost}|{rules.EjectPilotCost}|{rules.ActivateAbilityCost}|{(rules.AllowReplace ? 1 : 0)}|{(rules.AllowEject ? 1 : 0)}|{Number(rules.HandRecoveryPerTurn)}");
 
             foreach (var node in setup.Board.Nodes)
             {
@@ -128,7 +128,8 @@ namespace FunGame.Sim
                                 PlayerMaxHealth = Int(fields[1]), StartingActionPoints = Int(fields[2]), ActionPointsPerTurn = Int(fields[3]),
                                 HandSize = Int(fields[4]), PlacePilotCost = Int(fields[5]), ReplacePilotCost = Int(fields[6]),
                                 EjectPilotCost = Int(fields[7]), ActivateAbilityCost = Int(fields[8]),
-                                AllowReplace = fields.Length <= 9 || fields[9] == "1", AllowEject = fields.Length <= 10 || fields[10] == "1"
+                                AllowReplace = fields.Length <= 9 || fields[9] == "1", AllowEject = fields.Length <= 10 || fields[10] == "1",
+                                HandRecoveryPerTurn = fields.Length > 11 ? Float(fields[11]) : 0f
                             };
                             break;
                         case "node":

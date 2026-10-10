@@ -19,6 +19,9 @@ namespace Configurations
         [Header("Hand")]
         [Min(1)] public int HandSize = 4;
 
+        [Tooltip("How much of its defense a wounded pilot gets back each turn it rests in the hand (after being replaced or ejected), as a share of its full defense. 0.5 heals it in two turns; 0 keeps wounds.")]
+        [Range(0f, 1f)] public float HandRecoveryPerTurn = 0.5f;
+
         [Header("Action costs (AP)")]
         [Min(0)] public int PlacePilotCost = 1;
         [Min(0)] public int ReplacePilotCost = 1;

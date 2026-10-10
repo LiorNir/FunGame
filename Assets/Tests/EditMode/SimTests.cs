@@ -285,6 +285,25 @@ namespace FunGame.Board.Tests
             }
         }
 
+        [Test]
+        public void WorldTwo_TeachesReplacingFirst_ThenEjecting()
+        {
+            var world = BuiltInEncounters.WorldTwo();
+
+            Assert.AreEqual(3, world.Count);
+            for (var index = 0; index < world.Count; index++)
+            {
+                Assert.AreEqual(index + 1, world[index].Position);
+                Assert.AreEqual("World 2", world[index].World);
+                Assert.IsTrue(world[index].Setup.Rules.AllowReplace);
+                Assert.AreEqual(BuiltInEncounters.WorldTwoRoster.Count, world[index].Setup.Deck.Count);
+            }
+
+            Assert.IsFalse(world[0].Setup.Rules.AllowEject); // 2-1 teaches replacing; ejecting comes in 2-2
+            Assert.IsTrue(world[1].Setup.Rules.AllowEject);
+            Assert.IsTrue(world[2].Setup.Rules.AllowEject);
+        }
+
         // ---------- ladder and summaries ----------
 
         [Test]

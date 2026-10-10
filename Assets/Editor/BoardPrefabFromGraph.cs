@@ -37,15 +37,24 @@ namespace FunGame.EditorTools
                 slotsById[node.Id] = slot;
             }
 
-            foreach (var node in graph.Nodes.Where(node => node.ParentId != null))
+            // one operator slot per parent and operation: branches that leave a slot through the same operation share it
+            // (an operator slot with several outputs); a single child keeps the old name op_<child>
+            var groups = graph.Nodes.Where(node => node.ParentId != null)
+                .GroupBy(node => (node.ParentId, Operation: node.ConnectionOperation ?? Operation.Add));
+            foreach (var group in groups)
             {
-                var operatorId = $"op_{node.Id}";
+                var childIds = group.Select(node => node.Id).ToList();
+                var operatorId = childIds.Count == 1 ? $"op_{childIds[0]}" : $"op_{group.Key.ParentId}_{group.Key.Operation}";
                 var operatorSlot = (BoardOperatorSlotAuthoring)PrefabUtility.InstantiatePrefab(
                     BoardAuthoringAssets.OperatorSlotPrefab, root.transform);
                 operatorSlot.gameObject.name = operatorId;
-                operatorSlot.transform.localPosition = (positions[node.ParentId] + positions[node.Id]) * 0.5f;
-                operatorSlot.Configure(operatorId, slotsById[node.ParentId], slotsById[node.Id],
-                    node.ConnectionOperation ?? Operation.Add);
+                var childCentre = childIds.Aggregate(Vector3.zero, (sum, id) => sum + positions[id]) / childIds.Count;
+                operatorSlot.transform.localPosition = (positions[group.Key.ParentId] + childCentre) * 0.5f;
+                operatorSlot.Configure(operatorId, slotsById[group.Key.ParentId], slotsById[childIds[0]], group.Key.Operation);
+                foreach (var childId in childIds.Skip(1))
+                {
+                    operatorSlot.AddOutput(slotsById[childId]);
+                }
             }
 
             foreach (var chain in graph.Chains)

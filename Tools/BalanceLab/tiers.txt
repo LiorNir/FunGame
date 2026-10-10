@@ -16,3 +16,6 @@ World 1-1: First steps|Tutorial|1.0|World 1|1|placing pilots; a chain adds up
 World 1-2: A door opens|Tutorial|1.0|World 1|2|a slot that opens on a turn
 World 1-3: The gatekeeper (boss)|Early|1.0|World 1|3|operators: add and multiply; a broken chain
 Lock sample: Pinned down|Early|1.0|||reacting to Lock
+World 2-1: Fresh legs|Early|1.0|World 2|1|replacing pilots
+World 2-2: Duck!|Early|1.0|World 2|2|ejecting pilots (save pilots at the cost of health)
+World 2-3: The foreman (boss)|Early|1.0|World 2|3|replacing and ejecting together; a slot opened with AP

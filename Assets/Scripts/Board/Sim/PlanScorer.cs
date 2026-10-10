@@ -22,7 +22,7 @@ namespace FunGame.Sim
         public float CoverNext = 25f;
 
         /// <summary>Per pilot that fell this turn. A fallen pilot is gone for the whole battle, so this is high.</summary>
-        public float PilotLost = 30f;
+        public float PilotLost = 15f;
 
         /// <summary>Per full pilot's worth of defense lost to wounds.</summary>
         public float Wound = 2f;

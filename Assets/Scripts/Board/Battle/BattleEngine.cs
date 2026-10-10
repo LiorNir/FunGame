@@ -761,8 +761,24 @@ namespace FunGame.Battle
             }
 
             ApplyUnlocks();
+            RecoverHand();
             DrawToHandSize();
             Emit(BattleEventType.PlanningStarted, a: PlayerHealth, b: ActionPoints);
+        }
+
+        /// <summary>Pilots resting in the hand get back part of their defense (see <see cref="BattleRules.HandRecoveryPerTurn"/>).</summary>
+        private void RecoverHand()
+        {
+            var recovery = Setup.Rules.HandRecoveryPerTurn;
+            if (recovery <= 0f)
+            {
+                return;
+            }
+
+            foreach (var pilot in Hand)
+            {
+                pilot.DefenseWound = Math.Max(0f, pilot.DefenseWound - recovery);
+            }
         }
 
         private void SpawnNextEnemy(LaneState lane)

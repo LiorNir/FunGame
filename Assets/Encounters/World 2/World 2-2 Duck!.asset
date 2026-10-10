@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720230d131320db4f8a1fce0fd9f9e6f, type: 3}
+  m_Name: World 2-2 Duck!
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.EncounterDefinition
+  _displayName: 'World 2-2: Duck!'
+  _board: {fileID: 1921179021836038180, guid: b8f8b5a924795c54aa699088ada71ec1, type: 3}
+  _lanes:
+  - LaneId: lane1
+    Enemies:
+    - {fileID: 11400000, guid: 62ace957833ecd94fbb856d796777039, type: 2}
+  _rewardSkillPoints: 0
+  _allowReplace: 1
+  _allowEject: 1
+  _testDeck: {fileID: 11400000, guid: 0e0ba5a5fdcc3a24a8c0bd87d0583fa1, type: 2}

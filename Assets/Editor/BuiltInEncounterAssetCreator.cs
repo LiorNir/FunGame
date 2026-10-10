@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using BoardAuthoring;
 using Combat;
+using Configurations;
 using Encounters;
 using FunGame.Battle;
 using FunGame.Sim;
@@ -21,11 +22,20 @@ namespace FunGame.EditorTools
     {
         private const string BoardsFolder = "Assets/Boards";
         private const string EncountersFolder = "Assets/Encounters";
+        private const string DecksFolder = "Assets/Rules";
+        private const string PilotsFolder = "Assets/Scripts/Configurations/Pilots";
 
         [MenuItem("Tools/Fun Game/Create Encounter Assets/World 1")]
         private static void CreateWorldOne()
         {
             Create("World 1", BuiltInEncounters.WorldOne());
+        }
+
+        [MenuItem("Tools/Fun Game/Create Encounter Assets/World 2")]
+        private static void CreateWorldTwo()
+        {
+            var deck = DeckFromRoster(BuiltInEncounters.WorldTwoRoster, $"{DecksFolder}/World 2 Deck.asset");
+            Create("World 2", BuiltInEncounters.WorldTwo(), deck);
         }
 
         [MenuItem("Tools/Fun Game/Create Encounter Assets/Lock Sample")]
@@ -34,7 +44,8 @@ namespace FunGame.EditorTools
             Create("Samples", new[] { BuiltInEncounters.LockPinnedDown() });
         }
 
-        public static void Create(string groupName, IEnumerable<EncounterCase> encounters)
+        /// <param name="testDeck">Optional: the deck these encounters are played with (see <see cref="EncounterDefinition.TestDeck"/>).</param>
+        public static void Create(string groupName, IEnumerable<EncounterCase> encounters, PilotDeck testDeck = null)
         {
             var boardFolder = EnsureFolder(BoardsFolder, groupName);
             var encounterFolder = EnsureFolder(EncountersFolder, groupName);
@@ -62,6 +73,7 @@ namespace FunGame.EditorTools
                 var asset = ScriptableObject.CreateInstance<EncounterDefinition>();
                 asset.SetData(encounter.Name, boardPrefab.GetComponent<BoardLayoutAuthoring>(), lanes, 0);
                 asset.SetAllowedTools(setup.Rules.AllowReplace, setup.Rules.AllowEject);
+                asset.SetTestDeck(testDeck);
                 AssetDatabase.CreateAsset(asset, encounterPath);
                 created.Add(encounter.Name);
             }
@@ -71,6 +83,57 @@ namespace FunGame.EditorTools
             Debug.Log($"{groupName}: created {created.Count} encounter(s) in {encounterFolder} (boards in {boardFolder})" +
                       (created.Count > 0 ? $": {string.Join(", ", created)}" : string.Empty) +
                       (skipped.Count > 0 ? $". Already there, left as they are: {string.Join(", ", skipped)}" : string.Empty) + ".");
+        }
+
+        /// <summary>
+        /// A deck asset holding the lab roster's pilots, in its order. Each pilot is found among the pilot assets by display
+        /// name; if the roster's stats differ (an upgrade), an upgraded copy with the same picture is made in Pilots/Upgrades
+        /// ("Quill (1-3)"). An existing deck asset is kept as it is.
+        /// </summary>
+        public static PilotDeck DeckFromRoster(IReadOnlyList<FunGame.Board.PilotStats> roster, string path)
+        {
+            var existingDeck = AssetDatabase.LoadAssetAtPath<PilotDeck>(path);
+            if (existingDeck != null)
+            {
+                return existingDeck;
+            }
+
+            var pilots = AssetDatabase.FindAssets("t:PilotTokenConfiguration", new[] { PilotsFolder })
+                .Select(guid => AssetDatabase.LoadAssetAtPath<PilotTokenConfiguration>(AssetDatabase.GUIDToAssetPath(guid)))
+                .Where(pilot => pilot != null)
+                .ToList();
+            var chosen = new List<PilotTokenConfiguration>();
+            foreach (var stats in roster)
+            {
+                var named = pilots.Where(pilot => pilot.DisplayName == stats.Name).ToList();
+                var exact = named.FirstOrDefault(pilot => Mathf.Approximately(pilot.AttackValue, stats.Attack) && Mathf.Approximately(pilot.DefenseValue, stats.Defense));
+                if (exact != null)
+                {
+                    chosen.Add(exact);
+                    continue;
+                }
+
+                var basePilot = named.FirstOrDefault();
+                if (basePilot == null)
+                {
+                    Debug.LogWarning($"No pilot asset is named '{stats.Name}'; left out of {path}.");
+                    continue;
+                }
+
+                var upgradesFolder = EnsureFolder(PilotsFolder, "Upgrades");
+                var upgraded = Object.Instantiate(basePilot);
+                upgraded.AttackValue = stats.Attack;
+                upgraded.DefenseValue = stats.Defense;
+                AssetDatabase.CreateAsset(upgraded, AssetDatabase.GenerateUniqueAssetPath(
+                    $"{upgradesFolder}/{stats.Name} ({stats.Attack:0.##}-{stats.Defense:0.##}).asset"));
+                pilots.Add(upgraded);
+                chosen.Add(upgraded);
+            }
+
+            var deck = ScriptableObject.CreateInstance<PilotDeck>();
+            deck.SetData(chosen);
+            AssetDatabase.CreateAsset(deck, path);
+            return deck;
         }
 
         /// <summary>One enemy asset per enemy name in the folder; an enemy shared by several encounters is created once.</summary>

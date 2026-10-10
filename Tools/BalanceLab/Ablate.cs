@@ -5,7 +5,10 @@ using FunGame.Sim;
 
 namespace BalanceLab
 {
-    /// <summary>Win rates of the careful and casual players at rung 0 with and without each mechanic: ablate runs filter.</summary>
+    /// <summary>
+    /// A quick design check of built-in encounters at rung 0: win rate, health left, pilots lost, turns and unused AP per turn,
+    /// as designed and with each mechanic taken away (replacing, ejecting, slots that open by themselves): ablate runs filter.
+    /// </summary>
     public static class Ablate
     {
         public static int Run(string[] args)
@@ -15,22 +18,37 @@ namespace BalanceLab
             foreach (var encounter in BuiltInEncounters.All().Where(candidate => candidate.Name.Contains(filter)))
             {
                 Console.WriteLine($"== {encounter.Name}");
-                foreach (var bot in new[] { PlayerSpec.Casual, PlayerSpec.Careful })
+                foreach (var bot in new[] { PlayerSpec.Casual, PlayerSpec.Careful, PlayerSpec.Gambler })
                 {
                     var deck = encounter.Setup.Deck;
                     string Rate(EncounterCase variant)
                     {
                         var summary = BatchSummary.From(Lab.PlayBatch(variant, deck, bot, 5000, runs));
-                        return $"{summary.WinRate * 100:0}% (hp {summary.AverageHealthLeftOnWin * 100:0}%, lost {summary.AveragePilotsFallen:0.0})";
+                        var apPerTurn = summary.AverageTurns > 0 ? summary.AverageApWasted / summary.AverageTurns : 0;
+                        return $"{summary.WinRate * 100,3:0}% hp {summary.AverageHealthLeftOnWin * 100,3:0}% lost {summary.AveragePilotsFallen:0.0} " +
+                               $"turns {summary.AverageTurns:0.0} idleAP {apPerTurn:0.0} rep {summary.AverageReplaces:0.0} ej {summary.AverageEjects:0.0}";
                     }
 
-                    var text = $"  {bot.Name,-8} normal {Rate(encounter)}";
+                    Console.WriteLine($"  {bot.Name,-8} normal          {Rate(encounter)}");
+                    var rules = encounter.Setup.Rules;
+                    if (rules.AllowReplace)
+                    {
+                        var without = rules.Copy();
+                        without.AllowReplace = false;
+                        Console.WriteLine($"  {"",-8} no replacing    {Rate(encounter.WithRules(without))}");
+                    }
+
+                    if (rules.AllowEject)
+                    {
+                        var without = rules.Copy();
+                        without.AllowEject = false;
+                        Console.WriteLine($"  {"",-8} no ejecting     {Rate(encounter.WithRules(without))}");
+                    }
+
                     if (encounter.HasLockedSlots)
                     {
-                        text += $"   locked slots stay shut {Rate(encounter.WithoutUnlocks())}";
+                        Console.WriteLine($"  {"",-8} slots stay shut {Rate(encounter.WithoutUnlocks())}");
                     }
-
-                    Console.WriteLine(text);
                 }
             }
 

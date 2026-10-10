@@ -622,6 +622,24 @@ namespace FunGame.Board.Tests
         }
 
         [Test]
+        public void WoundedPilotInTheHand_RecoversEachTurn()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 3, 0), new EnemyActionData("Idle", 0, 0));
+            var rules = new BattleRules { HandRecoveryPerTurn = 0.5f };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("Worn", 0f, 4f) }, rules: rules));
+            engine.Start();
+            PlaceByName(engine, "Worn", "R");
+            engine.ResolveTurn(); // 3 of 4 absorbed: wound 0.75
+            Assert.IsTrue(engine.TryEject("R"));
+            Assert.AreEqual(0.75f, engine.Hand[0].DefenseWound, Tolerance);
+
+            engine.ResolveTurn();
+            Assert.AreEqual(0.25f, engine.Hand[0].DefenseWound, Tolerance);
+            engine.ResolveTurn();
+            Assert.AreEqual(0f, engine.Hand[0].DefenseWound, Tolerance);
+        }
+
+        [Test]
         public void LivingPilot_StillCannotBeReplaced_WhenReplacingIsOff()
         {
             var rules = new BattleRules { AllowReplace = false };
