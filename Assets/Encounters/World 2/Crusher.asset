@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Crusher
   _sprite: {fileID: 0}
-  _maxHealth: 20
+  _maxHealth: 8
   _selectionMode: 0
   _actions:
   - Name: Jab
@@ -23,12 +23,7 @@ MonoBehaviour:
     LockTurns: 0
     LockTarget: 4
   - Name: Crush
-    Attack: 6
-    Defense: 0
-    LockTurns: 0
-    LockTarget: 4
-  - Name: Jab
-    Attack: 1
+    Attack: 5
     Defense: 0
     LockTurns: 0
     LockTarget: 4

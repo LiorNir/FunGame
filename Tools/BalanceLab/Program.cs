@@ -81,6 +81,17 @@ namespace BalanceLab
                 source += $" (only: {only})";
             }
 
+            if (args.Contains("--broken-chains-absorb-nothing"))
+            {
+                encounters = encounters.Select(encounter =>
+                {
+                    var rules = encounter.Setup.Rules.Copy();
+                    rules.BrokenChainAbsorbs = false;
+                    return encounter.WithRules(rules);
+                }).ToList();
+                source += " (broken chains absorb nothing)";
+            }
+
             var playerHealth = Option(args, "--player-hp", null);
             if (playerHealth != null)
             {

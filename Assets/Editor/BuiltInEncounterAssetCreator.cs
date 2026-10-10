@@ -45,7 +45,11 @@ namespace FunGame.EditorTools
         }
 
         /// <param name="testDeck">Optional: the deck these encounters are played with (see <see cref="EncounterDefinition.TestDeck"/>).</param>
-        public static void Create(string groupName, IEnumerable<EncounterCase> encounters, PilotDeck testDeck = null)
+        /// <param name="update">
+        /// Rewrite encounters that already exist (board, enemies, rules) from the code version, keeping their asset paths. For
+        /// iterating on a draft before the user has edited it; the menus never do this.
+        /// </param>
+        public static void Create(string groupName, IEnumerable<EncounterCase> encounters, PilotDeck testDeck = null, bool update = false)
         {
             var boardFolder = EnsureFolder(BoardsFolder, groupName);
             var encounterFolder = EnsureFolder(EncountersFolder, groupName);
@@ -56,25 +60,37 @@ namespace FunGame.EditorTools
             {
                 var fileName = FileName(encounter.Name);
                 var encounterPath = $"{encounterFolder}/{fileName}.asset";
-                if (AssetDatabase.LoadAssetAtPath<EncounterDefinition>(encounterPath) != null)
+                var existing = AssetDatabase.LoadAssetAtPath<EncounterDefinition>(encounterPath);
+                if (existing != null && !update)
                 {
                     skipped.Add(encounter.Name);
                     continue;
                 }
 
                 var setup = encounter.Setup;
-                var boardPrefab = BoardPrefabFromGraph.Create(fileName, setup.Board,
-                    AssetDatabase.GenerateUniqueAssetPath($"{boardFolder}/{fileName}.prefab"), setup.SlotRules);
+                // updating keeps the board prefab's path (and so every reference to it); a new encounter gets a new board
+                var boardPath = existing != null && existing.Board != null
+                    ? AssetDatabase.GetAssetPath(existing.Board)
+                    : AssetDatabase.GenerateUniqueAssetPath($"{boardFolder}/{fileName}.prefab");
+                var boardPrefab = BoardPrefabFromGraph.Create(fileName, setup.Board, boardPath, setup.SlotRules);
 
                 var lanes = setup.Lanes
-                    .Select(lane => new LaneEnemies(lane.Id, lane.Enemies.Select(enemy => CreateEnemy(enemy, encounterFolder)).ToList()))
+                    .Select(lane => new LaneEnemies(lane.Id, lane.Enemies.Select(enemy => CreateEnemy(enemy, encounterFolder, update)).ToList()))
                     .ToList();
 
-                var asset = ScriptableObject.CreateInstance<EncounterDefinition>();
+                var asset = existing != null ? existing : ScriptableObject.CreateInstance<EncounterDefinition>();
                 asset.SetData(encounter.Name, boardPrefab.GetComponent<BoardLayoutAuthoring>(), lanes, 0);
                 asset.SetAllowedTools(setup.Rules.AllowReplace, setup.Rules.AllowEject);
                 asset.SetTestDeck(testDeck);
-                AssetDatabase.CreateAsset(asset, encounterPath);
+                if (existing == null)
+                {
+                    AssetDatabase.CreateAsset(asset, encounterPath);
+                }
+                else
+                {
+                    EditorUtility.SetDirty(asset);
+                }
+
                 created.Add(encounter.Name);
             }
 
@@ -137,20 +153,28 @@ namespace FunGame.EditorTools
         }
 
         /// <summary>One enemy asset per enemy name in the folder; an enemy shared by several encounters is created once.</summary>
-        private static EnemyDefinition CreateEnemy(EnemySpec spec, string folder)
+        private static EnemyDefinition CreateEnemy(EnemySpec spec, string folder, bool update)
         {
             var path = $"{folder}/{FileName(spec.Name)}.asset";
             var existing = AssetDatabase.LoadAssetAtPath<EnemyDefinition>(path);
-            if (existing != null)
+            if (existing != null && !update)
             {
                 return existing;
             }
 
-            var enemy = ScriptableObject.CreateInstance<EnemyDefinition>();
+            var enemy = existing != null ? existing : ScriptableObject.CreateInstance<EnemyDefinition>();
             enemy.SetData(spec.Name, spec.MaxHealth,
                 spec.RandomSelection ? EnemyActionSelectionMode.Random : EnemyActionSelectionMode.Sequential,
                 spec.Actions.Select(ToAction).ToList());
-            AssetDatabase.CreateAsset(enemy, path);
+            if (existing == null)
+            {
+                AssetDatabase.CreateAsset(enemy, path);
+            }
+            else
+            {
+                EditorUtility.SetDirty(enemy);
+            }
+
             return enemy;
         }
 

@@ -2,25 +2,24 @@
 name|World 2-2: Duck!
 tier|Mid
 note|from Assets/Encounters/World 2/World 2-2 Duck!.asset
-rules|10|3|3|4|1|1|1|1|1|1|0.5
+rules|10|3|3|4|1|1|1|1|1|1|0.5|1
 node|RA|||None|0
 node|A1|RA|Add|None|0
 node|RD|||None|0
 node|D1|RD|Add|None|0
-node|D2|D1|Add|None|0
 chain|lane1-Attack-1|lane1|Attack|A1
-chain|lane1-Defense-1|lane1|Defense|D2
+chain|lane1-Defense-1|lane1|Defense|D1
 slot|RA|0|0|0|0|
 slot|A1|0|0|0|0|
 slot|RD|0|0|0|0|
 slot|D1|0|0|0|0|
-slot|D2|0|0|0|0|
 lane|lane1
-enemy|lane1|Crusher|20|0
+enemy|lane1|Crusher|8|0
 action|Jab|1|0
-action|Crush|6|0
+action|Crush|5|0
 action|Jab|1|0
-action|Jab|1|0
+enemy|lane1|Hammer|15|0
+action|Hammer|4|0
 pilot|Osis|2|1
 pilot|Sil|2|1
 pilot|Quill|1|3

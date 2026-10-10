@@ -9,6 +9,10 @@ namespace Configurations
         [Header("Player")]
         [Min(1)] public int PlayerMaxHealth = 20;
 
+        [Header("Defense")]
+        [Tooltip("On (the rule so far): a defense chain that breaks still absorbs its value; only the rest of the hit goes on. Off (on trial): a chain that breaks absorbs nothing, so ducking (ejecting its root before the hit) is the better answer to a hit it cannot hold.")]
+        public bool BrokenChainAbsorbs = true;
+
         [Header("Action points")]
         [Tooltip("AP at the start of the battle.")]
         [Min(0)] public int StartingActionPoints = 3;

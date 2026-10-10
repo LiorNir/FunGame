@@ -2,7 +2,7 @@
 name|World 1-3: The gatekeeper (boss)
 tier|Mid
 note|from Assets/Encounters/World 1/World 1-3 The gatekeeper (boss).asset
-rules|10|3|3|4|1|1|1|1|0|0|0.5
+rules|10|3|3|4|1|1|1|1|0|0|0.5|1
 node|R|||None|0
 node|A1|R|Add|None|0
 node|A2|A1|Multiply|None|0

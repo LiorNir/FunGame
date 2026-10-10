@@ -2,7 +2,7 @@
 name|World 1-2: A door opens
 tier|Mid
 note|from Assets/Encounters/World 1/World 1-2 A door opens.asset
-rules|10|3|3|4|1|1|1|1|0|0|0.5
+rules|10|3|3|4|1|1|1|1|0|0|0.5|1
 node|R|||None|0
 node|S2|R|Add|None|0
 node|S3|S2|Add|None|0

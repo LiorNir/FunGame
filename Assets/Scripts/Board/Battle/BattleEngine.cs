@@ -559,6 +559,13 @@ namespace FunGame.Battle
                 }
                 else
                 {
+                    if (!Setup.Rules.BrokenChainAbsorbs)
+                    {
+                        // the chain breaks without softening the hit (see BattleRules.BrokenChainAbsorbs)
+                        Stats.DamageAbsorbed -= absorbed;
+                        absorbed = 0f;
+                    }
+
                     DestroyChain(lane, chain, absorbed, value);
                 }
 

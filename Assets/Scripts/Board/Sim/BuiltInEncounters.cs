@@ -164,34 +164,41 @@ namespace FunGame.Sim
                     replaceRules, WorldTwoRoster, 1),
                 "The defense wears down every turn; swapping a worn pilot for a fresh one keeps it standing.", "World 2", 1, "replacing pilots");
 
-            // 2-2: a long defense chain and a telegraphed crush that no chain can hold. Ejecting the root breaks the chain on
-            // purpose, so the pilots behind it are not hit (the player takes the damage instead).
+            // 2-2: attack and defense are separate trees. The first enemy telegraphs one crush that no defense chain can hold;
+            // the second hits every turn and holding it needs the best defender. Ejecting the defense root before the crush
+            // (ducking) leaves the defenders behind a gap, unhurt, at the cost of the crush landing on the player; not ducking
+            // loses them, and with them the defense against the second enemy.
             var ejectRules = GameRules;
             var secondBoard = new BoardGraph(
                 new[]
                 {
                     new SlotNode("RA"), new SlotNode("A1", "RA", Operation.Add),
-                    new SlotNode("RD"), new SlotNode("D1", "RD", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                    new SlotNode("RD"), new SlotNode("D1", "RD", Operation.Add)
                 },
-                new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var second = new EncounterCase("World 2-2: Duck!", "Early",
                 new BattleSetup(secondBoard, new List<SlotRule>(),
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Crusher", 20, false, Act("Jab", 1, 0), Act("Crush", 6, 0), Act("Jab", 1, 0), Act("Jab", 1, 0)) }) },
+                    new[] { new LaneSpec("lane1", new[]
+                    {
+                        Enemy("Crusher", 8, false, Act("Jab", 1, 0), Act("Crush", 5, 0), Act("Jab", 1, 0)),
+                        Enemy("Hammer", 15, false, Act("Hammer", 4, 0))
+                    }) },
                     ejectRules, WorldTwoRoster, 1),
-                "A telegraphed crush breaks any defense chain; pulling the root out first saves the pilots behind it.", "World 2", 2, "ejecting pilots");
+                "A telegraphed crush breaks any defense chain, and the next enemy needs your best defender: duck the crush to keep it.", "World 2", 2, "ejecting pilots");
 
-            // 2-3 (boss): one operator feeds both branches; multiply on the attack, a defense slot opened with AP
+            // 2-3 (boss): one operator feeds both branches; multiply on the attack. The defense branch is the root plus one slot
+            // that costs 1 AP to open (the user, 2026-10-10: a third defense slot made the defense too easy).
             var bossRules = GameRules;
             var bossBoard = new BoardGraph(
                 new[]
                 {
                     new SlotNode("R"),
                     new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
-                    new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                    new SlotNode("D1", "R", Operation.Add)
                 },
-                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var boss = new EncounterCase("World 2-3: The foreman (boss)", "Early",
-                new BattleSetup(bossBoard, new[] { new SlotRule("D2", true, 1, 0, 0) },
+                new BattleSetup(bossBoard, new[] { new SlotRule("D1", true, 1, 0, 0) },
                     new[] { new LaneSpec("lane1", new[] { Enemy("Foreman", 30, false, Act("Grind", 3, 0), Act("Crush", 7, 0), Act("Brace", 1, 3)) }) },
                     bossRules, WorldTwoRoster, 1),
                 "Wear, a guard and a crush in turn; a defense slot that costs 1 AP to open.", "World 2", 3, "replacing and ejecting together; a slot opened with AP");

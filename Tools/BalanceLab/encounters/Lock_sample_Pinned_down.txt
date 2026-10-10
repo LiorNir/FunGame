@@ -2,7 +2,7 @@
 name|Lock sample: Pinned down
 tier|Mid
 note|from Assets/Encounters/Samples/Lock sample Pinned down.asset
-rules|10|3|3|4|1|1|1|1|1|1|0.5
+rules|10|3|3|4|1|1|1|1|1|1|0.5|1
 node|R|||None|0
 node|A1|R|Add|None|0
 node|D1|R|Add|None|0

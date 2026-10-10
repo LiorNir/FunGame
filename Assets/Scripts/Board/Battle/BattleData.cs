@@ -35,6 +35,13 @@ namespace FunGame.Battle
         /// </summary>
         public float HandRecoveryPerTurn { get; set; }
 
+        /// <summary>
+        /// True (the rule so far): a defense chain that breaks still absorbs its value and only the rest of the hit reaches the
+        /// next chain or the player. False (on trial): a chain that breaks absorbs nothing, so the whole hit goes on, which makes
+        /// ducking (ejecting a chain's root so it is not hit) the better answer to a hit the chain cannot hold.
+        /// </summary>
+        public bool BrokenChainAbsorbs { get; set; } = true;
+
         public BattleRules Copy()
         {
             return (BattleRules)MemberwiseClone();

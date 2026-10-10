@@ -351,6 +351,21 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(14f, engine.PlayerHealth, Tolerance); // 10 attack - 4 absorbed = 6
         }
 
+        [Test]
+        public void BrokenChain_AbsorbsNothing_WhenThatRuleIsOn()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Smash", 10, 0));
+            var rules = new BattleRules { BrokenChainAbsorbs = false };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("P", 0f, 4f) }, rules: rules));
+            engine.Start();
+            engine.TryPlace(0, "R");
+
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.AreEqual(10f, engine.PlayerHealth, Tolerance); // the whole 10 goes through (with the usual rule: 14)
+        }
+
         // ---------- chains worth zero ----------
 
         private static void PlaceByName(BattleEngine engine, string pilotName, string slotId)
