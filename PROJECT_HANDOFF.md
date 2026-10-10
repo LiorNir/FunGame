@@ -46,6 +46,31 @@ Last updated: 2026-10-09. This file has three parts: **start here** (where the w
 - **Careful bot changed:** `ScoreWeights.PilotLost` 30 -> 15. At 30 it let itself die rather than risk a pilot (with HP 10, doing nothing for 3 turns while taking hits); World 1 results barely move (boss: 87% health, 0.8 pilots lost).
 - The report's "Needs" column judges by win rate only, so it shows "nothing special" for World 2, whose lessons show in health and pilots lost; use `run-lab.bat ablate N "World 2"` (now shows health, pilots lost, turns, idle AP, replaces and ejects with each mechanic taken away).
 
+**First playtest of World 2 (user, 2026-10-10):** "felt good"; 2-3 was the most tense and interesting encounter so far.
+- *2-1:* fun, plenty to do, but maybe too long for this point, and a second enemy appearing came as a surprise (maybe too early for a two-enemy wave). Replacing (placing onto an occupied slot) is correct here; ejecting (taking a pilot back without placing another) is what is off.
+- *2-2:* the user did not think of ejecting: they softened the crush with two defense pilots. Turn 3 had nothing to do (two attacks were enough to win), which felt flat. The ejecting lesson needs either a tutorial pointer or a construction where ducking is clearly the better play.
+- *2-3:* first real sense of danger (5 HP left after the crush). Not knowing the enemy's moves made it tense in a good way: a player can struggle the first time and play better once the moveset is known (later: adapt the deck with specialised pilots or matching abilities). The AP slot was bought once with a spare AP.
+- *Attack is trivial:* the game revolves around the defense line-up; for attack the only decision is "strongest pilots, and swap the shared root". Snipe, Swap and attack-side choices (operators that make order matter, enemy effects on attackers) should change that.
+
+**Watch list (decisions on trial, revisit with data or playtests):**
+- *Hand recovery 0.5 per turn:* may make one pilot with far more defense than the others (an over-tuned specialist) the best answer in nearly every defensive situation: block, rest two turns, block again.
+- *The AP-paid slot:* the bots gain nothing from it in 2-3, and the casual bot does better without it. A red flag; the user is sure it can work. Likely reasons: AP is rarely scarce (1-2 of 3 AP go unused per turn in Worlds 1-2), so its cost means little, and one more defense slot adds little. Ideas: a slot whose position makes it strong (completing a multiply, a bonus slot later), longer encounters (more HP, two lanes, several waves) where a permanent extra slot pays back, or making AP scarcer (see AP carry-over).
+- *Placing onto a fallen pilot clears it* (2026-10-10).
+- *A hit equal to a chain's value leaves it at 0* (2026-10-09).
+
+**Ideas parked (user, 2026-10-10):**
+- *Post-battle score for currency (shop money):* points from mechanics used (pilots placed, ejected, abilities activated...) minus penalties (pilots lost, HP lost...). To stop grinding weak levels, a multiplier that shrinks the reward more the further the player has progressed past that world.
+- *Enemy moveset knowledge as progression:* the first fight against an enemy is played blind; later fights benefit from knowing its moves.
+
+**UI to do (from the playtests):**
+- Hand cards: fill bars for the stats, like the board's stat boxes, so a recovering pilot shows a part-filled defense bar (animated at the turn change), instead of the "(of 3)" text. The bar shows the share left, not the maximum value.
+- Enemy queue: show that more enemies are coming (enemy 1/2) and, once enemy types repeat across the game, which one is next ("next: Grinder").
+
+**Tutorial notes** (things a real tutorial or UI pointer must teach, collected from the playtests):
+- World 1: place a pilot and attack; a chain only counts up to its first gap (prefix rule); a hit equal to a defense chain's value leaves it standing at 0, and the next hit breaks it; a broken chain's pilots fall, and the fallen block the chain until a pilot is placed on top of them; a chain at 0 under multiply is not revived by swapping one pilot.
+- World 2: a new action, replacing (placing a pilot onto an occupied slot); a replaced or ejected pilot recovers in the hand; ejecting to duck a big hit (pilots behind a gap are not hit, the player takes the damage); more enemies may follow the first one; slots can be bought with AP.
+- Enemies: intents show only the next move; telegraphed targets (Lock) can be dodged by moving the pilot.
+
 **Design notes from the user (2026-10-10):**
 - **Dodging by ejecting is fine, but taking a big hit to the face must have consequences.** Levers to balance it: player HP, pilot defense values, what counts as a "big hit", or a mix; also a limit on ejects per turn or a higher eject cost. Needs thought and data.
 - **AP carry-over (idea, only if data shows it):** if battles often end turns with unused AP, consider letting AP carry over with a smaller refill per turn (1 or 2 instead of a full 3) and a cap (saving 3 does not give 4). The lab already records unused AP per battle (`avg_ap_unused` in the csv); decide from that.
