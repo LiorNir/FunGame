@@ -208,10 +208,14 @@ namespace FunGame.Battle
         /// <summary>The AP a placement into the slot would cost: place if empty, replace if occupied by a living pilot.</summary>
         public int PlacementCost(string slotId)
         {
-            return _pilotBySlot.ContainsKey(slotId) ? Setup.Rules.ReplacePilotCost : Setup.Rules.PlacePilotCost;
+            return _pilotBySlot.TryGetValue(slotId, out var occupant) && !occupant.Fallen ? Setup.Rules.ReplacePilotCost : Setup.Rules.PlacePilotCost;
         }
 
-        /// <summary>True if the hand pilot can be placed in the slot right now.</summary>
+        /// <summary>
+        /// True if the hand pilot can be placed in the slot right now: an empty slot, a fallen pilot's slot (placing clears
+        /// the fallen pilot, at the normal place cost, even where replacing is not allowed) or a living pilot's slot when
+        /// replacing is allowed and the pilot is not locked.
+        /// </summary>
         public bool CanPlace(int handIndex, string slotId)
         {
             if (Outcome != BattleOutcome.InProgress || handIndex < 0 || handIndex >= Hand.Count || !IsUnlocked(slotId))
@@ -220,7 +224,7 @@ namespace FunGame.Battle
             }
 
             _pilotBySlot.TryGetValue(slotId, out var occupant);
-            return (occupant == null || (!occupant.Fallen && !occupant.IsLocked && Setup.Rules.AllowReplace)) && PlacementCost(slotId) <= ActionPoints;
+            return (occupant == null || occupant.Fallen || (!occupant.IsLocked && Setup.Rules.AllowReplace)) && PlacementCost(slotId) <= ActionPoints;
         }
 
         public bool TryPlace(int handIndex, string slotId)
@@ -234,7 +238,14 @@ namespace FunGame.Battle
             var cost = PlacementCost(slotId);
             var pilot = Hand[handIndex];
             Hand.RemoveAt(handIndex);
-            if (occupant != null)
+            if (occupant != null && occupant.Fallen)
+            {
+                // a fallen pilot is gone from the battle: placing on it only clears it away
+                _pilotBySlot.Remove(slotId);
+                Emit(BattleEventType.FallenCleared, subject: occupant.Name, slots: new[] { slotId });
+                occupant = null;
+            }
+            else if (occupant != null)
             {
                 Hand.Add(occupant);
             }

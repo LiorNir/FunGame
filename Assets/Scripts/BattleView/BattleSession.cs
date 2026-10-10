@@ -288,14 +288,6 @@ namespace BattleView
             }
         }
 
-        public void ClearFallen(string slotId)
-        {
-            if (!IsBusy && _engine.ClearFallen(slotId))
-            {
-                RefreshAll();
-            }
-        }
-
         public void RefreshAll()
         {
             if (_engine == null)

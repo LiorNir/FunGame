@@ -105,11 +105,7 @@ namespace FunGame.Sim
 
         public void PlayPlanningPhase(BattleEngine engine)
         {
-            foreach (var slotId in engine.PilotBySlot.Where(pair => pair.Value.Fallen).Select(pair => pair.Key).ToList())
-            {
-                engine.ClearFallen(slotId);
-            }
-
+            // fallen pilots are not cleared separately: like the player, the bot places a pilot on top of one (see TryPlace)
             var best = Search(engine, out var doingNothing);
 
             // describe the chosen plan by playing it out once more on a copy (only the winner is worth the text)

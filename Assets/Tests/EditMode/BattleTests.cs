@@ -598,6 +598,40 @@ namespace FunGame.Board.Tests
             Assert.IsTrue(engine.ClearFallen("R"));
         }
 
+        // ---------- placing on a fallen pilot ----------
+
+        [Test]
+        public void PlacingOnAFallenPilot_ClearsIt_AtThePlaceCost_EvenWithoutReplacing()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Smash", 10, 0));
+            var rules = new BattleRules { AllowReplace = false, AllowEject = false, PlacePilotCost = 1, ReplacePilotCost = 2 };
+            var deck = new[] { new PilotStats("Victim", 0f, 4f), new PilotStats("Fresh", 0f, 3f) };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, deck, rules: rules));
+            engine.Start();
+            PlaceByName(engine, "Victim", "R");
+            engine.ResolveTurn();
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+
+            PlaceByName(engine, "Fresh", "R");
+
+            Assert.AreEqual("Fresh", engine.PilotBySlot["R"].Name);
+            Assert.AreEqual(2, engine.ActionPoints); // the place cost, not the replace cost
+            Assert.IsFalse(engine.Hand.Any(pilot => pilot.Name == "Victim")); // gone from the battle, not back in the hand
+            Assert.AreEqual(2, engine.Stats.Places); // Victim, then Fresh: a place, not a replace
+            Assert.AreEqual(0, engine.Stats.Replaces);
+        }
+
+        [Test]
+        public void LivingPilot_StillCannotBeReplaced_WhenReplacingIsOff()
+        {
+            var rules = new BattleRules { AllowReplace = false };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { Enemy("E", 100, new EnemyActionData("Idle", 0, 0)) }, Strong(4), rules: rules));
+            engine.Start();
+            Assert.IsTrue(engine.TryPlace(0, "R"));
+
+            Assert.IsFalse(engine.CanPlace(0, "R"));
+        }
+
         [Test]
         public void ChainZeroedByDivideByZero_IsStillLeftAlone()
         {

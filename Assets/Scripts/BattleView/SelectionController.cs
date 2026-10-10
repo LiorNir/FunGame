@@ -182,7 +182,7 @@ namespace BattleView
             {
                 if (pilot.Fallen)
                 {
-                    options.Add(new ActionMenuView.Option($"Clear fallen {pilot.Name}  (free)", true, () => _session.ClearFallen(slotId)));
+                    options.Add(new ActionMenuView.Option($"{pilot.Name} has fallen  (place a pilot here to clear it)", false, null));
                 }
                 else
                 {
