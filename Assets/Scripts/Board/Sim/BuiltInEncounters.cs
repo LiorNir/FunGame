@@ -11,15 +11,18 @@ namespace FunGame.Sim
     /// </summary>
     public static class BuiltInEncounters
     {
-        /// <summary>The six pilots of the starter deck, with their current stats.</summary>
+        /// <summary>
+        /// The six pilots of the Unity starter deck (Assets/Rules/StarterDeck.asset), in its order, with their display names and
+        /// current stats. A copy for the lab: keep it in step with the deck (exported encounters carry the real deck).
+        /// </summary>
         public static IReadOnlyList<PilotStats> StarterRoster => new[]
         {
-            new PilotStats("Majestic Bird", 2f, 1f),
-            new PilotStats("Fire Hedgehog", 2f, 1f),
-            new PilotStats("Ice Hedgehog", 1f, 2f),
-            new PilotStats("Sleepy Toad", 1f, 1f),
-            new PilotStats("Purple Haze", 1.5f, 0.5f),
-            new PilotStats("Squirrel", 1f, 1f)
+            new PilotStats("Osis", 2f, 1f),
+            new PilotStats("Sil", 2f, 1f),
+            new PilotStats("Quill", 1f, 2f),
+            new PilotStats("Yawn", 1f, 1f),
+            new PilotStats("Haze", 1.5f, 0.5f),
+            new PilotStats("Pion", 1f, 1f)
         };
 
         /// <summary>World 1 followed by the loose samples.</summary>
