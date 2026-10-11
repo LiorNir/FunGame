@@ -351,21 +351,6 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(14f, engine.PlayerHealth, Tolerance); // 10 attack - 4 absorbed = 6
         }
 
-        [Test]
-        public void BrokenChain_AbsorbsNothing_WhenThatRuleIsOn()
-        {
-            var enemy = Enemy("E", 100, new EnemyActionData("Smash", 10, 0));
-            var rules = new BattleRules { BrokenChainAbsorbs = false };
-            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("P", 0f, 4f) }, rules: rules));
-            engine.Start();
-            engine.TryPlace(0, "R");
-
-            engine.ResolveTurn();
-
-            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
-            Assert.AreEqual(10f, engine.PlayerHealth, Tolerance); // the whole 10 goes through (with the usual rule: 14)
-        }
-
         // ---------- chains worth zero ----------
 
         private static void PlaceByName(BattleEngine engine, string pilotName, string slotId)
@@ -652,6 +637,46 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(0.25f, engine.Hand[0].DefenseWound, Tolerance);
             engine.ResolveTurn();
             Assert.AreEqual(0f, engine.Hand[0].DefenseWound, Tolerance);
+        }
+
+        // R and S both end the defense chain; the enemy hits 3 of their 4 on turn 1 (wound 0.75 each), then idles
+        private static BattleEngine TwoWornPilots(float ejectedMultiplier)
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 3, 0), new EnemyActionData("Idle", 0, 0));
+            var rules = new BattleRules { HandRecoveryPerTurn = 0.25f, EjectedRecoveryMultiplier = ejectedMultiplier };
+            var deck = new[] { new PilotStats("Ejected", 0f, 2f), new PilotStats("Replaced", 0f, 2f), new PilotStats("Fresh", 0f, 1f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(Operation.Add), new[] { enemy }, deck, rules: rules));
+            engine.Start();
+            PlaceByName(engine, "Ejected", "R");
+            PlaceByName(engine, "Replaced", "S");
+            engine.ResolveTurn();
+            Assert.IsTrue(engine.TryEject("R"));
+            PlaceByName(engine, "Fresh", "S"); // pushes Replaced out to the hand
+            return engine;
+        }
+
+        [Test]
+        public void EjectedPilot_RecoversFasterOnItsFirstTurnOfRest_ThanAReplacedOne()
+        {
+            var engine = TwoWornPilots(2f);
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(0.25f, engine.Hand.First(pilot => pilot.Name == "Ejected").DefenseWound, Tolerance); // 0.75 - 2 x 0.25
+            Assert.AreEqual(0.5f, engine.Hand.First(pilot => pilot.Name == "Replaced").DefenseWound, Tolerance); // 0.75 - 0.25
+            engine.ResolveTurn();
+            Assert.AreEqual(0f, engine.Hand.First(pilot => pilot.Name == "Ejected").DefenseWound, Tolerance); // only the first turn is faster
+        }
+
+        [Test]
+        public void EjectedPilot_PlacedAgainTheSameTurn_GetsNoBonus()
+        {
+            var engine = TwoWornPilots(2f);
+            PlaceByName(engine, "Ejected", "R"); // moved straight back onto the board: it does not rest
+
+            engine.ResolveTurn(); // the enemy idles
+
+            Assert.AreEqual(0.75f, engine.PilotBySlot["R"].DefenseWound, Tolerance);
         }
 
         [Test]

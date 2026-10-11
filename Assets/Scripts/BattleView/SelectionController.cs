@@ -189,6 +189,12 @@ namespace BattleView
                     var cost = engine.Setup.Rules.EjectPilotCost;
                     var blocker = engine.EjectBlocker(slotId);
                     var reason = blocker == null ? string.Empty : ", " + blocker;
+                    // a wounded pilot pulled back to rest recovers faster on its first turn in the hand: say so where it is chosen
+                    var restBonus = engine.Setup.Rules.EjectedRecoveryMultiplier;
+                    if (blocker == null && pilot.DefenseWound > 0.001f && restBonus > 1.001f && engine.Setup.Rules.HandRecoveryPerTurn > 0f)
+                    {
+                        reason += $", rests x{DisplayFormat.Value(restBonus)}";
+                    }
                     options.Add(new ActionMenuView.Option($"Eject {pilot.Name} to hand  ({cost} AP{reason})", blocker == null, () => _session.Eject(slotId)));
                 }
             }

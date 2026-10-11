@@ -20,6 +20,7 @@ namespace FunGame.Battle
         private readonly Dictionary<string, PilotUnit> _pilotBySlot = new Dictionary<string, PilotUnit>();
         private readonly HashSet<string> _lockedSlots = new HashSet<string>();
         private readonly HashSet<PilotUnit> _placedThisTurn = new HashSet<PilotUnit>();
+        private readonly HashSet<PilotUnit> _ejectedThisTurn = new HashSet<PilotUnit>();
         private readonly List<BattleEvent> _events = new List<BattleEvent>();
 
         public BattleSetup Setup { get; }
@@ -42,6 +43,19 @@ namespace FunGame.Battle
 
         /// <summary>Whether events are recorded for <see cref="DrainEvents"/>. Switched off in look-ahead copies, for speed.</summary>
         public bool RecordEvents { get; set; } = true;
+
+        /// <summary>True if the pilot was ejected during the current turn (it gets the ejected pilot's faster first rest).</summary>
+        public bool WasEjectedThisTurn(PilotUnit pilot)
+        {
+            return _ejectedThisTurn.Contains(pilot);
+        }
+
+        /// <summary>The wound a pilot in the hand will have after the next turn starts, by the recovery rules.</summary>
+        public float WoundAfterRest(PilotUnit pilot)
+        {
+            var recovery = Setup.Rules.HandRecoveryPerTurn * (WasEjectedThisTurn(pilot) ? Setup.Rules.EjectedRecoveryMultiplier : 1f);
+            return Math.Max(0f, pilot.DefenseWound - recovery);
+        }
 
         /// <summary>True if the pilot was placed during the current planning phase.</summary>
         public bool WasPlacedThisTurn(PilotUnit pilot)
@@ -111,6 +125,11 @@ namespace FunGame.Battle
             foreach (var pilot in _placedThisTurn)
             {
                 clone._placedThisTurn.Add(CopyOf(pilot));
+            }
+
+            foreach (var pilot in _ejectedThisTurn)
+            {
+                clone._ejectedThisTurn.Add(CopyOf(pilot));
             }
 
             foreach (var slotId in _lockedSlots)
@@ -340,6 +359,7 @@ namespace FunGame.Battle
             var cost = Setup.Rules.EjectPilotCost;
             _pilotBySlot.Remove(slotId);
             Hand.Add(pilot);
+            _ejectedThisTurn.Add(pilot);
             ActionPoints -= cost;
             Stats.ApSpent += cost;
             Stats.Ejects++;
@@ -559,13 +579,6 @@ namespace FunGame.Battle
                 }
                 else
                 {
-                    if (!Setup.Rules.BrokenChainAbsorbs)
-                    {
-                        // the chain breaks without softening the hit (see BattleRules.BrokenChainAbsorbs)
-                        Stats.DamageAbsorbed -= absorbed;
-                        absorbed = 0f;
-                    }
-
                     DestroyChain(lane, chain, absorbed, value);
                 }
 
@@ -773,19 +786,23 @@ namespace FunGame.Battle
             Emit(BattleEventType.PlanningStarted, a: PlayerHealth, b: ActionPoints);
         }
 
-        /// <summary>Pilots resting in the hand get back part of their defense (see <see cref="BattleRules.HandRecoveryPerTurn"/>).</summary>
+        /// <summary>
+        /// Pilots resting in the hand get back part of their defense (see <see cref="BattleRules.HandRecoveryPerTurn"/>); one
+        /// ejected last turn and still in the hand gets the ejected pilot's bonus (<see cref="BattleRules.EjectedRecoveryMultiplier"/>).
+        /// </summary>
         private void RecoverHand()
         {
             var recovery = Setup.Rules.HandRecoveryPerTurn;
-            if (recovery <= 0f)
+            if (recovery > 0f)
             {
-                return;
+                foreach (var pilot in Hand)
+                {
+                    var amount = _ejectedThisTurn.Contains(pilot) ? recovery * Setup.Rules.EjectedRecoveryMultiplier : recovery;
+                    pilot.DefenseWound = Math.Max(0f, pilot.DefenseWound - amount);
+                }
             }
 
-            foreach (var pilot in Hand)
-            {
-                pilot.DefenseWound = Math.Max(0f, pilot.DefenseWound - recovery);
-            }
+            _ejectedThisTurn.Clear();
         }
 
         private void SpawnNextEnemy(LaneState lane)

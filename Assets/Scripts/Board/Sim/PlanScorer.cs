@@ -148,6 +148,9 @@ namespace FunGame.Sim
 
             var score = weights.Hp * healthFraction + weights.Progress * progress - weights.PilotLost * lost - weights.ApSpent * apSpent;
             score -= weights.Wound * afterCombat.PilotBySlot.Values.Where(pilot => !pilot.Fallen).Sum(pilot => pilot.DefenseWound);
+            // a wounded pilot resting in the hand counts with the wound it will still have when the next turn starts (the
+            // recovery rules are known, so this is no guess about the future)
+            score -= weights.Wound * afterCombat.Hand.Sum(pilot => afterCombat.WoundAfterRest(pilot));
             if (afterCombat.PilotBySlot.Values.Any(pilot => !pilot.Fallen && pilot.IsLocked))
             {
                 score -= LockPenalty(afterCombat, weights);

@@ -27,9 +27,10 @@ namespace FunGame.Sim
 
         /// <summary>
         /// The game's global rules as set in the Unity GameRules asset (Assets/Rules/GameRules.asset): a copy for the lab, keep it
-        /// in step. Player health 10 and half a pilot's defense recovered per turn in the hand since 2026-10-10.
+        /// in step. Player health 10 and half a pilot's defense recovered per turn in the hand since 2026-10-10; an ejected pilot
+        /// recovers twice as fast on its first turn of rest since 2026-10-11.
         /// </summary>
-        public static BattleRules GameRules => new BattleRules { PlayerMaxHealth = 10, HandRecoveryPerTurn = 0.5f };
+        public static BattleRules GameRules => new BattleRules { PlayerMaxHealth = 10, HandRecoveryPerTurn = 0.5f, EjectedRecoveryMultiplier = 2f };
 
         /// <summary>World 1 and World 2 followed by the loose samples.</summary>
         public static IReadOnlyList<EncounterCase> All()

@@ -9,10 +9,6 @@ namespace Configurations
         [Header("Player")]
         [Min(1)] public int PlayerMaxHealth = 20;
 
-        [Header("Defense")]
-        [Tooltip("On (the rule so far): a defense chain that breaks still absorbs its value; only the rest of the hit goes on. Off (on trial): a chain that breaks absorbs nothing, so ducking (ejecting its root before the hit) is the better answer to a hit it cannot hold.")]
-        public bool BrokenChainAbsorbs = true;
-
         [Header("Action points")]
         [Tooltip("AP at the start of the battle.")]
         [Min(0)] public int StartingActionPoints = 3;
@@ -25,6 +21,9 @@ namespace Configurations
 
         [Tooltip("How much of its defense a wounded pilot gets back each turn it rests in the hand (after being replaced or ejected), as a share of its full defense. 0.5 heals it in two turns; 0 keeps wounds.")]
         [Range(0f, 1f)] public float HandRecoveryPerTurn = 0.5f;
+
+        [Tooltip("How much faster an ejected pilot recovers on its first turn in the hand, if it rests there the whole turn (it is not placed again that turn): 2 = double, 1 = like a replaced pilot.")]
+        [Min(1f)] public float EjectedRecoveryMultiplier = 2f;
 
         [Header("Action costs (AP)")]
         [Min(0)] public int PlacePilotCost = 1;

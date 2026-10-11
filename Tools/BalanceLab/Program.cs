@@ -81,15 +81,16 @@ namespace BalanceLab
                 source += $" (only: {only})";
             }
 
-            if (args.Contains("--broken-chains-absorb-nothing"))
+            var ejectRest = Option(args, "--eject-rest", null);
+            if (ejectRest != null)
             {
                 encounters = encounters.Select(encounter =>
                 {
                     var rules = encounter.Setup.Rules.Copy();
-                    rules.BrokenChainAbsorbs = false;
+                    rules.EjectedRecoveryMultiplier = float.Parse(ejectRest, System.Globalization.CultureInfo.InvariantCulture);
                     return encounter.WithRules(rules);
                 }).ToList();
-                source += " (broken chains absorb nothing)";
+                source += $" (ejected pilots recover x{ejectRest})";
             }
 
             var playerHealth = Option(args, "--player-hp", null);

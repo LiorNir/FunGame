@@ -36,11 +36,11 @@ namespace FunGame.Battle
         public float HandRecoveryPerTurn { get; set; }
 
         /// <summary>
-        /// True (the rule so far): a defense chain that breaks still absorbs its value and only the rest of the hit reaches the
-        /// next chain or the player. False (on trial): a chain that breaks absorbs nothing, so the whole hit goes on, which makes
-        /// ducking (ejecting a chain's root so it is not hit) the better answer to a hit the chain cannot hold.
+        /// How much faster an ejected pilot recovers on its first turn in the hand, if it rested there the whole turn (it
+        /// was not placed again): 2 = double. 1 = like any pilot that left the board. Gives ejecting a reason of its own: a
+        /// pilot pulled back to rest comes back sooner than one pushed out by a replacement.
         /// </summary>
-        public bool BrokenChainAbsorbs { get; set; } = true;
+        public float EjectedRecoveryMultiplier { get; set; } = 1f;
 
         public BattleRules Copy()
         {

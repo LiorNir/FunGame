@@ -2,7 +2,7 @@
 name|Test3
 tier|Mid
 note|from Assets/Encounters/Encounter 2.asset
-rules|10|3|3|4|1|1|1|1|1|1|0.5|1
+rules|10|3|3|4|1|1|1|1|1|1|0.5|2
 node|S1|||None|0
 node|S2|S1|Add|None|0
 node|S3|S1|Subtract|None|0
