@@ -153,9 +153,10 @@ namespace FunGame.Sim
         /// </summary>
         public static IReadOnlyList<EncounterCase> WorldTwo()
         {
-            // 2-1: a short board whose defense wears down every turn; fresh pilots keep it standing
+            // 2-1: a short board whose defense wears down every turn; fresh pilots keep it standing. Replacing comes first;
+            // ejecting is taught at the wave change (user, 2026-10-11): pull the worn pilots back to rest while the next enemy
+            // arrives.
             var replaceRules = GameRules;
-            replaceRules.AllowEject = false;
             var firstBoard = new BoardGraph(
                 new[] { new SlotNode("R"), new SlotNode("A1", "R", Operation.Add), new SlotNode("D1", "R", Operation.Add) },
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D1") });
@@ -163,7 +164,7 @@ namespace FunGame.Sim
                 new BattleSetup(firstBoard, new List<SlotRule>(),
                     new[] { new LaneSpec("lane1", new[] { Enemy("Grinder", 9, false, Act("Grind", 3, 0)), Enemy("Big grinder", 10, false, Act("Grind", 3, 0)) }) },
                     replaceRules, WorldTwoRoster, 1),
-                "The defense wears down every turn; swapping a worn pilot for a fresh one keeps it standing.", "World 2", 1, "replacing pilots");
+                "The defense wears down every turn; swapping a worn pilot for a fresh one keeps it standing.", "World 2", 1, "replacing pilots; ejecting at the wave change");
 
             // 2-2: attack and defense are separate trees. The first enemy telegraphs one crush that no defense chain can hold;
             // the second hits every turn and holding it needs the best defender. Ejecting the defense root before the crush
