@@ -40,7 +40,9 @@ namespace BattleView
 
         /// <param name="restBonus">Above 1: the pilot was ejected this turn and will recover this many times as fast if it
         /// rests in the hand until the next turn; the card marks it (temporary look: "rest x2" on the defense).</param>
-        public void Set(PilotUnit pilot, int index, bool selected, BattleVisuals visuals, float restBonus = 1f)
+        /// <param name="defenseAfterRest">The share of its defense the pilot will have after the next turn's recovery, shown
+        /// as a preview behind the defense bar; negative for none (a pilot that is not recovering).</param>
+        public void Set(PilotUnit pilot, int index, bool selected, BattleVisuals visuals, float restBonus = 1f, float defenseAfterRest = -1f)
         {
             Index = index;
             _background.color = selected ? _selectedColor : _normalColor;
@@ -72,6 +74,8 @@ namespace BattleView
                 _stats.text = string.Empty;
                 _attackBar.Set($"ATK {attack}", 1f, visuals.AttackColor, samePilot);
                 _defenseBar.Set($"DEF {defense}{restMark}", 1f - pilot.DefenseWound, visuals.DefenseColor, samePilot);
+                _defenseBar.SetPreview(defenseAfterRest);
+                _attackBar.SetPreview(-1f);
                 return;
             }
 

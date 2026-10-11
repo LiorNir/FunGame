@@ -15,6 +15,10 @@ namespace BattleView
         [SerializeField] private Image _fill;
         [SerializeField] private TextMeshProUGUI _label;
 
+        [Tooltip("Optional, behind the fill: how far the stat will have come back by the next turn (a pilot recovering in the hand).")]
+        [SerializeField] private Image _preview;
+        [SerializeField] private Color _previewColor = new Color(0.4f, 1f, 0.4f, 0.35f);
+
         [Tooltip("How bright the fill is compared with the stat's colour. Kept dark so the label stays readable on it.")]
         [Range(0f, 1f)] [SerializeField] private float _fillBrightness = 0.45f;
 
@@ -40,6 +44,20 @@ namespace BattleView
             {
                 ShowShare(share);
             }
+        }
+
+        /// <summary>Shows where the stat will be after it recovers (a share 0 to 1); a negative share hides the preview.</summary>
+        public void SetPreview(float share)
+        {
+            if (_preview == null)
+            {
+                return;
+            }
+
+            _preview.enabled = share >= 0f;
+            _preview.color = _previewColor;
+            var rect = _preview.rectTransform;
+            rect.anchorMax = new Vector2(Mathf.Clamp01(share), rect.anchorMax.y);
         }
 
         private void ShowShare(float share)

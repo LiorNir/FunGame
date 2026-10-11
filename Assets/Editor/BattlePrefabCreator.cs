@@ -57,6 +57,7 @@ namespace FunGame.EditorTools
         {
             var changed = new List<string>();
             AddParts($"{Folder}/CardView.prefab", EnsureCardStatBars, changed);
+            AddParts($"{Folder}/CardView.prefab", EnsureStatBarPreviews, changed);
             AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
@@ -96,7 +97,37 @@ namespace FunGame.EditorTools
             var defense = CreateStatBar(card.transform, "DefenseBar", new Vector2(0f, -108f));
             Assign(view, "_attackBar", attack);
             Assign(view, "_defenseBar", defense);
+            EnsureStatBarPreviews(card);
             return true;
+        }
+
+        /// <summary>A recovery preview behind each card stat bar's fill (bars made before the preview existed get one).</summary>
+        private static bool EnsureStatBarPreviews(GameObject card)
+        {
+            var added = false;
+            foreach (var bar in card.GetComponentsInChildren<CardStatBar>(true))
+            {
+                if (bar.transform.Find("Preview") != null)
+                {
+                    continue;
+                }
+
+                var preview = ViewFactory.CreateImage(bar.transform, "Preview", Color.white, Vector2.zero, Vector2.zero);
+                preview.raycastTarget = false;
+                preview.rectTransform.anchorMin = Vector2.zero;
+                preview.rectTransform.anchorMax = Vector2.one;
+                preview.rectTransform.pivot = new Vector2(0f, 0.5f);
+                preview.rectTransform.offsetMin = new Vector2(2f, 2f);
+                preview.rectTransform.offsetMax = new Vector2(-2f, -2f);
+                preview.enabled = false;
+                // drawn after the background, before the fill and the label
+                var fill = bar.transform.Find("Fill");
+                preview.transform.SetSiblingIndex(fill != null ? fill.GetSiblingIndex() : 0);
+                Assign(bar, "_preview", preview);
+                added = true;
+            }
+
+            return added;
         }
 
         private static CardStatBar CreateStatBar(Transform parent, string name, Vector2 position)
