@@ -158,7 +158,8 @@ namespace FunGame.Sim
 
             if (weights.KillNext > 0f || weights.CoverNext > 0f)
             {
-                var results = afterCombat.EvaluateChains().Values.ToList();
+                // next turn's board: attack after known temporary changes (a Surge's crash turn counts against it)
+                var results = afterCombat.EvaluateChainsNextTurn().Values.ToList();
                 var kill = 0f;
                 var cover = 0f;
                 var lanes = 0;

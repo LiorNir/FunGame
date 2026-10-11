@@ -127,6 +127,7 @@ namespace FunGame.Sim
         public double AveragePlaces { get; private set; }
         public double AverageReplaces { get; private set; }
         public double AverageEjects { get; private set; }
+        public double AverageAbilitiesUsed { get; private set; }
         public double AverageUnlocks { get; private set; }
         public double AverageDivideByZeros { get; private set; }
 
@@ -162,6 +163,7 @@ namespace FunGame.Sim
             summary.AveragePlaces = records.Average(record => record.Stats.Places);
             summary.AverageReplaces = records.Average(record => record.Stats.Replaces);
             summary.AverageEjects = records.Average(record => record.Stats.Ejects);
+            summary.AverageAbilitiesUsed = records.Average(record => record.Stats.AbilitiesUsed);
             summary.AverageUnlocks = records.Average(record => record.Stats.Unlocks);
             summary.AverageDivideByZeros = records.Average(record => record.Stats.DivideByZeros);
 

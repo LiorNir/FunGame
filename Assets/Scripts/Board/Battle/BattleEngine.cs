@@ -447,6 +447,19 @@ namespace FunGame.Battle
             return ChainEvaluator.EvaluateAll(Setup.Board, ContentOf);
         }
 
+        /// <summary>
+        /// The chains as they will be next turn if the board stays as it is: pilots' attack after their temporary modifiers
+        /// move on (for example the turn after a Surge). Only known effects are applied, nothing is guessed.
+        /// </summary>
+        public Dictionary<string, ChainResult> EvaluateChainsNextTurn()
+        {
+            return ChainEvaluator.EvaluateAll(Setup.Board, slotId =>
+            {
+                var content = ContentOf(slotId);
+                return content.IsFilled ? new SlotContent(_pilotBySlot[slotId].AttackNextTurn, content.Defense) : content;
+            });
+        }
+
         public float SumChains(ChainRole role, string laneId = null)
         {
             return EvaluateChains().Values

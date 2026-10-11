@@ -45,7 +45,8 @@ namespace FunGame.Sim
                 MidDivideTrap(),
                 LateGate(),
                 LateBoss(),
-                LockPinnedDown()
+                LockPinnedDown(),
+                AbilitySurgeSample()
             }).ToList();
         }
 
@@ -206,6 +207,38 @@ namespace FunGame.Sim
                 "Wear, a guard and a crush in turn; a defense slot that costs 1 AP to open.", "World 2", 3, "replacing and ejecting together; a slot opened with AP");
 
             return new[] { first, second, boss };
+        }
+
+        // ---------- World 3: pilot abilities ----------
+
+        /// <summary>
+        /// The pilots the player has by World 3 (standing in for progression): the World 2 roster with the second upgrade
+        /// (Yawn's defense, 1 -> 2: the user felt short of defense more than attack) and the World 2 boss's reward pilot Bolt,
+        /// the first pilot with an ability (Surge, 2 AP for now; the lab compares 1 and 2 AP).
+        /// </summary>
+        public static IReadOnlyList<PilotStats> WorldThreeRoster => WorldTwoRoster
+            .Select(pilot => pilot.Name == "Yawn" ? pilot.WithStats(1f, 2f) : pilot)
+            .Concat(new[] { new PilotStats("Bolt", 2.5f, 1.5f, null, new SurgeAbility(2)) })
+            .ToList();
+
+        /// <summary>
+        /// A first check of Surge: the enemy alternates a shell (defense 8) and an open turn, so a Surge is worth much more
+        /// on an open turn; the attack branch ends in a multiply slot, where a doubled pilot counts most.
+        /// </summary>
+        public static EncounterCase AbilitySurgeSample()
+        {
+            var board = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("R"),
+                    new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
+                    new SlotNode("D1", "R", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
+            var shellback = Enemy("Shellback", 40, false, Act("Shell", 2, 8), Act("Open", 3, 0));
+            return new EncounterCase("Ability sample: Surge timing", "Early",
+                new BattleSetup(board, new List<SlotRule>(), new[] { new LaneSpec("lane1", new[] { shellback }) }, GameRules, WorldThreeRoster, 1),
+                "The enemy shells (defense 8) and opens in turn; a Surge counts most on an open turn and in the multiply slot.", null, 0, "timing an ability");
         }
 
         // ---------- enemy mechanics ----------
