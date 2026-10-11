@@ -79,6 +79,7 @@ Last updated: 2026-10-09. This file has three parts: **start here** (where the w
 
 **Ideas parked (user, 2026-10-10):**
 - *Post-battle score for currency (shop money):* points from mechanics used (pilots placed, ejected, abilities activated...) minus penalties (pilots lost, HP lost...). To stop grinding weak levels, a multiplier that shrinks the reward more the further the player has progressed past that world.
+- *Two reward systems, both wanted (user, 2026-10-11), not for now:* (1) optional **challenges** per stage or boss, done once for a set reward ("finish with X HP or more", "no defense chain breaks"); (2) a post-battle **score board** that turns into money, good for repeat play near the player's level, e.g. "Win +100, pilots placed 5 +25, abilities activated 2 +20, pilots defeated 1 -10, chains broken 0 0 ... x level multiplier (lower the stronger the player is than the world) = money" (numbers made up; the economy decides them). When the score exists, a lab bot whose weights are the score's values can price the rewards and look for farmable patterns (Stage 4).
 - *Enemy moveset knowledge as progression:* the first fight against an enemy is played blind; later fights benefit from knowing its moves.
 
 **UI from the playtests (done 2026-10-10, not yet seen by the user):**
