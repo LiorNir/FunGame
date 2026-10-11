@@ -38,6 +38,13 @@ namespace FunGame.EditorTools
             Create("World 2", BuiltInEncounters.WorldTwo(), deck);
         }
 
+        [MenuItem("Tools/Fun Game/Create Encounter Assets/Ability Sample")]
+        private static void CreateAbilitySample()
+        {
+            var deck = DeckFromRoster(BuiltInEncounters.WorldThreeRoster, $"{DecksFolder}/World 3 Deck.asset");
+            Create("Samples", new[] { BuiltInEncounters.AbilitySurgeSample() }, deck);
+        }
+
         [MenuItem("Tools/Fun Game/Create Encounter Assets/Lock Sample")]
         private static void CreateLockSample()
         {
@@ -138,6 +145,8 @@ namespace FunGame.EditorTools
 
                 var upgradesFolder = EnsureFolder(PilotsFolder, "Upgrades");
                 var upgraded = Object.Instantiate(basePilot);
+                upgraded.AbilityKind = FunGame.Battle.PilotAbilities.KindOf(stats.Ability);
+                upgraded.AbilityApCost = stats.Ability?.ApCost ?? upgraded.AbilityApCost;
                 upgraded.AttackValue = stats.Attack;
                 upgraded.DefenseValue = stats.Defense;
                 AssetDatabase.CreateAsset(upgraded, AssetDatabase.GenerateUniqueAssetPath(

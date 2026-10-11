@@ -221,6 +221,9 @@ namespace BattleView
             SetText(_pilotStatusText, text);
         }
 
+        /// <summary>True while the slot shows a status line above its pilot.</summary>
+        public bool HasStatus => _pilotStatusText != null && !string.IsNullOrEmpty(_pilotStatusText.text);
+
         public void SetHighlight(bool on)
         {
             _highlighted = on;

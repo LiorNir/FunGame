@@ -22,6 +22,10 @@ namespace BattleView
         [Tooltip("Optional: attack and defense as bars (the defense bar shows how much of it is left). Without them the Stats text is used.")]
         [SerializeField] private CardStatBar _attackBar;
         [SerializeField] private CardStatBar _defenseBar;
+        [Tooltip("Optional: the ability's name and cost (\"Surge · 2 AP\"), shown while the pilot has an unused ability.")]
+        [SerializeField] private TextMeshProUGUI _abilityText;
+        [Tooltip("Optional: a frame switched on while the pilot has an unused ability (temporary look).")]
+        [SerializeField] private Outline _abilityFrame;
         [SerializeField] private Color _normalColor = new Color(0.14f, 0.16f, 0.28f, 0.96f);
         [SerializeField] private Color _selectedColor = new Color(0.25f, 0.4f, 0.3f, 0.98f);
         [Tooltip("Colour of the temporary \"rest x2\" mark on an ejected pilot that will recover faster if it stays in the hand this turn.")]
@@ -47,6 +51,7 @@ namespace BattleView
             Index = index;
             _background.color = selected ? _selectedColor : _normalColor;
             _name.text = pilot.Name;
+            ShowAbility(pilot);
 
             var source = pilot.Source as PilotTokenConfiguration;
             if (source != null && source.Sprite != null)
@@ -81,6 +86,20 @@ namespace BattleView
 
             var wounded = pilot.DefenseWound > 0.001f ? $" <size=60%>(of {DisplayFormat.Value(pilot.BaseDefense)})</size>" : string.Empty;
             _stats.text = visuals.AttackText($"ATK {attack}") + "\n" + visuals.DefenseText($"DEF {defense}") + wounded + restMark;
+        }
+
+        private void ShowAbility(PilotUnit pilot)
+        {
+            var ready = pilot.HasUnusedAbility;
+            if (_abilityText != null)
+            {
+                _abilityText.text = ready ? $"{pilot.Ability.Name} · {pilot.Ability.ApCost} AP" : string.Empty;
+            }
+
+            if (_abilityFrame != null)
+            {
+                _abilityFrame.enabled = ready;
+            }
         }
     }
 }

@@ -273,6 +273,20 @@ namespace BattleView
             }
         }
 
+        public void Activate(string slotId)
+        {
+            if (!IsBusy && _engine.TryActivate(slotId))
+            {
+                var slot = _board.GetSlot(slotId);
+                RefreshAll();
+                if (slot != null)
+                {
+                    slot.Punch(0.3f);
+                    ViewFactory.ShowPopup(slot.transform.position + Vector3.up * 0.9f, _engine.PilotBySlot[slotId].Ability.Name + "!", new Color(1f, 0.82f, 0.29f), 0.5f);
+                }
+            }
+        }
+
         public void Eject(string slotId)
         {
             if (!IsBusy && _engine.TryEject(slotId))

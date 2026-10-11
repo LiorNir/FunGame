@@ -116,6 +116,12 @@ namespace BattleView
                 new ActionMenuView.Option(placeLabel, targets.Count > 0, () => BeginPlacing(index)),
                 new ActionMenuView.Option("Cancel", true, Cancel)
             };
+            if (pilot.HasUnusedAbility)
+            {
+                // the ability can be read from the hand; it is used once the pilot is on the board
+                options.Insert(1, new ActionMenuView.Option(
+                    $"{pilot.Ability.Name} ({pilot.Ability.ApCost} AP, on the board): {pilot.Ability.Describe()}", false, null));
+            }
 
             _hand.Refresh(engine, index);
             _menu.Show(RectTransformUtility.WorldToScreenPoint(null, cardRect.position) + new Vector2(0f, 230f), options);
@@ -188,6 +194,15 @@ namespace BattleView
                 else
                 {
                     options.Add(new ActionMenuView.Option(_session.Visuals.ExactStats(pilot), false, null));
+                    if (pilot.Ability != null)
+                    {
+                        var ability = pilot.Ability;
+                        var abilityBlocker = engine.ActivateBlocker(slotId);
+                        options.Add(new ActionMenuView.Option(
+                            $"Use {ability.Name}  ({ability.ApCost} AP{(abilityBlocker == null ? string.Empty : ", " + abilityBlocker)}): {ability.Describe()}",
+                            abilityBlocker == null, () => _session.Activate(slotId)));
+                    }
+
                     var cost = engine.Setup.Rules.EjectPilotCost;
                     var blocker = engine.EjectBlocker(slotId);
                     var reason = blocker == null ? string.Empty : ", " + blocker;

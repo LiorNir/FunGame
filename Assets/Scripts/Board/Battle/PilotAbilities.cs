@@ -2,6 +2,33 @@ using System.Collections.Generic;
 
 namespace FunGame.Battle
 {
+    /// <summary>The kinds of ability a pilot asset can have (one entry per ability class).</summary>
+    public enum PilotAbilityKind
+    {
+        None,
+        Surge
+    }
+
+    public static class PilotAbilities
+    {
+        /// <summary>The ability of a kind at an AP cost, or null for <see cref="PilotAbilityKind.None"/>.</summary>
+        public static IPilotAbility Create(PilotAbilityKind kind, int apCost)
+        {
+            switch (kind)
+            {
+                case PilotAbilityKind.Surge:
+                    return new SurgeAbility(apCost);
+                default:
+                    return null;
+            }
+        }
+
+        public static PilotAbilityKind KindOf(IPilotAbility ability)
+        {
+            return ability is SurgeAbility ? PilotAbilityKind.Surge : PilotAbilityKind.None;
+        }
+    }
+
     /// <summary>
     /// Something a pilot can do once per encounter for its own AP cost. Each kind of ability is a small class, so a new one
     /// does not change the engine. The first kind works while the pilot is on the board.

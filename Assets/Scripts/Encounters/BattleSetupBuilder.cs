@@ -36,7 +36,8 @@ namespace Encounters
                     string.IsNullOrEmpty(pilot.DisplayName) ? pilot.name : pilot.DisplayName,
                     pilot.AttackValue,
                     pilot.DefenseValue,
-                    pilot))
+                    pilot,
+                    PilotAbilities.Create(pilot.AbilityKind, pilot.AbilityApCost)))
                 .ToList();
 
             // the encounter decides which mechanics are available in it

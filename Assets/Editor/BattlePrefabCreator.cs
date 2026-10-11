@@ -58,6 +58,7 @@ namespace FunGame.EditorTools
             var changed = new List<string>();
             AddParts($"{Folder}/CardView.prefab", EnsureCardStatBars, changed);
             AddParts($"{Folder}/CardView.prefab", EnsureStatBarPreviews, changed);
+            AddParts($"{Folder}/CardView.prefab", EnsureCardAbilityParts, changed);
             AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
@@ -98,6 +99,28 @@ namespace FunGame.EditorTools
             Assign(view, "_attackBar", attack);
             Assign(view, "_defenseBar", defense);
             EnsureStatBarPreviews(card);
+            EnsureCardAbilityParts(card);
+            return true;
+        }
+
+        /// <summary>The card's ability line (over the top of the picture) and its ability frame (an outline on the card).</summary>
+        private static bool EnsureCardAbilityParts(GameObject card)
+        {
+            var view = card.GetComponent<CardView>();
+            if (view == null || card.transform.Find("AbilityText") != null)
+            {
+                return false;
+            }
+
+            var text = ViewFactory.CreateUiText(card.transform, "AbilityText", "Surge · 2 AP", 20f, new Color(1f, 0.82f, 0.29f), new Vector2(160f, 26f), new Vector2(0f, 100f));
+            text.raycastTarget = false;
+            text.fontStyle = FontStyles.Bold;
+            var frame = card.GetComponent<Outline>() ?? card.AddComponent<Outline>();
+            frame.effectColor = new Color(1f, 0.82f, 0.29f, 1f);
+            frame.effectDistance = new Vector2(4f, -4f);
+            frame.enabled = false;
+            Assign(view, "_abilityText", text);
+            Assign(view, "_abilityFrame", frame);
             return true;
         }
 

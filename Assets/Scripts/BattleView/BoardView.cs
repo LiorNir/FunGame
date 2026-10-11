@@ -26,6 +26,8 @@ namespace BattleView
         [Tooltip("Height of the label above the last slot of a chain.")]
         [SerializeField] private float _chainLabelOffsetY = 0.72f;
         [SerializeField] private float _chainLabelSpacing = 0.32f;
+        [Tooltip("Extra height for the label when the last slot shows a status line above its pilot (an ability, a lock), so they do not overlap.")]
+        [SerializeField] private float _chainLabelStatusOffsetY = 0.3f;
 
         private sealed class LineSegment
         {
@@ -121,12 +123,44 @@ namespace BattleView
                 return string.Empty;
             }
 
-            if (pilot.IsLocked)
+            var parts = new List<string>();
+            var ability = DescribeAbility(pilot);
+            if (ability.Length > 0)
             {
-                return $"LOCKED {pilot.LockedTurns}" + (aimedAt != null ? $"  next: {aimedAt}" : string.Empty);
+                parts.Add(ability);
             }
 
-            return aimedAt != null ? $"next: {aimedAt}" : string.Empty;
+            if (pilot.IsLocked)
+            {
+                parts.Add($"LOCKED {pilot.LockedTurns}");
+            }
+
+            if (aimedAt != null)
+            {
+                parts.Add($"next: {aimedAt}");
+            }
+
+            return string.Join("  ", parts);
+        }
+
+        /// <summary>
+        /// An ability's state (temporary look): an attack change working now (\"SURGE: ATK x2\", \"ATK 0 this turn\"),
+        /// otherwise an unused ability (\"Surge ready\"); nothing once it is used and its effects are over.
+        /// </summary>
+        private static string DescribeAbility(PilotUnit pilot)
+        {
+            var multiplier = AttackModifier.Product(pilot.AttackModifiers);
+            if (multiplier > 1.001f)
+            {
+                return $"<color=#FFD24A>{(pilot.Ability?.Name ?? "BOOST").ToUpperInvariant()}: ATK x{DisplayFormat.Value(multiplier)}</color>";
+            }
+
+            if (multiplier < 0.999f)
+            {
+                return multiplier <= 0.001f ? "ATK 0 this turn" : $"ATK x{DisplayFormat.Value(multiplier)} this turn";
+            }
+
+            return pilot.HasUnusedAbility ? $"<color=#FFD24A>{pilot.Ability.Name} ready</color>" : string.Empty;
         }
 
         public void Clear()
@@ -198,7 +232,8 @@ namespace BattleView
                 var value = _lastResults.TryGetValue(label.Chain.Id, out var result) ? result.Value : 0f;
                 label.Text.text = (isAttack ? "ATK " : "DEF ") + DisplayFormat.Value(value);
                 label.Text.color = _visuals.ColorForRole(label.Chain.Role);
-                label.Text.transform.localPosition = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + index * _chainLabelSpacing, 0f);
+                var statusRoom = terminal.HasStatus ? _chainLabelStatusOffsetY : 0f;
+                label.Text.transform.localPosition = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + statusRoom + index * _chainLabelSpacing, 0f);
             }
         }
 
