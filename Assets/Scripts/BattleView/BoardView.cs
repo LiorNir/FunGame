@@ -26,8 +26,8 @@ namespace BattleView
         [Tooltip("Height of the label above the last slot of a chain.")]
         [SerializeField] private float _chainLabelOffsetY = 0.72f;
         [SerializeField] private float _chainLabelSpacing = 0.32f;
-        [Tooltip("Extra height for the label when the last slot shows a status line above its pilot (an ability, a lock), so they do not overlap.")]
-        [SerializeField] private float _chainLabelStatusOffsetY = 0.3f;
+        [Tooltip("When the last slot shows a status line above its pilot (an ability, a lock), the label sits at least this far above the line's top, so they do not overlap.")]
+        [SerializeField] private float _chainLabelStatusGap = 0.05f;
 
         private sealed class LineSegment
         {
@@ -115,21 +115,15 @@ namespace BattleView
             Refresh();
         }
 
-        /// <summary>The line above a pilot: its lock, or the enemy effect aimed at it. Empty when there is nothing to say.</summary>
-        private static string DescribePilotStatus(PilotUnit pilot, string aimedAt)
+        /// <summary>The lines beside a pilot: its ability, its lock, the enemy effect aimed at it. Empty when there is nothing to say.</summary>
+        private string DescribePilotStatus(string slotId, PilotUnit pilot, string aimedAt)
         {
             if (pilot == null || pilot.Fallen)
             {
                 return string.Empty;
             }
 
-            var parts = new List<string>();
-            var ability = DescribeAbility(pilot);
-            if (ability.Length > 0)
-            {
-                parts.Add(ability);
-            }
-
+            var parts = DescribeEffects(slotId, pilot);
             if (pilot.IsLocked)
             {
                 parts.Add($"LOCKED {pilot.LockedTurns}");
@@ -140,33 +134,58 @@ namespace BattleView
                 parts.Add($"next: {aimedAt}");
             }
 
-            return string.Join("  ", parts);
+            return string.Join("\n", parts);
         }
 
         /// <summary>
-        /// An ability's state (temporary look): an attack change working now (\"SURGE: ATK x2\", \"ATK 0 this turn\"),
-        /// otherwise an unused ability (\"Surge ready\"); nothing once it is used and its effects are over.
+        /// What is changing the pilot right now, one line each (temporary look): a snipe (\"SNIPED -50%\"), an attack change
+        /// (\"SURGE: ATK x2\", \"CRASHED: ATK 0 until rested\"), and an unused ability (\"Surge ready\", greyed with its cost
+        /// while the AP is short).
         /// </summary>
-        private static string DescribeAbility(PilotUnit pilot)
+        private List<string> DescribeEffects(string slotId, PilotUnit pilot)
         {
+            var parts = new List<string>();
             var multiplier = StatModifier.Product(pilot.AttackModifiers);
             var defenseMultiplier = StatModifier.Product(pilot.DefenseModifiers);
-            if (defenseMultiplier < 0.999f && multiplier < 0.999f && System.Math.Abs(defenseMultiplier - multiplier) < 0.001f)
+
+            // a snipe lowers both stats by the same share, so the defense shows it
+            if (defenseMultiplier < 0.999f)
             {
-                return $"<color=#FF7A5C>SNIPED -{DisplayFormat.Value((1f - multiplier) * 100f)}%</color>";
+                parts.Add($"<color=#FF7A5C>SNIPED -{DisplayFormat.Value((1f - defenseMultiplier) * 100f)}%</color>");
             }
 
-            if (multiplier > 1.001f)
+            if (pilot.AttackModifiers.Any(modifier => modifier.IsActive && modifier.LastsUntilRested))
             {
-                return $"<color=#FFD24A>{(pilot.Ability?.Name ?? "BOOST").ToUpperInvariant()}: ATK x{DisplayFormat.Value(multiplier)}</color>";
+                parts.Add("<color=#FF7070>CRASHED: ATK 0 until rested</color>");
+            }
+            else if (multiplier > 1.001f)
+            {
+                parts.Add($"<color=#FFD24A>{(pilot.Ability?.Name ?? "BOOST").ToUpperInvariant()}: ATK x{DisplayFormat.Value(multiplier)}</color>");
+            }
+            else if (multiplier < 0.999f && System.Math.Abs(multiplier - defenseMultiplier) > 0.001f)
+            {
+                parts.Add(multiplier <= 0.001f ? "ATK 0 this turn" : $"ATK x{DisplayFormat.Value(multiplier)} this turn");
             }
 
-            if (multiplier < 0.999f)
+            var ability = DescribeUnusedAbility(slotId, pilot);
+            if (ability.Length > 0)
             {
-                return multiplier <= 0.001f ? "ATK 0 this turn" : $"ATK x{DisplayFormat.Value(multiplier)} this turn";
+                parts.Add(ability);
             }
 
-            return pilot.HasUnusedAbility ? $"<color=#FFD24A>{pilot.Ability.Name} ready</color>" : string.Empty;
+            return parts;
+        }
+
+        private string DescribeUnusedAbility(string slotId, PilotUnit pilot)
+        {
+            if (!pilot.HasUnusedAbility)
+            {
+                return string.Empty;
+            }
+
+            return _engine.CanActivate(slotId)
+                ? $"<color=#FFD24A>{pilot.Ability.Name} ready</color>"
+                : $"<color=#8C8C8C>{pilot.Ability.Name}: needs {pilot.Ability.ApCost} AP</color>";
         }
 
         public void Clear()
@@ -213,7 +232,9 @@ namespace BattleView
                 _engine.PilotBySlot.TryGetValue(pair.Key, out var pilot);
                 var locked = !_engine.IsUnlocked(pair.Key);
                 pair.Value.Apply(pilot, locked, _activeSlots.Contains(pair.Key), DescribeLock(pair.Key));
-                pair.Value.SetStatus(DescribePilotStatus(pilot, aimedAt.TryGetValue(pair.Key, out var aimed) ? aimed : null));
+                pair.Value.SetStatus(DescribePilotStatus(pair.Key, pilot, aimedAt.TryGetValue(pair.Key, out var aimed) ? aimed : null));
+                var abilityReady = pilot != null && !pilot.Fallen && pilot.HasUnusedAbility;
+                pair.Value.SetAbilityReady(abilityReady, abilityReady && _engine.CanActivate(pair.Key));
             }
 
             foreach (var segment in _lines)
@@ -238,8 +259,17 @@ namespace BattleView
                 var value = _lastResults.TryGetValue(label.Chain.Id, out var result) ? result.Value : 0f;
                 label.Text.text = (isAttack ? "ATK " : "DEF ") + DisplayFormat.Value(value);
                 label.Text.color = _visuals.ColorForRole(label.Chain.Role);
-                var statusRoom = terminal.HasStatus ? _chainLabelStatusOffsetY : 0f;
-                label.Text.transform.localPosition = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + statusRoom + index * _chainLabelSpacing, 0f);
+                var position = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + index * _chainLabelSpacing, 0f);
+                if (terminal.HasStatus)
+                {
+                    // just above the status line, whatever its length and size
+                    label.Text.ForceMeshUpdate();
+                    var halfHeight = label.Text.textBounds.extents.y * label.Text.transform.lossyScale.y;
+                    var statusTop = transform.InverseTransformPoint(new Vector3(0f, terminal.StatusTop, 0f)).y;
+                    position.y = Mathf.Max(position.y, statusTop + _chainLabelStatusGap + halfHeight + index * _chainLabelSpacing);
+                }
+
+                label.Text.transform.localPosition = position;
             }
         }
 

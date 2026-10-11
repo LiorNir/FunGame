@@ -26,7 +26,9 @@ namespace BattleView
     /// border and number.</item>
     /// <item>LockIcon and LockText: shown while the slot is locked, the text under the icon says how it unlocks.</item>
     /// <item>BonusBadge and BonusText: the slot's bonus, shown only when it has one.</item>
-    /// <item>PilotStatusText: above the pilot, its lock ("LOCKED 2") or the enemy effect aimed at it ("next: LOCK 2").</item>
+    /// <item>AbilityGlow: behind the background, pulses while the pilot has an ability it can use now (temporary look).</item>
+    /// <item>PilotStatusText: beside the pilot, one line each: its ability, its lock ("LOCKED 2") or the enemy effect aimed
+    /// at it ("next: LOCK 2").</item>
     /// <item>Ring: a decorative frame around the slot with the lerp-colour material. This script sets its colours (and the
     /// stat borders') by state: empty, locked, inactive or active (see <see cref="SlotTints"/>).</item>
     /// </list>
@@ -53,8 +55,11 @@ namespace BattleView
         [SerializeField] private TextMeshPro _lockText;
         [Tooltip("Shown when the slot has a bonus, under the bonus text.")]
         [SerializeField] private SpriteRenderer _bonusBadge;
-        [Tooltip("Above the pilot: its lock, or an enemy effect aimed at it (for example a coming lock).")]
+        [Tooltip("Beside the pilot: its ability, its lock, or an enemy effect aimed at it (for example a coming lock), one per line.")]
         [SerializeField] private TextMeshPro _pilotStatusText;
+        [Tooltip("Behind the background: pulses while the pilot has an ability it can use now. Its colour is set on the prefab.")]
+        [SerializeField] private SpriteRenderer _abilityGlow;
+        [SerializeField] private float _abilityGlowPulseSeconds = 0.6f;
         [Tooltip("The pilot's name, only for a pilot that has no picture yet.")]
         [FormerlySerializedAs("_centerText")]
         [SerializeField] private TextMeshPro _pilotNameText;
@@ -96,6 +101,10 @@ namespace BattleView
         private SlotVisualState _state;
         private bool _attackUsed;
         private bool _defenseUsed;
+        private int _abilityGlowState; // 0 off, 1 faint, 2 pulsing
+        private Color _abilityGlowColor;
+        private Vector3 _abilityGlowScale;
+        private Sequence _abilityGlowPulse;
 
         public string SlotId { get; private set; }
         public PilotUnit Pilot => _pilot;
@@ -151,6 +160,13 @@ namespace BattleView
             if (_lockIcon != null)
             {
                 _lockIcon.enabled = false;
+            }
+
+            if (_abilityGlow != null)
+            {
+                _abilityGlowColor = _abilityGlow.color;
+                _abilityGlowScale = _abilityGlow.transform.localScale;
+                _abilityGlow.enabled = false;
             }
 
             // clicks land on the background, whatever size the prefab's background has
@@ -215,14 +231,73 @@ namespace BattleView
             UpdateWoundVisual();
         }
 
-        /// <summary>The line above the pilot (a lock, or an enemy effect aimed at it); empty hides it.</summary>
+        /// <summary>
+        /// The line above the pilot (a lock, or an enemy effect aimed at it); empty hides it. It gets a dark backing so it
+        /// stays readable where it crosses lines and operator icons (temporary look).
+        /// </summary>
         public void SetStatus(string text)
         {
-            SetText(_pilotStatusText, text);
+            SetText(_pilotStatusText, string.IsNullOrEmpty(text) ? string.Empty : $"<mark=#000000E0>{text}</mark>");
+        }
+
+        /// <summary>The world height of the top of the status line's text (the slot's position when there is none).</summary>
+        public float StatusTop
+        {
+            get
+            {
+                if (!HasStatus)
+                {
+                    return transform.position.y;
+                }
+
+                _pilotStatusText.ForceMeshUpdate();
+                var bounds = _pilotStatusText.textBounds;
+                return _pilotStatusText.transform.TransformPoint(new Vector3(0f, bounds.max.y, 0f)).y;
+            }
         }
 
         /// <summary>True while the slot shows a status line above its pilot.</summary>
         public bool HasStatus => _pilotStatusText != null && !string.IsNullOrEmpty(_pilotStatusText.text);
+
+        /// <summary>
+        /// Marks the pilot whose ability can be used now (pulsing glow). <paramref name="usable"/> false while it cannot be
+        /// afforded: the glow stays, faint and still, so the pilot can still be found.
+        /// </summary>
+        public void SetAbilityReady(bool ready, bool usable)
+        {
+            if (_abilityGlow == null)
+            {
+                return;
+            }
+
+            var state = !ready ? 0 : usable ? 2 : 1;
+            _abilityGlow.enabled = ready;
+            if (state == _abilityGlowState)
+            {
+                return;
+            }
+
+            _abilityGlowState = state;
+            _abilityGlowPulse?.Kill();
+            _abilityGlowPulse = null;
+            _abilityGlow.transform.localScale = _abilityGlowScale;
+            if (!ready)
+            {
+                return;
+            }
+
+            if (!usable)
+            {
+                _abilityGlow.color = WithAlpha(_abilityGlowColor, 0.35f);
+                return;
+            }
+
+            _abilityGlow.color = _abilityGlowColor;
+            _abilityGlowPulse = DOTween.Sequence()
+                .Join(_abilityGlow.DOFade(_abilityGlowColor.a * 0.3f, _abilityGlowPulseSeconds))
+                .Join(_abilityGlow.transform.DOScale(_abilityGlowScale * 1.08f, _abilityGlowPulseSeconds))
+                .SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetLink(gameObject);
+        }
 
         public void SetHighlight(bool on)
         {
@@ -345,9 +420,16 @@ namespace BattleView
             }
 
             var remaining = Mathf.Clamp01(1f - _displayWound);
+            var attackChange = StatChanges.OfAttack(_pilot);
+            var defenseChange = StatChanges.OfDefense(_pilot);
 
-            // a used stat is filled (attack always full, defense by what is left of it); an unused one is empty and dark
-            if (_attackUsed)
+            // a used stat is filled (attack always full, defense by what is left of it); an unused one is empty and dark;
+            // a used stat at 0 blinks so it cannot be missed
+            if (_attackUsed && _pilot.EffectiveAttack <= 0.001f)
+            {
+                _attackBox.ShowZero();
+            }
+            else if (_attackUsed)
             {
                 _attackBox.SetFill(1f, _tints.FillFor(_state, _visuals.AttackColor));
             }
@@ -356,7 +438,11 @@ namespace BattleView
                 _attackBox.HideFill();
             }
 
-            if (_defenseUsed)
+            if (_defenseUsed && _pilot.BaseDefense * remaining * StatModifier.Product(_pilot.DefenseModifiers) <= 0.001f)
+            {
+                _defenseBox.ShowZero();
+            }
+            else if (_defenseUsed)
             {
                 _defenseBox.SetFill(remaining, _tints.FillFor(_state, _visuals.DefenseColor));
             }
@@ -367,9 +453,9 @@ namespace BattleView
 
             var attackColor = _inactive ? _inactiveColor : _visuals.AttackColor;
             var defenseColor = _inactive ? _inactiveColor : _visuals.DefenseColor;
-            _attackBox.SetValue(DisplayFormat.Value(_pilot.EffectiveAttack), _attackUsed ? attackColor : _tints.Unused(attackColor));
+            _attackBox.SetValue(DisplayFormat.Value(_pilot.EffectiveAttack), _attackUsed ? attackColor : _tints.Unused(attackColor), attackChange);
             var defenseNumber = _visuals.ShowRemainingDefense ? _pilot.BaseDefense * remaining : _pilot.BaseDefense;
-            _defenseBox.SetValue(DisplayFormat.Value(defenseNumber), _defenseUsed ? defenseColor : _tints.Unused(defenseColor));
+            _defenseBox.SetValue(DisplayFormat.Value(defenseNumber), _defenseUsed ? defenseColor : _tints.Unused(defenseColor), defenseChange);
         }
 
         private static string FormatBonus(NodeBonus bonus)

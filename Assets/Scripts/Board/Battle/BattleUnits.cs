@@ -65,6 +65,16 @@ namespace FunGame.Battle
             AttackModifiers.RemoveAll(modifier => modifier.IsOver);
             DefenseModifiers.RemoveAll(modifier => modifier.IsOver);
         }
+
+        /// <summary>A turn start spent resting in the hand: modifiers that last until rested (the Surge crash) end.</summary>
+        public void Rest()
+        {
+            AttackModifiers.RemoveAll(modifier => modifier.LastsUntilRested);
+            DefenseModifiers.RemoveAll(modifier => modifier.LastsUntilRested);
+        }
+
+        /// <summary>The attack the pilot will have next turn if it stays in the hand (it rests at the turn start).</summary>
+        public float AttackAfterRest => BaseAttack * StatModifier.Product(AttackModifiers.Where(modifier => !modifier.LastsUntilRested), nextTurn: true);
         public float EffectiveDefense => BaseDefense * (1f - DefenseWound) * StatModifier.Product(DefenseModifiers);
 
         public PilotUnit(string name, float baseAttack, float baseDefense, object source = null, IPilotAbility ability = null)

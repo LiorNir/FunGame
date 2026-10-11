@@ -898,11 +898,17 @@ namespace FunGame.Battle
         }
 
         /// <summary>
-        /// Pilots resting in the hand get back part of their defense (see <see cref="BattleRules.HandRecoveryPerTurn"/>); one
+        /// Pilots resting in the hand shake off "until rested" modifiers (the Surge crash) and get back part of their defense
+        /// (see <see cref="BattleRules.HandRecoveryPerTurn"/>); one
         /// ejected last turn and still in the hand gets the ejected pilot's bonus (<see cref="BattleRules.EjectedRecoveryMultiplier"/>).
         /// </summary>
         private void RecoverHand()
         {
+            foreach (var pilot in Hand)
+            {
+                pilot.Rest();
+            }
+
             var recovery = Setup.Rules.HandRecoveryPerTurn;
             if (recovery > 0f)
             {

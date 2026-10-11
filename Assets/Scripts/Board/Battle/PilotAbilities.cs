@@ -52,8 +52,9 @@ namespace FunGame.Battle
     }
 
     /// <summary>
-    /// "Surge": the pilot's attack is multiplied this turn and drops to nothing next turn (harsh, but it scales with
-    /// upgrades and multiply slots, and the crash pushes the player to swap or eject on the attack side).
+    /// "Surge": the pilot's attack is multiplied this turn and drops to nothing from next turn on, until the pilot rests
+    /// in the hand (ejected or replaced, then a turn start in the hand). Harsh, but it scales with upgrades and multiply
+    /// slots, and the crash makes leaving the attack side unmanaged a real cost.
     /// </summary>
     public sealed class SurgeAbility : IPilotAbility
     {
@@ -69,13 +70,13 @@ namespace FunGame.Battle
 
         public string Describe()
         {
-            return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, ATK 0 next turn";
+            return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, then ATK 0 until rested in the hand";
         }
 
         public void Activate(PilotUnit pilot)
         {
             pilot.AttackModifiers.Add(new StatModifier(Multiplier, 0, 1));
-            pilot.AttackModifiers.Add(new StatModifier(0f, 1, 1));
+            pilot.AttackModifiers.Add(StatModifier.UntilRested(0f, 1));
         }
 
         public IPilotAbility WithCost(int apCost)
@@ -98,14 +99,24 @@ namespace FunGame.Battle
         /// <summary>How many turns it applies once started.</summary>
         public int TurnsLeft { get; private set; }
 
+        /// <summary>True if it lasts, once started, until the pilot rests in the hand instead of for a number of turns.</summary>
+        public bool LastsUntilRested { get; }
+
         public bool IsActive => StartsIn == 0 && TurnsLeft > 0;
         public bool IsOver => TurnsLeft <= 0;
 
-        public StatModifier(float multiplier, int startsIn, int turns)
+        public StatModifier(float multiplier, int startsIn, int turns, bool lastsUntilRested = false)
         {
             Multiplier = multiplier;
             StartsIn = startsIn;
             TurnsLeft = turns;
+            LastsUntilRested = lastsUntilRested;
+        }
+
+        /// <summary>A modifier that starts in some turns and lasts until the pilot rests in the hand (see <see cref="PilotUnit.Rest"/>).</summary>
+        public static StatModifier UntilRested(float multiplier, int startsIn)
+        {
+            return new StatModifier(multiplier, startsIn, int.MaxValue, true);
         }
 
         /// <summary>Moves on by one turn: a waiting modifier comes closer, an active one uses up a turn.</summary>
@@ -115,7 +126,7 @@ namespace FunGame.Battle
             {
                 StartsIn--;
             }
-            else
+            else if (!LastsUntilRested)
             {
                 TurnsLeft--;
             }
@@ -123,7 +134,7 @@ namespace FunGame.Battle
 
         public StatModifier Copy()
         {
-            return new StatModifier(Multiplier, StartsIn, TurnsLeft);
+            return new StatModifier(Multiplier, StartsIn, TurnsLeft, LastsUntilRested);
         }
 
         /// <summary>The product of the active modifiers' multipliers (1 when none is active).</summary>

@@ -14,6 +14,7 @@ namespace FunGame.EditorTools
     /// <code>
     /// PilotSlot                      slot data, slot view, click collider
     ///   GeneralScaler                scales the whole look
+    ///     AbilityGlow                behind the background; pulses while the pilot's ability can be used
     ///     PilotBackground            disc behind the pilot; its size is the slot's size
     ///     Pilot                      the placed pilot's picture
     ///     Ring                       decorative frame with its own material (not touched by code)
@@ -49,13 +50,16 @@ namespace FunGame.EditorTools
         private const float BackgroundDiameter = 0.9f;
         private const float ScalerScale = 1.4f;
         private static readonly Color BackgroundColor = new Color(0.12f, 0.12f, 0.2f);
+        private static readonly Color AbilityGlowColor = new Color(1f, 0.82f, 0.3f, 0.85f);
+        private const float AbilityGlowDiameter = 1.3f;
         private static readonly Color BonusTextColor = new Color(1f, 0.85f, 0.3f);
         private static readonly Color StatsBorderColor = new Color(0.6f, 0.6f, 0.65f);
         private static readonly Color StatsBackgroundColor = new Color(0f, 0f, 0f, 0.92f);
         private static readonly Color StatFillColor = new Color(0.15f, 0.25f, 0.4f); // only a preview: the slot colours it
 
-        // draw order, back to front (the operator slot's base uses 2)
-        private const int OrderBackground = 1;
+        // draw order, back to front (the operator slot's base uses 2; board lines use 0)
+        private const int OrderAbilityGlow = 1;
+        private const int OrderBackground = 2;
         private const int OrderPilot = 3;
         private const int OrderRing = 4;
         private const int OrderStatsBorder = 7;
@@ -85,6 +89,13 @@ namespace FunGame.EditorTools
             if (created)
             {
                 ViewFactory.FitSprite(background, BackgroundDiameter);
+            }
+
+            var abilityGlow = EnsureSprite(parent, "AbilityGlow", null, visuals.SlotBase, AbilityGlowColor, OrderAbilityGlow, Vector3.zero, out created);
+            if (created)
+            {
+                ViewFactory.FitSprite(abilityGlow, AbilityGlowDiameter);
+                abilityGlow.transform.SetAsFirstSibling();
             }
 
             var pilot = EnsureSprite(parent, "Pilot", null, null, Color.white, OrderPilot, Vector3.zero, out _);
@@ -137,11 +148,15 @@ namespace FunGame.EditorTools
             //     inactiveText.text = "<b>INACTIVE</b>";
             // }
 
-            var statusText = EnsureText(parent, "PilotStatusText", null, 0.15f, new Color(1f, 0.55f, 0.35f), OrderTexts, new Vector3(0f, 0.62f, 0f), out created);
+            // beside the pilot, one line per status: above it the line would cross the operator icon between two slots
+            var statusText = EnsureText(parent, "PilotStatusText", null, 0.15f, new Color(1f, 0.55f, 0.35f), OrderTexts, new Vector3(0.6f, 0.12f, 0f), out created);
             if (created)
             {
                 statusText.fontStyle = FontStyles.Bold;
-                statusText.text = "next: LOCK 2";
+                statusText.rectTransform.pivot = new Vector2(0f, 0.5f);
+                statusText.alignment = TextAlignmentOptions.MidlineLeft;
+                statusText.rectTransform.localPosition = new Vector3(0.6f, 0.12f, 0f);
+                statusText.text = "SURGE: ATK x2\nnext: SNIPE -50%";
             }
 
             var serialized = new SerializedObject(view);
@@ -157,6 +172,7 @@ namespace FunGame.EditorTools
             Assign(serialized, "_bonusBadge", bonusBadge);
             Assign(serialized, "_pilotNameText", nameText);
             Assign(serialized, "_pilotStatusText", statusText);
+            Assign(serialized, "_abilityGlow", abilityGlow);
             // INACTIVE LABEL: Assign(serialized, "_inactiveText", inactiveText);
             serialized.ApplyModifiedPropertiesWithoutUndo();
 

@@ -611,7 +611,7 @@ namespace FunGame.Board.Tests
         }
 
         [Test]
-        public void Surge_DoublesAttackThisTurn_ThenAttackIsZeroNextTurn_ThenNormal()
+        public void Surge_DoublesAttackThisTurn_ThenAttackStaysZeroOnTheBoard()
         {
             var engine = SurgeBattle();
             Assert.IsTrue(engine.TryActivate("R"));
@@ -623,11 +623,25 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(0f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance);
 
             engine.ResolveTurn();
-            Assert.AreEqual(95f, engine.Lanes[0].Current.Health, Tolerance); // the crash turn deals nothing
-            Assert.AreEqual(2.5f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance);
+            engine.ResolveTurn();
+            Assert.AreEqual(95f, engine.Lanes[0].Current.Health, Tolerance); // the crash lasts while Bolt stays on the board
+            Assert.AreEqual(0f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance);
+        }
+
+        [Test]
+        public void SurgeCrash_EndsWhenThePilotRestsInTheHand()
+        {
+            var engine = SurgeBattle();
+            Assert.IsTrue(engine.TryActivate("R"));
+            engine.ResolveTurn();
+
+            Assert.IsTrue(engine.TryEject("R"));
+            var bolt = engine.Hand.Single(pilot => pilot.Name == "Bolt");
+            Assert.AreEqual(0f, bolt.EffectiveAttack, Tolerance); // still crashed until the turn starts in the hand
+            Assert.AreEqual(2.5f, bolt.AttackAfterRest, Tolerance);
 
             engine.ResolveTurn();
-            Assert.AreEqual(92.5f, engine.Lanes[0].Current.Health, Tolerance);
+            Assert.AreEqual(2.5f, bolt.EffectiveAttack, Tolerance);
         }
 
         [Test]
