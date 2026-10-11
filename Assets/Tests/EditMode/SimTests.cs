@@ -342,6 +342,21 @@ namespace FunGame.Board.Tests
         // ---------- text form ----------
 
         [Test]
+        public void APilotsAbility_SurvivesBeingWrittenAndRead()
+        {
+            var encounter = BuiltInEncounters.WorldOne()[0];
+            var deck = new[] { new PilotStats("Bolt", 2.5f, 1.5f, null, new SurgeAbility(2, 2f)), new PilotStats("Plain", 1f, 1f) };
+            var text = SetupText.Write(encounter.Name, encounter.Tier, encounter.WithDeck(deck, 1), null);
+
+            var read = SetupText.Read(text);
+
+            var bolt = read.Setup.Deck.First(pilot => pilot.Name == "Bolt");
+            Assert.IsTrue(bolt.Ability is SurgeAbility);
+            Assert.AreEqual(2, bolt.Ability.ApCost);
+            Assert.IsTrue(read.Setup.Deck.First(pilot => pilot.Name == "Plain").Ability == null);
+        }
+
+        [Test]
         public void AnEncounter_SurvivesBeingWrittenAndRead()
         {
             foreach (var encounter in BuiltInEncounters.All())

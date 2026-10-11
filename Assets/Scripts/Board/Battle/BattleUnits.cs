@@ -34,12 +34,38 @@ namespace FunGame.Battle
 
         public bool IsLocked => LockedTurns > 0;
 
-        public float EffectiveAttack => BaseAttack;
+        /// <summary>The pilot's ability (null if none); <see cref="AbilityUsed"/> once it has been used this encounter.</summary>
+        public IPilotAbility Ability { get; }
+
+        public bool AbilityUsed { get; set; }
+
+        /// <summary>True if the pilot has an ability it has not used yet.</summary>
+        public bool HasUnusedAbility => Ability != null && !AbilityUsed;
+
+        /// <summary>Temporary changes to attack (from abilities, later from enemy effects); they move on at every turn start.</summary>
+        public List<AttackModifier> AttackModifiers { get; } = new List<AttackModifier>();
+
+        public float EffectiveAttack => BaseAttack * AttackModifier.Product(AttackModifiers);
+
+        /// <summary>The attack the pilot will have next turn, by the modifiers already on it (known, not guessed).</summary>
+        public float AttackNextTurn => BaseAttack * AttackModifier.Product(AttackModifiers, nextTurn: true);
+
+        /// <summary>Moves the pilot's temporary modifiers on by one turn.</summary>
+        public void AdvanceTurn()
+        {
+            foreach (var modifier in AttackModifiers)
+            {
+                modifier.Advance();
+            }
+
+            AttackModifiers.RemoveAll(modifier => modifier.IsOver);
+        }
         public float EffectiveDefense => BaseDefense * (1f - DefenseWound);
 
-        public PilotUnit(string name, float baseAttack, float baseDefense, object source = null)
+        public PilotUnit(string name, float baseAttack, float baseDefense, object source = null, IPilotAbility ability = null)
         {
             Source = source;
+            Ability = ability;
             Name = name;
             BaseAttack = baseAttack;
             BaseDefense = baseDefense;
@@ -48,13 +74,22 @@ namespace FunGame.Battle
         /// <summary>A separate pilot with the same stats and the same wounds, for copying a battle.</summary>
         public PilotUnit Copy()
         {
-            return new PilotUnit(Name, BaseAttack, BaseDefense, Source) { DefenseWound = DefenseWound, Fallen = Fallen, Id = Id, LockedTurns = LockedTurns };
+            var copy = new PilotUnit(Name, BaseAttack, BaseDefense, Source, Ability)
+            {
+                DefenseWound = DefenseWound, Fallen = Fallen, Id = Id, LockedTurns = LockedTurns, AbilityUsed = AbilityUsed
+            };
+            foreach (var modifier in AttackModifiers)
+            {
+                copy.AttackModifiers.Add(modifier.Copy());
+            }
+
+            return copy;
         }
 
         public override string ToString()
         {
             return Fallen ? $"{Name} (fallen)"
-                : $"{Name} {DisplayFormat.Value(BaseAttack)}/{DisplayFormat.Value(EffectiveDefense)}{(IsLocked ? $" [locked {LockedTurns}]" : string.Empty)}";
+                : $"{Name} {DisplayFormat.Value(EffectiveAttack)}/{DisplayFormat.Value(EffectiveDefense)}{(IsLocked ? $" [locked {LockedTurns}]" : string.Empty)}";
         }
     }
 

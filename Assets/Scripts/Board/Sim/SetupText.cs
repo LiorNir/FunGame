@@ -65,7 +65,8 @@ namespace FunGame.Sim
 
             foreach (var pilot in setup.Deck)
             {
-                text.AppendLine($"pilot|{Clean(pilot.Name)}|{Number(pilot.Attack)}|{Number(pilot.Defense)}");
+                var ability = pilot.Ability != null ? "|" + WriteAbility(pilot.Ability) : string.Empty;
+                text.AppendLine($"pilot|{Clean(pilot.Name)}|{Number(pilot.Attack)}|{Number(pilot.Defense)}{ability}");
             }
 
             return text.ToString();
@@ -165,7 +166,8 @@ namespace FunGame.Sim
                             enemyActions.Add(new EnemyActionData(fields[1], effects));
                             break;
                         case "pilot":
-                            pilots.Add(new PilotStats(fields[1], Float(fields[2]), Float(fields[3])));
+                            pilots.Add(new PilotStats(fields[1], Float(fields[2]), Float(fields[3]), null,
+                                fields.Length > 4 && fields[4].Trim().Length > 0 ? ReadAbility(fields[4]) : null));
                             break;
                         default:
                             throw new FormatException($"unknown line type '{fields[0]}'");
@@ -191,6 +193,29 @@ namespace FunGame.Sim
         private static string Number(float value)
         {
             return value.ToString("R", Culture);
+        }
+
+        private static string WriteAbility(IPilotAbility ability)
+        {
+            if (ability is SurgeAbility surge)
+            {
+                return $"surge {surge.ApCost} {Number(surge.Multiplier)}";
+            }
+
+            throw new FormatException($"no text form for the ability {ability.GetType().Name}");
+        }
+
+        /// <summary>A pilot line's ability field: "surge AP MULTIPLIER".</summary>
+        private static IPilotAbility ReadAbility(string field)
+        {
+            var parts = field.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            switch (parts[0].ToLowerInvariant())
+            {
+                case "surge":
+                    return new SurgeAbility(Int(parts[1]), parts.Length > 2 ? Float(parts[2]) : 2f);
+                default:
+                    throw new FormatException($"unknown ability '{parts[0]}'");
+            }
         }
 
         private static string WriteEffect(IEnemyEffect effect)

@@ -113,7 +113,7 @@ namespace FunGame.Sim
         public static IReadOnlyList<PilotStats> Scale(IReadOnlyList<PilotStats> roster, int rung)
         {
             var factor = Multiplier(rung);
-            return roster.Select(pilot => new PilotStats(pilot.Name, pilot.Attack * factor, pilot.Defense * factor, pilot.Source)).ToList();
+            return roster.Select(pilot => pilot.WithStats(pilot.Attack * factor, pilot.Defense * factor)).ToList();
         }
     }
 

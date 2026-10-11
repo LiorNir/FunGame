@@ -22,6 +22,9 @@ namespace FunGame.Battle
         /// <summary>Subject = pilot name, Slots = the slot.</summary>
         FallenCleared,
 
+        /// <summary>Subject = pilot name, Detail = ability name, Slots = the pilot's slot, A = AP cost, B = AP left.</summary>
+        AbilityActivated,
+
         /// <summary>A = turn number. Resolution begins; the board is as the player left it.</summary>
         TurnResolving,
 

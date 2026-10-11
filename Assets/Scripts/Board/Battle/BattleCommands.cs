@@ -11,7 +11,10 @@ namespace FunGame.Battle
         Eject,
 
         /// <summary>Pay AP to unlock a slot.</summary>
-        Unlock
+        Unlock,
+
+        /// <summary>Use the ability of the pilot in a slot.</summary>
+        Activate
     }
 
     /// <summary>One thing the player can do during the planning phase. Every player action is a command.</summary>
@@ -46,6 +49,11 @@ namespace FunGame.Battle
             return new BattleCommand(BattleCommandType.Unlock, -1, slotId);
         }
 
+        public static BattleCommand Activate(string slotId)
+        {
+            return new BattleCommand(BattleCommandType.Activate, -1, slotId);
+        }
+
         /// <summary>A readable form for logs and reports. Needs the engine the command is meant for, to name the pilot.</summary>
         public string Describe(BattleEngine engine)
         {
@@ -58,6 +66,9 @@ namespace FunGame.Battle
                         : $"place {pilot} in {SlotId}";
                 case BattleCommandType.Eject:
                     return $"eject {(engine.PilotBySlot.TryGetValue(SlotId, out var ejected) ? ejected.Name : "?")} from {SlotId}";
+                case BattleCommandType.Activate:
+                    var user = engine.PilotBySlot.TryGetValue(SlotId, out var active) ? active : null;
+                    return $"use {user?.Ability?.Name ?? "?"} of {user?.Name ?? "?"} in {SlotId}";
                 default:
                     return $"unlock {SlotId}";
             }
@@ -103,6 +114,14 @@ namespace FunGame.Battle
                 }
             }
 
+            foreach (var pair in engine.PilotBySlot)
+            {
+                if (engine.CanActivate(pair.Key))
+                {
+                    into.Add(BattleCommand.Activate(pair.Key));
+                }
+            }
+
             foreach (var rule in engine.Setup.SlotRules)
             {
                 if (engine.CanUnlock(rule.SlotId))
@@ -121,6 +140,8 @@ namespace FunGame.Battle
                     return engine.TryPlace(command.HandIndex, command.SlotId);
                 case BattleCommandType.Eject:
                     return engine.TryEject(command.SlotId);
+                case BattleCommandType.Activate:
+                    return engine.TryActivate(command.SlotId);
                 default:
                     return engine.TryUnlock(command.SlotId);
             }

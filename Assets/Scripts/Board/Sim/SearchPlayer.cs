@@ -183,7 +183,7 @@ namespace FunGame.Sim
             node.Prediction = PlanScorer.Score(afterCombat, baseline, _profile.Weights, node.ApSpent);
         }
 
-        /// <summary>Two plans that leave the same board, locks and AP are the same plan, whatever order they were built in.</summary>
+        /// <summary>Two plans that leave the same board (with the same abilities used), locks and AP are the same plan, whatever order they were built in.</summary>
         private static string Key(BattleEngine engine)
         {
             var builder = new StringBuilder();
@@ -191,7 +191,7 @@ namespace FunGame.Sim
             foreach (var pair in engine.PilotBySlot.OrderBy(pair => pair.Key, StringComparer.Ordinal))
             {
                 var pilot = pair.Value;
-                builder.Append(pair.Key).Append('=').Append(pilot.Name).Append(':').Append(pilot.DefenseWound).Append(pilot.Fallen ? "x" : string.Empty).Append(';');
+                builder.Append(pair.Key).Append('=').Append(pilot.Name).Append(':').Append(pilot.DefenseWound).Append(pilot.Fallen ? "x" : string.Empty).Append(pilot.AbilityUsed ? "u" : string.Empty).Append(';');
             }
 
             builder.Append('|');

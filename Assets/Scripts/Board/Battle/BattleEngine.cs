@@ -202,7 +202,7 @@ namespace FunGame.Battle
                 _lockedSlots.Add(rule.SlotId);
             }
 
-            var deck = Setup.Deck.Select((stats, index) => new PilotUnit(stats.Name, stats.Attack, stats.Defense, stats.Source) { Id = index }).ToList();
+            var deck = Setup.Deck.Select((stats, index) => new PilotUnit(stats.Name, stats.Attack, stats.Defense, stats.Source, stats.Ability) { Id = index }).ToList();
             Shuffle(deck);
             Bank.AddRange(deck);
 
@@ -283,6 +283,56 @@ namespace FunGame.Battle
             }
 
             Emit(BattleEventType.PilotPlaced, subject: pilot.Name, a: cost, b: ActionPoints, slots: new[] { slotId }, detail: occupant?.Name);
+            return true;
+        }
+
+        public bool CanActivate(string slotId)
+        {
+            return ActivateBlocker(slotId) == null;
+        }
+
+        /// <summary>Why the ability of the pilot in the slot cannot be used right now, in a few words; null if it can.</summary>
+        public string ActivateBlocker(string slotId)
+        {
+            if (Outcome != BattleOutcome.InProgress)
+            {
+                return "the battle is over";
+            }
+
+            if (!_pilotBySlot.TryGetValue(slotId, out var pilot) || pilot.Fallen)
+            {
+                return "no living pilot";
+            }
+
+            if (pilot.Ability == null)
+            {
+                return "no ability";
+            }
+
+            if (pilot.AbilityUsed)
+            {
+                return "already used";
+            }
+
+            return pilot.Ability.ApCost <= ActionPoints ? null : "not enough AP";
+        }
+
+        /// <summary>Uses the ability of the pilot in the slot: pays its AP; it can be used once per encounter.</summary>
+        public bool TryActivate(string slotId)
+        {
+            if (!CanActivate(slotId))
+            {
+                return false;
+            }
+
+            var pilot = _pilotBySlot[slotId];
+            var cost = pilot.Ability.ApCost;
+            ActionPoints -= cost;
+            Stats.ApSpent += cost;
+            Stats.AbilitiesUsed++;
+            pilot.AbilityUsed = true;
+            pilot.Ability.Activate(pilot);
+            Emit(BattleEventType.AbilityActivated, subject: pilot.Name, a: cost, b: ActionPoints, slots: new[] { slotId }, detail: pilot.Ability.Name);
             return true;
         }
 
@@ -764,6 +814,12 @@ namespace FunGame.Battle
             _placedThisTurn.Clear();
             ActionPoints = Setup.Rules.ActionPointsPerTurn;
             Emit(BattleEventType.TurnStarted, a: Turn);
+
+            // temporary modifiers (abilities) move on, wherever the pilot is
+            foreach (var pilot in _pilotBySlot.Values.Concat(Hand).Concat(Bank))
+            {
+                pilot.AdvanceTurn();
+            }
 
             foreach (var lane in Lanes)
             {

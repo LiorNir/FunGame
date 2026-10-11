@@ -45,6 +45,10 @@ namespace FunGame.Battle
                     log.Add($"  Unlock {battleEvent.Subject} {Cost(battleEvent)}");
                     break;
 
+                case BattleEventType.AbilityActivated:
+                    log.Add($"  {battleEvent.Subject} uses {battleEvent.Detail} in {SlotOf(battleEvent)} {Cost(battleEvent)}");
+                    break;
+
                 case BattleEventType.FallenCleared:
                     log.Add($"  Cleared fallen {battleEvent.Subject} from {SlotOf(battleEvent)}");
                     break;

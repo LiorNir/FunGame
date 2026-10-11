@@ -598,6 +598,79 @@ namespace FunGame.Board.Tests
             Assert.IsTrue(engine.ClearFallen("R"));
         }
 
+        // ---------- abilities ----------
+
+        private static BattleEngine SurgeBattle(int apCost = 2)
+        {
+            var enemy = Enemy("Dummy", 100, new EnemyActionData("Idle", 0, 0));
+            var deck = new[] { new PilotStats("Bolt", 2.5f, 1.5f, null, new SurgeAbility(apCost)), new PilotStats("Plain", 1f, 1f) };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "Bolt", "R");
+            return engine;
+        }
+
+        [Test]
+        public void Surge_DoublesAttackThisTurn_ThenAttackIsZeroNextTurn_ThenNormal()
+        {
+            var engine = SurgeBattle();
+            Assert.IsTrue(engine.TryActivate("R"));
+            Assert.AreEqual(5f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance);
+            Assert.AreEqual(0f, engine.PilotBySlot["R"].AttackNextTurn, Tolerance);
+
+            engine.ResolveTurn();
+            Assert.AreEqual(95f, engine.Lanes[0].Current.Health, Tolerance);
+            Assert.AreEqual(0f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance);
+
+            engine.ResolveTurn();
+            Assert.AreEqual(95f, engine.Lanes[0].Current.Health, Tolerance); // the crash turn deals nothing
+            Assert.AreEqual(2.5f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance);
+
+            engine.ResolveTurn();
+            Assert.AreEqual(92.5f, engine.Lanes[0].Current.Health, Tolerance);
+        }
+
+        [Test]
+        public void Ability_CostsItsOwnAp_AndCanBeUsedOncePerEncounter()
+        {
+            var engine = SurgeBattle(apCost: 2);
+            Assert.AreEqual(2, engine.ActionPoints); // 3 minus 1 for placing
+            Assert.IsTrue(engine.TryActivate("R"));
+            Assert.AreEqual(0, engine.ActionPoints);
+            Assert.AreEqual(1, engine.Stats.AbilitiesUsed);
+
+            engine.ResolveTurn();
+            Assert.IsFalse(engine.CanActivate("R"));
+            Assert.AreEqual("already used", engine.ActivateBlocker("R"));
+        }
+
+        [Test]
+        public void Ability_NeedsEnoughAp_AndAPilotThatHasOne()
+        {
+            var engine = SurgeBattle(apCost: 3);
+            Assert.AreEqual("not enough AP", engine.ActivateBlocker("R")); // 2 AP left after placing
+
+            engine.ResolveTurn();
+            Assert.IsTrue(engine.CanActivate("R"));
+            Assert.IsTrue(engine.TryPlace(engine.Hand.FindIndex(pilot => pilot.Name == "Plain"), "R")); // Bolt goes back to the hand
+            Assert.AreEqual("no ability", engine.ActivateBlocker("R"));
+        }
+
+        [Test]
+        public void AbilityState_IsCopiedWithTheBattle()
+        {
+            var engine = SurgeBattle();
+            engine.TryActivate("R");
+
+            var copy = engine.Clone();
+
+            Assert.IsTrue(copy.PilotBySlot["R"].AbilityUsed);
+            Assert.AreEqual(5f, copy.PilotBySlot["R"].EffectiveAttack, Tolerance);
+            copy.ResolveTurn();
+            Assert.AreEqual(0f, copy.PilotBySlot["R"].EffectiveAttack, Tolerance);
+            Assert.AreEqual(5f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance); // the original is untouched
+        }
+
         // ---------- placing on a fallen pilot ----------
 
         [Test]
