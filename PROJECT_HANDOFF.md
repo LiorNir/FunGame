@@ -71,6 +71,21 @@ Last updated: 2026-10-09. This file has three parts: **start here** (where the w
 - *Still defense-centred*; noted again.
 - UI added after this playtest: the hand card's defense bar shows a semi-transparent green preview of where the defense will be after the next turn's recovery (`CardStatBar._preview`, added to the prefab by *Add Missing Parts To Battle Prefabs*); with the eject bonus it reaches further.
 
+**Plan after World 2 (agreed 2026-10-11):** **World 3 = pilot abilities** (Spark's ability opens it; the World 2 boss's reward pilot brings a second), with **Snipe** as the World 3 boss's twist (a sniped attacker is a reason to swap, eject or use an ability; brings play to the attack side). **World 4 = bonus slots, divide and subtract as a toll** (may interact with Swap). The score formula and challenges wait until the economy is designed (doing them later only means re-running the lab, not new playtests).
+
+**Display-only defense numbers (on trial, 2026-10-11):** a wounded pilot's defense box and hand card show its *full* defense; the fill shows how much is left; clicking the pilot (board or hand) shows the exact value in the menu ("Quill   ATK 1   DEF 0.42 of 3"); chain totals stay exact. Switch: `BattleVisuals.ShowRemainingDefense` (off = this trial). Chosen over rounding wounds to 0.25 steps (which would keep pilots and chains adding up, but make a hit's drop slightly smaller than the hit).
+
+**Challenge ideas, from lab data** (share of won battles meeting it at the intended power, careful / casual bot; aim: a careful player meets it sometimes, not always):
+| Encounter | Challenge | Careful | Casual |
+|---|---|---|---|
+| 1-1 | none ("win on turn 1" only depends on the draw: 44% / 44%) | | |
+| 1-2 | Win by turn 2 | 44% | 100% |
+| 1-3 | No defense chain breaks | 48% | 48% |
+| 2-1 | Lose no pilots | 27% | 6% |
+| 2-2 | Lose no pilots (rewards ducking) | 52% | 0% |
+| 2-3 | Lose at most 1 pilot | 48% | 23% |
+In 2-2 and 2-3 health and pilots pull against each other (2-2: finish with 5+ HP careful 52%, casual 100%), so a two-part challenge ("no pilots lost and 5+ HP") would be a real skill test. Measured from 200 battle logs per bot (`run-lab.bat inspect`).
+
 **Watch list (decisions on trial, revisit with data or playtests):**
 - *Hand recovery 0.5 per turn:* may make one pilot with far more defense than the others (an over-tuned specialist) the best answer in nearly every defensive situation: block, rest two turns, block again.
 - *The AP-paid slot:* the bots gain nothing from it in 2-3, and the casual bot does better without it. A red flag; the user is sure it can work. Likely reasons: AP is rarely scarce (1-2 of 3 AP go unused per turn in Worlds 1-2), so its cost means little, and one more defense slot adds little. Ideas: a slot whose position makes it strong (completing a multiply, a bonus slot later), longer encounters (more HP, two lanes, several waves) where a permanent extra slot pays back, or making AP scarcer (see AP carry-over).
@@ -100,7 +115,7 @@ Last updated: 2026-10-09. This file has three parts: **start here** (where the w
 **Lab finding (2026-10-10), not resolved:** in the Lock sample the lock-blind careful bot does better than the reacting one (81% vs 42% wins, 0.6 vs 1.1 pilots lost). The log shows why: before every big hit the careful bot ejects its whole board to save its pilots, deals no damage that turn and loses on health; a lock stops that, so it helps the bot. The Gambler profile wins 100%. So the careful bot (one-turn horizon, PilotLost weight 30) over-protects pilots, and "Does it need...?" verdicts for enemy mechanics cannot be trusted until the careful bot weighs pilots against health better (not by looking further ahead, see the design notes). Design question raised by it: ejecting a whole board to dodge a telegraphed hit (1 AP per pilot, plus re-placing) is a strong defensive move; is that intended?
 
 **Next steps for Claude (agreed order):**
-0. ~~Let the user play World 1 in Unity~~ (done, two playtests; World 1 is a solid first draft). ~~Build World 2~~ (first draft done, see above); next: the user's World 2 playtest.
+0. ~~Let the user play World 1 in Unity~~ (done, two playtests). ~~Build World 2~~ (playtested twice, good). Next: World 3, pilot abilities (design Spark's ability with the user first), Snipe in its boss.
 1. Stage 2 of the lab, one mechanic at a time, each with unit tests, a test encounter that *demands* it, a lab check, and a bot decision for it: ~~Lock~~ (done, see above; its teaching sample waits on a better bot), fix how the careful bot weighs pilots against health (it over-protects pilots; no multi-turn look-ahead, see the design notes), **Snipe** (telegraphed, player reacts by ejecting), **abilities** (one use per encounter, cost AP; the bot decides *when* through timing styles, not multi-turn look-ahead), then Swap and random effects. Abilities list from the user: simple buff X for N turns; heal X defense on a pilot; discard X and draw X; +stats then self-lock until it dies; big buff that decays each turn; swap this pilot with another on the board; random stat change or random swap.
 2. World 2 (pilot tools: replace, eject, AP unlock, first ability from the World 1 boss pilot) built the same way as World 1; then the interlude (bonus slot, divide).
 3. Stage 3 content (pilot archetypes with a power budget, about 30 encounters across 3 world tiers, deck cap and deck choice) and Stage 4 economy lab (see "Balance lab" below).

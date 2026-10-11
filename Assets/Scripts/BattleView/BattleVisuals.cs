@@ -1,4 +1,5 @@
 using BoardAuthoring;
+using FunGame.Battle;
 using FunGame.Board;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,10 @@ namespace BattleView
     [CreateAssetMenu(fileName = "BattleVisuals", menuName = "ScriptableObjects/BattleVisuals")]
     public class BattleVisuals : ScriptableObject
     {
+        [Header("Numbers")]
+        [Tooltip("On: a wounded pilot's defense box and hand card show what is left of its defense (0.75). Off (on trial since 2026-10-11): they show its full defense (3) and the fill shows how much is left; the exact value is shown when the pilot is clicked. Chain totals are exact either way.")]
+        public bool ShowRemainingDefense;
+
         [Header("Prefabs")]
         public EnemyView EnemyPrefab;
         public CardView CardPrefab;
@@ -47,6 +52,21 @@ namespace BattleView
         public Color UnusedColor = new Color(0.55f, 0.55f, 0.6f);
 
         /// <summary>The one place that decides the colour for attack, defense or both. Lines, bars, labels and texts all use it.</summary>
+        /// <summary>The defense number to show on a pilot's box or card (see <see cref="ShowRemainingDefense"/>).</summary>
+        public string DefenseNumber(PilotUnit pilot)
+        {
+            return DisplayFormat.Value(ShowRemainingDefense ? pilot.EffectiveDefense : pilot.BaseDefense);
+        }
+
+        /// <summary>A pilot's exact stats in one line, for the menu shown when it is clicked: "Quill  ATK 1  DEF 0.75 of 3".</summary>
+        public string ExactStats(PilotUnit pilot)
+        {
+            var defense = pilot.DefenseWound > 0.001f
+                ? $"{DisplayFormat.Value(pilot.EffectiveDefense)} of {DisplayFormat.Value(pilot.BaseDefense)}"
+                : DisplayFormat.Value(pilot.BaseDefense);
+            return $"{pilot.Name}   ATK {DisplayFormat.Value(pilot.EffectiveAttack)}   DEF {defense}";
+        }
+
         public Color ColorForRoles(BoardLayoutAuthoring.RoleFlags roles)
         {
             switch (roles)

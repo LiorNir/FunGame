@@ -64,6 +64,8 @@ namespace BattleView
         private CancellationToken _destroyToken;
         private bool _isResolving;
 
+        public BattleVisuals Visuals => _visuals;
+
         public BattleEngine Engine => _engine;
         public bool IsRunning => _engine != null;
         public EncounterDefinition Encounter => _encounter;

@@ -112,6 +112,7 @@ namespace BattleView
 
             var options = new List<ActionMenuView.Option>
             {
+                new ActionMenuView.Option(_session.Visuals.ExactStats(pilot), false, null),
                 new ActionMenuView.Option(placeLabel, targets.Count > 0, () => BeginPlacing(index)),
                 new ActionMenuView.Option("Cancel", true, Cancel)
             };
@@ -186,6 +187,7 @@ namespace BattleView
                 }
                 else
                 {
+                    options.Add(new ActionMenuView.Option(_session.Visuals.ExactStats(pilot), false, null));
                     var cost = engine.Setup.Rules.EjectPilotCost;
                     var blocker = engine.EjectBlocker(slotId);
                     var reason = blocker == null ? string.Empty : ", " + blocker;

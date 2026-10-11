@@ -62,7 +62,7 @@ namespace BattleView
             }
 
             var attack = DisplayFormat.Value(pilot.EffectiveAttack);
-            var defense = DisplayFormat.Value(pilot.EffectiveDefense);
+            var defense = visuals.DefenseNumber(pilot);
             var restMark = restBonus > 1.001f
                 ? $" <color=#{ColorUtility.ToHtmlStringRGB(_restBonusColor)}>rest x{DisplayFormat.Value(restBonus)}</color>"
                 : string.Empty;

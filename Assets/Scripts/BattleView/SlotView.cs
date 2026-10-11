@@ -365,7 +365,8 @@ namespace BattleView
             var attackColor = _inactive ? _inactiveColor : _visuals.AttackColor;
             var defenseColor = _inactive ? _inactiveColor : _visuals.DefenseColor;
             _attackBox.SetValue(DisplayFormat.Value(_pilot.EffectiveAttack), _attackUsed ? attackColor : _tints.Unused(attackColor));
-            _defenseBox.SetValue(DisplayFormat.Value(_pilot.BaseDefense * remaining), _defenseUsed ? defenseColor : _tints.Unused(defenseColor));
+            var defenseNumber = _visuals.ShowRemainingDefense ? _pilot.BaseDefense * remaining : _pilot.BaseDefense;
+            _defenseBox.SetValue(DisplayFormat.Value(defenseNumber), _defenseUsed ? defenseColor : _tints.Unused(defenseColor));
         }
 
         private static string FormatBonus(NodeBonus bonus)
