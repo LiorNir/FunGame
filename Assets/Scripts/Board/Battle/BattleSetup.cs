@@ -13,6 +13,12 @@ namespace FunGame.Battle
         public IReadOnlyList<PilotStats> Deck { get; }
         public int Seed { get; }
 
+        /// <summary>
+        /// Pilots (by name) drawn into the first hand before the shuffled rest, for encounters that must start with a pilot
+        /// (for example a teaching step). Empty for a normal shuffled draw.
+        /// </summary>
+        public IReadOnlyList<string> OpeningHand { get; set; } = new string[0];
+
         public BattleSetup(
             BoardGraph board,
             IReadOnlyList<SlotRule> slotRules,

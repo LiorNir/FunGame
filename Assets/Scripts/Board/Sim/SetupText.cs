@@ -63,6 +63,11 @@ namespace FunGame.Sim
                 }
             }
 
+            if (setup.OpeningHand.Count > 0)
+            {
+                text.AppendLine("opening|" + string.Join("|", setup.OpeningHand.Select(Clean)));
+            }
+
             foreach (var pilot in setup.Deck)
             {
                 var ability = pilot.Ability != null ? "|" + WriteAbility(pilot.Ability) : string.Empty;
@@ -84,6 +89,7 @@ namespace FunGame.Sim
             var laneIds = new List<string>();
             var enemiesByLane = new Dictionary<string, List<EnemySpec>>();
             var pilots = new List<PilotStats>();
+            var openingHand = new List<string>();
 
             string enemyLane = null, enemyName = null;
             int enemyHealth = 0;
@@ -165,6 +171,9 @@ namespace FunGame.Sim
                             effects.AddRange(fields.Skip(4).Where(field => field.Trim().Length > 0).Select(ReadEffect));
                             enemyActions.Add(new EnemyActionData(fields[1], effects));
                             break;
+                        case "opening":
+                            openingHand.AddRange(fields.Skip(1).Where(field => field.Length > 0));
+                            break;
                         case "pilot":
                             pilots.Add(new PilotStats(fields[1], Float(fields[2]), Float(fields[3]), null,
                                 fields.Length > 4 && fields[4].Trim().Length > 0 ? ReadAbility(fields[4]) : null));
@@ -181,7 +190,7 @@ namespace FunGame.Sim
 
             FinishEnemy();
             var lanes = laneIds.Select(id => new LaneSpec(id, enemiesByLane[id])).ToList();
-            var setup = new BattleSetup(new BoardGraph(nodes, chains), slotRules, lanes, rules, pilots, 1);
+            var setup = new BattleSetup(new BoardGraph(nodes, chains), slotRules, lanes, rules, pilots, 1) { OpeningHand = openingHand };
             return new EncounterCase(name, tier, setup, note);
         }
 
@@ -225,6 +234,11 @@ namespace FunGame.Sim
                 return $"lock {lockEffect.Turns} {lockEffect.TargetRule}";
             }
 
+            if (effect is SnipeEffect snipe)
+            {
+                return $"snipe {Number(snipe.Share * 100f)} {snipe.Turns} {snipe.TargetRule}";
+            }
+
             throw new FormatException($"no text form for the effect {effect.GetType().Name}");
         }
 
@@ -234,6 +248,9 @@ namespace FunGame.Sim
             var parts = field.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             switch (parts[0].ToLowerInvariant())
             {
+                case "snipe":
+                    return new SnipeEffect(Float(parts[1]) / 100f, Int(parts[2]),
+                        parts.Length > 3 ? (PilotTargetRule)Enum.Parse(typeof(PilotTargetRule), parts[3], true) : PilotTargetRule.Random);
                 case "lock":
                     return new LockEffect(Int(parts[1]), parts.Length > 2 ? (PilotTargetRule)Enum.Parse(typeof(PilotTargetRule), parts[2], true) : PilotTargetRule.Random);
                 default:

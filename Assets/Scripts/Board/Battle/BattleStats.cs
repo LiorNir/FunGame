@@ -34,6 +34,9 @@ namespace FunGame.Battle
         /// <summary>Pilots an enemy locked (a target that had left the board is not counted).</summary>
         public int PilotsLocked { get; set; }
 
+        /// <summary>Pilots an enemy sniped (a target that had left the board is not counted).</summary>
+        public int PilotsSniped { get; set; }
+
         /// <summary>Pilot abilities used.</summary>
         public int AbilitiesUsed { get; set; }
 

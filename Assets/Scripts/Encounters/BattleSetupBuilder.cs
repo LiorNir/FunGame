@@ -44,7 +44,9 @@ namespace Encounters
             var rules = ToRules(gameRules);
             rules.AllowReplace = encounter.AllowReplace;
             rules.AllowEject = encounter.AllowEject;
-            return new BattleSetup(graph, slotRules, lanes, rules, pilots, seed);
+            var openingHand = encounter.OpeningHand.Where(pilot => pilot != null)
+                .Select(pilot => string.IsNullOrEmpty(pilot.DisplayName) ? pilot.name : pilot.DisplayName).ToList();
+            return new BattleSetup(graph, slotRules, lanes, rules, pilots, seed) { OpeningHand = openingHand };
         }
 
         public static BattleRules ToRules(GameRules gameRules)
@@ -81,6 +83,11 @@ namespace Encounters
             if (action.LockTurns > 0)
             {
                 effects.Add(new LockEffect(action.LockTurns, action.LockTarget));
+            }
+
+            if (action.SnipePercent > 0f)
+            {
+                effects.Add(new SnipeEffect(action.SnipePercent / 100f, action.SnipeTurns, action.SnipeTarget));
             }
 
             return new EnemyActionData(action.Name, effects);

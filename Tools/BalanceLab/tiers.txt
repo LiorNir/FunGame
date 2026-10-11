@@ -19,3 +19,6 @@ Lock sample: Pinned down|Early|1.0|||reacting to Lock
 World 2-1: Fresh legs|Early|1.0|World 2|1|replacing pilots; ejecting at the wave change
 World 2-2: Duck!|Early|1.0|World 2|2|ejecting pilots (save pilots at the cost of health)
 World 2-3: The foreman (boss)|Early|1.0|World 2|3|replacing and ejecting together; a slot opened with AP
+World 3-1: Power surge|Early|1.0|World 3|1|using an ability; timing it
+World 3-2: After the crash|Early|1.0|World 3|2|the cost of an ability: swapping on the attack side
+World 3-3: The marksman (boss)|Early|1.0|World 3|3|Snipe; abilities against it

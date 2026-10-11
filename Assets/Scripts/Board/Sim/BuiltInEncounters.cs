@@ -35,7 +35,7 @@ namespace FunGame.Sim
         /// <summary>World 1 and World 2 followed by the loose samples.</summary>
         public static IReadOnlyList<EncounterCase> All()
         {
-            return WorldOne().Concat(WorldTwo()).Concat(new[]
+            return WorldOne().Concat(WorldTwo()).Concat(WorldThree()).Concat(new[]
             {
                 TutorialStraight(),
                 EarlySplitPair(),
@@ -220,6 +220,66 @@ namespace FunGame.Sim
             .Select(pilot => pilot.Name == "Yawn" ? pilot.WithStats(1f, 2f) : pilot)
             .Concat(new[] { new PilotStats("Bolt", 2.5f, 1.5f, null, new SurgeAbility(2)) })
             .ToList();
+
+        /// <summary>
+        /// The third world: pilot abilities, opened by Bolt's Surge. 3-1 teaches using it and its timing (Bolt is in the
+        /// opening hand), 3-2 handling the crash turn (swapping or ejecting on the attack side), the boss brings Snipe, which
+        /// meets the ability (surging the sniped pilot makes the snipe land on its crash turn).
+        /// </summary>
+        public static IReadOnlyList<EncounterCase> WorldThree()
+        {
+            // 3-1: the enemy shells and opens in turn; the attack branch ends in a multiply slot
+            var firstBoard = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("R"),
+                    new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
+                    new SlotNode("D1", "R", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
+            var firstSetup = new BattleSetup(firstBoard, new List<SlotRule>(),
+                new[] { new LaneSpec("lane1", new[] { Enemy("Shellback", 32, false, Act("Shell", 1, 8), Act("Open", 2, 0)) }) },
+                GameRules, WorldThreeRoster, 1) { OpeningHand = new[] { "Bolt" } };
+            var first = new EncounterCase("World 3-1: Power surge", "Early", firstSetup,
+                "Bolt starts in hand; the enemy shells and opens in turn, so a Surge is worth most on an open turn.", "World 3", 1, "using an ability; timing it");
+
+            // 3-2: steady pressure from two enemies; after a Surge, Bolt's crash turn wants a swap (or an eject at the wave change)
+            var secondBoard = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("R"),
+                    new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
+                    new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+            var second = new EncounterCase("World 3-2: After the crash", "Early",
+                new BattleSetup(secondBoard, new List<SlotRule>(),
+                    new[] { new LaneSpec("lane1", new[]
+                    {
+                        Enemy("Bruiser", 16, false, Act("Pound", 4, 0)),
+                        Enemy("Big bruiser", 24, false, Act("Pound", 4, 0), Act("Guard", 1, 4))
+                    }) },
+                    GameRules, WorldThreeRoster, 1),
+                "Two enemies keep up the pressure; after a Surge, swap Bolt out for its crash turn (or eject it at the wave change).", "World 3", 2, "the cost of an ability: swapping on the attack side");
+
+            // 3-3 (boss): the marksman snipes the strongest attacker (both stats -50% next turn) between grinds and a crush
+            var bossBoard = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("R"),
+                    new SlotNode("A1", "R", Operation.Add), new SlotNode("A2", "A1", Operation.Multiply),
+                    new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Add)
+                },
+                new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D2") });
+            var aim = new EnemyActionData("Aim", new IEnemyEffect[] { new AttackEffect(1), new SnipeEffect(0.5f, 1, PilotTargetRule.HighestAttack) });
+            var boss = new EncounterCase("World 3-3: The marksman (boss)", "Early",
+                new BattleSetup(bossBoard, new List<SlotRule>(),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Marksman", 48, false, Act("Grind", 3, 0), aim, Act("Crush", 6, 0)) }) },
+                    GameRules, WorldThreeRoster, 1),
+                "Snipes the strongest attacker (-50% to both stats next turn) between a grind and a crush.", "World 3", 3, "Snipe; abilities against it");
+
+            return new[] { first, second, boss };
+        }
 
         /// <summary>
         /// A first check of Surge: the enemy alternates a shell (defense 8) and an open turn, so a Surge is worth much more

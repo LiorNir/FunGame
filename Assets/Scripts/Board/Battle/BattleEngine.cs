@@ -204,6 +204,18 @@ namespace FunGame.Battle
 
             var deck = Setup.Deck.Select((stats, index) => new PilotUnit(stats.Name, stats.Attack, stats.Defense, stats.Source, stats.Ability) { Id = index }).ToList();
             Shuffle(deck);
+            // the opening hand's pilots go on top of the bank (drawing takes from the end), in their listed order
+            foreach (var name in Setup.OpeningHand.Reverse())
+            {
+                var index = deck.FindIndex(pilot => pilot.Name == name);
+                if (index >= 0)
+                {
+                    var pilot = deck[index];
+                    deck.RemoveAt(index);
+                    deck.Add(pilot);
+                }
+            }
+
             Bank.AddRange(deck);
 
             Emit(BattleEventType.TurnStarted, a: Turn);
@@ -682,6 +694,36 @@ namespace FunGame.Battle
                 pilot.LockedTurns = Math.Max(pilot.LockedTurns, turns);
                 Stats.PilotsLocked++;
                 Emit(BattleEventType.PilotLocked, lane.Spec.Id, pilot.Name, pilot.LockedTurns, slots: new[] { slotId });
+            }
+        }
+
+        /// <summary>
+        /// Lowers both stats of the targeted pilots by a share for some of the player's turns, from the next turn on. A target
+        /// that has left the board, or fallen, is missed. Used by <see cref="SnipeEffect"/>.
+        /// </summary>
+        internal void SnipePilots(LaneState lane, IReadOnlyList<int> targetIds, float share, int turns, string effectName)
+        {
+            if (targetIds.Count == 0)
+            {
+                Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "there was no pilot to target");
+                return;
+            }
+
+            foreach (var id in targetIds)
+            {
+                var slotId = SlotOfPilot(id);
+                if (slotId == null)
+                {
+                    Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "its target left the board");
+                    continue;
+                }
+
+                var pilot = _pilotBySlot[slotId];
+                var multiplier = Math.Max(0f, 1f - share);
+                pilot.AttackModifiers.Add(new StatModifier(multiplier, 1, turns));
+                pilot.DefenseModifiers.Add(new StatModifier(multiplier, 1, turns));
+                Stats.PilotsSniped++;
+                Emit(BattleEventType.PilotSniped, lane.Spec.Id, pilot.Name, share, turns, slots: new[] { slotId });
             }
         }
 

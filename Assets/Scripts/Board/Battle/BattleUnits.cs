@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FunGame.Battle
 {
@@ -43,24 +44,28 @@ namespace FunGame.Battle
         public bool HasUnusedAbility => Ability != null && !AbilityUsed;
 
         /// <summary>Temporary changes to attack (from abilities, later from enemy effects); they move on at every turn start.</summary>
-        public List<AttackModifier> AttackModifiers { get; } = new List<AttackModifier>();
+        public List<StatModifier> AttackModifiers { get; } = new List<StatModifier>();
 
-        public float EffectiveAttack => BaseAttack * AttackModifier.Product(AttackModifiers);
+        /// <summary>Temporary changes to defense (enemy snipes); they move on at every turn start like the attack ones.</summary>
+        public List<StatModifier> DefenseModifiers { get; } = new List<StatModifier>();
+
+        public float EffectiveAttack => BaseAttack * StatModifier.Product(AttackModifiers);
 
         /// <summary>The attack the pilot will have next turn, by the modifiers already on it (known, not guessed).</summary>
-        public float AttackNextTurn => BaseAttack * AttackModifier.Product(AttackModifiers, nextTurn: true);
+        public float AttackNextTurn => BaseAttack * StatModifier.Product(AttackModifiers, nextTurn: true);
 
         /// <summary>Moves the pilot's temporary modifiers on by one turn.</summary>
         public void AdvanceTurn()
         {
-            foreach (var modifier in AttackModifiers)
+            foreach (var modifier in AttackModifiers.Concat(DefenseModifiers))
             {
                 modifier.Advance();
             }
 
             AttackModifiers.RemoveAll(modifier => modifier.IsOver);
+            DefenseModifiers.RemoveAll(modifier => modifier.IsOver);
         }
-        public float EffectiveDefense => BaseDefense * (1f - DefenseWound);
+        public float EffectiveDefense => BaseDefense * (1f - DefenseWound) * StatModifier.Product(DefenseModifiers);
 
         public PilotUnit(string name, float baseAttack, float baseDefense, object source = null, IPilotAbility ability = null)
         {
@@ -81,6 +86,11 @@ namespace FunGame.Battle
             foreach (var modifier in AttackModifiers)
             {
                 copy.AttackModifiers.Add(modifier.Copy());
+            }
+
+            foreach (var modifier in DefenseModifiers)
+            {
+                copy.DefenseModifiers.Add(modifier.Copy());
             }
 
             return copy;

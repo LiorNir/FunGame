@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720230d131320db4f8a1fce0fd9f9e6f, type: 3}
+  m_Name: World 3-1 Power surge
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.EncounterDefinition
+  _displayName: 'World 3-1: Power surge'
+  _board: {fileID: 5398020555335562842, guid: 83d2ed5457efc7440bed3d6bda9cffd7, type: 3}
+  _lanes:
+  - LaneId: lane1
+    Enemies:
+    - {fileID: 11400000, guid: a3815c292b6ff2846ab90d3b25cbf424, type: 2}
+  _rewardSkillPoints: 0
+  _allowReplace: 1
+  _allowEject: 1
+  _testDeck: {fileID: 11400000, guid: 25fedaeed6a3eca42ad5199d254a0a79, type: 2}
+  _openingHand:
+  - {fileID: 11400000, guid: 6bb03e5842ccc634c9486c36de185362, type: 2}

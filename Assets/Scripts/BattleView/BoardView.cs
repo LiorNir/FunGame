@@ -149,7 +149,13 @@ namespace BattleView
         /// </summary>
         private static string DescribeAbility(PilotUnit pilot)
         {
-            var multiplier = AttackModifier.Product(pilot.AttackModifiers);
+            var multiplier = StatModifier.Product(pilot.AttackModifiers);
+            var defenseMultiplier = StatModifier.Product(pilot.DefenseModifiers);
+            if (defenseMultiplier < 0.999f && multiplier < 0.999f && System.Math.Abs(defenseMultiplier - multiplier) < 0.001f)
+            {
+                return $"<color=#FF7A5C>SNIPED -{DisplayFormat.Value((1f - multiplier) * 100f)}%</color>";
+            }
+
             if (multiplier > 1.001f)
             {
                 return $"<color=#FFD24A>{(pilot.Ability?.Name ?? "BOOST").ToUpperInvariant()}: ATK x{DisplayFormat.Value(multiplier)}</color>";

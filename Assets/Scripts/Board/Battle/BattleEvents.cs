@@ -67,6 +67,9 @@ namespace FunGame.Battle
         /// <summary>LaneId, Subject = pilot name, Slots = its slot, A = the turns it is locked for.</summary>
         PilotLocked,
 
+        /// <summary>LaneId, Subject = pilot name, Slots = its slot, A = the share taken off both stats (0-1), B = for how many turns.</summary>
+        PilotSniped,
+
         /// <summary>LaneId, Subject = the effect (for example "LOCK 2"), Detail = why it did nothing (its target left the board, or there was none).</summary>
         EffectFizzled,
 

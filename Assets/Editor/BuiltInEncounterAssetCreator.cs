@@ -38,6 +38,13 @@ namespace FunGame.EditorTools
             Create("World 2", BuiltInEncounters.WorldTwo(), deck);
         }
 
+        [MenuItem("Tools/Fun Game/Create Encounter Assets/World 3")]
+        private static void CreateWorldThree()
+        {
+            var deck = DeckFromRoster(BuiltInEncounters.WorldThreeRoster, $"{DecksFolder}/World 3 Deck.asset");
+            Create("World 3", BuiltInEncounters.WorldThree(), deck);
+        }
+
         [MenuItem("Tools/Fun Game/Create Encounter Assets/Ability Sample")]
         private static void CreateAbilitySample()
         {
@@ -89,6 +96,10 @@ namespace FunGame.EditorTools
                 asset.SetData(encounter.Name, boardPrefab.GetComponent<BoardLayoutAuthoring>(), lanes, 0);
                 asset.SetAllowedTools(setup.Rules.AllowReplace, setup.Rules.AllowEject);
                 asset.SetTestDeck(testDeck);
+                // the opening hand names pilots; the deck's assets with those names are used
+                asset.SetOpeningHand(setup.OpeningHand
+                    .Select(name => (testDeck != null ? testDeck.Pilots : new List<PilotTokenConfiguration>()).FirstOrDefault(pilot => pilot != null && pilot.DisplayName == name))
+                    .Where(pilot => pilot != null).ToList());
                 if (existing == null)
                 {
                     AssetDatabase.CreateAsset(asset, encounterPath);
@@ -198,7 +209,15 @@ namespace FunGame.EditorTools
                 action.LockTarget = lockEffect.TargetRule;
             }
 
-            var unsupported = data.Effects.Where(effect => !(effect is AttackEffect) && !(effect is DefendEffect) && !(effect is LockEffect)).ToList();
+            var snipe = data.Effects.OfType<SnipeEffect>().FirstOrDefault();
+            if (snipe != null)
+            {
+                action.SnipePercent = snipe.Share * 100f;
+                action.SnipeTurns = snipe.Turns;
+                action.SnipeTarget = snipe.TargetRule;
+            }
+
+            var unsupported = data.Effects.Where(effect => !(effect is AttackEffect) && !(effect is DefendEffect) && !(effect is LockEffect) && !(effect is SnipeEffect)).ToList();
             if (unsupported.Count > 0)
             {
                 Debug.LogWarning($"Action '{data.Name}': enemy assets cannot hold {string.Join(", ", unsupported.Select(effect => effect.Describe()))} yet; left out.");

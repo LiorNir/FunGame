@@ -62,13 +62,13 @@ namespace FunGame.Sim
 
         public BattleSetup WithDeck(IReadOnlyList<PilotStats> deck, int seed)
         {
-            return new BattleSetup(Setup.Board, Setup.SlotRules, Setup.Lanes, Setup.Rules, deck, seed);
+            return new BattleSetup(Setup.Board, Setup.SlotRules, Setup.Lanes, Setup.Rules, deck, seed) { OpeningHand = Setup.OpeningHand };
         }
 
         /// <summary>The same encounter with other rules, for checking what happens when a mechanic is taken away.</summary>
         public EncounterCase WithRules(BattleRules rules)
         {
-            var setup = new BattleSetup(Setup.Board, Setup.SlotRules, Setup.Lanes, rules, Setup.Deck, Setup.Seed);
+            var setup = new BattleSetup(Setup.Board, Setup.SlotRules, Setup.Lanes, rules, Setup.Deck, Setup.Seed) { OpeningHand = Setup.OpeningHand };
             return new EncounterCase(Name, Tier, setup, Note, World, Position, Teaches);
         }
 
@@ -76,7 +76,7 @@ namespace FunGame.Sim
         public EncounterCase WithoutUnlocks()
         {
             var rules = Setup.SlotRules.Select(rule => new SlotRule(rule.SlotId, rule.Locked, 0, 0, 0, rule.UnlockLaneId)).ToList();
-            var setup = new BattleSetup(Setup.Board, rules, Setup.Lanes, Setup.Rules, Setup.Deck, Setup.Seed);
+            var setup = new BattleSetup(Setup.Board, rules, Setup.Lanes, Setup.Rules, Setup.Deck, Setup.Seed) { OpeningHand = Setup.OpeningHand };
             return new EncounterCase(Name, Tier, setup, Note, World, Position, Teaches);
         }
 

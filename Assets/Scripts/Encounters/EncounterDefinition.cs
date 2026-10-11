@@ -36,6 +36,9 @@ namespace Encounters
         [Tooltip("Optional. Plays this encounter with this deck instead of the starter deck: the pilots the player would have by this point (upgrades and recruited pilots), until SP spending and rewards exist.")]
         [SerializeField] private PilotDeck _testDeck;
 
+        [Tooltip("Optional: pilots drawn into the first hand before the shuffled rest (for a step that must start with a pilot).")]
+        [SerializeField] private List<PilotTokenConfiguration> _openingHand = new List<PilotTokenConfiguration>();
+
         public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
         public BoardLayoutAuthoring Board => _board;
         public IReadOnlyList<LaneEnemies> Lanes => _lanes;
@@ -45,6 +48,13 @@ namespace Encounters
 
         /// <summary>The deck this encounter is played with instead of the starter deck, or null for the starter deck.</summary>
         public PilotDeck TestDeck => _testDeck;
+
+        public IReadOnlyList<PilotTokenConfiguration> OpeningHand => _openingHand;
+
+        public void SetOpeningHand(List<PilotTokenConfiguration> pilots)
+        {
+            _openingHand = pilots ?? new List<PilotTokenConfiguration>();
+        }
 
         public void SetData(string displayName, BoardLayoutAuthoring board, List<LaneEnemies> lanes, int rewardSkillPoints)
         {

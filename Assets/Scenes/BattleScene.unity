@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd78db1853fd9bf458415e54b347670f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleView.BattleSession
-  _encounter: {fileID: 11400000, guid: 92bda8b75849b6b4c90cc1b560ad134d, type: 2}
+  _encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
   _encounters:
   - {fileID: 11400000, guid: dba59e8e3734b7f4b83f27338668e95b, type: 2}
   - {fileID: 11400000, guid: c79952171acde5543adaf2cf3ac610f7, type: 2}
@@ -401,6 +401,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 92bda8b75849b6b4c90cc1b560ad134d, type: 2}
   - {fileID: 11400000, guid: ba75165afa3199943bd64cd0789f2ad8, type: 2}
   - {fileID: 11400000, guid: ce09d39a4b3abdc44a091d30febc05c5, type: 2}
+  - {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
+  - {fileID: 11400000, guid: a262a1b3112dd5a44865429c93963e1d, type: 2}
+  - {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
   - {fileID: 11400000, guid: 59ee69a95647f924f8a0c5a4c29450c4, type: 2}
   - {fileID: 11400000, guid: c00728d96d4a26b4baaa6c25949109ca, type: 2}
   - {fileID: 11400000, guid: f6a08109ecf266949bf36c98edb6ab72, type: 2}

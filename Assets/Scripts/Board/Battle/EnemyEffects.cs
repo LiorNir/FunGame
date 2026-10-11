@@ -145,4 +145,36 @@ namespace FunGame.Battle
             return $"LOCK {Turns}";
         }
     }
+
+    /// <summary>
+    /// Snipe: lowers both stats of the targeted pilot by a share (50% = half) for some of the player's turns, starting the
+    /// turn after the enemy acts. Both stats, so a hit matters whichever chain the pilot is in. Misses if the pilot has
+    /// left the board by then.
+    /// </summary>
+    public sealed class SnipeEffect : ITargetedEffect
+    {
+        /// <summary>The share taken off both stats, 0 to 1.</summary>
+        public float Share { get; }
+
+        public int Turns { get; }
+        public PilotTargetRule TargetRule { get; }
+        public EnemyEffectPhase Phase => EnemyEffectPhase.Act;
+
+        public SnipeEffect(float share, int turns, PilotTargetRule targetRule)
+        {
+            Share = share;
+            Turns = turns;
+            TargetRule = targetRule;
+        }
+
+        public void Resolve(EnemyEffectContext context)
+        {
+            context.Engine.SnipePilots(context.Lane, context.Targets, Share, Turns, Describe());
+        }
+
+        public string Describe()
+        {
+            return $"SNIPE -{DisplayFormat.Value(Share * 100f)}%";
+        }
+    }
 }

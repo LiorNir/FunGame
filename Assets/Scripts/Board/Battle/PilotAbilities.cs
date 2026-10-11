@@ -74,8 +74,8 @@ namespace FunGame.Battle
 
         public void Activate(PilotUnit pilot)
         {
-            pilot.AttackModifiers.Add(new AttackModifier(Multiplier, 0, 1));
-            pilot.AttackModifiers.Add(new AttackModifier(0f, 1, 1));
+            pilot.AttackModifiers.Add(new StatModifier(Multiplier, 0, 1));
+            pilot.AttackModifiers.Add(new StatModifier(0f, 1, 1));
         }
 
         public IPilotAbility WithCost(int apCost)
@@ -85,10 +85,10 @@ namespace FunGame.Battle
     }
 
     /// <summary>
-    /// A temporary change to a pilot's attack: a multiplier that starts in some turns and lasts some turns. Lives on the
+    /// A temporary change to one of a pilot's stats (attack or defense): a multiplier that starts in some turns and lasts some turns. Lives on the
     /// pilot, so it travels with it (to the hand and back).
     /// </summary>
-    public sealed class AttackModifier
+    public sealed class StatModifier
     {
         public float Multiplier { get; }
 
@@ -101,7 +101,7 @@ namespace FunGame.Battle
         public bool IsActive => StartsIn == 0 && TurnsLeft > 0;
         public bool IsOver => TurnsLeft <= 0;
 
-        public AttackModifier(float multiplier, int startsIn, int turns)
+        public StatModifier(float multiplier, int startsIn, int turns)
         {
             Multiplier = multiplier;
             StartsIn = startsIn;
@@ -121,13 +121,13 @@ namespace FunGame.Battle
             }
         }
 
-        public AttackModifier Copy()
+        public StatModifier Copy()
         {
-            return new AttackModifier(Multiplier, StartsIn, TurnsLeft);
+            return new StatModifier(Multiplier, StartsIn, TurnsLeft);
         }
 
         /// <summary>The product of the active modifiers' multipliers (1 when none is active).</summary>
-        public static float Product(IEnumerable<AttackModifier> modifiers, bool nextTurn = false)
+        public static float Product(IEnumerable<StatModifier> modifiers, bool nextTurn = false)
         {
             var product = 1f;
             foreach (var modifier in modifiers)

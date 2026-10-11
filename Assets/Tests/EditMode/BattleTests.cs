@@ -671,6 +671,71 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(5f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance); // the original is untouched
         }
 
+        // ---------- snipe ----------
+
+        // turn 1 the enemy idles; on turn 2 it reveals a snipe at the highest attacker, which lands for the next turn
+        private static BattleEngine SnipedBoard(float share, int turns)
+        {
+            var actions = new[]
+            {
+                new EnemyActionData("Idle", 0, 0),
+                new EnemyActionData("Snipe", new IEnemyEffect[] { new SnipeEffect(share, turns, PilotTargetRule.HighestAttack) }),
+                new EnemyActionData("Idle", 0, 0), new EnemyActionData("Idle", 0, 0)
+            };
+            var deck = new[] { new PilotStats("Striker", 4f, 2f), new PilotStats("Wall", 1f, 4f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(Operation.Add), new[] { new EnemySpec("E", 100, actions, false) }, deck));
+            engine.Start();
+            PlaceByName(engine, "Wall", "R");
+            PlaceByName(engine, "Striker", "S");
+            engine.ResolveTurn();
+            return engine;
+        }
+
+        [Test]
+        public void Snipe_LowersBothStatsOfItsTarget_FromTheNextTurn_ForItsTurns()
+        {
+            var engine = SnipedBoard(0.5f, 1);
+            Assert.AreEqual("S", engine.IntentTargets().Single().SlotId); // the highest attacker, shown before it lands
+
+            engine.ResolveTurn(); // the snipe lands at the end of turn 2
+            var striker = engine.PilotBySlot["S"];
+            Assert.AreEqual(2f, striker.EffectiveAttack, Tolerance);
+            Assert.AreEqual(1f, striker.EffectiveDefense, Tolerance);
+
+            engine.ResolveTurn(); // one turn only
+            Assert.AreEqual(4f, striker.EffectiveAttack, Tolerance);
+            Assert.AreEqual(2f, striker.EffectiveDefense, Tolerance);
+        }
+
+        [Test]
+        public void Snipe_Misses_WhenItsTargetLeftTheBoard()
+        {
+            var engine = SnipedBoard(0.5f, 1);
+            Assert.IsTrue(engine.TryEject("S"));
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(0, engine.Stats.PilotsSniped);
+        }
+
+        // ---------- opening hand ----------
+
+        [Test]
+        public void OpeningHand_DrawsTheNamedPilotsFirst()
+        {
+            var deck = Enumerable.Range(0, 8).Select(i => new PilotStats("P" + i, 1f, 1f)).ToArray();
+            for (var seed = 1; seed <= 20; seed++)
+            {
+                var setup = Setup(OneSlotBoard(), new[] { Enemy("E", 10, new EnemyActionData("Idle", 0, 0)) }, deck, seed: seed);
+                setup.OpeningHand = new[] { "P7", "P5" };
+                var engine = new BattleEngine(setup);
+                engine.Start();
+
+                Assert.IsTrue(engine.Hand.Any(pilot => pilot.Name == "P7"));
+                Assert.IsTrue(engine.Hand.Any(pilot => pilot.Name == "P5"));
+            }
+        }
+
         // ---------- placing on a fallen pilot ----------
 
         [Test]
