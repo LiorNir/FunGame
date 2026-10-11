@@ -24,6 +24,8 @@ namespace BattleView
         [SerializeField] private CardStatBar _defenseBar;
         [SerializeField] private Color _normalColor = new Color(0.14f, 0.16f, 0.28f, 0.96f);
         [SerializeField] private Color _selectedColor = new Color(0.25f, 0.4f, 0.3f, 0.98f);
+        [Tooltip("Colour of the temporary \"rest x2\" mark on an ejected pilot that will recover faster if it stays in the hand this turn.")]
+        [SerializeField] private Color _restBonusColor = new Color(0.5f, 1f, 0.5f);
 
         private PilotUnit _shownPilot;
 
@@ -36,7 +38,9 @@ namespace BattleView
             _button.onClick.AddListener(() => Clicked?.Invoke(this));
         }
 
-        public void Set(PilotUnit pilot, int index, bool selected, BattleVisuals visuals)
+        /// <param name="restBonus">Above 1: the pilot was ejected this turn and will recover this many times as fast if it
+        /// rests in the hand until the next turn; the card marks it (temporary look: "rest x2" on the defense).</param>
+        public void Set(PilotUnit pilot, int index, bool selected, BattleVisuals visuals, float restBonus = 1f)
         {
             Index = index;
             _background.color = selected ? _selectedColor : _normalColor;
@@ -57,6 +61,9 @@ namespace BattleView
 
             var attack = DisplayFormat.Value(pilot.EffectiveAttack);
             var defense = DisplayFormat.Value(pilot.EffectiveDefense);
+            var restMark = restBonus > 1.001f
+                ? $" <color=#{ColorUtility.ToHtmlStringRGB(_restBonusColor)}>rest x{DisplayFormat.Value(restBonus)}</color>"
+                : string.Empty;
             if (_attackBar != null && _defenseBar != null)
             {
                 // the same pilot as last time: its defense slides to the new value (for example while it recovers in the hand)
@@ -64,12 +71,12 @@ namespace BattleView
                 _shownPilot = pilot;
                 _stats.text = string.Empty;
                 _attackBar.Set($"ATK {attack}", 1f, visuals.AttackColor, samePilot);
-                _defenseBar.Set($"DEF {defense}", 1f - pilot.DefenseWound, visuals.DefenseColor, samePilot);
+                _defenseBar.Set($"DEF {defense}{restMark}", 1f - pilot.DefenseWound, visuals.DefenseColor, samePilot);
                 return;
             }
 
             var wounded = pilot.DefenseWound > 0.001f ? $" <size=60%>(of {DisplayFormat.Value(pilot.BaseDefense)})</size>" : string.Empty;
-            _stats.text = visuals.AttackText($"ATK {attack}") + "\n" + visuals.DefenseText($"DEF {defense}") + wounded;
+            _stats.text = visuals.AttackText($"ATK {attack}") + "\n" + visuals.DefenseText($"DEF {defense}") + wounded + restMark;
         }
     }
 }

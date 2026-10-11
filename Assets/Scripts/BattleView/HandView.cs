@@ -52,7 +52,12 @@ namespace BattleView
             for (var index = 0; index < count; index++)
             {
                 var card = Instantiate(_visuals.CardPrefab, _area);
-                card.Set(engine.Hand[index], index, index == selectedIndex, _visuals);
+                var pilot = engine.Hand[index];
+                var rules = engine.Setup.Rules;
+                // an ejected, wounded pilot that will recover faster if it rests here until the next turn
+                var restsFaster = engine.WasEjectedThisTurn(pilot) && pilot.DefenseWound > 0.001f &&
+                                  rules.HandRecoveryPerTurn > 0f && rules.EjectedRecoveryMultiplier > 1.001f;
+                card.Set(pilot, index, index == selectedIndex, _visuals, restsFaster ? rules.EjectedRecoveryMultiplier : 1f);
                 card.Clicked += clicked => CardClicked?.Invoke(clicked.Index, clicked.Rect);
                 card.Rect.anchoredPosition = new Vector2((index - (count - 1) * 0.5f) * _spacing, index == selectedIndex ? _raiseWhenSelected : 0f);
                 _cards.Add(card);
