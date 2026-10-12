@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720230d131320db4f8a1fce0fd9f9e6f, type: 3}
+  m_Name: World 5-1 Two fronts
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.EncounterDefinition
+  _displayName: 'World 5-1: Two fronts'
+  _board: {fileID: 8386619097691235126, guid: cf37bff67ecff2c4189925a43c172665, type: 3}
+  _lanes:
+  - LaneId: left
+    Enemies:
+    - {fileID: 11400000, guid: c656e89e170a93c46b4a6f62d66cc1b5, type: 2}
+  - LaneId: right
+    Enemies:
+    - {fileID: 11400000, guid: 6ae35a33f4aa2474299f2c27d9f45e90, type: 2}
+  _rewardSkillPoints: 0
+  _allowReplace: 1
+  _allowEject: 1
+  _testDeck: {fileID: 11400000, guid: 2a6dedebe6ca7de48bc041cb62dad6bf, type: 2}
+  _openingHand: []

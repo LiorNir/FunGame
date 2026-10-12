@@ -25,3 +25,6 @@ World 3-3: The marksman (boss)|Early|1.0|World 3|3|Snipe; abilities against it
 World 4-1: Pay the toll|Early|1.0|World 4|1|a subtract toll in front of a bonus slot
 World 4-2: Divide and conquer|Early|1.0|World 4|2|divide: a stat below 1 multiplies
 World 4-3: The ram (boss)|Early|1.0|World 4|3|Charge; tolls, bonus and multiplied defense together
+World 5-1: Two fronts|Early|1.0|World 5|1|two lanes: each enemy hits its own lane
+World 5-2: The hub|Early|1.0|World 5|2|a hub shared by both lanes
+World 5-3: The warden (boss)|Early|1.0|World 5|3|Lock on a shared hub; two lanes

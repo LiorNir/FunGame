@@ -35,7 +35,7 @@ namespace FunGame.Sim
         /// <summary>World 1 and World 2 followed by the loose samples.</summary>
         public static IReadOnlyList<EncounterCase> All()
         {
-            return WorldOne().Concat(WorldTwo()).Concat(WorldThree()).Concat(WorldFour()).Concat(new[]
+            return WorldOne().Concat(WorldTwo()).Concat(WorldThree()).Concat(WorldFour()).Concat(WorldFive()).Concat(new[]
             {
                 TutorialStraight(),
                 EarlySplitPair(),
@@ -351,6 +351,83 @@ namespace FunGame.Sim
                     new[] { new LaneSpec("lane1", new[] { Enemy("Ram", 40, false, Act("Butt", 3, 0), charge, unleash) }) },
                     GameRules, WorldFourRoster, 1),
                 "Charges a guard of 8 before a 9 unleash: break the guard (Surge, No Guard) to stun it, or hold it with the multiplied defense.", "World 4", 3, "Charge; tolls, bonus and multiplied defense together");
+
+            return new[] { first, second, boss };
+        }
+
+        // ---------- World 5: two lanes ----------
+
+        /// <summary>The pilots the player has by World 5: the World 4 roster (no new pilot yet; the reward is decided with the economy).</summary>
+        public static IReadOnlyList<PilotStats> WorldFiveRoster => WorldFourRoster;
+
+        // a hub root feeding an attack and a defense chain in each lane; children left to right: left lane, then right lane
+        private static BoardGraph HubBoard(Operation leftAttack, Operation leftDefense, Operation rightAttack, Operation rightDefense)
+        {
+            return new BoardGraph(
+                new[]
+                {
+                    new SlotNode("H"),
+                    new SlotNode("LA", "H", leftAttack), new SlotNode("LD", "H", leftDefense),
+                    new SlotNode("RD", "H", rightDefense), new SlotNode("RA", "H", rightAttack)
+                },
+                new[]
+                {
+                    Chain("left-atk", "left", ChainRole.Attack, "LA"), Chain("left-def", "left", ChainRole.Defense, "LD"),
+                    Chain("right-atk", "right", ChainRole.Attack, "RA"), Chain("right-def", "right", ChainRole.Defense, "RD")
+                });
+        }
+
+        /// <summary>
+        /// The fifth world: two lanes, an enemy in each. 5-1 two separate fronts sharing 3 AP (which to build, which enemy
+        /// to kill first); 5-2 a hub root that feeds both lanes (strong, but worn from both sides, and losing it cuts all four
+        /// chains); the boss locks the hub pilot before a crush while a dog bites from the other lane.
+        /// </summary>
+        public static IReadOnlyList<EncounterCase> WorldFive()
+        {
+            // 5-1: two separate trees, one per lane
+            var firstBoard = new BoardGraph(
+                new[]
+                {
+                    new SlotNode("L"), new SlotNode("LA", "L", Operation.Add), new SlotNode("LD", "L", Operation.Add),
+                    new SlotNode("R"), new SlotNode("RD", "R", Operation.Add), new SlotNode("RA", "R", Operation.Add)
+                },
+                new[]
+                {
+                    Chain("left-atk", "left", ChainRole.Attack, "LA"), Chain("left-def", "left", ChainRole.Defense, "LD"),
+                    Chain("right-atk", "right", ChainRole.Attack, "RA"), Chain("right-def", "right", ChainRole.Defense, "RD")
+                });
+            var first = new EncounterCase("World 5-1: Two fronts", "Early",
+                new BattleSetup(firstBoard, new List<SlotRule>(),
+                    new[]
+                    {
+                        new LaneSpec("left", new[] { Enemy("Jabber", 8, false, Act("Jab", 1, 0), Act("Jab", 2, 0)) }),
+                        new LaneSpec("right", new[] { Enemy("Bruiser", 12, false, Act("Pound", 3, 0), Act("Guard", 1, 2)) })
+                    },
+                    GameRules, WorldFiveRoster, 1),
+                "Two enemies, one per lane, each with its own small tree: 3 AP for 6 slots, so pick a front and a kill order.", "World 5", 1, "two lanes: each enemy hits its own lane");
+
+            // 5-2: the hub
+            var second = new EncounterCase("World 5-2: The hub", "Early",
+                new BattleSetup(HubBoard(Operation.Add, Operation.Add, Operation.Add, Operation.Add), new List<SlotRule>(),
+                    new[]
+                    {
+                        new LaneSpec("left", new[] { Enemy("Raider", 10, false, Act("Hit", 2, 0)) }),
+                        new LaneSpec("right", new[] { Enemy("Grunt", 8, false, Act("Hit", 2, 0)), Enemy("Brute", 14, false, Act("Slam", 3, 0), Act("Brace", 1, 2)) })
+                    },
+                    GameRules, WorldFiveRoster, 1),
+                "One hub slot feeds all four chains: strong, but both enemies wear it, and losing it cuts every chain.", "World 5", 2, "a hub shared by both lanes");
+
+            // 5-3 (boss): the warden locks the hub pilot, then crushes its lane; the dog keeps biting the other one
+            var pin = new EnemyActionData("Pin", new IEnemyEffect[] { new AttackEffect(1), new LockEffect(2, PilotTargetRule.Trunk) });
+            var boss = new EncounterCase("World 5-3: The warden (boss)", "Early",
+                new BattleSetup(HubBoard(Operation.Add, Operation.Add, Operation.Multiply, Operation.Add), new List<SlotRule>(),
+                    new[]
+                    {
+                        new LaneSpec("left", new[] { Enemy("Warden", 26, false, Act("Jab", 2, 0), pin, Act("Crush", 5, 0)) }),
+                        new LaneSpec("right", new[] { Enemy("Guard dog", 10, false, Act("Bite", 2, 0)) })
+                    },
+                    GameRules, WorldFiveRoster, 1),
+                "The warden locks the hub pilot (it cannot be swapped out) and crushes next turn; swap the hub before the lock lands.", "World 5", 3, "Lock on a shared hub; two lanes");
 
             return new[] { first, second, boss };
         }

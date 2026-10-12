@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720230d131320db4f8a1fce0fd9f9e6f, type: 3}
+  m_Name: World 5-3 The warden (boss)
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.EncounterDefinition
+  _displayName: 'World 5-3: The warden (boss)'
+  _board: {fileID: 1708616313432235123, guid: 7a0c17a81e25e1e4ab148f16a5b32282, type: 3}
+  _lanes:
+  - LaneId: left
+    Enemies:
+    - {fileID: 11400000, guid: e8cb9a1744f4b104187ea8253058eac5, type: 2}
+  - LaneId: right
+    Enemies:
+    - {fileID: 11400000, guid: cb7a2f2599f99d44d9e50fe492f49e32, type: 2}
+  _rewardSkillPoints: 0
+  _allowReplace: 1
+  _allowEject: 1
+  _testDeck: {fileID: 11400000, guid: 2a6dedebe6ca7de48bc041cb62dad6bf, type: 2}
+  _openingHand: []
