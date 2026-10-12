@@ -45,6 +45,13 @@ namespace FunGame.EditorTools
             Create("World 3", BuiltInEncounters.WorldThree(), deck);
         }
 
+        [MenuItem("Tools/Fun Game/Create Encounter Assets/World 4")]
+        private static void CreateWorldFour()
+        {
+            var deck = DeckFromRoster(BuiltInEncounters.WorldFourRoster, $"{DecksFolder}/World 4 Deck.asset");
+            Create("World 4", BuiltInEncounters.WorldFour(), deck);
+        }
+
         [MenuItem("Tools/Fun Game/Create Encounter Assets/Ability Sample")]
         private static void CreateAbilitySample()
         {

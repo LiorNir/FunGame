@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720230d131320db4f8a1fce0fd9f9e6f, type: 3}
+  m_Name: World 4-2 Divide and conquer
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.EncounterDefinition
+  _displayName: 'World 4-2: Divide and conquer'
+  _board: {fileID: 6498017870800573659, guid: b9bcc3a89a871e6488ec9837523bd290, type: 3}
+  _lanes:
+  - LaneId: lane1
+    Enemies:
+    - {fileID: 11400000, guid: 0ac44346029dd7b4298db718ce07e066, type: 2}
+    - {fileID: 11400000, guid: d9e57d18791f3f940a687a462c197dde, type: 2}
+  _rewardSkillPoints: 0
+  _allowReplace: 1
+  _allowEject: 1
+  _testDeck: {fileID: 11400000, guid: f0a16b9019be1b347baeb51ee80b75d6, type: 2}
+  _openingHand: []

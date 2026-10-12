@@ -409,6 +409,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f6a08109ecf266949bf36c98edb6ab72, type: 2}
   - {fileID: 11400000, guid: 589ed7aa09de9074f832ea180f697ab9, type: 2}
   - {fileID: 11400000, guid: 5531df991e80153409294a7a5d6bbc7c, type: 2}
+  - {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
+  - {fileID: 11400000, guid: b30786470eb698f4194bf29f90ac94d4, type: 2}
+  - {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
   _gameRules: {fileID: 11400000, guid: 8d4ea85cf923eaf4d853fc89e9b51183, type: 2}
   _deck: {fileID: 11400000, guid: 504ef3ff0636fe54a8b2f548687fba6a, type: 2}
   _visuals: {fileID: 11400000, guid: 59e28d60c10524c449e5fafa0e28e04a, type: 2}
