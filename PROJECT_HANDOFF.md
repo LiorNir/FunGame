@@ -38,9 +38,9 @@ Last updated: 2026-10-12. This file has three parts: **start here** (where the w
 
 **Next steps for Claude (in order, unless the user says otherwise):**
 1. Decide with the user: ugly defense values, the hand/board layout, enemy action order (see "Open design questions" above); then the "charge" enemy move (rules + tests + a sample encounter + the bot's reaction + a "next: CHARGE" intent).
-3. Re-check World 3 in the lab after any change (`ablate 150 "World 3"`), including whether the bots surge a pilot that is about to be sniped; tune 3-2 vs 3-3 (casual wins 79% vs 86%: 3-2 slightly harder than the boss).
-4. World 4 (bonus slots, divide, subtract as a toll; may interact with Swap) built the same way.
-5. Later: challenges (data per encounter in "Challenge ideas" below), score board and economy (Stage 4), passive abilities, abilities used from the hand, Swap, AP carry-over (decide from idle-AP data; the bots never save AP), the pilot library screen.
+2. Re-check World 3 in the lab after any change (`ablate 150 "World 3"`), including whether the bots surge a pilot that is about to be sniped; tune 3-2 vs 3-3 (casual wins 79% vs 86%: 3-2 slightly harder than the boss).
+3. World 4 (bonus slots, divide, subtract as a toll; may interact with Swap) built the same way.
+4. Later: challenges (data per encounter in "Challenge ideas" below), score board and economy (Stage 4), passive abilities, abilities used from the hand, Swap, AP carry-over (decide from idle-AP data; the bots never save AP), the pilot library screen.
 
 ## Earlier state (2026-10-09 to 2026-10-11, kept for reference)
 
