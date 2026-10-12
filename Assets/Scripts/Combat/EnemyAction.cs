@@ -25,5 +25,11 @@ namespace Combat
 
         [Tooltip("Which active pilot the snipe picks.")]
         public PilotTargetRule SnipeTarget = PilotTargetRule.HighestAttack;
+
+        [Tooltip("Above 0: a charge. The enemy guards this much (on top of Defense); if the player breaks through the whole guard this turn, the next Unleash does nothing.")]
+        [Min(0)] public int ChargeDefense;
+
+        [Tooltip("Above 0: the unleash of a charge, an attack of this much (on top of Attack) that does nothing if the charge was broken. Put it on the action after the charge.")]
+        [Min(0)] public int UnleashAttack;
     }
 }

@@ -81,6 +81,8 @@ namespace BattleView
                 var text = texts != null && index < texts.Count ? texts[index] : effect.Describe();
                 parts.Add(effect is AttackEffect ? _visuals.AttackText(text)
                     : effect is DefendEffect ? _visuals.DefenseText(text)
+                    : effect is UnleashEffect && text != UnleashEffect.StunnedText ? _visuals.AttackText(text)
+                    : effect is ChargeEffect ? _visuals.DefenseText(text)
                     : text == SnipeEffect.AssassinateText ? $"<color=#FF5050>{text}</color>"
                     : text);
             }

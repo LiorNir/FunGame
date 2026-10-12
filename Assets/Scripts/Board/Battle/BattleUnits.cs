@@ -145,6 +145,31 @@ namespace FunGame.Battle
 
         public int NextSequentialAction { get; set; }
 
+        /// <summary>True once the player broke through a charge's guard; the next unleash then does nothing.</summary>
+        public bool ChargeBroken { get; set; }
+
+        /// <summary>
+        /// The attack and defense of the action the enemy will reveal next turn, when that is known (it picks its actions in
+        /// order), else the average over its actions. A broken charge's unleash counts as no attack.
+        /// </summary>
+        public (float Attack, float Defense) NextThreat()
+        {
+            var actions = Spec.Actions;
+            if (actions.Count == 0)
+            {
+                return (0f, 0f);
+            }
+
+            if (Spec.RandomSelection)
+            {
+                return ((float)actions.Average(action => action.ThreatAttack), (float)actions.Average(action => action.ThreatDefense));
+            }
+
+            var next = actions[NextSequentialAction % actions.Count];
+            var attack = ChargeBroken ? next.Attack : next.ThreatAttack;
+            return (attack, next.ThreatDefense);
+        }
+
         public EnemyUnit(EnemySpec spec)
         {
             Spec = spec;
@@ -153,7 +178,10 @@ namespace FunGame.Battle
 
         public EnemyUnit Copy()
         {
-            return new EnemyUnit(Spec) { Health = Health, Intent = Intent, IntentTargets = IntentTargets, NextSequentialAction = NextSequentialAction };
+            return new EnemyUnit(Spec)
+            {
+                Health = Health, Intent = Intent, IntentTargets = IntentTargets, NextSequentialAction = NextSequentialAction, ChargeBroken = ChargeBroken
+            };
         }
     }
 

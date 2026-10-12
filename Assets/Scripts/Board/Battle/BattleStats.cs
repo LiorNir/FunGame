@@ -37,6 +37,9 @@ namespace FunGame.Battle
         /// <summary>Pilots an enemy sniped (a target that had left the board is not counted).</summary>
         public int PilotsSniped { get; set; }
 
+        /// <summary>Charges whose whole guard the player broke (their unleash then did nothing).</summary>
+        public int ChargesBroken { get; set; }
+
         /// <summary>Snipes that found their pilot spent and made it fall.</summary>
         public int PilotsAssassinated { get; set; }
 

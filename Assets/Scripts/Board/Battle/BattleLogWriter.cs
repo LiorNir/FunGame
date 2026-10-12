@@ -113,6 +113,14 @@ namespace FunGame.Battle
                     log.Add($"  [{lane}] {battleEvent.Subject}@{SlotOf(battleEvent)} is sniped: -{Fmt(battleEvent.A * 100f)}% to both stats for {Fmt(battleEvent.B)} turn(s) from next turn");
                     break;
 
+                case BattleEventType.ChargeBroken:
+                    log.Add($"  [{lane}] the charge of {battleEvent.Subject} is broken: its unleash will do nothing");
+                    break;
+
+                case BattleEventType.EnemyStunned:
+                    log.Add($"  [{lane}] {battleEvent.Subject}: stunned, the broken charge does nothing");
+                    break;
+
                 case BattleEventType.PilotAssassinated:
                     log.Add($"  [{lane}] {battleEvent.Subject}@{SlotOf(battleEvent)} was spent and is assassinated (falls)");
                     break;

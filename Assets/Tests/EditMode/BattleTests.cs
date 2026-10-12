@@ -764,6 +764,79 @@ namespace FunGame.Board.Tests
             Assert.AreEqual("SNIPE -50%", engine.DescribeIntent(engine.Lanes[0]).Single());
         }
 
+        // ---------- charge ----------
+
+        // the enemy charges (guard 5) then unleashes 9; a striker of the given attack stands in a one-slot board
+        private static BattleEngine ChargeBattle(float strikerAttack)
+        {
+            var actions = new[]
+            {
+                new EnemyActionData("Charge", new IEnemyEffect[] { new ChargeEffect(5) }),
+                new EnemyActionData("Unleash", new IEnemyEffect[] { new UnleashEffect(9) })
+            };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { new EnemySpec("Ram", 100, actions, false) },
+                new[] { new PilotStats("Striker", strikerAttack, 2f), new PilotStats("Spare", 1f, 1f) }, rules: new BattleRules { PlayerMaxHealth = 30 }));
+            engine.Start();
+            PlaceByName(engine, "Striker", "R");
+            return engine;
+        }
+
+        [Test]
+        public void BreakingAChargesWholeGuard_StunsTheUnleash()
+        {
+            var engine = ChargeBattle(6f);
+            engine.ResolveTurn(); // 6 against a guard of 5: broken
+
+            Assert.AreEqual(1, engine.Stats.ChargesBroken);
+            Assert.AreEqual(UnleashEffect.StunnedText, engine.DescribeIntent(engine.Lanes[0]).Single());
+            engine.ResolveTurn();
+            Assert.AreEqual(30f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void AChargeThatHolds_Unleashes()
+        {
+            var engine = ChargeBattle(5f);
+            engine.ResolveTurn(); // 5 against 5: the guard holds
+
+            Assert.AreEqual(0, engine.Stats.ChargesBroken);
+            engine.ResolveTurn(); // 9 against a defense of 2: 7 reach the player
+            Assert.AreEqual(23f, engine.PlayerHealth, Tolerance);
+        }
+
+        [Test]
+        public void TheNextThreat_IsTheKnownNextAction_AndABrokenChargeThreatensNothing()
+        {
+            var engine = ChargeBattle(6f);
+            engine.ResolveCombat();
+            Assert.AreEqual(0f, engine.Lanes[0].Current.NextThreat().Attack, Tolerance);
+
+            var held = ChargeBattle(5f);
+            held.ResolveCombat();
+            Assert.AreEqual(9f, held.Lanes[0].Current.NextThreat().Attack, Tolerance);
+        }
+
+        // ---------- No Guard ----------
+
+        [Test]
+        public void NoGuard_HalvesTheEnemysGuardAndThePlayersDefense_ThisTurnOnly()
+        {
+            var enemy = Enemy("Wall", 100, new EnemyActionData("Brace", 2, 6));
+            var deck = new[] { new PilotStats("Brawler", 5f, 4f, null, new NoGuardAbility(1)), new PilotStats("Spare", 1f, 1f) };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "Brawler", "R");
+            Assert.IsTrue(engine.TryActivate("R"));
+            Assert.AreEqual(2f, engine.SumChains(ChainRole.Defense), Tolerance);
+
+            engine.ResolveTurn(); // 5 against a guard of 3: 2 damage; the hit of 2 takes all of the halved defense (2)
+
+            Assert.AreEqual(98f, engine.Lanes[0].Current.Health, Tolerance);
+            Assert.AreEqual(0.5f, engine.PilotBySlot["R"].DefenseWound, Tolerance); // 2 of the real 4
+            Assert.AreEqual(1f, engine.PlayerDefenseMultiplier, Tolerance); // back to normal next turn
+            Assert.AreEqual(2f, engine.SumChains(ChainRole.Defense), Tolerance);
+        }
+
         // ---------- defeat ----------
 
         [Test]

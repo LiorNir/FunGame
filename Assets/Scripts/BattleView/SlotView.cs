@@ -334,6 +334,31 @@ namespace BattleView
             transform.DOPunchScale(Vector3.one * strength, 0.3f);
         }
 
+        /// <summary>
+        /// The divide-by-zero gag (temporary look): the pilot spins into a tiny black hole and pops back out unharmed.
+        /// </summary>
+        public Sequence PlayDivideByZero()
+        {
+            var pilot = _pilotRenderer.transform;
+            pilot.DOKill(true);
+            var scale = pilot.localScale;
+            var color = _pilotRenderer.color;
+            return DOTween.Sequence()
+                .Append(pilot.DOScale(scale * 0.05f, 0.5f).SetEase(Ease.InBack))
+                .Join(pilot.DOLocalRotate(new Vector3(0f, 0f, 720f), 0.5f, RotateMode.FastBeyond360).SetEase(Ease.InQuad))
+                .Join(_pilotRenderer.DOColor(Color.black, 0.5f))
+                .AppendInterval(0.25f)
+                .Append(pilot.DOScale(scale, 0.3f).SetEase(Ease.OutBack))
+                .Join(_pilotRenderer.DOColor(color, 0.3f))
+                .OnKill(() =>
+                {
+                    pilot.localScale = scale;
+                    pilot.localRotation = Quaternion.identity;
+                    _pilotRenderer.color = color;
+                })
+                .SetLink(gameObject);
+        }
+
         public void PlayUnlock()
         {
             _locked = false;

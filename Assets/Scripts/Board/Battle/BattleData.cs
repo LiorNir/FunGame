@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FunGame.Battle
 {
@@ -83,6 +84,12 @@ namespace FunGame.Battle
                 }
             }
         }
+
+        /// <summary>All the attack the action can deal, an unleash included (for players weighing what is coming).</summary>
+        public int ThreatAttack => Attack + Effects.OfType<UnleashEffect>().Sum(effect => effect.Amount);
+
+        /// <summary>All the defense the action can put up, a charge's guard included.</summary>
+        public int ThreatDefense => Defense + Effects.OfType<ChargeEffect>().Sum(effect => effect.Amount);
 
         /// <summary>A plain attack-and-defend action. A zero amount adds no effect.</summary>
         public EnemyActionData(string name, int attack, int defense) : this(name, AttackAndDefend(attack, defense))

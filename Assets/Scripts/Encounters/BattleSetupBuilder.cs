@@ -91,6 +91,16 @@ namespace Encounters
                 effects.Add(new SnipeEffect(action.SnipePercent / 100f, action.SnipeTurns, action.SnipeTarget));
             }
 
+            if (action.ChargeDefense > 0)
+            {
+                effects.Add(new ChargeEffect(action.ChargeDefense));
+            }
+
+            if (action.UnleashAttack > 0)
+            {
+                effects.Add(new UnleashEffect(action.UnleashAttack));
+            }
+
             return new EnemyActionData(action.Name, effects);
         }
     }

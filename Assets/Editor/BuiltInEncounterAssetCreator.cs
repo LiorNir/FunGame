@@ -217,7 +217,11 @@ namespace FunGame.EditorTools
                 action.SnipeTarget = snipe.TargetRule;
             }
 
-            var unsupported = data.Effects.Where(effect => !(effect is AttackEffect) && !(effect is DefendEffect) && !(effect is LockEffect) && !(effect is SnipeEffect)).ToList();
+            action.ChargeDefense = data.Effects.OfType<ChargeEffect>().Sum(effect => effect.Amount);
+            action.UnleashAttack = data.Effects.OfType<UnleashEffect>().Sum(effect => effect.Amount);
+
+            var unsupported = data.Effects.Where(effect => !(effect is AttackEffect) && !(effect is DefendEffect) && !(effect is LockEffect) &&
+                                                           !(effect is SnipeEffect) && !(effect is ChargeEffect) && !(effect is UnleashEffect)).ToList();
             if (unsupported.Count > 0)
             {
                 Debug.LogWarning($"Action '{data.Name}': enemy assets cannot hold {string.Join(", ", unsupported.Select(effect => effect.Describe()))} yet; left out.");

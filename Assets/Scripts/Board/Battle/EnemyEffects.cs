@@ -120,6 +120,56 @@ namespace FunGame.Battle
     }
 
     /// <summary>
+    /// Charge: the enemy guards (like <see cref="DefendEffect"/>) while it winds up an <see cref="UnleashEffect"/> for a later
+    /// turn. If the player's attack this turn breaks through the whole guard, the charge is broken and the unleash does
+    /// nothing (the enemy is stunned); otherwise it lands.
+    /// </summary>
+    public sealed class ChargeEffect : IEnemyEffect
+    {
+        public int Amount { get; }
+        public EnemyEffectPhase Phase => EnemyEffectPhase.Guard;
+
+        public ChargeEffect(int amount)
+        {
+            Amount = amount;
+        }
+
+        public void Resolve(EnemyEffectContext context)
+        {
+            context.Block += Amount;
+        }
+
+        public string Describe()
+        {
+            return $"CHARGE DEF {Amount}";
+        }
+    }
+
+    /// <summary>The big attack a <see cref="ChargeEffect"/> winds up: it hits like an attack unless the charge was broken.</summary>
+    public sealed class UnleashEffect : IEnemyEffect
+    {
+        public const string StunnedText = "STUNNED";
+
+        public int Amount { get; }
+        public EnemyEffectPhase Phase => EnemyEffectPhase.Act;
+
+        public UnleashEffect(int amount)
+        {
+            Amount = amount;
+        }
+
+        public void Resolve(EnemyEffectContext context)
+        {
+            context.Engine.Unleash(context.Lane, context.Action.Name, Amount);
+        }
+
+        public string Describe()
+        {
+            return $"UNLEASH ATK {Amount}";
+        }
+    }
+
+    /// <summary>
     /// Locks the targeted pilot for a number of the player's turns: while locked it can be neither ejected nor replaced.
     /// A fallen pilot can still be cleared.
     /// </summary>

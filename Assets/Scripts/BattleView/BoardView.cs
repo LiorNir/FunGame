@@ -257,8 +257,10 @@ namespace BattleView
 
                 var isAttack = label.Chain.Role == ChainRole.Attack;
                 var value = _lastResults.TryGetValue(label.Chain.Id, out var result) ? result.Value : 0f;
-                label.Text.text = (isAttack ? "ATK " : "DEF ") + DisplayFormat.Value(value);
-                label.Text.color = _visuals.ColorForRole(label.Chain.Role);
+                // a chain that divides by zero warns before the turn is played (temporary look), so the gag is never a trap
+                var dividesByZero = result != null && result.DividedByZero;
+                label.Text.text = (isAttack ? "ATK " : "DEF ") + (dividesByZero ? "ERROR \u00f70" : DisplayFormat.Value(value));
+                label.Text.color = dividesByZero ? new Color(1f, 0.25f, 0.25f) : _visuals.ColorForRole(label.Chain.Role);
                 var position = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + index * _chainLabelSpacing, 0f);
                 if (terminal.HasStatus)
                 {

@@ -172,8 +172,8 @@ namespace FunGame.Sim
                     }
 
                     lanes++;
-                    var averageAttack = next.Spec.Actions.Count == 0 ? 0f : (float)next.Spec.Actions.Average(action => action.Attack);
-                    var averageDefense = next.Spec.Actions.Count == 0 ? 0f : (float)next.Spec.Actions.Average(action => action.Defense);
+                    // the enemy's next action when it is known (actions in order), so breaking a charge counts
+                    var (averageAttack, averageDefense) = next.NextThreat();
                     var attackValue = results.Where(result => result.Chain.LaneId == lane.Spec.Id && result.Chain.Role == ChainRole.Attack).Sum(result => result.Value);
                     var defenseValue = results.Where(result => result.Chain.LaneId == lane.Spec.Id && result.Chain.Role == ChainRole.Defense).Sum(result => result.Value);
 

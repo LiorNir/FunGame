@@ -212,6 +212,11 @@ namespace FunGame.Sim
                 return $"surge {surge.ApCost} {Number(surge.Multiplier)}";
             }
 
+            if (ability is NoGuardAbility noGuard)
+            {
+                return $"noguard {noGuard.ApCost} {Number(noGuard.Factor)}";
+            }
+
             throw new FormatException($"no text form for the ability {ability.GetType().Name}");
         }
 
@@ -223,6 +228,8 @@ namespace FunGame.Sim
             {
                 case "surge":
                     return new SurgeAbility(Int(parts[1]), parts.Length > 2 ? Float(parts[2]) : 2f);
+                case "noguard":
+                    return new NoGuardAbility(Int(parts[1]), parts.Length > 2 ? Float(parts[2]) : 0.5f);
                 default:
                     throw new FormatException($"unknown ability '{parts[0]}'");
             }
@@ -240,6 +247,16 @@ namespace FunGame.Sim
                 return $"snipe {Number(snipe.Share * 100f)} {snipe.Turns} {snipe.TargetRule}";
             }
 
+            if (effect is ChargeEffect charge)
+            {
+                return $"charge {charge.Amount}";
+            }
+
+            if (effect is UnleashEffect unleash)
+            {
+                return $"unleash {unleash.Amount}";
+            }
+
             throw new FormatException($"no text form for the effect {effect.GetType().Name}");
         }
 
@@ -252,6 +269,10 @@ namespace FunGame.Sim
                 case "snipe":
                     return new SnipeEffect(Float(parts[1]) / 100f, Int(parts[2]),
                         parts.Length > 3 ? (PilotTargetRule)Enum.Parse(typeof(PilotTargetRule), parts[3], true) : PilotTargetRule.Random);
+                case "charge":
+                    return new ChargeEffect(Int(parts[1]));
+                case "unleash":
+                    return new UnleashEffect(Int(parts[1]));
                 case "lock":
                     return new LockEffect(Int(parts[1]), parts.Length > 2 ? (PilotTargetRule)Enum.Parse(typeof(PilotTargetRule), parts[2], true) : PilotTargetRule.Random);
                 default:

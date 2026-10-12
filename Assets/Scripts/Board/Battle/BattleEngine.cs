@@ -94,6 +94,8 @@ namespace FunGame.Battle
                 ActionPoints = ActionPoints,
                 PlayerHealth = PlayerHealth,
                 Outcome = Outcome,
+                PlayerDefenseMultiplier = PlayerDefenseMultiplier,
+                EnemyGuardMultiplier = EnemyGuardMultiplier,
                 Logging = false,
                 RecordEvents = false
             };
@@ -346,7 +348,7 @@ namespace FunGame.Battle
             Stats.ApSpent += cost;
             Stats.AbilitiesUsed++;
             pilot.AbilityUsed = true;
-            pilot.Ability.Activate(pilot);
+            pilot.Ability.Activate(pilot, this);
             Emit(BattleEventType.AbilityActivated, subject: pilot.Name, a: cost, b: ActionPoints, slots: new[] { slotId }, detail: pilot.Ability.Name);
             return true;
         }
@@ -454,7 +456,32 @@ namespace FunGame.Battle
                 return SlotContent.Empty;
             }
 
-            return new SlotContent(pilot.EffectiveAttack, pilot.EffectiveDefense);
+            return new SlotContent(pilot.EffectiveAttack, pilot.EffectiveDefense * PlayerDefenseMultiplier);
+        }
+
+        /// <summary>A slot's content with the pilot's own stats, before this turn's <see cref="PlayerDefenseMultiplier"/>.</summary>
+        private SlotContent RealContentOf(string slotId)
+        {
+            var content = ContentOf(slotId);
+            return content.IsFilled && PlayerDefenseMultiplier > Epsilon
+                ? new SlotContent(content.Attack, content.Defense / PlayerDefenseMultiplier)
+                : content;
+        }
+
+        /// <summary>The player's defense this turn is multiplied by this (1 normally; No Guard halves it). Reset every turn.</summary>
+        public float PlayerDefenseMultiplier { get; private set; } = 1f;
+
+        /// <summary>The enemies' guard against the player's attack this turn is multiplied by this (No Guard halves it). Reset every turn.</summary>
+        public float EnemyGuardMultiplier { get; private set; } = 1f;
+
+        /// <summary>
+        /// Lowers both the player's defense and every enemy's guard this turn by the same factor (No Guard: 0.5). Wounds taken
+        /// while lowered are a larger share of each pilot's defense, which is the risk.
+        /// </summary>
+        public void LowerGuards(float factor)
+        {
+            PlayerDefenseMultiplier *= factor;
+            EnemyGuardMultiplier *= factor;
         }
 
         public Dictionary<string, ChainResult> EvaluateChains()
@@ -588,8 +615,15 @@ namespace FunGame.Battle
             }
 
             var attack = results.Where(result => result.Chain.Role == ChainRole.Attack).Sum(result => result.Value);
-            var defense = guard.Block;
+            var defense = guard.Block * EnemyGuardMultiplier;
             var damage = Math.Max(0f, attack - defense);
+            if (enemy.Intent.Effects.Any(effect => effect is ChargeEffect) && damage > Epsilon)
+            {
+                // breaking through the whole guard breaks the charge: the unleash that follows does nothing
+                enemy.ChargeBroken = true;
+                Stats.ChargesBroken++;
+                Emit(BattleEventType.ChargeBroken, lane.Spec.Id, enemy.Spec.Name);
+            }
             enemy.Health -= damage;
             Stats.DamageDealt += damage;
             Emit(BattleEventType.PlayerAttacked, lane.Spec.Id, a: attack, b: defense, c: damage);
@@ -675,8 +709,11 @@ namespace FunGame.Battle
                 // A hit equal to the chain's whole value leaves it standing at 0 (its pilots fully wounded); only a hit
                 // above its value destroys it. The next hit that reaches a chain at 0 destroys it (see above).
                 List<string> wounded = null;
+                // wounds are measured against the pilots' real defense: a lowered defense (No Guard) blocks less, but what it
+                // blocks costs its real share
+                var realValue = ChainEvaluator.Evaluate(Setup.Board, chain, RealContentOf).Value;
                 var chainSurvives = remaining <= value + Epsilon &&
-                                    WoundAllocator.TryApplyDamage(Setup.Board, chain, value, absorbed, ContentOf, _pilotBySlot, out wounded);
+                                    WoundAllocator.TryApplyDamage(Setup.Board, chain, realValue, Math.Min(absorbed, realValue), RealContentOf, _pilotBySlot, out wounded);
                 if (chainSurvives)
                 {
                     foreach (var slotId in wounded)
@@ -777,6 +814,19 @@ namespace FunGame.Battle
             }
         }
 
+        /// <summary>The big attack of a charge: lands like an attack, or does nothing if the charge was broken. Used by <see cref="UnleashEffect"/>.</summary>
+        internal void Unleash(LaneState lane, string actionName, int amount)
+        {
+            if (lane.Current.ChargeBroken)
+            {
+                lane.Current.ChargeBroken = false;
+                Emit(BattleEventType.EnemyStunned, lane.Spec.Id, actionName);
+                return;
+            }
+
+            HitLane(lane, actionName, amount);
+        }
+
         /// <summary>
         /// True if the living pilot in the slot counts in at least one chain and every stat those chains read from it is 0
         /// (a fully worn defender, a crashed attacker). A snipe aimed at it becomes Assassinate.
@@ -831,7 +881,17 @@ namespace FunGame.Battle
                 var effect = enemy.Intent.Effects[index];
                 var targets = index < enemy.IntentTargets.Count ? enemy.IntentTargets[index] : new int[0];
                 var spentTarget = targets.Select(SlotOfPilot).FirstOrDefault(slotId => slotId != null && IsSpent(slotId));
-                texts.Add(spentTarget != null ? DescribeEffectOn(effect, spentTarget) : effect.Describe());
+                var text = spentTarget != null ? DescribeEffectOn(effect, spentTarget) : effect.Describe();
+                if (effect is UnleashEffect && enemy.ChargeBroken)
+                {
+                    text = UnleashEffect.StunnedText;
+                }
+                else if (effect.Phase == EnemyEffectPhase.Guard && EnemyGuardMultiplier < 1f - Epsilon)
+                {
+                    text += $" (x{DisplayFormat.Value(EnemyGuardMultiplier)})";
+                }
+
+                texts.Add(text);
             }
 
             return texts;
@@ -977,6 +1037,8 @@ namespace FunGame.Battle
         {
             Turn++;
             _placedThisTurn.Clear();
+            PlayerDefenseMultiplier = 1f;
+            EnemyGuardMultiplier = 1f;
             ActionPoints = Setup.Rules.ActionPointsPerTurn;
             Emit(BattleEventType.TurnStarted, a: Turn);
 

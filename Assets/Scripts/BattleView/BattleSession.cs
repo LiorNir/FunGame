@@ -386,10 +386,10 @@ namespace BattleView
                         ViewFactory.ShowPopup(position + Vector3.up * 0.9f, "DIVIDE BY ZERO!", Color.red, 0.6f);
                         if (culprit != null)
                         {
-                            culprit.Punch(0.6f);
+                            culprit.PlayDivideByZero();
                         }
 
-                        await Wait(0.9f, token);
+                        await Wait(1.2f, token);
                         break;
 
                     case BattleEventType.PlayerAttacked:
@@ -464,6 +464,16 @@ namespace BattleView
 
                         PopupAtFirstSlot(battleEvent, $"Locked {DisplayFormat.Value(battleEvent.A)}!", new Color(1f, 0.55f, 0.35f));
                         await Wait(0.6f, token);
+                        break;
+
+                    case BattleEventType.ChargeBroken:
+                        ViewFactory.ShowPopup(_enemies.PositionOf(battleEvent.LaneId) + Vector3.down * 1.9f, "Charge broken!", new Color(1f, 0.85f, 0.3f), 0.6f);
+                        await Wait(0.7f, token);
+                        break;
+
+                    case BattleEventType.EnemyStunned:
+                        ViewFactory.ShowPopup(_enemies.PositionOf(battleEvent.LaneId) + Vector3.down * 1.9f, "Stunned!", new Color(1f, 0.85f, 0.3f), 0.6f);
+                        await Wait(0.7f, token);
                         break;
 
                     case BattleEventType.PilotAssassinated:

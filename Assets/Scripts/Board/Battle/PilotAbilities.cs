@@ -6,7 +6,8 @@ namespace FunGame.Battle
     public enum PilotAbilityKind
     {
         None,
-        Surge
+        Surge,
+        NoGuard
     }
 
     public static class PilotAbilities
@@ -18,6 +19,8 @@ namespace FunGame.Battle
             {
                 case PilotAbilityKind.Surge:
                     return new SurgeAbility(apCost);
+                case PilotAbilityKind.NoGuard:
+                    return new NoGuardAbility(apCost);
                 default:
                     return null;
             }
@@ -25,7 +28,9 @@ namespace FunGame.Battle
 
         public static PilotAbilityKind KindOf(IPilotAbility ability)
         {
-            return ability is SurgeAbility ? PilotAbilityKind.Surge : PilotAbilityKind.None;
+            return ability is SurgeAbility ? PilotAbilityKind.Surge
+                : ability is NoGuardAbility ? PilotAbilityKind.NoGuard
+                : PilotAbilityKind.None;
         }
     }
 
@@ -44,8 +49,8 @@ namespace FunGame.Battle
         /// <summary>What it does, in a few words, for menus and cards.</summary>
         string Describe();
 
-        /// <summary>Applies the ability to its pilot (the engine has already checked and paid for it).</summary>
-        void Activate(PilotUnit pilot);
+        /// <summary>Applies the ability (the engine has already checked and paid for it).</summary>
+        void Activate(PilotUnit pilot, BattleEngine engine);
 
         /// <summary>The same ability with another AP cost (for comparing costs in the lab).</summary>
         IPilotAbility WithCost(int apCost);
@@ -73,7 +78,7 @@ namespace FunGame.Battle
             return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, then ATK 0 until rested in the hand";
         }
 
-        public void Activate(PilotUnit pilot)
+        public void Activate(PilotUnit pilot, BattleEngine engine)
         {
             pilot.AttackModifiers.Add(new StatModifier(Multiplier, 0, 1));
             pilot.AttackModifiers.Add(StatModifier.UntilRested(0f, 1));
@@ -82,6 +87,38 @@ namespace FunGame.Battle
         public IPilotAbility WithCost(int apCost)
         {
             return new SurgeAbility(apCost, Multiplier);
+        }
+    }
+
+    /// <summary>
+    /// "No Guard": this turn both the player's defense and every enemy's guard are halved. Risky (wounds taken at half
+    /// defense cut deep) and a matter of timing: best on a turn the enemy guards and barely attacks, such as a charge.
+    /// </summary>
+    public sealed class NoGuardAbility : IPilotAbility
+    {
+        public float Factor { get; }
+        public int ApCost { get; }
+        public string Name => "No Guard";
+
+        public NoGuardAbility(int apCost, float factor = 0.5f)
+        {
+            ApCost = apCost;
+            Factor = factor;
+        }
+
+        public string Describe()
+        {
+            return $"your defense and the enemy's guard x{DisplayFormat.Value(Factor)} this turn";
+        }
+
+        public void Activate(PilotUnit pilot, BattleEngine engine)
+        {
+            engine.LowerGuards(Factor);
+        }
+
+        public IPilotAbility WithCost(int apCost)
+        {
+            return new NoGuardAbility(apCost, Factor);
         }
     }
 

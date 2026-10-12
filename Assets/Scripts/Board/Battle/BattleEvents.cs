@@ -70,6 +70,12 @@ namespace FunGame.Battle
         /// <summary>LaneId, Subject = pilot name, Slots = its slot, A = the share taken off both stats (0-1), B = for how many turns.</summary>
         PilotSniped,
 
+        /// <summary>LaneId, Subject = enemy name: the player's attack broke through a charge's whole guard.</summary>
+        ChargeBroken,
+
+        /// <summary>LaneId, Subject = action name: the unleash of a broken charge does nothing.</summary>
+        EnemyStunned,
+
         /// <summary>LaneId, Subject = pilot name, Slots = its slot: a snipe found the pilot spent and it fell.</summary>
         PilotAssassinated,
 
