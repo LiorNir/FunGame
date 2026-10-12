@@ -27,6 +27,16 @@ MonoBehaviour:
     SnipeTarget: 2
     ChargeDefense: 0
     UnleashAttack: 0
+  - Name: Hunker
+    Attack: 0
+    Defense: 5
+    LockTurns: 0
+    LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0
   - Name: Jab
     Attack: 2
     Defense: 0

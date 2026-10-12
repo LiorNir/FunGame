@@ -28,7 +28,7 @@ MonoBehaviour:
     ChargeDefense: 0
     UnleashAttack: 0
   - Name: Charge
-    Attack: 1
+    Attack: 0
     Defense: 0
     LockTurns: 0
     LockTarget: 4
