@@ -94,6 +94,11 @@ namespace BattleView
                 }
 
                 view.Init(slot.Id, visuals, board.GetRolesThrough(slot), slot.Bonus);
+                if (engine.Setup.Board.TryGetNode(slot.Id, out var node) &&
+                    (node.ConnectionOperation == Operation.Subtract || node.ConnectionOperation == Operation.Divide))
+                {
+                    view.SetToll(BattleVisuals.OperatorSymbol(node.ConnectionOperation.Value).Replace("/", "\u00f7"));
+                }
                 view.Clicked += clicked => SlotClicked?.Invoke(clicked);
                 _slots[slot.Id] = view;
             }
@@ -186,6 +191,12 @@ namespace BattleView
             return _engine.CanActivate(slotId)
                 ? $"<color=#FFD24A>{pilot.Ability.Name} ready</color>"
                 : $"<color=#8C8C8C>{pilot.Ability.Name}: needs {pilot.Ability.ApCost} AP</color>";
+        }
+
+        /// <summary>Points the board at another copy of the same battle (an undo), without rebuilding it.</summary>
+        public void Rebind(BattleEngine engine)
+        {
+            _engine = engine;
         }
 
         public void Clear()

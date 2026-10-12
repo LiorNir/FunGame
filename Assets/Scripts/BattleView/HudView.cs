@@ -25,6 +25,8 @@ namespace BattleView
         [Tooltip("Optional: ends the battle as a defeat. The first click asks again on its label; a second click within a few seconds confirms.")]
         [SerializeField] private Button _giveUp;
         [SerializeField] private float _giveUpConfirmSeconds = 3f;
+        [Tooltip("Optional: takes back the last action of this turn (placing, replacing, ejecting, an ability, an unlock).")]
+        [SerializeField] private Button _undo;
 
         private float _displayHealth;
         private float _maxHealth;
@@ -32,6 +34,7 @@ namespace BattleView
         public event Action PlayTurnClicked;
         public event Action RestartClicked;
         public event Action GiveUpConfirmed;
+        public event Action UndoClicked;
 
         private TextMeshProUGUI _giveUpLabel;
         private string _giveUpText;
@@ -43,6 +46,11 @@ namespace BattleView
             _playTurn.onClick.AddListener(() => PlayTurnClicked?.Invoke());
             _restart.onClick.AddListener(() => RestartClicked?.Invoke());
             _outcomePanel.SetActive(false);
+            if (_undo != null)
+            {
+                _undo.onClick.AddListener(() => UndoClicked?.Invoke());
+            }
+
             if (_giveUp != null)
             {
                 _giveUpLabel = _giveUp.GetComponentInChildren<TextMeshProUGUI>();
@@ -106,6 +114,14 @@ namespace BattleView
             if (_giveUp != null)
             {
                 _giveUp.interactable = false;
+            }
+        }
+
+        public void SetUndoEnabled(bool enabled)
+        {
+            if (_undo != null)
+            {
+                _undo.interactable = enabled;
             }
         }
 

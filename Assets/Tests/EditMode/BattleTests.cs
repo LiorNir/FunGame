@@ -816,6 +816,18 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(9f, held.Lanes[0].Current.NextThreat().Attack, Tolerance);
         }
 
+        [Test]
+        public void ALoweredGuard_IsShownWithItsOriginalValue()
+        {
+            var actions = new[] { new EnemyActionData("Charge", new IEnemyEffect[] { new ChargeEffect(8) }) };
+            var deck = new[] { new PilotStats("Brawler", 5f, 4f, null, new NoGuardAbility(1)), new PilotStats("Spare", 1f, 1f) };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { new EnemySpec("Ram", 100, actions, false) }, deck));
+            engine.Start();
+            PlaceByName(engine, "Brawler", "R");
+            Assert.IsTrue(engine.TryActivate("R"));
+            Assert.AreEqual("CHARGE DEF 4 (was 8)", engine.DescribeIntent(engine.Lanes[0]).Single());
+        }
+
         // ---------- No Guard ----------
 
         [Test]
@@ -955,6 +967,31 @@ namespace FunGame.Board.Tests
             }
 
             Assert.AreEqual(engine.Setup.Rules.PlayerMaxHealth, engine.PlayerHealth, Tolerance); // nothing got through
+        }
+
+        [Test]
+        public void AMultiplyChainHit_LandsOnTheDefenseStep()
+        {
+            // (a + b) x c = (1 + 1) x 3 = 6, hit for 3: pilots snapped alone give 1.5 x 2.25 = 3.375, between steps
+            var nodes = new[] { new SlotNode("a"), new SlotNode("b", "a", Operation.Add), new SlotNode("c", "b", Operation.Multiply) };
+            var board = new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "a"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "c")
+            });
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 3, 0));
+            var deck = new[] { new PilotStats("A", 0f, 1f), new PilotStats("B", 0f, 1f), new PilotStats("C", 0f, 3f) };
+            var engine = new BattleEngine(Setup(board, new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "A", "a");
+            PlaceByName(engine, "B", "b");
+            PlaceByName(engine, "C", "c");
+
+            engine.ResolveTurn();
+
+            var value = engine.SumChains(ChainRole.Defense);
+            Assert.AreEqual(0f, value % 0.25f, 0.002f);
+            Assert.IsTrue(value >= 3f - Tolerance); // never below the exact remainder
         }
 
         [Test]

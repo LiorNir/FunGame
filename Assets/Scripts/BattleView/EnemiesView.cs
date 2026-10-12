@@ -21,6 +21,12 @@ namespace BattleView
         private readonly Dictionary<string, EnemyView> _views = new Dictionary<string, EnemyView>();
         private BattleEngine _engine;
 
+        /// <summary>Points the views at another copy of the same battle (an undo), without rebuilding them.</summary>
+        public void Rebind(BattleEngine engine)
+        {
+            _engine = engine;
+        }
+
         public void Build(BattleEngine engine, BattleVisuals visuals, IReadOnlyList<Transform> anchors)
         {
             Clear();

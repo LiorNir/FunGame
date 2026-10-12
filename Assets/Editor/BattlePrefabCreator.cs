@@ -61,6 +61,7 @@ namespace FunGame.EditorTools
             AddParts($"{Folder}/CardView.prefab", EnsureCardAbilityParts, changed);
             AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudGiveUp, changed);
+            AddParts($"{Folder}/BattleHud.prefab", EnsureHudUndo, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
 
@@ -84,6 +85,36 @@ namespace FunGame.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(contents);
             }
+        }
+
+        /// <summary>The Undo button, above Give Up. Returns true if it was added.</summary>
+        private static bool EnsureHudUndo(GameObject hud)
+        {
+            var view = hud.GetComponent<HudView>();
+            if (view == null || hud.transform.Find("Undo") != null)
+            {
+                return false;
+            }
+
+            var rect = ViewFactory.CreateUiRoot(hud.transform, "Undo", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-40f, 250f), new Vector2(330f, 60f), new Vector2(1f, 0f));
+            var image = rect.gameObject.AddComponent<Image>();
+            image.color = new Color(0.3f, 0.32f, 0.42f);
+            var button = rect.gameObject.AddComponent<Button>();
+            button.targetGraphic = image;
+            var colors = button.colors;
+            colors.disabledColor = new Color(1f, 1f, 1f, 0.35f);
+            button.colors = colors;
+            ViewFactory.CreateUiText(rect, "Label", "Undo", 30f, Color.white, new Vector2(330f, 60f), Vector2.zero);
+
+            // under the end-of-battle panel, which dims everything behind it
+            var playTurn = hud.transform.Find("PlayTurn");
+            if (playTurn != null)
+            {
+                rect.SetSiblingIndex(playTurn.GetSiblingIndex() + 1);
+            }
+
+            Assign(view, "_undo", button);
+            return true;
         }
 
         /// <summary>The Give Up button, above Play Turn. Returns true if it was added.</summary>
@@ -526,6 +557,7 @@ namespace FunGame.EditorTools
             Assign(view, "_outcomeText", outcomeText);
             Assign(view, "_restart", restart);
             EnsureHudGiveUp(root.gameObject);
+            EnsureHudUndo(root.gameObject);
             return root.gameObject;
         }
 

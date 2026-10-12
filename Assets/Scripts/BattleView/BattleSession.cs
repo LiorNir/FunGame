@@ -149,6 +149,7 @@ namespace BattleView
             _hud.PlayTurnClicked += () => PlayTurn().Forget();
             _hud.RestartClicked += StartBattle;
             _hud.GiveUpConfirmed += GiveUp;
+            _hud.UndoClicked += Undo;
             _testPanel.StartClicked += StartBattle;
             _testPanel.StopClicked += StopBattle;
             _testPanel.PreviousClicked += () => BrowseEncounters(-1);
@@ -188,6 +189,7 @@ namespace BattleView
 
             CancelBattle();
             ClearViews();
+            _undoSnapshots.Clear();
             _battleCancellation = CancellationTokenSource.CreateLinkedTokenSource(_destroyToken);
 
             var seed = _seed != 0 ? _seed : UnityEngine.Random.Range(1, int.MaxValue);
@@ -265,8 +267,43 @@ namespace BattleView
 
         // ---------- player commands (called by the selection controller) ----------
 
+        // the battle before each action of this turn, newest last; cleared when the turn is played
+        private readonly List<BattleEngine> _undoSnapshots = new List<BattleEngine>();
+
+        /// <summary>
+        /// Takes back the last action of this turn. Planning reveals nothing hidden (no draws, no dice), so this only
+        /// fixes a misplay; a played turn cannot be taken back.
+        /// </summary>
+        public void Undo()
+        {
+            if (IsBusy || _undoSnapshots.Count == 0)
+            {
+                return;
+            }
+
+            _engine = _undoSnapshots[_undoSnapshots.Count - 1];
+            _undoSnapshots.RemoveAt(_undoSnapshots.Count - 1);
+            _engine.Logging = true;
+            _engine.RecordEvents = true;
+            _selection.Cancel();
+            _menu.Close();
+            _board.Rebind(_engine);
+            _enemies.Rebind(_engine);
+            RefreshAll();
+        }
+
+        private void SaveUndo()
+        {
+            _undoSnapshots.Add(_engine.Clone());
+        }
+
         public void Place(int handIndex, string slotId)
         {
+            if (!IsBusy && _engine.CanPlace(handIndex, slotId))
+            {
+                SaveUndo();
+            }
+
             if (!IsBusy && _engine.TryPlace(handIndex, slotId))
             {
                 RefreshAll();
@@ -276,6 +313,11 @@ namespace BattleView
 
         public void Activate(string slotId)
         {
+            if (!IsBusy && _engine.CanActivate(slotId))
+            {
+                SaveUndo();
+            }
+
             if (!IsBusy && _engine.TryActivate(slotId))
             {
                 var slot = _board.GetSlot(slotId);
@@ -290,6 +332,11 @@ namespace BattleView
 
         public void Eject(string slotId)
         {
+            if (!IsBusy && _engine.CanEject(slotId))
+            {
+                SaveUndo();
+            }
+
             if (!IsBusy && _engine.TryEject(slotId))
             {
                 RefreshAll();
@@ -298,6 +345,11 @@ namespace BattleView
 
         public void Unlock(string slotId)
         {
+            if (!IsBusy && _engine.CanUnlock(slotId))
+            {
+                SaveUndo();
+            }
+
             if (!IsBusy && _engine.TryUnlock(slotId))
             {
                 RefreshAll();
@@ -331,6 +383,7 @@ namespace BattleView
             _enemies.Refresh();
             _hand.Refresh(_engine, _selection.IsPlacing ? _selection.SelectedHandIndex : -1);
             _hud.Refresh(_engine, !IsBusy);
+            _hud.SetUndoEnabled(!IsBusy && _undoSnapshots.Count > 0 && _engine.Outcome == BattleOutcome.InProgress);
             ShowTestPanel(true);
         }
 
@@ -345,6 +398,7 @@ namespace BattleView
 
             var token = _battleCancellation.Token;
             var engine = _engine;
+            _undoSnapshots.Clear();
             _isResolving = true;
             _selection.Cancel();
             _hud.SetPlayEnabled(false);

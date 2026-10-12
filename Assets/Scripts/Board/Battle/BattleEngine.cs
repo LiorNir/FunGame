@@ -459,6 +459,57 @@ namespace FunGame.Battle
             return new SlotContent(pilot.EffectiveAttack, pilot.EffectiveDefense * PlayerDefenseMultiplier);
         }
 
+        /// <summary>
+        /// After a hit, every wounded pilot is on the defense step, so an add chain's value is too; a multiply or divide chain
+        /// can still land between steps (1.25 x 1.75 = 2.1875). Then the last wounded pilot heals just enough for the chain
+        /// to reach the next step up (in the player's favour), so the value shown stays readable.
+        /// </summary>
+        private void SnapChainValue(ChainDefinition chain, List<string> wounded)
+        {
+            var step = Setup.Rules.DefenseStep;
+            if (step <= 0f || wounded.Count == 0)
+            {
+                return;
+            }
+
+            var value = ChainEvaluator.Evaluate(Setup.Board, chain, RealContentOf).Value;
+            var target = (float)Math.Ceiling(value / step - 0.0001f) * step;
+            if (target - value <= 0.0001f)
+            {
+                return;
+            }
+
+            var pilot = _pilotBySlot[wounded[wounded.Count - 1]];
+            var low = pilot.DefenseWound;
+            var high = pilot.DefenseWound;
+            var lowest = 0f;
+            pilot.DefenseWound = lowest;
+            var best = ChainEvaluator.Evaluate(Setup.Board, chain, RealContentOf).Value;
+            if (best < target - 0.0001f)
+            {
+                pilot.DefenseWound = high; // even unhurt it cannot reach the step: leave it
+                return;
+            }
+
+            // the wound at which the chain is exactly on the step (value falls as the wound grows)
+            low = lowest;
+            for (var i = 0; i < 40; i++)
+            {
+                var middle = (low + high) * 0.5f;
+                pilot.DefenseWound = middle;
+                if (ChainEvaluator.Evaluate(Setup.Board, chain, RealContentOf).Value >= target)
+                {
+                    low = middle;
+                }
+                else
+                {
+                    high = middle;
+                }
+            }
+
+            pilot.DefenseWound = low;
+        }
+
         /// <summary>A slot's content with the pilot's own stats, before this turn's <see cref="PlayerDefenseMultiplier"/>.</summary>
         private SlotContent RealContentOf(string slotId)
         {
@@ -721,6 +772,8 @@ namespace FunGame.Battle
                         _pilotBySlot[slotId].SnapWound(Setup.Rules.DefenseStep);
                     }
 
+                    SnapChainValue(chain, wounded);
+
                     if (Observed)
                     {
                         var after = ChainEvaluator.Evaluate(Setup.Board, chain, ContentOf).Value;
@@ -886,9 +939,12 @@ namespace FunGame.Battle
                 {
                     text = UnleashEffect.StunnedText;
                 }
-                else if (effect.Phase == EnemyEffectPhase.Guard && EnemyGuardMultiplier < 1f - Epsilon)
+                else if (EnemyGuardMultiplier < 1f - Epsilon && (effect is DefendEffect || effect is ChargeEffect))
                 {
-                    text += $" (x{DisplayFormat.Value(EnemyGuardMultiplier)})";
+                    // the lowered value, and what it was
+                    var amount = effect is DefendEffect defend ? defend.Amount : ((ChargeEffect)effect).Amount;
+                    var lowered = DisplayFormat.Value(amount * EnemyGuardMultiplier);
+                    text = (effect is ChargeEffect ? "CHARGE " : string.Empty) + $"DEF {lowered} (was {amount})";
                 }
 
                 texts.Add(text);

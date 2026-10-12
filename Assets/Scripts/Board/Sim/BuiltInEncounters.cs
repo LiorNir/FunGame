@@ -311,9 +311,9 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D2") });
             var first = new EncounterCase("World 4-1: Pay the toll", "Early",
                 new BattleSetup(firstBoard, new List<SlotRule>(),
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Collector", 18, false, Act("Smash", 6, 0), Act("Jab", 2, 0)) }) },
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Collector", 18, false, Act("Smash", 6, 0), Act("Hunker", 0, 5), Act("Jab", 2, 0)) }) },
                     GameRules, WorldFourRoster, 1) { OpeningHand = new[] { "Brash" } },
-                "Defense is (R - D1 + D2) x2: the weakest defense pays the toll in D1, and Brash's 0 pays nothing.", "World 4", 1, "a subtract toll in front of a bonus slot");
+                "Defense is (R - D1 + D2) x2: the weakest defense pays the toll in D1, and Brash's 0 pays nothing. The enemy hunkers (guard 5, no attack): a free turn for No Guard.", "World 4", 1, "a subtract toll in front of a bonus slot; No Guard on a guard turn");
 
             // 4-2: defense = R / D1 + D2; attack = (R + A1) x A2
             var secondBoard = new BoardGraph(
@@ -344,7 +344,7 @@ namespace FunGame.Sim
                     new SlotNode("D1", "R", Operation.Add), new SlotNode("D2", "D1", Operation.Multiply)
                 },
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D2") });
-            var charge = new EnemyActionData("Charge", new IEnemyEffect[] { new AttackEffect(1), new ChargeEffect(8) });
+            var charge = new EnemyActionData("Charge", new IEnemyEffect[] { new ChargeEffect(8) });
             var unleash = new EnemyActionData("Unleash", new IEnemyEffect[] { new UnleashEffect(9) });
             var boss = new EncounterCase("World 4-3: The ram (boss)", "Early",
                 new BattleSetup(bossBoard, new List<SlotRule>(),

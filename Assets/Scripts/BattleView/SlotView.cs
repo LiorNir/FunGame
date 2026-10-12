@@ -102,6 +102,7 @@ namespace BattleView
         private bool _attackUsed;
         private bool _defenseUsed;
         private int _abilityGlowState; // 0 off, 1 faint, 2 pulsing
+        private string _tollSymbol;
         private Color _abilityGlowColor;
         private Vector3 _abilityGlowScale;
         private Sequence _abilityGlowPulse;
@@ -229,6 +230,15 @@ namespace BattleView
 
             SetPilotPartsVisible(hasPilot && !fallen);
             UpdateWoundVisual();
+        }
+
+        /// <summary>
+        /// Marks the slot as a toll (its connection subtracts or divides): its pilot's defense is paid, never wounded, so the
+        /// defense box shows the operator and no fill (temporary look). Null for an ordinary slot.
+        /// </summary>
+        public void SetToll(string symbol)
+        {
+            _tollSymbol = symbol;
         }
 
         /// <summary>
@@ -467,7 +477,11 @@ namespace BattleView
                 _attackBox.HideFill();
             }
 
-            if (_defenseUsed && _pilot.BaseDefense * defenseLeft <= 0.001f)
+            if (_defenseUsed && _tollSymbol != null)
+            {
+                _defenseBox.HideFill(); // a toll pilot is never wounded: nothing to fill
+            }
+            else if (_defenseUsed && _pilot.BaseDefense * defenseLeft <= 0.001f)
             {
                 _defenseBox.ShowZero();
             }
@@ -484,7 +498,7 @@ namespace BattleView
             var defenseColor = _inactive ? _inactiveColor : _visuals.DefenseColor;
             _attackBox.SetValue(DisplayFormat.Value(_pilot.EffectiveAttack), _attackUsed ? attackColor : _tints.Unused(attackColor), attackChange);
             var defenseNumber = _visuals.ShowRemainingDefense ? _pilot.BaseDefense * remaining : _pilot.BaseDefense;
-            _defenseBox.SetValue(DisplayFormat.Value(defenseNumber), _defenseUsed ? defenseColor : _tints.Unused(defenseColor), defenseChange);
+            _defenseBox.SetValue((_tollSymbol ?? string.Empty) + DisplayFormat.Value(defenseNumber), _defenseUsed ? defenseColor : _tints.Unused(defenseColor), defenseChange);
         }
 
         private static string FormatBonus(NodeBonus bonus)
