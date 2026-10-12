@@ -25,6 +25,10 @@ namespace Configurations
         [Tooltip("How much faster an ejected pilot recovers on its first turn in the hand, if it rests there the whole turn (it is not placed again that turn): 2 = double, 1 = like a replaced pilot.")]
         [Min(1f)] public float EjectedRecoveryMultiplier = 2f;
 
+        [Header("Numbers")]
+        [Tooltip("After a hit or a turn of rest, a wounded pilot's remaining defense is rounded up to a multiple of this, so values stay readable (no 3.33). Rounding up favours the player. 0 = exact.")]
+        [Min(0f)] public float DefenseStep = 0.25f;
+
         [Header("Action costs (AP)")]
         [Min(0)] public int PlacePilotCost = 1;
         [Min(0)] public int ReplacePilotCost = 1;

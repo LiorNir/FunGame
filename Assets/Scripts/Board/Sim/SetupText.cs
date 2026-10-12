@@ -30,7 +30,7 @@ namespace FunGame.Sim
 
             var rules = setup.Rules;
             text.AppendLine($"rules|{rules.PlayerMaxHealth}|{rules.StartingActionPoints}|{rules.ActionPointsPerTurn}|{rules.HandSize}|" +
-                            $"{rules.PlacePilotCost}|{rules.ReplacePilotCost}|{rules.EjectPilotCost}|{rules.ActivateAbilityCost}|{(rules.AllowReplace ? 1 : 0)}|{(rules.AllowEject ? 1 : 0)}|{Number(rules.HandRecoveryPerTurn)}|{Number(rules.EjectedRecoveryMultiplier)}");
+                            $"{rules.PlacePilotCost}|{rules.ReplacePilotCost}|{rules.EjectPilotCost}|{rules.ActivateAbilityCost}|{(rules.AllowReplace ? 1 : 0)}|{(rules.AllowEject ? 1 : 0)}|{Number(rules.HandRecoveryPerTurn)}|{Number(rules.EjectedRecoveryMultiplier)}|{Number(rules.DefenseStep)}");
 
             foreach (var node in setup.Board.Nodes)
             {
@@ -137,7 +137,8 @@ namespace FunGame.Sim
                                 EjectPilotCost = Int(fields[7]), ActivateAbilityCost = Int(fields[8]),
                                 AllowReplace = fields.Length <= 9 || fields[9] == "1", AllowEject = fields.Length <= 10 || fields[10] == "1",
                                 HandRecoveryPerTurn = fields.Length > 11 ? Float(fields[11]) : 0f,
-                                EjectedRecoveryMultiplier = fields.Length > 12 && fields[12].Length > 0 ? Float(fields[12]) : 1f
+                                EjectedRecoveryMultiplier = fields.Length > 12 && fields[12].Length > 0 ? Float(fields[12]) : 1f,
+                                DefenseStep = fields.Length > 13 && fields[13].Length > 0 ? Float(fields[13]) : 0f
                             };
                             break;
                         case "node":

@@ -851,6 +851,56 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(0f, engine.Hand[0].DefenseWound, Tolerance);
         }
 
+        // a three-slot add chain that is lane1's defense; the root also starts an attack chain so the lane has one
+        private static BoardGraph ThreeDefenders()
+        {
+            var nodes = new[] { new SlotNode("a"), new SlotNode("b", "a", Operation.Add), new SlotNode("c", "b", Operation.Add) };
+            return new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("atk", "lane1", ChainRole.Attack, "a"),
+                new ChainDefinition("def", "lane1", ChainRole.Defense, "c")
+            });
+        }
+
+        [Test]
+        public void AfterAHit_RemainingDefenseIsRoundedUpToTheDefenseStep()
+        {
+            // a hit of 4 on 3 + 3 + 3 leaves exactly 1.667 each; rounded up to 1.75
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 4, 0));
+            var deck = new[] { new PilotStats("A", 0f, 3f), new PilotStats("B", 0f, 3f), new PilotStats("C", 0f, 3f) };
+            var engine = new BattleEngine(Setup(ThreeDefenders(), new[] { enemy }, deck));
+            engine.Start();
+            PlaceByName(engine, "A", "a");
+            PlaceByName(engine, "B", "b");
+            PlaceByName(engine, "C", "c");
+
+            engine.ResolveTurn();
+
+            foreach (var slotId in new[] { "a", "b", "c" })
+            {
+                Assert.AreEqual(1.75f, engine.PilotBySlot[slotId].EffectiveDefense, Tolerance);
+            }
+
+            Assert.AreEqual(engine.Setup.Rules.PlayerMaxHealth, engine.PlayerHealth, Tolerance); // nothing got through
+        }
+
+        [Test]
+        public void WithADefenseStepOfZero_WoundsAreExact()
+        {
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 4, 0));
+            var deck = new[] { new PilotStats("A", 0f, 3f), new PilotStats("B", 0f, 3f), new PilotStats("C", 0f, 3f) };
+            var engine = new BattleEngine(Setup(ThreeDefenders(), new[] { enemy }, deck,
+                rules: new BattleRules { DefenseStep = 0f }));
+            engine.Start();
+            PlaceByName(engine, "A", "a");
+            PlaceByName(engine, "B", "b");
+            PlaceByName(engine, "C", "c");
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(5f / 3f, engine.PilotBySlot["a"].EffectiveDefense, Tolerance);
+        }
+
         // R and S both end the defense chain; the enemy hits 3 of their 4 on turn 1 (wound 0.75 each), then idles
         private static BattleEngine TwoWornPilots(float ejectedMultiplier)
         {

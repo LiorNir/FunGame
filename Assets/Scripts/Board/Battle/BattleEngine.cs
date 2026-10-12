@@ -54,7 +54,10 @@ namespace FunGame.Battle
         public float WoundAfterRest(PilotUnit pilot)
         {
             var recovery = Setup.Rules.HandRecoveryPerTurn * (WasEjectedThisTurn(pilot) ? Setup.Rules.EjectedRecoveryMultiplier : 1f);
-            return Math.Max(0f, pilot.DefenseWound - recovery);
+            var rested = pilot.Copy();
+            rested.DefenseWound = Math.Max(0f, pilot.DefenseWound - recovery);
+            rested.SnapWound(Setup.Rules.DefenseStep);
+            return rested.DefenseWound;
         }
 
         /// <summary>True if the pilot was placed during the current planning phase.</summary>
@@ -676,6 +679,11 @@ namespace FunGame.Battle
                                     WoundAllocator.TryApplyDamage(Setup.Board, chain, value, absorbed, ContentOf, _pilotBySlot, out wounded);
                 if (chainSurvives)
                 {
+                    foreach (var slotId in wounded)
+                    {
+                        _pilotBySlot[slotId].SnapWound(Setup.Rules.DefenseStep);
+                    }
+
                     if (Observed)
                     {
                         var after = ChainEvaluator.Evaluate(Setup.Board, chain, ContentOf).Value;
@@ -1018,6 +1026,7 @@ namespace FunGame.Battle
                 {
                     var amount = _ejectedThisTurn.Contains(pilot) ? recovery * Setup.Rules.EjectedRecoveryMultiplier : recovery;
                     pilot.DefenseWound = Math.Max(0f, pilot.DefenseWound - amount);
+                    pilot.SnapWound(Setup.Rules.DefenseStep);
                 }
             }
 

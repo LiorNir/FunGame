@@ -66,6 +66,22 @@ namespace FunGame.Battle
             DefenseModifiers.RemoveAll(modifier => modifier.IsOver);
         }
 
+        /// <summary>
+        /// Rounds the defense left after wounds up to a multiple of <paramref name="step"/> (see
+        /// <see cref="BattleRules.DefenseStep"/>); nothing for a step of 0, an unhurt pilot or one with nothing left.
+        /// </summary>
+        public void SnapWound(float step)
+        {
+            if (step <= 0f || BaseDefense <= 0f || DefenseWound <= 0f || DefenseWound >= 1f)
+            {
+                return;
+            }
+
+            var left = BaseDefense * (1f - DefenseWound);
+            var snapped = (float)System.Math.Ceiling(left / step - 0.0001f) * step;
+            DefenseWound = System.Math.Max(0f, 1f - System.Math.Min(snapped, BaseDefense) / BaseDefense);
+        }
+
         /// <summary>A turn start spent resting in the hand: modifiers that last until rested (the Surge crash) end.</summary>
         public void Rest()
         {

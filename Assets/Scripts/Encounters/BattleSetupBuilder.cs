@@ -64,6 +64,7 @@ namespace Encounters
                 HandSize = gameRules.HandSize,
                 HandRecoveryPerTurn = gameRules.HandRecoveryPerTurn,
                 EjectedRecoveryMultiplier = gameRules.EjectedRecoveryMultiplier,
+                DefenseStep = gameRules.DefenseStep,
                 PlacePilotCost = gameRules.PlacePilotCost,
                 ReplacePilotCost = gameRules.ReplacePilotCost,
                 EjectPilotCost = gameRules.EjectPilotCost,

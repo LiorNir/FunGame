@@ -42,6 +42,13 @@ namespace FunGame.Battle
         /// </summary>
         public float EjectedRecoveryMultiplier { get; set; } = 1f;
 
+        /// <summary>
+        /// After a hit or a turn of rest, a wounded pilot's remaining defense is rounded up to a multiple of this (0.25: a 3
+        /// left at 1.6667 becomes 1.75), so values stay readable (no 3.33). Rounding up is in the player's favour: the chain
+        /// keeps a little more than the exact share. 0 = exact.
+        /// </summary>
+        public float DefenseStep { get; set; } = 0.25f;
+
         public BattleRules Copy()
         {
             return (BattleRules)MemberwiseClone();
