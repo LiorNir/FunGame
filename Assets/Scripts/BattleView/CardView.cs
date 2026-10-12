@@ -44,10 +44,9 @@ namespace BattleView
 
         /// <param name="restBonus">Above 1: the pilot was ejected this turn and will recover this many times as fast if it
         /// rests in the hand until the next turn; the card marks it (temporary look: "rest x2" on the defense).</param>
-        /// <param name="defenseAfterRest">The share of its defense the pilot will have after the next turn's recovery, shown
-        /// as a preview on the defense bar; negative for none (a pilot that is not recovering).</param>
-        /// <param name="attackAfterRest">The attack the pilot will have after resting until the next turn (the Surge crash
-        /// ends there); shown as a preview on the attack bar when it is back from 0.</param>
+        /// <param name="defenseAfterRest">The share of its defense the pilot will have next turn if it rests here (wounds
+        /// recover, effects run out), previewed on the defense bar when higher than now; negative for none.</param>
+        /// <param name="attackAfterRest">The same for attack (a snipe running out, the Surge crash ending in the hand).</param>
         public void Set(PilotUnit pilot, int index, bool selected, BattleVisuals visuals, float restBonus = 1f, float defenseAfterRest = -1f,
                         float attackAfterRest = -1f)
         {
@@ -80,12 +79,11 @@ namespace BattleView
                 var samePilot = pilot == _shownPilot;
                 _shownPilot = pilot;
                 _stats.text = string.Empty;
-                var attackShare = pilot.EffectiveAttack > 0.001f ? 1f : 0f;
-                var defenseShare = pilot.EffectiveDefense > 0.001f ? 1f - pilot.DefenseWound : 0f;
-                _attackBar.Set($"ATK {attack}", attackShare, visuals.AttackColor, samePilot, StatChanges.OfAttack(pilot));
-                _defenseBar.Set($"DEF {defense}{restMark}", defenseShare, visuals.DefenseColor, samePilot, StatChanges.OfDefense(pilot));
+                // the bars show what is left of each stat, whatever lowered it (wounds, a snipe, the Surge crash)
+                _attackBar.Set($"ATK {attack}", StatShares.Attack(pilot), visuals.AttackColor, samePilot, StatChanges.OfAttack(pilot));
+                _defenseBar.Set($"DEF {defense}{restMark}", StatShares.Defense(pilot), visuals.DefenseColor, samePilot, StatChanges.OfDefense(pilot));
                 _defenseBar.SetPreview(defenseAfterRest);
-                _attackBar.SetPreview(attackShare <= 0f && attackAfterRest > 0.001f ? 1f : -1f);
+                _attackBar.SetPreview(attackAfterRest);
                 return;
             }
 

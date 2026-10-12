@@ -225,7 +225,7 @@ namespace BattleView
 
             // pilots that a revealed enemy effect is aimed at (for example a coming lock), so the player can react
             var aimedAt = _engine.IntentTargets().GroupBy(target => target.SlotId)
-                .ToDictionary(group => group.Key, group => string.Join(" ", group.Select(target => target.Effect.Describe())));
+                .ToDictionary(group => group.Key, group => string.Join(" ", group.Select(target => _engine.DescribeEffectOn(target.Effect, target.SlotId))));
 
             foreach (var pair in _slots)
             {

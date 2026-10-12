@@ -148,6 +148,7 @@ namespace BattleView
 
             _hud.PlayTurnClicked += () => PlayTurn().Forget();
             _hud.RestartClicked += StartBattle;
+            _hud.GiveUpConfirmed += GiveUp;
             _testPanel.StartClicked += StartBattle;
             _testPanel.StopClicked += StopBattle;
             _testPanel.PreviousClicked += () => BrowseEncounters(-1);
@@ -304,6 +305,21 @@ namespace BattleView
             }
         }
 
+        public void GiveUp()
+        {
+            if (IsBusy || _engine.Outcome != BattleOutcome.InProgress)
+            {
+                return;
+            }
+
+            _selection.Cancel();
+            _menu.Close();
+            _engine.GiveUp();
+            _engine.DrainEvents();
+            RefreshAll();
+            ShowOutcome();
+        }
+
         public void RefreshAll()
         {
             if (_engine == null)
@@ -450,6 +466,16 @@ namespace BattleView
                         await Wait(0.6f, token);
                         break;
 
+                    case BattleEventType.PilotAssassinated:
+                        foreach (var slotId in battleEvent.Slots)
+                        {
+                            _board.GetSlot(slotId)?.PlayFallen();
+                        }
+
+                        PopupAtFirstSlot(battleEvent, "Assassinated!", new Color(1f, 0.3f, 0.3f));
+                        await Wait(0.8f, token);
+                        break;
+
                     case BattleEventType.EffectFizzled:
                         ViewFactory.ShowPopup(_enemies.PositionOf(battleEvent.LaneId) + Vector3.down * 1.9f, $"{battleEvent.Subject} missed", Color.gray, 0.4f);
                         await Wait(0.5f, token);
@@ -484,6 +510,10 @@ namespace BattleView
         private void ShowOutcome()
         {
             var details = $"Turns: {_engine.Turn}   HP left: {DisplayFormat.Value(_engine.PlayerHealth)}";
+            if (_engine.DefeatReason != null)
+            {
+                details = $"({_engine.DefeatReason})\n" + details;
+            }
             if (_engine.Outcome == BattleOutcome.Victory)
             {
                 details += $"\nReward: {_encounter.RewardSkillPoints} SP";

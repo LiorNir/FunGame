@@ -22,18 +22,63 @@ namespace BattleView
         [SerializeField] private GameObject _outcomePanel;
         [SerializeField] private TextMeshProUGUI _outcomeText;
         [SerializeField] private Button _restart;
+        [Tooltip("Optional: ends the battle as a defeat. The first click asks again on its label; a second click within a few seconds confirms.")]
+        [SerializeField] private Button _giveUp;
+        [SerializeField] private float _giveUpConfirmSeconds = 3f;
 
         private float _displayHealth;
         private float _maxHealth;
 
         public event Action PlayTurnClicked;
         public event Action RestartClicked;
+        public event Action GiveUpConfirmed;
+
+        private TextMeshProUGUI _giveUpLabel;
+        private string _giveUpText;
+        private bool _giveUpArmed;
+        private Tween _giveUpDisarm;
 
         private void Awake()
         {
             _playTurn.onClick.AddListener(() => PlayTurnClicked?.Invoke());
             _restart.onClick.AddListener(() => RestartClicked?.Invoke());
             _outcomePanel.SetActive(false);
+            if (_giveUp != null)
+            {
+                _giveUpLabel = _giveUp.GetComponentInChildren<TextMeshProUGUI>();
+                _giveUpText = _giveUpLabel != null ? _giveUpLabel.text : string.Empty;
+                _giveUp.onClick.AddListener(OnGiveUpClicked);
+            }
+        }
+
+        private void OnGiveUpClicked()
+        {
+            if (_giveUpArmed)
+            {
+                DisarmGiveUp();
+                GiveUpConfirmed?.Invoke();
+                return;
+            }
+
+            _giveUpArmed = true;
+            if (_giveUpLabel != null)
+            {
+                _giveUpLabel.text = "Sure? Click again";
+            }
+
+            _giveUpDisarm?.Kill();
+            _giveUpDisarm = DOVirtual.DelayedCall(_giveUpConfirmSeconds, DisarmGiveUp).SetLink(gameObject);
+        }
+
+        private void DisarmGiveUp()
+        {
+            _giveUpArmed = false;
+            _giveUpDisarm?.Kill();
+            _giveUpDisarm = null;
+            if (_giveUpLabel != null)
+            {
+                _giveUpLabel.text = _giveUpText;
+            }
         }
 
         public void Refresh(BattleEngine engine, bool canAct)
@@ -44,6 +89,10 @@ namespace BattleView
             _actionPoints.text = $"AP {engine.ActionPoints}/{engine.Setup.Rules.ActionPointsPerTurn}";
             _turn.text = $"Turn {engine.Turn}";
             _playTurn.interactable = canAct && engine.Outcome == BattleOutcome.InProgress;
+            if (_giveUp != null)
+            {
+                _giveUp.interactable = canAct && engine.Outcome == BattleOutcome.InProgress;
+            }
         }
 
         /// <summary>Shows the HUD with no battle running.</summary>
@@ -54,11 +103,19 @@ namespace BattleView
             _turn.text = string.Empty;
             _hint.text = string.Empty;
             _playTurn.interactable = false;
+            if (_giveUp != null)
+            {
+                _giveUp.interactable = false;
+            }
         }
 
         public void SetPlayEnabled(bool enabled)
         {
             _playTurn.interactable = enabled;
+            if (_giveUp != null)
+            {
+                _giveUp.interactable = enabled;
+            }
         }
 
         public void SetHint(string text)

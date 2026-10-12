@@ -147,9 +147,10 @@ namespace FunGame.Battle
     }
 
     /// <summary>
-    /// Snipe: lowers both stats of the targeted pilot by a share (50% = half) for some of the player's turns, starting the
-    /// turn after the enemy acts. Both stats, so a hit matters whichever chain the pilot is in. Misses if the pilot has
-    /// left the board by then.
+    /// Snipe: lowers both stats of the targeted pilot by a share (50% = half) of their current value for some of the
+    /// player's turns, starting the turn after the enemy acts. Both stats, so a hit matters whichever chain the pilot is in.
+    /// Misses if the pilot has left the board by then. Aimed at a spent pilot (every stat its chains read is 0, see
+    /// <see cref="BattleEngine.IsSpent"/>) it becomes Assassinate: the pilot falls, which cuts its chains there.
     /// </summary>
     public sealed class SnipeEffect : ITargetedEffect
     {
@@ -171,6 +172,8 @@ namespace FunGame.Battle
         {
             context.Engine.SnipePilots(context.Lane, context.Targets, Share, Turns, Describe());
         }
+
+        public const string AssassinateText = "ASSASSINATE";
 
         public string Describe()
         {

@@ -57,9 +57,10 @@ namespace BattleView
                 // an ejected, wounded pilot that will recover faster if it rests here until the next turn
                 var restsFaster = engine.WasEjectedThisTurn(pilot) && pilot.DefenseWound > 0.001f &&
                                   rules.HandRecoveryPerTurn > 0f && rules.EjectedRecoveryMultiplier > 1.001f;
-                // where its defense will be after the next turn's recovery, if it is wounded and recovery is on
-                var afterRest = pilot.DefenseWound > 0.001f && rules.HandRecoveryPerTurn > 0f ? 1f - engine.WoundAfterRest(pilot) : -1f;
-                card.Set(pilot, index, index == selectedIndex, _visuals, restsFaster ? rules.EjectedRecoveryMultiplier : 1f, afterRest, pilot.AttackAfterRest);
+                // where its stats will be next turn if it rests here (the bars preview it when that is higher than now)
+                var defenseAfterRest = StatShares.DefenseAfterRest(pilot, engine.WoundAfterRest(pilot));
+                card.Set(pilot, index, index == selectedIndex, _visuals, restsFaster ? rules.EjectedRecoveryMultiplier : 1f,
+                         defenseAfterRest, StatShares.AttackAfterRest(pilot));
                 card.Clicked += clicked => CardClicked?.Invoke(clicked.Index, clicked.Rect);
                 card.Rect.anchoredPosition = new Vector2((index - (count - 1) * 0.5f) * _spacing, index == selectedIndex ? _raiseWhenSelected : 0f);
                 _cards.Add(card);

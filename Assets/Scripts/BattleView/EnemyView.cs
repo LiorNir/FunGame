@@ -68,15 +68,21 @@ namespace BattleView
             UpdateHealthVisual();
         }
 
-        /// <summary>Shows the revealed action: its name and each effect (attack and defense in their colours).</summary>
-        public void SetIntent(EnemyActionData action)
+        /// <summary>
+        /// Shows the revealed action: its name and each effect (attack and defense in their colours). <paramref name="texts"/>,
+        /// one per effect, replaces the effects' own descriptions (a snipe that will assassinate says so).
+        /// </summary>
+        public void SetIntent(EnemyActionData action, System.Collections.Generic.IReadOnlyList<string> texts = null)
         {
             var parts = new System.Collections.Generic.List<string>();
-            foreach (var effect in action.Effects)
+            for (var index = 0; index < action.Effects.Count; index++)
             {
-                parts.Add(effect is AttackEffect ? _visuals.AttackText(effect.Describe())
-                    : effect is DefendEffect ? _visuals.DefenseText(effect.Describe())
-                    : effect.Describe());
+                var effect = action.Effects[index];
+                var text = texts != null && index < texts.Count ? texts[index] : effect.Describe();
+                parts.Add(effect is AttackEffect ? _visuals.AttackText(text)
+                    : effect is DefendEffect ? _visuals.DefenseText(text)
+                    : text == SnipeEffect.AssassinateText ? $"<color=#FF5050>{text}</color>"
+                    : text);
             }
 
             _intent.text = parts.Count == 0 ? action.Name : $"{action.Name}  {string.Join("  ", parts)}";

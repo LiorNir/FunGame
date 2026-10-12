@@ -732,6 +732,66 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(0, engine.Stats.PilotsSniped);
         }
 
+        [Test]
+        public void Snipe_OnASpentPilot_Assassinates_ItFallsAndCutsItsChains()
+        {
+            // the root has nothing left in either chain it serves; the snipe picks it (the most wounded, ties by slot order)
+            var actions = new[] { new EnemyActionData("Snipe", new IEnemyEffect[] { new SnipeEffect(0.5f, 1, PilotTargetRule.MostWounded) }) };
+            var deck = new[] { new PilotStats("Husk", 0f, 0f), new PilotStats("Striker", 4f, 2f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(Operation.Add), new[] { new EnemySpec("E", 100, actions, false) }, deck));
+            engine.Start();
+            PlaceByName(engine, "Husk", "R");
+            PlaceByName(engine, "Striker", "S");
+            engine.ResolveTurn();
+            Assert.AreEqual("R", engine.IntentTargets().Single().SlotId);
+            Assert.IsTrue(engine.IsSpent("R"));
+            Assert.IsFalse(engine.IsSpent("S"));
+            Assert.AreEqual(SnipeEffect.AssassinateText, engine.DescribeIntent(engine.Lanes[0]).Single());
+
+            engine.ResolveCombat();
+
+            Assert.IsTrue(engine.PilotBySlot["R"].Fallen);
+            Assert.AreEqual(1, engine.Stats.PilotsAssassinated);
+            Assert.AreEqual(0, engine.Stats.PilotsSniped);
+            Assert.AreEqual(0f, engine.SumChains(ChainRole.Attack), Tolerance); // the striker is cut off behind the fallen root
+        }
+
+        [Test]
+        public void Snipe_OnAPilotWithAStatLeft_IsAnOrdinarySnipe()
+        {
+            var engine = SnipedBoard(0.5f, 1);
+            Assert.IsFalse(engine.IsSpent("S"));
+            Assert.AreEqual("SNIPE -50%", engine.DescribeIntent(engine.Lanes[0]).Single());
+        }
+
+        // ---------- defeat ----------
+
+        [Test]
+        public void TheBattleIsLost_WhenNoPilotIsLeft()
+        {
+            // one pilot, no bank: the hit destroys its chain and the player still has health
+            var enemy = Enemy("E", 100, new EnemyActionData("Hit", 3, 0));
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, new[] { new PilotStats("Only", 0f, 1f) },
+                rules: new BattleRules { PlayerMaxHealth = 50 }));
+            engine.Start();
+            PlaceByName(engine, "Only", "R");
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(BattleOutcome.Defeat, engine.Outcome);
+            Assert.AreEqual(BattleEngine.DefeatNoPilots, engine.DefeatReason);
+            Assert.Greater(engine.PlayerHealth, 0f);
+        }
+
+        [Test]
+        public void GivingUp_LosesTheBattle()
+        {
+            var engine = SurgeBattle();
+            engine.GiveUp();
+            Assert.AreEqual(BattleOutcome.Defeat, engine.Outcome);
+            Assert.AreEqual(BattleEngine.DefeatGaveUp, engine.DefeatReason);
+        }
+
         // ---------- opening hand ----------
 
         [Test]

@@ -95,7 +95,7 @@ namespace BattleView
 
                 view.transform.localScale = Vector3.one;
                 view.Show(enemy.Spec, enemy.Health);
-                view.SetIntent(enemy.Intent);
+                view.SetIntent(enemy.Intent, _engine.DescribeIntent(lane));
                 view.SetQueue(QueueText(lane, lane.EnemiesSpawned));
             }
         }
@@ -120,7 +120,7 @@ namespace BattleView
                 return;
             }
 
-            _views[laneId].SetIntent(enemy.Intent);
+            _views[laneId].SetIntent(enemy.Intent, _engine.DescribeIntent(_engine.Lanes.First(candidate => candidate.Spec.Id == laneId)));
             _views[laneId].PunchIntent();
         }
 

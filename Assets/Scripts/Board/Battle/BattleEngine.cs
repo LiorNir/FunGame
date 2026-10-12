@@ -534,6 +534,38 @@ namespace FunGame.Battle
                     return;
                 }
             }
+
+            // with no pilot left anywhere the player could only pass turns
+            if (!HasLivingPilots)
+            {
+                Lose(DefeatNoPilots);
+            }
+        }
+
+        public const string DefeatNoHealth = "no health left";
+        public const string DefeatNoPilots = "no pilots left";
+        public const string DefeatGaveUp = "gave up";
+
+        /// <summary>Why the battle was lost (one of the Defeat* texts); null unless it was.</summary>
+        public string DefeatReason { get; private set; }
+
+        /// <summary>True while the player has a pilot that has not fallen: on the board, in the hand or still to be drawn.</summary>
+        public bool HasLivingPilots => _pilotBySlot.Values.Any(pilot => !pilot.Fallen) || Hand.Count > 0 || Bank.Count > 0;
+
+        /// <summary>Ends the battle as a defeat at the player's request (for example a challenge that can no longer be met).</summary>
+        public void GiveUp()
+        {
+            if (Outcome == BattleOutcome.InProgress)
+            {
+                Lose(DefeatGaveUp);
+            }
+        }
+
+        private void Lose(string reason)
+        {
+            Outcome = BattleOutcome.Defeat;
+            DefeatReason = reason;
+            Emit(BattleEventType.Defeat, detail: reason);
         }
 
         private void PlayerAttacks(LaneState lane, Dictionary<string, ChainResult> chainResults)
@@ -591,8 +623,7 @@ namespace FunGame.Battle
                 if (PlayerHealth <= Epsilon)
                 {
                     PlayerHealth = Math.Max(0f, PlayerHealth);
-                    Outcome = BattleOutcome.Defeat;
-                    Emit(BattleEventType.Defeat);
+                    Lose(DefeatNoHealth);
                     return true;
                 }
             }
@@ -699,7 +730,8 @@ namespace FunGame.Battle
 
         /// <summary>
         /// Lowers both stats of the targeted pilots by a share for some of the player's turns, from the next turn on. A target
-        /// that has left the board, or fallen, is missed. Used by <see cref="SnipeEffect"/>.
+        /// that has left the board, or fallen, is missed; a spent one (<see cref="IsSpent"/>) is assassinated instead: it
+        /// falls. Used by <see cref="SnipeEffect"/>.
         /// </summary>
         internal void SnipePilots(LaneState lane, IReadOnlyList<int> targetIds, float share, int turns, string effectName)
         {
@@ -719,12 +751,82 @@ namespace FunGame.Battle
                 }
 
                 var pilot = _pilotBySlot[slotId];
+                if (IsSpent(slotId))
+                {
+                    pilot.Fallen = true;
+                    pilot.LockedTurns = 0;
+                    Stats.PilotsAssassinated++;
+                    Stats.PilotsFallen++;
+                    Emit(BattleEventType.PilotAssassinated, lane.Spec.Id, pilot.Name, slots: new[] { slotId });
+                    continue;
+                }
+
                 var multiplier = Math.Max(0f, 1f - share);
                 pilot.AttackModifiers.Add(new StatModifier(multiplier, 1, turns));
                 pilot.DefenseModifiers.Add(new StatModifier(multiplier, 1, turns));
                 Stats.PilotsSniped++;
                 Emit(BattleEventType.PilotSniped, lane.Spec.Id, pilot.Name, share, turns, slots: new[] { slotId });
             }
+        }
+
+        /// <summary>
+        /// True if the living pilot in the slot counts in at least one chain and every stat those chains read from it is 0
+        /// (a fully worn defender, a crashed attacker). A snipe aimed at it becomes Assassinate.
+        /// </summary>
+        public bool IsSpent(string slotId)
+        {
+            if (!_pilotBySlot.TryGetValue(slotId, out var pilot) || pilot.Fallen)
+            {
+                return false;
+            }
+
+            var counts = false;
+            foreach (var result in EvaluateChains().Values)
+            {
+                if (!result.Steps.Any(step => step.NodeId == slotId && step.Status == SlotStatus.Active))
+                {
+                    continue;
+                }
+
+                counts = true;
+                var value = result.Chain.Role == ChainRole.Attack ? pilot.EffectiveAttack : pilot.EffectiveDefense;
+                if (value > Epsilon)
+                {
+                    return false;
+                }
+            }
+
+            return counts;
+        }
+
+        /// <summary>
+        /// What an effect of a revealed intent will do to the pilot in the slot, for intent texts: its own description, or
+        /// Assassinate for a snipe aimed at a spent pilot.
+        /// </summary>
+        public string DescribeEffectOn(IEnemyEffect effect, string slotId)
+        {
+            return effect is SnipeEffect && IsSpent(slotId) ? SnipeEffect.AssassinateText : effect.Describe();
+        }
+
+        /// <summary>The texts of a lane's revealed intent, one per effect, with the ones aimed at a spent pilot named for what they will do.</summary>
+        public IReadOnlyList<string> DescribeIntent(LaneState lane)
+        {
+            var enemy = lane.Current;
+            var texts = new List<string>();
+            if (enemy?.Intent == null)
+            {
+                return texts;
+            }
+
+            for (var index = 0; index < enemy.Intent.Effects.Count; index++)
+            {
+                var effect = enemy.Intent.Effects[index];
+                var targets = index < enemy.IntentTargets.Count ? enemy.IntentTargets[index] : new int[0];
+                var spentTarget = targets.Select(SlotOfPilot).FirstOrDefault(slotId => slotId != null && IsSpent(slotId));
+                texts.Add(spentTarget != null ? DescribeEffectOn(effect, spentTarget) : effect.Describe());
+            }
+
+            return texts;
         }
 
         /// <summary>The slot of a living pilot on the board, or null if the pilot is not there.</summary>

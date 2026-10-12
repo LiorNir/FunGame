@@ -60,6 +60,7 @@ namespace FunGame.EditorTools
             AddParts($"{Folder}/CardView.prefab", EnsureStatBarPreviews, changed);
             AddParts($"{Folder}/CardView.prefab", EnsureCardAbilityParts, changed);
             AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
+            AddParts($"{Folder}/BattleHud.prefab", EnsureHudGiveUp, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
 
@@ -83,6 +84,36 @@ namespace FunGame.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(contents);
             }
+        }
+
+        /// <summary>The Give Up button, above Play Turn. Returns true if it was added.</summary>
+        private static bool EnsureHudGiveUp(GameObject hud)
+        {
+            var view = hud.GetComponent<HudView>();
+            if (view == null || hud.transform.Find("GiveUp") != null)
+            {
+                return false;
+            }
+
+            var rect = ViewFactory.CreateUiRoot(hud.transform, "GiveUp", new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-40f, 180f), new Vector2(330f, 60f), new Vector2(1f, 0f));
+            var image = rect.gameObject.AddComponent<Image>();
+            image.color = new Color(0.45f, 0.18f, 0.18f);
+            var button = rect.gameObject.AddComponent<Button>();
+            button.targetGraphic = image;
+            var colors = button.colors;
+            colors.disabledColor = new Color(1f, 1f, 1f, 0.4f);
+            button.colors = colors;
+            ViewFactory.CreateUiText(rect, "Label", "Give up", 30f, Color.white, new Vector2(330f, 60f), Vector2.zero);
+
+            // under the end-of-battle panel, which dims everything behind it
+            var playTurn = hud.transform.Find("PlayTurn");
+            if (playTurn != null)
+            {
+                rect.SetSiblingIndex(playTurn.GetSiblingIndex() + 1);
+            }
+
+            Assign(view, "_giveUp", button);
+            return true;
         }
 
         /// <summary>Attack and defense bars where the card's stats text sits. Returns true if anything was added.</summary>
@@ -494,6 +525,7 @@ namespace FunGame.EditorTools
             Assign(view, "_outcomePanel", outcome.gameObject);
             Assign(view, "_outcomeText", outcomeText);
             Assign(view, "_restart", restart);
+            EnsureHudGiveUp(root.gameObject);
             return root.gameObject;
         }
 

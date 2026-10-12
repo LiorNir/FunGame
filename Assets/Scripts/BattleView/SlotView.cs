@@ -423,28 +423,32 @@ namespace BattleView
             var attackChange = StatChanges.OfAttack(_pilot);
             var defenseChange = StatChanges.OfDefense(_pilot);
 
-            // a used stat is filled (attack always full, defense by what is left of it); an unused one is empty and dark;
-            // a used stat at 0 blinks so it cannot be missed
+            // a used stat is filled by what is left of it; an unused one is empty and dark; a used stat at 0 blinks so it
+            // cannot be missed
+            // the fills show what is left of each stat: attack lowered by an effect (a snipe, the Surge crash), defense by
+            // wounds and effects alike
+            var attackLeft = StatShares.Attack(_pilot);
+            var defenseLeft = remaining * StatShares.DefenseEffects(_pilot);
             if (_attackUsed && _pilot.EffectiveAttack <= 0.001f)
             {
                 _attackBox.ShowZero();
             }
             else if (_attackUsed)
             {
-                _attackBox.SetFill(1f, _tints.FillFor(_state, _visuals.AttackColor));
+                _attackBox.SetFill(attackLeft, _tints.FillFor(_state, _visuals.AttackColor));
             }
             else
             {
                 _attackBox.HideFill();
             }
 
-            if (_defenseUsed && _pilot.BaseDefense * remaining * StatModifier.Product(_pilot.DefenseModifiers) <= 0.001f)
+            if (_defenseUsed && _pilot.BaseDefense * defenseLeft <= 0.001f)
             {
                 _defenseBox.ShowZero();
             }
             else if (_defenseUsed)
             {
-                _defenseBox.SetFill(remaining, _tints.FillFor(_state, _visuals.DefenseColor));
+                _defenseBox.SetFill(defenseLeft, _tints.FillFor(_state, _visuals.DefenseColor));
             }
             else
             {

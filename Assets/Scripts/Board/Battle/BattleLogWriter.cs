@@ -113,6 +113,10 @@ namespace FunGame.Battle
                     log.Add($"  [{lane}] {battleEvent.Subject}@{SlotOf(battleEvent)} is sniped: -{Fmt(battleEvent.A * 100f)}% to both stats for {Fmt(battleEvent.B)} turn(s) from next turn");
                     break;
 
+                case BattleEventType.PilotAssassinated:
+                    log.Add($"  [{lane}] {battleEvent.Subject}@{SlotOf(battleEvent)} was spent and is assassinated (falls)");
+                    break;
+
                 case BattleEventType.EffectFizzled:
                     log.Add($"  [{lane}] {battleEvent.Subject} does nothing: {battleEvent.Detail}");
                     break;
@@ -122,7 +126,7 @@ namespace FunGame.Battle
                     break;
 
                 case BattleEventType.Defeat:
-                    log.Add("DEFEAT");
+                    log.Add($"DEFEAT ({battleEvent.Detail})");
                     break;
 
                 case BattleEventType.Stalemate:
