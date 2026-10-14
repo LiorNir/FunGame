@@ -31,8 +31,8 @@ namespace FunGame.Progress
     /// </summary>
     public sealed class Progression
     {
-        /// <summary>SP for one +1 to one stat of one pilot (one upgrade per world at 1 SP per first clear).</summary>
-        public const int UpgradeCost = 3;
+        /// <summary>SP for one +1 to one stat of one pilot (the boss of each world gives 1 SP: one upgrade per world).</summary>
+        public const int UpgradeCost = 1;
 
         public CampaignPlan Plan { get; }
         public PlayerProfile Profile { get; }

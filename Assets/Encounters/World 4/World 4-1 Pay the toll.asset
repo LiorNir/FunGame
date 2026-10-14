@@ -18,7 +18,7 @@ MonoBehaviour:
   - LaneId: lane1
     Enemies:
     - {fileID: 11400000, guid: eef201bbdf0172b4f9b9bad3eacca28f, type: 2}
-  _rewardSkillPoints: 1
+  _rewardSkillPoints: 0
   _allowReplace: 1
   _allowEject: 1
   _testDeck: {fileID: 11400000, guid: f0a16b9019be1b347baeb51ee80b75d6, type: 2}

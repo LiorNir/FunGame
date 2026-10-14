@@ -13,8 +13,9 @@ namespace FunGame.EditorTools
 {
     /// <summary>
     /// Builds the campaign from the project: a Campaign asset (the starter deck's pilots; one world per
-    /// Assets/Encounters/World N folder, encounters in name order, the boss's reward pilot), gives every world encounter
-    /// 1 SP for a first clear, creates the map scene and puts the map and battle scenes in the build (map first).
+    /// Assets/Encounters/World N folder, encounters in name order, the boss's reward pilot), gives each world's boss 1 SP
+    /// for a first clear (the others none: one upgrade per world, as the test decks assumed), creates the menu scene from
+    /// the campaign prefabs and puts the menu and battle scenes in the build (menu first).
     /// </summary>
     public static class CampaignAssetCreator
     {
@@ -52,10 +53,10 @@ namespace FunGame.EditorTools
                     .Select(guid => AssetDatabase.LoadAssetAtPath<EncounterDefinition>(AssetDatabase.GUIDToAssetPath(guid)))
                     .OrderBy(encounter => encounter.name)
                     .ToList();
-                foreach (var encounter in encounters.Where(encounter => encounter.RewardSkillPoints == 0))
+                for (var index = 0; index < encounters.Count; index++)
                 {
-                    var serialized = new SerializedObject(encounter);
-                    serialized.FindProperty("_rewardSkillPoints").intValue = 1;
+                    var serialized = new SerializedObject(encounters[index]);
+                    serialized.FindProperty("_rewardSkillPoints").intValue = index == encounters.Count - 1 ? 1 : 0;
                     serialized.ApplyModifiedPropertiesWithoutUndo();
                 }
 
@@ -105,10 +106,15 @@ namespace FunGame.EditorTools
             scaler.referenceResolution = new Vector2(1920f, 1080f);
             scaler.matchWidthOrHeight = 0.5f;
 
-            var map = new GameObject("Map").AddComponent<MapView>();
-            var serialized = new SerializedObject(map);
-            serialized.FindProperty("_campaign").objectReferenceValue = campaign;
+            CampaignPrefabCreator.CreateAll();
+            var menu = new GameObject("Campaign Menu").AddComponent<CampaignMenu>();
+            var serialized = new SerializedObject(menu);
+            serialized.FindProperty("_campaign").objectReferenceValue = AssetDatabase.LoadAssetAtPath<CampaignDefinition>(CampaignPath); // reloaded: the prefabs created just above re-import assets
             serialized.FindProperty("_canvas").objectReferenceValue = canvas;
+            serialized.FindProperty("_mapScreenPrefab").objectReferenceValue =
+                AssetDatabase.LoadAssetAtPath<GameObject>(CampaignPrefabCreator.MapScreenPath).GetComponent<MapScreenView>();
+            serialized.FindProperty("_pilotsScreenPrefab").objectReferenceValue =
+                AssetDatabase.LoadAssetAtPath<GameObject>(CampaignPrefabCreator.PilotsScreenPath).GetComponent<PilotsScreenView>();
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorSceneManager.SaveScene(scene, MapScenePath);
         }

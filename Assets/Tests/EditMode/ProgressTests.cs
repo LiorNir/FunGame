@@ -70,6 +70,7 @@ namespace FunGame.Board.Tests
             Assert.IsFalse(progression.TryUpgrade("Quill", PilotStat.Defense)); // no SP yet
 
             progression.Profile.SkillPoints = Progression.UpgradeCost;
+            Assert.AreEqual(1, Progression.UpgradeCost);
             Assert.IsTrue(progression.TryUpgrade("Quill", PilotStat.Defense));
             Assert.AreEqual(0, progression.Profile.SkillPoints);
             Assert.AreEqual((0, 1), progression.UpgradesOf("Quill"));
