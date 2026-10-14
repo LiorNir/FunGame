@@ -541,7 +541,7 @@ namespace BattleView
                         break;
 
                     case BattleEventType.EffectFizzled:
-                        ViewFactory.ShowPopup(_enemies.PositionOf(battleEvent.LaneId) + Vector3.down * 1.9f, $"{battleEvent.Subject} missed", Color.gray, 0.4f);
+                        ViewFactory.ShowPopup(_enemies.PositionOf(battleEvent.LaneId) + Vector3.down * 1.9f, $"{battleEvent.Subject} missed: {battleEvent.Detail}", Color.gray, 0.4f);
                         await Wait(0.5f, token);
                         break;
 

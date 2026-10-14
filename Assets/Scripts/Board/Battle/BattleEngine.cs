@@ -94,8 +94,6 @@ namespace FunGame.Battle
                 ActionPoints = ActionPoints,
                 PlayerHealth = PlayerHealth,
                 Outcome = Outcome,
-                PlayerDefenseMultiplier = PlayerDefenseMultiplier,
-                EnemyGuardMultiplier = EnemyGuardMultiplier,
                 Logging = false,
                 RecordEvents = false
             };
@@ -148,6 +146,11 @@ namespace FunGame.Battle
                 var copy = clone.Lanes[index];
                 copy.Current = lane.Current?.Copy();
                 copy.EnemiesSpawned = lane.EnemiesSpawned;
+            }
+
+            foreach (var pair in _guardFactors)
+            {
+                clone._guardFactors[pair.Key] = pair.Value;
             }
 
             clone.Stats = Stats.Copy();
@@ -456,7 +459,15 @@ namespace FunGame.Battle
                 return SlotContent.Empty;
             }
 
-            return new SlotContent(pilot.EffectiveAttack, pilot.EffectiveDefense * PlayerDefenseMultiplier);
+            return new SlotContent(pilot.EffectiveAttack, pilot.EffectiveDefense);
+        }
+
+        /// <summary>A slot's content as a chain of the lane reads it this turn (defense lowered by No Guard there).</summary>
+        private SlotContent LaneContentOf(string slotId, string laneId)
+        {
+            var content = ContentOf(slotId);
+            var factor = GuardFactor(laneId);
+            return content.IsFilled && factor < 1f ? new SlotContent(content.Attack, content.Defense * factor) : content;
         }
 
         /// <summary>
@@ -510,34 +521,51 @@ namespace FunGame.Battle
             pilot.DefenseWound = low;
         }
 
-        /// <summary>A slot's content with the pilot's own stats, before this turn's <see cref="PlayerDefenseMultiplier"/>.</summary>
+        /// <summary>A slot's content with the pilot's own stats (wounds are measured on these).</summary>
         private SlotContent RealContentOf(string slotId)
         {
-            var content = ContentOf(slotId);
-            return content.IsFilled && PlayerDefenseMultiplier > Epsilon
-                ? new SlotContent(content.Attack, content.Defense / PlayerDefenseMultiplier)
-                : content;
+            return ContentOf(slotId);
         }
 
-        /// <summary>The player's defense this turn is multiplied by this (1 normally; No Guard halves it). Reset every turn.</summary>
-        public float PlayerDefenseMultiplier { get; private set; } = 1f;
-
-        /// <summary>The enemies' guard against the player's attack this turn is multiplied by this (No Guard halves it). Reset every turn.</summary>
-        public float EnemyGuardMultiplier { get; private set; } = 1f;
+        // lanes whose guards are lowered this turn (No Guard), and by how much; reset every turn
+        private readonly Dictionary<string, float> _guardFactors = new Dictionary<string, float>();
 
         /// <summary>
-        /// Lowers both the player's defense and every enemy's guard this turn by the same factor (No Guard: 0.5). Wounds taken
-        /// while lowered are a larger share of each pilot's defense, which is the risk.
+        /// This turn's factor on both the player's defense and the enemy's guard in the lane (1 normally; No Guard halves
+        /// both in the lanes its pilot fights in). Reset every turn.
         /// </summary>
-        public void LowerGuards(float factor)
+        public float GuardFactor(string laneId)
         {
-            PlayerDefenseMultiplier *= factor;
-            EnemyGuardMultiplier *= factor;
+            return laneId != null && _guardFactors.TryGetValue(laneId, out var factor) ? factor : 1f;
+        }
+
+        /// <summary>
+        /// Lowers the player's defense and the enemy's guard this turn by the same factor (No Guard: 0.5), in the lanes whose
+        /// chains pass through the pilot's slot (a hub pilot: both lanes). What the lowered defense blocks still costs its
+        /// real share of each pilot's defense; the risk is the damage that gets past.
+        /// </summary>
+        public void LowerGuards(float factor, PilotUnit pilot)
+        {
+            var slotId = SlotOfPilot(pilot.Id);
+            var lanes = Setup.Board.Chains
+                .Where(chain => slotId == null || ChainEvaluator.Evaluate(Setup.Board, chain, ContentOf).Steps.Any(step => step.NodeId == slotId))
+                .Select(chain => chain.LaneId)
+                .Distinct();
+            foreach (var laneId in lanes)
+            {
+                _guardFactors[laneId] = GuardFactor(laneId) * factor;
+            }
         }
 
         public Dictionary<string, ChainResult> EvaluateChains()
         {
-            return ChainEvaluator.EvaluateAll(Setup.Board, ContentOf);
+            if (_guardFactors.Count == 0)
+            {
+                return ChainEvaluator.EvaluateAll(Setup.Board, ContentOf);
+            }
+
+            return Setup.Board.Chains.ToDictionary(chain => chain.Id,
+                chain => ChainEvaluator.Evaluate(Setup.Board, chain, slotId => LaneContentOf(slotId, chain.LaneId)));
         }
 
         /// <summary>
@@ -666,7 +694,7 @@ namespace FunGame.Battle
             }
 
             var attack = results.Where(result => result.Chain.Role == ChainRole.Attack).Sum(result => result.Value);
-            var defense = guard.Block * EnemyGuardMultiplier;
+            var defense = guard.Block * GuardFactor(lane.Spec.Id);
             var damage = Math.Max(0f, attack - defense);
             if (enemy.Intent.Effects.Any(effect => effect is ChargeEffect) && damage > Epsilon)
             {
@@ -739,7 +767,7 @@ namespace FunGame.Battle
                     break;
                 }
 
-                var result = ChainEvaluator.Evaluate(Setup.Board, chain, ContentOf);
+                var result = ChainEvaluator.Evaluate(Setup.Board, chain, slotId => LaneContentOf(slotId, lane.Spec.Id));
                 var value = result.Value;
                 if (value <= Epsilon)
                 {
@@ -790,6 +818,12 @@ namespace FunGame.Battle
             }
 
             var damageToPlayer = remaining <= Epsilon ? 0f : remaining;
+            var step = Setup.Rules.DefenseStep;
+            if (step > 0f)
+            {
+                // a lowered (halved) chain can leave eighths; what reaches the player is rounded down to the step
+                damageToPlayer = (float)Math.Floor(damageToPlayer / step + 0.0001f) * step;
+            }
             PlayerHealth -= damageToPlayer;
             Stats.DamageTaken += damageToPlayer;
             if (damageToPlayer > 0f)
@@ -806,7 +840,7 @@ namespace FunGame.Battle
         {
             if (targetIds.Count == 0)
             {
-                Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "there was no pilot to target");
+                Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "no target");
                 return;
             }
 
@@ -815,7 +849,7 @@ namespace FunGame.Battle
                 var slotId = SlotOfPilot(id);
                 if (slotId == null)
                 {
-                    Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "its target left the board");
+                    Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: WhyMissed(id));
                     continue;
                 }
 
@@ -835,7 +869,7 @@ namespace FunGame.Battle
         {
             if (targetIds.Count == 0)
             {
-                Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "there was no pilot to target");
+                Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "no target");
                 return;
             }
 
@@ -844,7 +878,7 @@ namespace FunGame.Battle
                 var slotId = SlotOfPilot(id);
                 if (slotId == null)
                 {
-                    Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: "its target left the board");
+                    Emit(BattleEventType.EffectFizzled, lane.Spec.Id, effectName, detail: WhyMissed(id));
                     continue;
                 }
 
@@ -939,11 +973,11 @@ namespace FunGame.Battle
                 {
                     text = UnleashEffect.StunnedText;
                 }
-                else if (EnemyGuardMultiplier < 1f - Epsilon && (effect is DefendEffect || effect is ChargeEffect))
+                else if (GuardFactor(lane.Spec.Id) < 1f - Epsilon && (effect is DefendEffect || effect is ChargeEffect))
                 {
                     // the lowered value, and what it was
                     var amount = effect is DefendEffect defend ? defend.Amount : ((ChargeEffect)effect).Amount;
-                    var lowered = DisplayFormat.Value(amount * EnemyGuardMultiplier);
+                    var lowered = DisplayFormat.Value(amount * GuardFactor(lane.Spec.Id));
                     text = (effect is ChargeEffect ? "CHARGE " : string.Empty) + $"DEF {lowered} (was {amount})";
                 }
 
@@ -951,6 +985,12 @@ namespace FunGame.Battle
             }
 
             return texts;
+        }
+
+        /// <summary>Why an effect aimed at a pilot found it gone: it fell, or it was taken off the board.</summary>
+        private string WhyMissed(int pilotId)
+        {
+            return _pilotBySlot.Values.Any(pilot => pilot.Id == pilotId && pilot.Fallen) ? "target fell" : "target swapped out";
         }
 
         /// <summary>The slot of a living pilot on the board, or null if the pilot is not there.</summary>
@@ -1093,8 +1133,7 @@ namespace FunGame.Battle
         {
             Turn++;
             _placedThisTurn.Clear();
-            PlayerDefenseMultiplier = 1f;
-            EnemyGuardMultiplier = 1f;
+            _guardFactors.Clear();
             ActionPoints = Setup.Rules.ActionPointsPerTurn;
             Emit(BattleEventType.TurnStarted, a: Turn);
 

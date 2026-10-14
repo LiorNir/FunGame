@@ -845,8 +845,40 @@ namespace FunGame.Board.Tests
 
             Assert.AreEqual(98f, engine.Lanes[0].Current.Health, Tolerance);
             Assert.AreEqual(0.5f, engine.PilotBySlot["R"].DefenseWound, Tolerance); // 2 of the real 4
-            Assert.AreEqual(1f, engine.PlayerDefenseMultiplier, Tolerance); // back to normal next turn
+            Assert.AreEqual(1f, engine.GuardFactor("lane1"), Tolerance); // back to normal next turn
             Assert.AreEqual(2f, engine.SumChains(ChainRole.Defense), Tolerance);
+        }
+
+        [Test]
+        public void NoGuard_OnlyLowersTheLanesItsPilotFightsIn()
+        {
+            // left lane: L -> LA (attack) / LD (defense); right lane: R -> RA / RD; the brawler stands in the left root
+            var nodes = new[]
+            {
+                new SlotNode("L"), new SlotNode("LA", "L", Operation.Add), new SlotNode("LD", "L", Operation.Add),
+                new SlotNode("R"), new SlotNode("RA", "R", Operation.Add), new SlotNode("RD", "R", Operation.Add)
+            };
+            var board = new BoardGraph(nodes, new[]
+            {
+                new ChainDefinition("left-atk", "left", ChainRole.Attack, "LA"), new ChainDefinition("left-def", "left", ChainRole.Defense, "LD"),
+                new ChainDefinition("right-atk", "right", ChainRole.Attack, "RA"), new ChainDefinition("right-def", "right", ChainRole.Defense, "RD")
+            });
+            var lanes = new[]
+            {
+                new LaneSpec("left", new[] { Enemy("Wall", 100, new EnemyActionData("Brace", 0, 6)) }),
+                new LaneSpec("right", new[] { Enemy("Shield", 100, new EnemyActionData("Brace", 0, 6)) })
+            };
+            var deck = new[] { new PilotStats("Brawler", 5f, 4f, null, new NoGuardAbility(1)), new PilotStats("Other", 1f, 2f) };
+            var engine = new BattleEngine(new BattleSetup(board, new List<SlotRule>(), lanes, new BattleRules(), deck, 1));
+            engine.Start();
+            PlaceByName(engine, "Brawler", "L");
+            PlaceByName(engine, "Other", "R");
+            Assert.IsTrue(engine.TryActivate("L"));
+
+            Assert.AreEqual(0.5f, engine.GuardFactor("left"), Tolerance);
+            Assert.AreEqual(1f, engine.GuardFactor("right"), Tolerance);
+            Assert.AreEqual(2f, engine.SumChains(ChainRole.Defense, "left"), Tolerance);
+            Assert.AreEqual(2f, engine.SumChains(ChainRole.Defense, "right"), Tolerance);
         }
 
         // ---------- defeat ----------

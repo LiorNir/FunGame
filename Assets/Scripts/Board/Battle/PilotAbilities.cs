@@ -108,12 +108,12 @@ namespace FunGame.Battle
 
         public string Describe()
         {
-            return $"your defense and the enemy's guard x{DisplayFormat.Value(Factor)} this turn";
+            return $"your defense and the enemy's guard x{DisplayFormat.Value(Factor)} this turn, in this pilot's lanes";
         }
 
         public void Activate(PilotUnit pilot, BattleEngine engine)
         {
-            engine.LowerGuards(Factor);
+            engine.LowerGuards(Factor, pilot);
         }
 
         public IPilotAbility WithCost(int apCost)
