@@ -12,9 +12,10 @@ namespace Encounters
     public static class BattleSetupBuilder
     {
         /// <param name="deck">The starter deck; an encounter with a test deck (<see cref="EncounterDefinition.TestDeck"/>) uses that instead.</param>
-        public static BattleSetup Build(EncounterDefinition encounter, GameRules gameRules, PilotDeck deck, int seed)
+        /// <param name="useTestDeck">False to play with <paramref name="deck"/> even if the encounter has a test deck (the campaign's own pilots).</param>
+        public static BattleSetup Build(EncounterDefinition encounter, GameRules gameRules, PilotDeck deck, int seed, bool useTestDeck = true)
         {
-            if (encounter.TestDeck != null)
+            if (useTestDeck && encounter.TestDeck != null)
             {
                 deck = encounter.TestDeck;
             }

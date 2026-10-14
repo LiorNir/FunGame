@@ -22,6 +22,8 @@ namespace BattleView
         [SerializeField] private GameObject _outcomePanel;
         [SerializeField] private TextMeshProUGUI _outcomeText;
         [SerializeField] private Button _restart;
+        [Tooltip("Optional: on the end screen, back to the campaign map (shown only when the battle was started from the map).")]
+        [SerializeField] private Button _map;
         [Tooltip("Optional: ends the battle as a defeat. The first click asks again on its label; a second click within a few seconds confirms.")]
         [SerializeField] private Button _giveUp;
         [SerializeField] private float _giveUpConfirmSeconds = 3f;
@@ -33,6 +35,7 @@ namespace BattleView
 
         public event Action PlayTurnClicked;
         public event Action RestartClicked;
+        public event Action MapClicked;
         public event Action GiveUpConfirmed;
         public event Action UndoClicked;
 
@@ -45,6 +48,11 @@ namespace BattleView
         {
             _playTurn.onClick.AddListener(() => PlayTurnClicked?.Invoke());
             _restart.onClick.AddListener(() => RestartClicked?.Invoke());
+            if (_map != null)
+            {
+                _map.onClick.AddListener(() => MapClicked?.Invoke());
+                _map.gameObject.SetActive(false);
+            }
             _outcomePanel.SetActive(false);
             if (_undo != null)
             {
@@ -160,6 +168,15 @@ namespace BattleView
             var color = outcome == BattleOutcome.Victory ? "#88FF99" : "#FF7777";
             _outcomeText.text = $"<size=140%><color={color}>{title}</color></size>\n{details}";
             _outcomePanel.SetActive(true);
+        }
+
+        /// <summary>Shows the end screen's way back to the campaign map (only for a battle started from the map).</summary>
+        public void SetMapButtonVisible(bool visible)
+        {
+            if (_map != null)
+            {
+                _map.gameObject.SetActive(visible);
+            }
         }
 
         public void HideOutcome()

@@ -14,7 +14,7 @@ cd /d "%~dp0\..\.."
 if not exist "Tools\TestRunner\bin" mkdir "Tools\TestRunner\bin"
 
 set FILES=
-for %%f in (Assets\Scripts\Board\*.cs Assets\Scripts\Board\Battle\*.cs Assets\Scripts\Board\Sim\*.cs Assets\Tests\EditMode\*.cs Tools\TestRunner\Runner.cs) do set FILES=!FILES! "%%f"
+for %%f in (Assets\Scripts\Board\*.cs Assets\Scripts\Board\Battle\*.cs Assets\Scripts\Board\Sim\*.cs Assets\Scripts\Board\Progress\*.cs Assets\Tests\EditMode\*.cs Tools\TestRunner\Runner.cs) do set FILES=!FILES! "%%f"
 
 "%DOTNET%" "%UNITY_DATA%\DotNetSdkRoslyn\csc.dll" -nologo -target:exe -out:Tools\TestRunner\bin\tests.dll -langversion:9 -nowarn:CS1701,CS1702,CS8632 ^
   -r:"%MONO%\mscorlib.dll" -r:"%MONO%\System.dll" -r:"%MONO%\System.Core.dll" -r:"%MONO%\Facades\netstandard.dll" -r:"%MONO%\Facades\System.Runtime.dll" ^

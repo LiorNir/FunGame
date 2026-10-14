@@ -19,7 +19,8 @@ MonoBehaviour:
     Enemies:
     - {fileID: 11400000, guid: 1bc2e53c728347b40b18537ca60bb9d2, type: 2}
     - {fileID: 11400000, guid: 73b486e5f88260e4f9e17ecca9ea4f54, type: 2}
-  _rewardSkillPoints: 0
+  _rewardSkillPoints: 1
   _allowReplace: 1
   _allowEject: 1
   _testDeck: {fileID: 11400000, guid: 0e0ba5a5fdcc3a24a8c0bd87d0583fa1, type: 2}
+  _openingHand: []

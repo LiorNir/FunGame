@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2dc3eeca94f6545a7686634b64548c, type: 3}
+  m_Name: Campaign
+  m_EditorClassIdentifier: Assembly-CSharp::Campaign.CampaignDefinition
+  _startingPilots:
+  - {fileID: 11400000, guid: f195e592f2387744a989eb9bc000247b, type: 2}
+  - {fileID: 11400000, guid: 86a893818e604d14faa9f52281111cde, type: 2}
+  - {fileID: 11400000, guid: b46067d269bd7cb4bba27f8f35273fe2, type: 2}
+  - {fileID: 11400000, guid: 4d67bd2f0f789ab4db099c33f25bbb93, type: 2}
+  - {fileID: 11400000, guid: eadb9650b9ad2984e88d2d66cdfcacdf, type: 2}
+  - {fileID: 11400000, guid: 0d12c5cd38cce124fb76a6db43177f81, type: 2}
+  _worlds:
+  - Name: World 1
+    Encounters:
+    - {fileID: 11400000, guid: dba59e8e3734b7f4b83f27338668e95b, type: 2}
+    - {fileID: 11400000, guid: c79952171acde5543adaf2cf3ac610f7, type: 2}
+    - {fileID: 11400000, guid: 55cf42afd63512843898a282fc6e0f68, type: 2}
+    RewardPilots:
+    - {fileID: 11400000, guid: 1a34a0706bdd2024784464d98486794b, type: 2}
+  - Name: World 2
+    Encounters:
+    - {fileID: 11400000, guid: 92bda8b75849b6b4c90cc1b560ad134d, type: 2}
+    - {fileID: 11400000, guid: ba75165afa3199943bd64cd0789f2ad8, type: 2}
+    - {fileID: 11400000, guid: ce09d39a4b3abdc44a091d30febc05c5, type: 2}
+    RewardPilots:
+    - {fileID: 11400000, guid: 6bb03e5842ccc634c9486c36de185362, type: 2}
+  - Name: World 3
+    Encounters:
+    - {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
+    - {fileID: 11400000, guid: a262a1b3112dd5a44865429c93963e1d, type: 2}
+    - {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
+    RewardPilots:
+    - {fileID: 11400000, guid: 0b2595a4689e31145be45ab9682d5e19, type: 2}
+  - Name: World 4
+    Encounters:
+    - {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
+    - {fileID: 11400000, guid: b30786470eb698f4194bf29f90ac94d4, type: 2}
+    - {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
+    RewardPilots: []
+  - Name: World 5
+    Encounters:
+    - {fileID: 11400000, guid: dd744bbe49865054985066c78cb2bf61, type: 2}
+    - {fileID: 11400000, guid: d9858bc7f0424ed499661c9aca069bf9, type: 2}
+    - {fileID: 11400000, guid: eee376dfa28ba7c42801fa0b1911c383, type: 2}
+    RewardPilots: []

@@ -62,6 +62,7 @@ namespace FunGame.EditorTools
             AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudGiveUp, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudUndo, changed);
+            AddParts($"{Folder}/BattleHud.prefab", EnsureHudMapButton, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
 
@@ -85,6 +86,21 @@ namespace FunGame.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(contents);
             }
+        }
+
+        /// <summary>The end screen's "Back to map" button, under "Play again". Returns true if it was added.</summary>
+        private static bool EnsureHudMapButton(GameObject hud)
+        {
+            var view = hud.GetComponent<HudView>();
+            var outcome = hud.transform.Find("Outcome");
+            if (view == null || outcome == null || outcome.Find("Map") != null)
+            {
+                return false;
+            }
+
+            var button = ViewFactory.CreateButton(outcome, "Map", "Back to map", new Vector2(420f, 90f), new Vector2(0f, -310f), new Color(0.3f, 0.32f, 0.42f), 38f);
+            Assign(view, "_map", button);
+            return true;
         }
 
         /// <summary>The Undo button, above Give Up. Returns true if it was added.</summary>
@@ -558,6 +574,7 @@ namespace FunGame.EditorTools
             Assign(view, "_restart", restart);
             EnsureHudGiveUp(root.gameObject);
             EnsureHudUndo(root.gameObject);
+            EnsureHudMapButton(root.gameObject);
             return root.gameObject;
         }
 

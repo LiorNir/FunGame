@@ -64,6 +64,12 @@ namespace BattleView
         private CancellationToken _destroyToken;
         private bool _isResolving;
 
+        // true when the battle was started from the campaign map: the player's own pilots, rewards on a win, back to the map
+        private bool _campaignMode;
+
+        [Tooltip("The campaign map scene, for the end screen's way back (campaign battles only).")]
+        [SerializeField] private string _mapScene = "MapScene";
+
         public BattleVisuals Visuals => _visuals;
 
         public BattleEngine Engine => _engine;
@@ -78,6 +84,16 @@ namespace BattleView
             _destroyToken = this.GetCancellationTokenOnDestroy();
             if (!BuildViews())
             {
+                return;
+            }
+
+            if (Campaign.CampaignSession.PendingEncounter != null && Campaign.CampaignSession.Campaign != null)
+            {
+                _campaignMode = true;
+                _encounter = Campaign.CampaignSession.PendingEncounter;
+                _testPanel.gameObject.SetActive(false);
+                _hud.SetMapButtonVisible(true);
+                StartBattle();
                 return;
             }
 
@@ -148,6 +164,11 @@ namespace BattleView
 
             _hud.PlayTurnClicked += () => PlayTurn().Forget();
             _hud.RestartClicked += StartBattle;
+            _hud.MapClicked += () =>
+            {
+                Campaign.CampaignSession.PendingEncounter = null;
+                UnityEngine.SceneManagement.SceneManager.LoadScene(_mapScene);
+            };
             _hud.GiveUpConfirmed += GiveUp;
             _hud.UndoClicked += Undo;
             _testPanel.StartClicked += StartBattle;
@@ -193,7 +214,9 @@ namespace BattleView
             _battleCancellation = CancellationTokenSource.CreateLinkedTokenSource(_destroyToken);
 
             var seed = _seed != 0 ? _seed : UnityEngine.Random.Range(1, int.MaxValue);
-            var setup = BattleSetupBuilder.Build(_encounter, _gameRules, _deck, seed);
+            var setup = _campaignMode
+                ? BattleSetupBuilder.Build(_encounter, _gameRules, Campaign.CampaignSession.BuildDeck(), seed, useTestDeck: false)
+                : BattleSetupBuilder.Build(_encounter, _gameRules, _deck, seed);
             _engine = new BattleEngine(setup);
             _engine.Start();
             _engine.DrainEvents();
@@ -249,6 +272,11 @@ namespace BattleView
 
         private void ShowTestPanel(bool running)
         {
+            if (_campaignMode)
+            {
+                return;
+            }
+
             _testPanel.Show(_encounter != null ? _encounter.DisplayName : null, _encounters.IndexOf(_encounter) + 1, _encounters.Count, running);
         }
 
@@ -578,7 +606,14 @@ namespace BattleView
             {
                 details = $"({_engine.DefeatReason})\n" + details;
             }
-            if (_engine.Outcome == BattleOutcome.Victory)
+            if (_engine.Outcome == BattleOutcome.Victory && _campaignMode)
+            {
+                // the win is recorded and saved right away
+                var reward = Campaign.CampaignSession.Progression.ClaimVictory(Campaign.CampaignDefinition.IdOf(_encounter));
+                Campaign.CampaignSession.Save();
+                details += reward.FirstClear ? $"\nReward: {Campaign.CampaignSession.Describe(reward)}" : "\n(already cleared: no new reward)";
+            }
+            else if (_engine.Outcome == BattleOutcome.Victory)
             {
                 details += $"\nReward: {_encounter.RewardSkillPoints} SP";
             }
