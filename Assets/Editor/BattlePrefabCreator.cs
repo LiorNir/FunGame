@@ -63,6 +63,8 @@ namespace FunGame.EditorTools
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudGiveUp, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudUndo, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudMapButton, changed);
+            AddParts($"{Folder}/BattleHud.prefab", EnsureHudTutorial, changed);
+            AddParts($"{Folder}/BattleHud.prefab", EnsureHudTooltip, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
 
@@ -100,6 +102,76 @@ namespace FunGame.EditorTools
 
             var button = ViewFactory.CreateButton(outcome, "Map", "Back to map", new Vector2(420f, 90f), new Vector2(0f, -310f), new Color(0.3f, 0.32f, 0.42f), 38f);
             Assign(view, "_map", button);
+            return true;
+        }
+
+        /// <summary>The tutorial panel (text and a "Got it" button), at the left edge. Returns true if it was added.</summary>
+        private static bool EnsureHudTutorial(GameObject hud)
+        {
+            var view = hud.GetComponent<HudView>();
+            if (view == null || hud.transform.Find("Tutorial") != null)
+            {
+                return false;
+            }
+
+            var root = ViewFactory.CreateUiRoot(hud.transform, "Tutorial", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(30f, 40f), new Vector2(520f, 260f), new Vector2(0f, 0.5f));
+            var tutorial = root.gameObject.AddComponent<TutorialView>();
+            var panel = ViewFactory.CreateUiRoot(root, "Panel", Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            panel.gameObject.AddComponent<Image>().color = new Color(0.1f, 0.12f, 0.22f, 0.95f);
+            var outline = panel.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(1f, 0.82f, 0.29f, 0.9f);
+            outline.effectDistance = new Vector2(3f, -3f);
+            var text = ViewFactory.CreateUiText(panel, "Text", "Place a pilot in a slot, then press Play Turn.", 26f, Color.white, new Vector2(480f, 180f), new Vector2(0f, 25f), TextAlignmentOptions.TopLeft);
+            var ok = ViewFactory.CreateButton(panel, "Ok", "Got it", new Vector2(160f, 50f), new Vector2(160f, -95f), new Color(0.15f, 0.4f, 0.8f), 26f);
+
+            var serialized = new SerializedObject(tutorial);
+            serialized.FindProperty("_panel").objectReferenceValue = panel.gameObject;
+            serialized.FindProperty("_text").objectReferenceValue = text;
+            serialized.FindProperty("_ok").objectReferenceValue = ok;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+
+            // under the end-of-battle panel, which dims everything behind it
+            var playTurn = hud.transform.Find("PlayTurn");
+            if (playTurn != null)
+            {
+                root.SetSiblingIndex(playTurn.GetSiblingIndex() + 1);
+            }
+
+            Assign(view, "_tutorial", tutorial);
+            return true;
+        }
+
+        /// <summary>The hover explanation box (sized to its text, follows the mouse, takes no clicks). Returns true if it was added.</summary>
+        private static bool EnsureHudTooltip(GameObject hud)
+        {
+            var view = hud.GetComponent<HudView>();
+            if (view == null || hud.transform.Find("Tooltip") != null)
+            {
+                return false;
+            }
+
+            var root = ViewFactory.CreateUiRoot(hud.transform, "Tooltip", Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            var tooltip = root.gameObject.AddComponent<TooltipView>();
+            var panel = ViewFactory.CreateUiRoot(root, "Panel", Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(460f, 100f), new Vector2(0f, 1f));
+            var background = panel.gameObject.AddComponent<Image>();
+            background.color = new Color(0.03f, 0.04f, 0.08f, 0.95f);
+            background.raycastTarget = false;
+            var layout = panel.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(14, 14, 10, 10);
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandHeight = false;
+            var fitter = panel.gameObject.AddComponent<ContentSizeFitter>();
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            var text = ViewFactory.CreateUiText(panel, "Text", "Hover text", 22f, Color.white, new Vector2(432f, 40f), Vector2.zero, TextAlignmentOptions.TopLeft);
+
+            var serialized = new SerializedObject(tooltip);
+            serialized.FindProperty("_panel").objectReferenceValue = panel;
+            serialized.FindProperty("_text").objectReferenceValue = text;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+
+            root.SetAsLastSibling(); // drawn over everything
+            Assign(view, "_tooltip", tooltip);
             return true;
         }
 
@@ -575,6 +647,8 @@ namespace FunGame.EditorTools
             EnsureHudGiveUp(root.gameObject);
             EnsureHudUndo(root.gameObject);
             EnsureHudMapButton(root.gameObject);
+            EnsureHudTutorial(root.gameObject);
+            EnsureHudTooltip(root.gameObject);
             return root.gameObject;
         }
 

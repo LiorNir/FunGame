@@ -70,6 +70,9 @@ namespace BattleView
         [Tooltip("The campaign map scene, for the end screen's way back (campaign battles only).")]
         [SerializeField] private string _mapScene = "MapScene";
 
+        [Tooltip("Every tutorial line of the game (shown once per save in campaign battles, always on the test bench).")]
+        [SerializeField] private TutorialScript _tutorial;
+
         public BattleVisuals Visuals => _visuals;
 
         public BattleEngine Engine => _engine;
@@ -108,6 +111,100 @@ namespace BattleView
         {
             WriteUnfinishedLog("left unfinished");
             CancelBattle();
+        }
+
+        // ---------- tutorial ----------
+
+        // shows the encounter's lines for a trigger that were not seen yet (in campaign battles: once per save)
+        private void ShowTutorial(TutorialTrigger trigger)
+        {
+            if (_tutorial == null || _engine == null)
+            {
+                return;
+            }
+
+            var profile = _campaignMode ? Campaign.CampaignSession.Profile : null;
+            foreach (var line in _tutorial.Lines.Where(line => line.Encounter == _encounter && line.Trigger == trigger))
+            {
+                if (trigger == TutorialTrigger.TurnStart && line.Turn != _engine.Turn)
+                {
+                    continue;
+                }
+
+                if (profile != null)
+                {
+                    if (profile.SeenTutorials.Contains(line.Id))
+                    {
+                        continue;
+                    }
+
+                    profile.SeenTutorials.Add(line.Id);
+                    Campaign.CampaignSession.Save();
+                }
+                else if (!_shownTutorials.Add(line.Id))
+                {
+                    continue;
+                }
+
+                _hud.ShowTutorial(line.Text);
+            }
+        }
+
+        // on the test bench a line is shown once per battle
+        private readonly HashSet<string> _shownTutorials = new HashSet<string>();
+
+        // after a turn: what happened during it, then the new turn and the enemies' new intents
+        private void ShowTurnTutorials(List<BattleEvent> events)
+        {
+            if (events.Any(e => e.Type == BattleEventType.ChainAbsorbed && e.C <= 0.001f))
+            {
+                ShowTutorial(TutorialTrigger.ChainAtZero);
+            }
+
+            if (events.Any(e => e.Type == BattleEventType.ChainDestroyed))
+            {
+                ShowTutorial(TutorialTrigger.ChainBroken);
+            }
+
+            if (events.Any(e => e.Type == BattleEventType.ChargeBroken))
+            {
+                ShowTutorial(TutorialTrigger.ChargeBroken);
+            }
+
+            if (events.Any(e => e.Type == BattleEventType.EnemySpawned && e.C >= 2f))
+            {
+                ShowTutorial(TutorialTrigger.NextEnemy);
+            }
+
+            ShowTutorial(TutorialTrigger.TurnStart);
+            ShowIntentTutorials();
+        }
+
+        private void ShowIntentTutorials()
+        {
+            foreach (var lane in _engine.Lanes.Where(lane => lane.Current?.Intent != null))
+            {
+                var effects = lane.Current.Intent.Effects;
+                var texts = _engine.DescribeIntent(lane);
+                if (effects.Any(effect => effect is LockEffect))
+                {
+                    ShowTutorial(TutorialTrigger.EnemyLocks);
+                }
+
+                if (texts.Contains(SnipeEffect.AssassinateText))
+                {
+                    ShowTutorial(TutorialTrigger.EnemyAssassinates);
+                }
+                else if (effects.Any(effect => effect is SnipeEffect))
+                {
+                    ShowTutorial(TutorialTrigger.EnemySnipes);
+                }
+
+                if (effects.Any(effect => effect is ChargeEffect))
+                {
+                    ShowTutorial(TutorialTrigger.EnemyCharges);
+                }
+            }
         }
 
         // ---------- playtest log ----------
@@ -197,6 +294,23 @@ namespace BattleView
             };
             _hud.GiveUpConfirmed += GiveUp;
             _hud.UndoClicked += Undo;
+
+            // hover explanations
+            _board.SlotHovered += (slot, entered) =>
+            {
+                if (entered) _hud.ShowTooltip(_board.DescribeSlot(slot));
+                else _hud.HideTooltip();
+            };
+            _board.OperatorHovered += (view, entered) =>
+            {
+                if (entered) _hud.ShowTooltip(HoverTexts.Operator(view.Operation));
+                else _hud.HideTooltip();
+            };
+            _enemies.EnemyHovered += (laneId, entered) =>
+            {
+                if (entered) _hud.ShowTooltip(_enemies.Describe(laneId));
+                else _hud.HideTooltip();
+            };
             _testPanel.StartClicked += StartBattle;
             _testPanel.StopClicked += StopBattle;
             _testPanel.PreviousClicked += () => BrowseEncounters(-1);
@@ -240,6 +354,7 @@ namespace BattleView
             _undoSnapshots.Clear();
             _undoLogLengths.Clear();
             _battleLogged = false;
+            _shownTutorials.Clear();
             _battleCancellation = CancellationTokenSource.CreateLinkedTokenSource(_destroyToken);
 
             var seed = _seed != 0 ? _seed : UnityEngine.Random.Range(1, int.MaxValue);
@@ -253,6 +368,11 @@ namespace BattleView
             _board.Build(_encounter.Board, _engine, _visuals);
             _enemies.Build(_engine, _visuals, _enemyAnchors);
             RefreshAll();
+            _hud.ClearTutorial();
+            _hud.HideTooltip();
+            ShowTutorial(TutorialTrigger.BattleStart);
+            ShowTutorial(TutorialTrigger.TurnStart);
+            ShowIntentTutorials();
             Debug.Log($"Started '{_encounter.name}' with seed {seed}.");
         }
 
@@ -394,6 +514,8 @@ namespace BattleView
                     slot.Punch(0.3f);
                     ViewFactory.ShowPopup(slot.transform.position + Vector3.up * 0.9f, _engine.PilotBySlot[slotId].Ability.Name + "!", new Color(1f, 0.82f, 0.29f), 0.5f);
                 }
+
+                ShowTutorial(TutorialTrigger.AbilityUsed);
             }
         }
 
@@ -492,6 +614,10 @@ namespace BattleView
             if (_engine.Outcome != BattleOutcome.InProgress)
             {
                 ShowOutcome();
+            }
+            else
+            {
+                ShowTurnTutorials(events);
             }
         }
 

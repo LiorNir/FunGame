@@ -54,6 +54,15 @@ namespace BattleView
 
         public event Action<SlotView> SlotClicked;
 
+        /// <summary>The mouse entered (true) or left (false) a slot.</summary>
+        public event Action<SlotView, bool> SlotHovered;
+
+        /// <summary>The mouse entered (true) or left (false) an operator.</summary>
+        public event Action<OperatorView, bool> OperatorHovered;
+
+        // chain values a placement would give (shown on the chain labels while placing); null for none
+        private Dictionary<string, float> _preview;
+
         private T Track<T>(T created) where T : Component
         {
             _created.Add(created.gameObject);
@@ -100,6 +109,7 @@ namespace BattleView
                     view.SetToll(BattleVisuals.OperatorSymbol(node.ConnectionOperation.Value).Replace("/", "\u00f7"));
                 }
                 view.Clicked += clicked => SlotClicked?.Invoke(clicked);
+                view.Hovered += (hovered, entered) => SlotHovered?.Invoke(hovered, entered);
                 _slots[slot.Id] = view;
             }
 
@@ -270,7 +280,14 @@ namespace BattleView
                 var value = _lastResults.TryGetValue(label.Chain.Id, out var result) ? result.Value : 0f;
                 // a chain that divides by zero warns before the turn is played (temporary look), so the gag is never a trap
                 var dividesByZero = result != null && result.DividedByZero;
-                label.Text.text = (isAttack ? "ATK " : "DEF ") + (dividesByZero ? "ERROR \u00f70" : DisplayFormat.Value(value));
+                var shown = dividesByZero ? "ERROR \u00f70" : DisplayFormat.Value(value);
+                if (_preview != null && _preview.TryGetValue(label.Chain.Id, out var after) && Mathf.Abs(after - value) > 0.001f)
+                {
+                    // while placing: what the chain would become
+                    shown += $" <color=#FFFFFF>\u2192 {DisplayFormat.Value(after)}</color>";
+                }
+
+                label.Text.text = (isAttack ? "ATK " : "DEF ") + shown;
                 label.Text.color = dividesByZero ? new Color(1f, 0.25f, 0.25f) : _visuals.ColorForRole(label.Chain.Role);
                 var position = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + index * _chainLabelSpacing, 0f);
                 if (terminal.HasStatus)
@@ -284,6 +301,85 @@ namespace BattleView
 
                 label.Text.transform.localPosition = position;
             }
+        }
+
+        /// <summary>Shows on the chain labels what each chain would become (a placement being considered); null clears it.</summary>
+        public void ShowPreview(Dictionary<string, ChainResult> after)
+        {
+            _preview = after?.ToDictionary(pair => pair.Key, pair => pair.Value.DividedByZero ? 0f : pair.Value.Value);
+            Refresh();
+        }
+
+        private void ForwardOperatorHover(OperatorView view, bool entered)
+        {
+            OperatorHovered?.Invoke(view, entered);
+        }
+
+        /// <summary>The hover explanation of a slot: its pilot (exact stats, ability, effects, role), or what an empty slot does.</summary>
+        public string DescribeSlot(SlotView slot)
+        {
+            if (_engine == null)
+            {
+                return null;
+            }
+
+            var lines = new List<string>();
+            _engine.PilotBySlot.TryGetValue(slot.SlotId, out var pilot);
+            if (!_engine.IsUnlocked(slot.SlotId))
+            {
+                lines.Add($"<b>Locked slot</b>: opens at {DescribeLock(slot.SlotId)}.");
+            }
+            else if (pilot == null)
+            {
+                lines.Add("<b>Empty slot</b>: place a pilot from your hand here.");
+            }
+            else if (pilot.Fallen)
+            {
+                lines.Add($"<b>{pilot.Name} (fallen)</b>: blocks the chain until a pilot is placed on top of it.");
+            }
+            else
+            {
+                lines.Add(_visuals.ExactStats(pilot));
+                if (pilot.Ability != null)
+                {
+                    var state = pilot.AbilityUsed ? "used" : $"{pilot.Ability.ApCost} AP, once per battle";
+                    lines.Add($"<b>{pilot.Ability.Name}</b> ({state}): {pilot.Ability.Describe()}");
+                }
+
+                lines.AddRange(DescribeEffects(slot.SlotId, pilot).Where(effect => !effect.Contains(" ready") && !effect.Contains("needs")));
+                if (pilot.IsLocked)
+                {
+                    lines.Add($"Locked for {pilot.LockedTurns} turn(s): cannot be replaced or ejected.");
+                }
+
+                var chains = _lastResults.Values.Where(result => result.Steps.Any(step => step.NodeId == slot.SlotId)).ToList();
+                var active = chains.Where(result => result.Steps.Any(step => step.NodeId == slot.SlotId && step.Status == SlotStatus.Active)).ToList();
+                if (chains.Count > 0 && active.Count == 0)
+                {
+                    lines.Add("Cut off: a gap or a fallen pilot closer to the root stops its chains here.");
+                }
+                else if (active.Count > 0)
+                {
+                    lines.Add("Counts for: " + string.Join(", ", active.Select(result =>
+                        (_engine.Lanes.Count > 1 ? result.Chain.LaneId + " " : string.Empty) + (result.Chain.Role == ChainRole.Attack ? "attack" : "defense"))));
+                }
+            }
+
+            if (_engine.Setup.Board.TryGetNode(slot.SlotId, out var node))
+            {
+                if (slot.TollSymbol != null)
+                {
+                    lines.Add($"<color=#B0B0B0>Toll ({slot.TollSymbol}): its stat is paid, so it is never wounded.</color>");
+                }
+
+                var bonus = HoverTexts.Bonus(node.Bonus);
+                if (bonus != null)
+                {
+                    lines.Add(bonus);
+                }
+            }
+
+            return string.Join("\n", lines);
         }
 
         public void SetHighlights(IEnumerable<string> slotIds)
@@ -336,6 +432,8 @@ namespace BattleView
             if (view != null)
             {
                 view.Show(operatorSlot.Operation, _visuals);
+                view.Hovered -= ForwardOperatorHover;
+                view.Hovered += ForwardOperatorHover;
             }
 
             var roles = BoardLayoutAuthoring.RoleFlags.None;

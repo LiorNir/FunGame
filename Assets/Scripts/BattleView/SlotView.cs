@@ -103,8 +103,7 @@ namespace BattleView
         private bool _defenseUsed;
         private int _abilityGlowState; // 0 off, 1 faint, 2 pulsing
         private string _tollSymbol;
-        private string _status = string.Empty;
-        private bool _hovered;
+
         private Color _abilityGlowColor;
         private Vector3 _abilityGlowScale;
         private Sequence _abilityGlowPulse;
@@ -112,6 +111,12 @@ namespace BattleView
         public string SlotId { get; private set; }
         public PilotUnit Pilot => _pilot;
         public event Action<SlotView> Clicked;
+
+        /// <summary>The mouse entered (true) or left (false) the slot.</summary>
+        public event Action<SlotView, bool> Hovered;
+
+        /// <summary>The operator symbol of a toll slot ("-" or "/"), or null for an ordinary slot.</summary>
+        public string TollSymbol => _tollSymbol;
 
         /// <summary>The size of the slot is the size of its background, so it is changed on the prefab's PilotBackground.</summary>
         public float Radius => ViewFactory.SpriteRadius(_pilotBackground, transform);
@@ -236,7 +241,7 @@ namespace BattleView
 
         /// <summary>
         /// Marks the slot as a toll (its connection subtracts or divides): its pilot's defense is paid, never wounded, so the
-        /// defense box is shown greyed and unfilled, and hovering the slot explains it (temporary look). Null for an ordinary
+        /// defense box is shown greyed and unfilled; the hover explanation says why (temporary look). Null for an ordinary
         /// slot.
         /// </summary>
         public void SetToll(string symbol)
@@ -250,33 +255,17 @@ namespace BattleView
         /// </summary>
         public void SetStatus(string text)
         {
-            _status = text ?? string.Empty;
-            ShowStatus();
-        }
-
-        // the status line, plus the toll explanation while the mouse is over a toll slot with a pilot in it
-        private void ShowStatus()
-        {
-            var text = _status;
-            if (_hovered && _tollSymbol != null && _pilot != null && !_pilot.Fallen)
-            {
-                var hint = $"<color=#B0B0B0>TOLL ({_tollSymbol}): pays its value, never wounded</color>";
-                text = text.Length > 0 ? text + "\n" + hint : hint;
-            }
-
             SetText(_pilotStatusText, string.IsNullOrEmpty(text) ? string.Empty : $"<mark=#000000E0>{text}</mark>");
         }
 
         private void OnMouseEnter()
         {
-            _hovered = true;
-            ShowStatus();
+            Hovered?.Invoke(this, true);
         }
 
         private void OnMouseExit()
         {
-            _hovered = false;
-            ShowStatus();
+            Hovered?.Invoke(this, false);
         }
 
         /// <summary>The world height of the top of the status line's text (the slot's position when there is none).</summary>

@@ -27,6 +27,16 @@ namespace BattleView
             _engine = engine;
         }
 
+        /// <summary>The mouse entered (true) or left (false) the enemy of a lane.</summary>
+        public event System.Action<string, bool> EnemyHovered;
+
+        /// <summary>The hover explanation of a lane's enemy.</summary>
+        public string Describe(string laneId)
+        {
+            var lane = _engine?.Lanes.FirstOrDefault(candidate => candidate.Spec.Id == laneId);
+            return lane == null ? null : HoverTexts.Enemy(_engine, lane);
+        }
+
         public void Build(BattleEngine engine, BattleVisuals visuals, IReadOnlyList<Transform> anchors)
         {
             Clear();
@@ -49,6 +59,8 @@ namespace BattleView
                 }
 
                 view.Init(visuals);
+                view.LaneId = laneId;
+                view.Hovered += (hovered, entered) => EnemyHovered?.Invoke(hovered.LaneId, entered);
                 _views[laneId] = view;
             }
 

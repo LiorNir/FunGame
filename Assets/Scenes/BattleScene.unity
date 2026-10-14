@@ -425,6 +425,8 @@ MonoBehaviour:
   _enemiesView: {fileID: 0}
   _enemyAnchors: []
   _playerAnchor: {fileID: 0}
+  _mapScene: MapScene
+  _tutorial: {fileID: 11400000, guid: 0217dc85697412a4b8b2f12c1014aea3, type: 2}
 --- !u!4 &1164771508
 Transform:
   m_ObjectHideFlags: 0

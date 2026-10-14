@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c838816cb2c9cf45a5ebad848cfff5b, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.TutorialScript
+  _lines:
+  - Encounter: {fileID: 11400000, guid: dba59e8e3734b7f4b83f27338668e95b, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: Click a pilot in your hand, then a highlighted slot, to place it. Placing
+      costs 1 AP, and you have 3 AP every turn.
+  - Encounter: {fileID: 11400000, guid: dba59e8e3734b7f4b83f27338668e95b, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: Pilots form chains from the root (the bottom slot) outward. The red value
+      is your attack on the enemy, the blue value your defense against its hit. Press
+      Play Turn when you are ready.
+  - Encounter: {fileID: 11400000, guid: dba59e8e3734b7f4b83f27338668e95b, type: 2}
+    Trigger: 1
+    Turn: 2
+    Text: Pilots stay on the board between turns. Their defense takes the enemy's
+      hits; the blue bar shows what is left. Hover anything to learn more.
+  - Encounter: {fileID: 11400000, guid: c79952171acde5543adaf2cf3ac610f7, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'A locked slot: the text under the lock says when it opens. A chain only
+      counts up to its first empty slot, so fill it from the root outward.'
+  - Encounter: {fileID: 11400000, guid: 55cf42afd63512843898a282fc6e0f68, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'The board splits: one branch attacks, the other defends, and the root
+      counts for both. The x slot multiplies everything before it.'
+  - Encounter: {fileID: 11400000, guid: 55cf42afd63512843898a282fc6e0f68, type: 2}
+    Trigger: 2
+    Turn: 1
+    Text: A hit equal to a chain's defense leaves it standing at 0. The next hit
+      that reaches it breaks it.
+  - Encounter: {fileID: 11400000, guid: 55cf42afd63512843898a282fc6e0f68, type: 2}
+    Trigger: 3
+    Turn: 1
+    Text: A broken chain's pilots fall and block their slots. Place a new pilot on
+      a fallen one to clear it.
+  - Encounter: {fileID: 11400000, guid: 92bda8b75849b6b4c90cc1b560ad134d, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'New: you can place a pilot on top of another (a replace). The replaced
+      pilot goes back to your hand, where it recovers defense every turn.'
+  - Encounter: {fileID: 11400000, guid: 92bda8b75849b6b4c90cc1b560ad134d, type: 2}
+    Trigger: 4
+    Turn: 1
+    Text: 'A fresh enemy. Worn pilots can rest: click one and choose Eject. An ejected
+      pilot that rests a whole turn in your hand recovers twice as fast.'
+  - Encounter: {fileID: 11400000, guid: ba75165afa3199943bd64cd0789f2ad8, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'Ejecting also dodges: a pilot that is not on the board cannot be hit.
+      The damage reaches you instead, but the pilot survives.'
+  - Encounter: {fileID: 11400000, guid: ce09d39a4b3abdc44a091d30febc05c5, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'This locked slot can be opened now by paying AP: click it.'
+  - Encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: Bolt has an ability, Surge. Place Bolt, then click it to use the ability
+      (once per battle, it costs AP). A glow marks a pilot whose ability is ready.
+  - Encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
+    Trigger: 10
+    Turn: 1
+    Text: Surge doubles Bolt's attack this turn, then its attack drops to 0 until
+      it rests in your hand. Plan the swap.
+  - Encounter: {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
+    Trigger: 6
+    Turn: 1
+    Text: 'The enemy aims a snipe at the marked pilot: -50% to both its stats next
+      turn. Swap the pilot out to dodge it, or take the hit.'
+  - Encounter: {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
+    Trigger: 7
+    Turn: 1
+    Text: 'A snipe aimed at a pilot with nothing left assassinates it: the pilot
+      falls.'
+  - Encounter: {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'A subtract slot is a toll: its pilot''s stat is taken away from the chain.
+      Put your weakest pilot there (0 pays nothing); the x2 bonus after it is the
+      reward. Toll pilots are never wounded.'
+  - Encounter: {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
+    Trigger: 1
+    Turn: 2
+    Text: 'The enemy hunkers down: a big guard and no attack. Brash''s No Guard halves
+      both sides'' defense this turn, which costs you nothing while the enemy is
+      not attacking.'
+  - Encounter: {fileID: 11400000, guid: b30786470eb698f4194bf29f90ac94d4, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: A divide slot divides the chain by its pilot's stat. Dividing by less than
+      1 multiplies! Dividing by 0 is a very bad idea.
+  - Encounter: {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'Defense can multiply too: the x slot on the blue chain multiplies everything
+      before it.'
+  - Encounter: {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
+    Trigger: 8
+    Turn: 1
+    Text: 'The ram is charging: a big guard now and a huge Unleash next turn. Break
+      through the whole guard this turn and it is stunned instead.'
+  - Encounter: {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
+    Trigger: 9
+    Turn: 1
+    Text: 'Charge broken: the Unleash will not happen.'
+  - Encounter: {fileID: 11400000, guid: dd744bbe49865054985066c78cb2bf61, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: 'Two lanes: each enemy attacks the defense on its side, and each side''s
+      attack hits its own enemy. 3 AP for both fronts: choose where to spend them.'
+  - Encounter: {fileID: 11400000, guid: d9858bc7f0424ed499661c9aca069bf9, type: 2}
+    Trigger: 0
+    Turn: 1
+    Text: The hub slot feeds all four chains. Strong, but both enemies wear it down,
+      and if it breaks every chain is cut.
+  - Encounter: {fileID: 11400000, guid: eee376dfa28ba7c42801fa0b1911c383, type: 2}
+    Trigger: 5
+    Turn: 1
+    Text: 'The warden will lock the marked pilot: it cannot be replaced or ejected
+      for 2 turns. Swap it out now if you want it free.'

@@ -23,7 +23,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 
 | Prefab | In charge of |
 |---|---|
-| `BattleHud` | The whole 2D battle UI: HP, AP and turn texts, the hint line, Play Turn, Undo and Give up buttons, the hand area, the action menu, the test panel, and the end screen (`Outcome`: dim background, result text, Play again and Back to map buttons). |
+| `BattleHud` | The whole 2D battle UI: HP, AP and turn texts, the hint line, Play Turn, Undo and Give up buttons, the hand area, the action menu, the test panel, the tutorial panel (`Tutorial`: text and "Got it"), the hover explanation box (`Tooltip`: sized to its text, follows the mouse), and the end screen (`Outcome`: dim background, result text, Play again and Back to map buttons). |
 | `CardView` | One pilot card in the hand: background, picture, name, attack and defense bars (each with a fill, a blinking recovery preview and a label), the ability line and the gold frame. Bar colours for boosts and drops are on the bars (`CardStatBar`). |
 | `PilotSlot` | One pilot slot on the board: background disc, pilot picture, decorative ring, ability glow, the two stat boxes, lock icon and text, bonus badge and text, the status lines beside the pilot. State colours are on its `SlotView`. Upgrade it with Tools > Fun Game > Upgrade Pilot Slot Prefab (only adds missing parts). |
 | `StatBox` | One stat box (used twice by every pilot slot): border, background, fill, number. Boost / drop number colours and the zero blink colours are on its `StatBoxView`. |
@@ -37,6 +37,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 
 | Asset | In charge of |
 |---|---|
+| `Assets/Campaign/Tutorial.asset` | Every tutorial line: encounter, when it shows, text (see `TUTORIAL_LINES.md`). |
 | `Assets/Rules/BattleVisuals.asset` | The battle's shared looks: which prefabs the battle uses, operator sprites, attack / defense / both / unused colours (lines, chain labels, stat texts all read these), and the "show remaining defense" switch. |
 | `Assets/Scripts/Configurations/Pilots/*.asset` | Each pilot's picture (`Sprite`), name and stats. Upgraded test-deck copies live in `Pilots/Upgrades`. |
 | `Assets/Encounters/World N/*.asset` | Each enemy's picture, name, health and actions, and each encounter's display name. |
@@ -50,3 +51,4 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 - Intent colours for ASSASSINATE and STUNNED: `EnemyView.SetIntent`.
 - The divide-by-zero gag animation: `SlotView.PlayDivideByZero`; the red "ERROR" chain label: `BoardView.Refresh`.
 - The dark backing behind status lines: `SlotView.SetStatus`.
+- The hover explanation texts: `HoverTexts` (operators, bonuses, enemies) and `BoardView.DescribeSlot` (slots and pilots); the placement preview arrow on chain labels: `BoardView.Refresh`.

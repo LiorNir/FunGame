@@ -22,6 +22,10 @@ namespace BattleView
         [SerializeField] private GameObject _outcomePanel;
         [SerializeField] private TextMeshProUGUI _outcomeText;
         [SerializeField] private Button _restart;
+        [Tooltip("Optional: the hover explanation box.")]
+        [SerializeField] private TooltipView _tooltip;
+        [Tooltip("Optional: the tutorial panel.")]
+        [SerializeField] private TutorialView _tutorial;
         [Tooltip("Optional: on the end screen, back to the campaign map (shown only when the battle was started from the map).")]
         [SerializeField] private Button _map;
         [Tooltip("Optional: ends the battle as a defeat. The first click asks again on its label; a second click within a few seconds confirms.")]
@@ -176,6 +180,38 @@ namespace BattleView
             if (_map != null)
             {
                 _map.gameObject.SetActive(visible);
+            }
+        }
+
+        public void ShowTooltip(string text)
+        {
+            if (_tooltip != null)
+            {
+                _tooltip.Show(text);
+            }
+        }
+
+        public void HideTooltip()
+        {
+            if (_tooltip != null)
+            {
+                _tooltip.Hide();
+            }
+        }
+
+        public void ShowTutorial(string line)
+        {
+            if (_tutorial != null)
+            {
+                _tutorial.Show(line);
+            }
+        }
+
+        public void ClearTutorial()
+        {
+            if (_tutorial != null)
+            {
+                _tutorial.Clear();
             }
         }
 

@@ -33,6 +33,7 @@ namespace BattleView
 
             _hand.CardClicked += OnCardClicked;
             _board.SlotClicked += OnSlotClicked;
+            _board.SlotHovered += OnSlotHovered;
             _menu.Dismissed += Cancel;
         }
 
@@ -46,6 +47,7 @@ namespace BattleView
             if (_board != null)
             {
                 _board.SlotClicked -= OnSlotClicked;
+                _board.SlotHovered -= OnSlotHovered;
             }
 
             if (_menu != null)
@@ -73,6 +75,7 @@ namespace BattleView
             if (_board != null)
             {
                 _board.ClearHighlights();
+                _board.ShowPreview(null);
             }
 
             if (_hud != null)
@@ -217,6 +220,26 @@ namespace BattleView
             }
 
             return options;
+        }
+
+        // while placing, hovering a slot where the pilot can go shows what every chain would become
+        private void OnSlotHovered(SlotView slot, bool entered)
+        {
+            var engine = _session.Engine;
+            if (!IsPlacing || engine == null || _session.IsBusy)
+            {
+                return;
+            }
+
+            if (!entered || !engine.CanPlace(_placingHandIndex, slot.SlotId))
+            {
+                _board.ShowPreview(null);
+                return;
+            }
+
+            var trial = engine.Clone();
+            trial.TryPlace(_placingHandIndex, slot.SlotId);
+            _board.ShowPreview(trial.EvaluateChains());
         }
 
         private void BeginPlacing(int handIndex)

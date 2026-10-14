@@ -24,6 +24,9 @@ namespace FunGame.Progress
 
         public List<PilotUpgrade> Upgrades = new List<PilotUpgrade>();
 
+        /// <summary>Ids of the tutorial lines already shown (each is shown once per save).</summary>
+        public List<string> SeenTutorials = new List<string>();
+
         /// <summary>A fresh profile that owns the campaign's starting pilots.</summary>
         public static PlayerProfile StartOf(CampaignPlan plan)
         {

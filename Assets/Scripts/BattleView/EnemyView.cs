@@ -32,6 +32,21 @@ namespace BattleView
         private float _displayHealth;
         private float _maxHealth;
 
+        /// <summary>The mouse entered (true) or left (false) the enemy's picture.</summary>
+        public event System.Action<EnemyView, bool> Hovered;
+
+        public string LaneId { get; set; }
+
+        private void OnMouseEnter()
+        {
+            Hovered?.Invoke(this, true);
+        }
+
+        private void OnMouseExit()
+        {
+            Hovered?.Invoke(this, false);
+        }
+
         public void Init(BattleVisuals visuals)
         {
             _visuals = visuals;
@@ -61,6 +76,18 @@ namespace BattleView
             }
 
             ViewFactory.FitSprite(_picture, _pictureSize);
+
+            // hovering the picture explains the enemy; a collider the size of the picture is added if missing
+            var collider = GetComponent<BoxCollider2D>();
+            if (collider == null)
+            {
+                collider = gameObject.AddComponent<BoxCollider2D>();
+            }
+
+            var bounds = _picture.bounds;
+            collider.offset = transform.InverseTransformPoint(bounds.center);
+            var scale = transform.lossyScale;
+            collider.size = new Vector2(bounds.size.x / Mathf.Max(0.0001f, scale.x), bounds.size.y / Mathf.Max(0.0001f, scale.y));
 
             _title.text = spec.Name;
             _maxHealth = spec.MaxHealth;
