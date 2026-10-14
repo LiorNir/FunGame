@@ -128,6 +128,7 @@ namespace FunGame.EditorTools
 
             var picture = ViewFactory.CreateImage(root.transform, "Picture", Color.white, new Vector2(170f, 170f), new Vector2(0f, 105f));
             var name = ViewFactory.CreateUiText(root.transform, "Name", "Quill", 34f, Color.white, new Vector2(280f, 44f), new Vector2(0f, -5f));
+            var level = ViewFactory.CreateUiText(root.transform, "Level", "Lv 1", 26f, new Color(1f, 0.82f, 0.29f), new Vector2(120f, 36f), new Vector2(-75f, 185f), TextAlignmentOptions.Left);
             var stats = ViewFactory.CreateUiText(root.transform, "Stats", "ATK 1   DEF 3", 28f, Color.white, new Vector2(280f, 40f), new Vector2(0f, -50f));
             var ability = ViewFactory.CreateUiText(root.transform, "Ability", string.Empty, 18f, new Color(1f, 0.82f, 0.29f), new Vector2(280f, 60f), new Vector2(0f, -100f));
             var upgradeAttack = ViewFactory.CreateButton(root.transform, "UpgradeAttack", "+1 ATK", new Vector2(130f, 50f), new Vector2(-70f, -160f), new Color(0.55f, 0.22f, 0.18f), 24f);
@@ -137,6 +138,7 @@ namespace FunGame.EditorTools
             var view = root.AddComponent<PilotCardView>();
             Assign(view, "_picture", picture);
             Assign(view, "_name", name);
+            Assign(view, "_level", level);
             Assign(view, "_stats", stats);
             Assign(view, "_ability", ability);
             Assign(view, "_upgradeAttack", upgradeAttack);

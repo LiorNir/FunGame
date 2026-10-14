@@ -74,6 +74,8 @@ namespace FunGame.Board.Tests
             Assert.IsTrue(progression.TryUpgrade("Quill", PilotStat.Defense));
             Assert.AreEqual(0, progression.Profile.SkillPoints);
             Assert.AreEqual((0, 1), progression.UpgradesOf("Quill"));
+            Assert.AreEqual(2, progression.LevelOf("Quill"));
+            Assert.AreEqual(1, progression.LevelOf("Osis"));
             Assert.IsFalse(progression.TryUpgrade("Spark", PilotStat.Attack)); // not owned
 
             progression.ResetUpgrades("Quill");

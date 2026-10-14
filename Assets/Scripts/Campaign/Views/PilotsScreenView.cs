@@ -51,7 +51,7 @@ namespace Campaign
                 var id = CampaignDefinition.IdOf(pilot);
                 var (attack, defense) = progression.UpgradesOf(id);
                 var card = Instantiate(_cardPrefab, _cards);
-                card.Set(pilot, owned.Contains(pilot), attack, defense, progression.CanUpgrade(id));
+                card.Set(pilot, owned.Contains(pilot), progression.LevelOf(id), attack, defense, progression.CanUpgrade(id));
                 card.UpgradeAttackClicked += () => UpgradeClicked?.Invoke(id, PilotStat.Attack);
                 card.UpgradeDefenseClicked += () => UpgradeClicked?.Invoke(id, PilotStat.Defense);
                 card.RefundClicked += () => RefundClicked?.Invoke(id);

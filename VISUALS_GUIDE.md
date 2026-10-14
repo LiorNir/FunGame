@@ -17,7 +17,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `WorldRow` | One world: its name and the `Encounters` container (a horizontal layout group) that the encounter buttons are placed in. Name colours (open / locked) are on its `WorldRowView`. |
 | `EncounterButton` | One encounter: background, title and footer line ("Reward: +1 SP, Spark joins" / "cleared" / "locked"). Background colours per state (open, cleared, locked) are on its `EncounterButtonView`. |
 | `PilotsScreen` | The Pilots screen: background, "Skill points" text, Back to map button, and the `Cards` container (a grid layout group: cell size, spacing and columns are set there). |
-| `PilotCard` | One pilot: picture, name, stats, ability text, +1 ATK / +1 DEF buttons, Refund button. The silhouette tint for pilots not recruited yet and the stat colours are on its `PilotCardView`. |
+| `PilotCard` | One pilot: level ("Lv 2"), picture, name, stats, ability text, +1 ATK / +1 DEF buttons, Refund button. The silhouette tint for pilots not recruited yet and the stat colours are on its `PilotCardView`. |
 
 ## Battle (`Assets/BattleViews/Prefabs`)
 

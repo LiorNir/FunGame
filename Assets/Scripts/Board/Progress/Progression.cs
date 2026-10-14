@@ -112,6 +112,13 @@ namespace FunGame.Progress
             return upgrade == null ? (0, 0) : (upgrade.Attack, upgrade.Defense);
         }
 
+        /// <summary>A pilot's level: 1, plus one for every upgrade bought for it.</summary>
+        public int LevelOf(string pilotId)
+        {
+            var (attack, defense) = UpgradesOf(pilotId);
+            return 1 + attack + defense;
+        }
+
         public bool CanUpgrade(string pilotId)
         {
             return Profile.OwnedPilots.Contains(pilotId) && Profile.SkillPoints >= UpgradeCost;

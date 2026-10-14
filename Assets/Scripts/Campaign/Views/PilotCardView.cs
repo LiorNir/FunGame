@@ -15,6 +15,8 @@ namespace Campaign
     {
         [SerializeField] private Image _picture;
         [SerializeField] private TextMeshProUGUI _name;
+        [Tooltip("Optional: the pilot's level (1 plus its upgrades).")]
+        [SerializeField] private TextMeshProUGUI _level;
         [SerializeField] private TextMeshProUGUI _stats;
         [SerializeField] private TextMeshProUGUI _ability;
         [SerializeField] private Button _upgradeAttack;
@@ -23,8 +25,8 @@ namespace Campaign
         [SerializeField] private Button _refund;
 
         [Header("Look")]
-        [Tooltip("The picture's tint for a pilot the player does not have yet.")]
-        [SerializeField] private Color _silhouetteColor = new Color(0f, 0f, 0f, 0.85f);
+        [Tooltip("The picture's tint for a pilot the player does not have yet: black keeps the sprite's shape as a silhouette.")]
+        [SerializeField] private Color _silhouetteColor = Color.black;
         [SerializeField] private Color _attackColor = new Color(1f, 0.4f, 0.3f);
         [SerializeField] private Color _defenseColor = new Color(0.35f, 0.65f, 1f);
         [SerializeField] private Color _upgradeColor = new Color(0.5f, 1f, 0.5f);
@@ -40,9 +42,14 @@ namespace Campaign
             _refund.onClick.AddListener(() => RefundClicked?.Invoke());
         }
 
-        /// <param name="owned">False: shown as a silhouette, without stats or buttons.</param>
-        public void Set(PilotTokenConfiguration pilot, bool owned, int attackUpgrades, int defenseUpgrades, bool canUpgrade)
+        /// <param name="owned">False: shown as a silhouette, without stats, level or buttons.</param>
+        public void Set(PilotTokenConfiguration pilot, bool owned, int level, int attackUpgrades, int defenseUpgrades, bool canUpgrade)
         {
+            if (_level != null)
+            {
+                _level.text = owned ? $"Lv {level}" : string.Empty;
+            }
+
             _picture.sprite = pilot.Sprite;
             _picture.preserveAspect = true;
             _picture.color = owned ? Color.white : _silhouetteColor;
