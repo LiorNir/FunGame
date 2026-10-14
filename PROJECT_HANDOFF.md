@@ -326,6 +326,8 @@ Selecting something in play (a card in hand, a pilot on the board, an operator s
 
 ### Ideas parked for later
 
+- Enemy effect **slot lock / seal** (user, 2026-10-14): locks a *slot* for N turns, whoever stands in it (today Lock targets a pilot and misses if that pilot was swapped out). A nastier effect for a later world.
+- **Timed turns** (user, 2026-10-14): an optional challenge giving X seconds per turn.
 - Enemy/ability effect **Swap**: swaps the places of two pilots on the board (random or deliberate), telegraphed in advance like every other intent.
 - An ability that **changes an operator** on the board, possibly as an interruption.
 - A **procedural layout generator** (editor tool, possibly driven by a Claude skill that writes its parameters) that builds board prefabs within the board bounds from guidelines: slot count range, branching, lock chance, operator weights. The validator rules double as the constraints (for example the first slot of a chain can never be locked), and the solver gates results by par value.
