@@ -69,8 +69,7 @@ namespace FunGame.Board.Tests
             var progression = Fresh();
             Assert.IsFalse(progression.TryUpgrade("Quill", PilotStat.Defense)); // no SP yet
 
-            progression.Profile.SkillPoints = Progression.UpgradeCost;
-            Assert.AreEqual(1, Progression.UpgradeCost);
+            progression.Profile.SkillPoints = 1;
             Assert.IsTrue(progression.TryUpgrade("Quill", PilotStat.Defense));
             Assert.AreEqual(0, progression.Profile.SkillPoints);
             Assert.AreEqual((0, 1), progression.UpgradesOf("Quill"));
@@ -79,8 +78,26 @@ namespace FunGame.Board.Tests
             Assert.IsFalse(progression.TryUpgrade("Spark", PilotStat.Attack)); // not owned
 
             progression.ResetUpgrades("Quill");
-            Assert.AreEqual(Progression.UpgradeCost, progression.Profile.SkillPoints);
+            Assert.AreEqual(1, progression.Profile.SkillPoints);
             Assert.AreEqual((0, 0), progression.UpgradesOf("Quill"));
+        }
+
+        [Test]
+        public void EachFurtherUpgradeOfTheSameStat_CostsOneMore_AndARefundReturnsItAll()
+        {
+            var progression = Fresh();
+            progression.Profile.SkillPoints = 7;
+            Assert.AreEqual(1, progression.CostOf("Osis", PilotStat.Attack));
+            Assert.IsTrue(progression.TryUpgrade("Osis", PilotStat.Attack)); // 1
+            Assert.AreEqual(2, progression.CostOf("Osis", PilotStat.Attack));
+            Assert.AreEqual(1, progression.CostOf("Osis", PilotStat.Defense)); // the other stat starts over
+            Assert.IsTrue(progression.TryUpgrade("Osis", PilotStat.Attack)); // 2
+            Assert.IsTrue(progression.TryUpgrade("Osis", PilotStat.Attack)); // 3
+            Assert.AreEqual(1, progression.Profile.SkillPoints);
+            Assert.IsFalse(progression.CanUpgrade("Osis", PilotStat.Attack)); // the next costs 4
+
+            progression.ResetUpgrades("Osis");
+            Assert.AreEqual(7, progression.Profile.SkillPoints);
         }
 
         [Test]

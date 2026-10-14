@@ -40,7 +40,7 @@ namespace Campaign
             }
 
             _shown.Clear();
-            _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}   (+1 to a stat: {Progression.UpgradeCost} SP)";
+            _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}   (each further +1 to the same stat costs 1 SP more)";
 
             // owned pilots first, in the order they joined; then the ones still to recruit, in campaign order
             var owned = progression.Profile.OwnedPilots.Select(campaign.FindPilot).Where(pilot => pilot != null).ToList();
@@ -51,7 +51,9 @@ namespace Campaign
                 var id = CampaignDefinition.IdOf(pilot);
                 var (attack, defense) = progression.UpgradesOf(id);
                 var card = Instantiate(_cardPrefab, _cards);
-                card.Set(pilot, owned.Contains(pilot), progression.LevelOf(id), attack, defense, progression.CanUpgrade(id));
+                card.Set(pilot, owned.Contains(pilot), progression.LevelOf(id), attack, defense,
+                    progression.CostOf(id, PilotStat.Attack), progression.CanUpgrade(id, PilotStat.Attack),
+                    progression.CostOf(id, PilotStat.Defense), progression.CanUpgrade(id, PilotStat.Defense));
                 card.UpgradeAttackClicked += () => UpgradeClicked?.Invoke(id, PilotStat.Attack);
                 card.UpgradeDefenseClicked += () => UpgradeClicked?.Invoke(id, PilotStat.Defense);
                 card.RefundClicked += () => RefundClicked?.Invoke(id);

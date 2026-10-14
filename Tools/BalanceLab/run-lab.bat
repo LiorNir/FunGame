@@ -20,7 +20,7 @@ cd /d "%~dp0\..\.."
 if not exist "Tools\BalanceLab\bin" mkdir "Tools\BalanceLab\bin"
 
 set FILES=
-for %%f in (Assets\Scripts\Board\*.cs Assets\Scripts\Board\Battle\*.cs Assets\Scripts\Board\Sim\*.cs Tools\BalanceLab\*.cs) do set FILES=!FILES! "%%f"
+for %%f in (Assets\Scripts\Board\*.cs Assets\Scripts\Board\Battle\*.cs Assets\Scripts\Board\Sim\*.cs Assets\Scripts\Board\Progress\*.cs Tools\BalanceLab\*.cs) do set FILES=!FILES! "%%f"
 
 "%DOTNET%" "%UNITY_DATA%\DotNetSdkRoslyn\csc.dll" -nologo -optimize+ -target:exe -out:Tools\BalanceLab\bin\lab.dll -langversion:9 -nowarn:CS1701,CS1702,CS8632 ^
   -r:"%MONO%\mscorlib.dll" -r:"%MONO%\System.dll" -r:"%MONO%\System.Core.dll" -r:"%MONO%\Facades\netstandard.dll" -r:"%MONO%\Facades\System.Runtime.dll" ^

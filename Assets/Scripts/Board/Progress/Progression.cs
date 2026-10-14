@@ -31,8 +31,12 @@ namespace FunGame.Progress
     /// </summary>
     public sealed class Progression
     {
-        /// <summary>SP for one +1 to one stat of one pilot (the boss of each world gives 1 SP: one upgrade per world).</summary>
-        public const int UpgradeCost = 1;
+        /// <summary>
+        /// SP for the first +1 to a stat of a pilot (the boss of each world gives 1 SP). Each further +1 to the same stat of
+        /// the same pilot costs 1 SP more (1, 2, 3, ...): specialising one stat is slower than spreading upgrades, which keeps
+        /// multiply chains (which grow faster than add) in check.
+        /// </summary>
+        public const int BaseUpgradeCost = 1;
 
         public CampaignPlan Plan { get; }
         public PlayerProfile Profile { get; }
@@ -119,18 +123,45 @@ namespace FunGame.Progress
             return 1 + attack + defense;
         }
 
-        public bool CanUpgrade(string pilotId)
+        /// <summary>What the next +1 to the stat of the pilot costs: <see cref="BaseUpgradeCost"/> plus one per +1 it already has.</summary>
+        public int CostOf(string pilotId, PilotStat stat)
         {
-            return Profile.OwnedPilots.Contains(pilotId) && Profile.SkillPoints >= UpgradeCost;
+            var (attack, defense) = UpgradesOf(pilotId);
+            return CostAfter(stat == PilotStat.Attack ? attack : defense);
         }
 
-        /// <summary>Spends <see cref="UpgradeCost"/> SP on +1 to one stat of an owned pilot.</summary>
+        /// <summary>The cost of the next +1 to a stat that already has this many.</summary>
+        public static int CostAfter(int upgradesSoFar)
+        {
+            return BaseUpgradeCost + upgradesSoFar;
+        }
+
+        /// <summary>What all the +1s to one stat have cost together (1 + 2 + ... for that many).</summary>
+        public static int TotalCostOf(int upgrades)
+        {
+            var total = 0;
+            for (var index = 0; index < upgrades; index++)
+            {
+                total += CostAfter(index);
+            }
+
+            return total;
+        }
+
+        public bool CanUpgrade(string pilotId, PilotStat stat)
+        {
+            return Profile.OwnedPilots.Contains(pilotId) && Profile.SkillPoints >= CostOf(pilotId, stat);
+        }
+
+        /// <summary>Spends <see cref="CostOf"/> SP on +1 to one stat of an owned pilot.</summary>
         public bool TryUpgrade(string pilotId, PilotStat stat)
         {
-            if (!CanUpgrade(pilotId))
+            if (!CanUpgrade(pilotId, stat))
             {
                 return false;
             }
+
+            var cost = CostOf(pilotId, stat);
 
             var upgrade = Profile.Upgrades.FirstOrDefault(entry => entry.PilotId == pilotId);
             if (upgrade == null)
@@ -148,7 +179,7 @@ namespace FunGame.Progress
                 upgrade.Defense++;
             }
 
-            Profile.SkillPoints -= UpgradeCost;
+            Profile.SkillPoints -= cost;
             return true;
         }
 
@@ -161,7 +192,7 @@ namespace FunGame.Progress
                 return;
             }
 
-            Profile.SkillPoints += (upgrade.Attack + upgrade.Defense) * UpgradeCost;
+            Profile.SkillPoints += TotalCostOf(upgrade.Attack) + TotalCostOf(upgrade.Defense);
             Profile.Upgrades.Remove(upgrade);
         }
 

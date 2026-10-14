@@ -43,7 +43,9 @@ namespace Campaign
         }
 
         /// <param name="owned">False: shown as a silhouette, without stats, level or buttons.</param>
-        public void Set(PilotTokenConfiguration pilot, bool owned, int level, int attackUpgrades, int defenseUpgrades, bool canUpgrade)
+        /// <param name="attackCost">SP for the next +1 ATK, shown on its button.</param>
+        public void Set(PilotTokenConfiguration pilot, bool owned, int level, int attackUpgrades, int defenseUpgrades,
+                        int attackCost, bool canUpgradeAttack, int defenseCost, bool canUpgradeDefense)
         {
             if (_level != null)
             {
@@ -58,8 +60,10 @@ namespace Campaign
             _upgradeAttack.gameObject.SetActive(owned);
             _upgradeDefense.gameObject.SetActive(owned);
             _refund.gameObject.SetActive(owned && attackUpgrades + defenseUpgrades > 0);
-            _upgradeAttack.interactable = canUpgrade;
-            _upgradeDefense.interactable = canUpgrade;
+            _upgradeAttack.interactable = canUpgradeAttack;
+            _upgradeDefense.interactable = canUpgradeDefense;
+            SetLabel(_upgradeAttack, $"+1 ATK ({attackCost} SP)");
+            SetLabel(_upgradeDefense, $"+1 DEF ({defenseCost} SP)");
 
             if (!owned)
             {
@@ -71,6 +75,15 @@ namespace Campaign
             _stats.text = Stat("ATK", pilot.AttackValue, attackUpgrades, _attackColor) + "   " + Stat("DEF", pilot.DefenseValue, defenseUpgrades, _defenseColor);
             var ability = PilotAbilities.Create(pilot.AbilityKind, pilot.AbilityApCost);
             _ability.text = ability == null ? string.Empty : $"{ability.Name} ({ability.ApCost} AP): {ability.Describe()}";
+        }
+
+        private static void SetLabel(Button button, string text)
+        {
+            var label = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null)
+            {
+                label.text = text;
+            }
         }
 
         private string Stat(string label, float baseValue, int upgrades, Color color)

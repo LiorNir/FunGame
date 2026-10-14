@@ -103,6 +103,8 @@ namespace BattleView
         private bool _defenseUsed;
         private int _abilityGlowState; // 0 off, 1 faint, 2 pulsing
         private string _tollSymbol;
+        private string _status = string.Empty;
+        private bool _hovered;
         private Color _abilityGlowColor;
         private Vector3 _abilityGlowScale;
         private Sequence _abilityGlowPulse;
@@ -234,7 +236,8 @@ namespace BattleView
 
         /// <summary>
         /// Marks the slot as a toll (its connection subtracts or divides): its pilot's defense is paid, never wounded, so the
-        /// defense box shows the operator and no fill (temporary look). Null for an ordinary slot.
+        /// defense box is shown greyed and unfilled, and hovering the slot explains it (temporary look). Null for an ordinary
+        /// slot.
         /// </summary>
         public void SetToll(string symbol)
         {
@@ -247,7 +250,33 @@ namespace BattleView
         /// </summary>
         public void SetStatus(string text)
         {
+            _status = text ?? string.Empty;
+            ShowStatus();
+        }
+
+        // the status line, plus the toll explanation while the mouse is over a toll slot with a pilot in it
+        private void ShowStatus()
+        {
+            var text = _status;
+            if (_hovered && _tollSymbol != null && _pilot != null && !_pilot.Fallen)
+            {
+                var hint = $"<color=#B0B0B0>TOLL ({_tollSymbol}): pays its value, never wounded</color>";
+                text = text.Length > 0 ? text + "\n" + hint : hint;
+            }
+
             SetText(_pilotStatusText, string.IsNullOrEmpty(text) ? string.Empty : $"<mark=#000000E0>{text}</mark>");
+        }
+
+        private void OnMouseEnter()
+        {
+            _hovered = true;
+            ShowStatus();
+        }
+
+        private void OnMouseExit()
+        {
+            _hovered = false;
+            ShowStatus();
         }
 
         /// <summary>The world height of the top of the status line's text (the slot's position when there is none).</summary>
@@ -419,7 +448,8 @@ namespace BattleView
             var attackBorder = _tints.For(state, _visuals.AttackColor);
             var defenseBorder = _tints.For(state, _visuals.DefenseColor);
             _attackBox.SetBorder(_attackUsed ? attackBorder : _tints.Unused(attackBorder));
-            _defenseBox.SetBorder(_defenseUsed ? defenseBorder : _tints.Unused(defenseBorder));
+            // a toll pilot's defense is paid, not worn: shown like an unused stat
+            _defenseBox.SetBorder(_defenseUsed && _tollSymbol == null ? defenseBorder : _tints.Unused(defenseBorder));
         }
 
         private void ShowLock(bool locked, string description)
@@ -498,7 +528,7 @@ namespace BattleView
             var defenseColor = _inactive ? _inactiveColor : _visuals.DefenseColor;
             _attackBox.SetValue(DisplayFormat.Value(_pilot.EffectiveAttack), _attackUsed ? attackColor : _tints.Unused(attackColor), attackChange);
             var defenseNumber = _visuals.ShowRemainingDefense ? _pilot.BaseDefense * remaining : _pilot.BaseDefense;
-            _defenseBox.SetValue((_tollSymbol ?? string.Empty) + DisplayFormat.Value(defenseNumber), _defenseUsed ? defenseColor : _tints.Unused(defenseColor), defenseChange);
+            _defenseBox.SetValue(DisplayFormat.Value(defenseNumber), _defenseUsed && _tollSymbol == null ? defenseColor : _tints.Unused(defenseColor), defenseChange);
         }
 
         private static string FormatBonus(NodeBonus bonus)
