@@ -28,28 +28,36 @@ namespace Campaign
             }
 
             CampaignSession.Begin(_campaign);
+            PlaytestLog.Note($"map: {CampaignSession.Profile.SkillPoints} SP, cleared {CampaignSession.Profile.ClearedEncounters.Count}, " +
+                             $"pilots {string.Join(", ", CampaignSession.Profile.OwnedPilots)}");
             _map = Instantiate(_mapScreenPrefab, _canvas.transform);
             _pilots = Instantiate(_pilotsScreenPrefab, _canvas.transform);
 
             _map.EncounterClicked += Play;
             _map.PilotsClicked += () => Show(pilots: true);
+            _map.OpenLogsClicked += PlaytestLog.OpenFolder;
             _map.UnlockAllClicked += () =>
             {
                 CampaignSession.UnlockAll = !CampaignSession.UnlockAll;
+                PlaytestLog.Note($"unlock all: {CampaignSession.UnlockAll}");
                 Show(pilots: false);
             };
             _map.ResetClicked += () =>
             {
                 CampaignSession.ResetProgress();
+                PlaytestLog.Note("progress reset");
                 Show(pilots: false);
             };
 
             _pilots.BackClicked += () => Show(pilots: false);
             _pilots.UpgradeClicked += (id, stat) =>
             {
-                if (CampaignSession.Progression.TryUpgrade(id, stat))
+                var progression = CampaignSession.Progression;
+                var cost = progression.CostOf(id, stat);
+                if (progression.TryUpgrade(id, stat))
                 {
                     CampaignSession.Save();
+                    PlaytestLog.Note($"upgrade {id} {stat} +1 for {cost} SP (now level {progression.LevelOf(id)}, {progression.Profile.SkillPoints} SP left)");
                 }
 
                 Show(pilots: true);
@@ -58,6 +66,7 @@ namespace Campaign
             {
                 CampaignSession.Progression.ResetUpgrades(id);
                 CampaignSession.Save();
+                PlaytestLog.Note($"refund {id} ({CampaignSession.Profile.SkillPoints} SP now)");
                 Show(pilots: true);
             };
 
@@ -81,6 +90,7 @@ namespace Campaign
         private void Play(EncounterDefinition encounter)
         {
             CampaignSession.PendingEncounter = encounter;
+            PlaytestLog.Note($"play {encounter.name}");
             SceneManager.LoadScene(_battleScene);
         }
     }

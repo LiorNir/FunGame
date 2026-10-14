@@ -23,12 +23,15 @@ namespace Campaign
         [SerializeField] private Button _pilots;
         [SerializeField] private Button _unlockAll;
         [SerializeField] private Button _reset;
+        [Tooltip("Optional: opens the folder with the playtest logs (to zip and send).")]
+        [SerializeField] private Button _openLogs;
 
         private readonly List<GameObject> _rows = new List<GameObject>();
 
         public event Action PilotsClicked;
         public event Action UnlockAllClicked;
         public event Action ResetClicked;
+        public event Action OpenLogsClicked;
         public event Action<EncounterDefinition> EncounterClicked;
 
         private void Awake()
@@ -36,6 +39,10 @@ namespace Campaign
             _pilots.onClick.AddListener(() => PilotsClicked?.Invoke());
             _unlockAll.onClick.AddListener(() => UnlockAllClicked?.Invoke());
             _reset.onClick.AddListener(() => ResetClicked?.Invoke());
+            if (_openLogs != null)
+            {
+                _openLogs.onClick.AddListener(() => OpenLogsClicked?.Invoke());
+            }
         }
 
         public void Show(CampaignDefinition campaign, Progression progression)

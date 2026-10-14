@@ -99,6 +99,7 @@ namespace FunGame.EditorTools
             var pilots = TopButton(root, "Pilots", "Pilots", new Vector2(-780f, -40f), new Color(0.15f, 0.4f, 0.8f));
             var unlockAll = TopButton(root, "UnlockAll", "Unlock all: off", new Vector2(-420f, -40f), ButtonColor);
             var reset = TopButton(root, "Reset", "Reset progress", new Vector2(-60f, -40f), ButtonColor);
+            var openLogs = TopButton(root, "OpenLogs", "Open playtest logs", new Vector2(-60f, -120f), ButtonColor);
 
             var worlds = ViewFactory.CreateUiRoot(root, "Worlds", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -50f), new Vector2(1500f, 800f));
             var worldsLayout = worlds.gameObject.AddComponent<VerticalLayoutGroup>();
@@ -117,6 +118,7 @@ namespace FunGame.EditorTools
             Assign(view, "_pilots", pilots);
             Assign(view, "_unlockAll", unlockAll);
             Assign(view, "_reset", reset);
+            Assign(view, "_openLogs", openLogs);
             return root.gameObject;
         }
 

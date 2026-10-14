@@ -13,7 +13,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 
 | Prefab | In charge of |
 |---|---|
-| `MapScreen` | The whole map screen: background, "Skill points" text, the Pilots / Unlock all / Reset progress buttons, and the `Worlds` container (a vertical layout group) that the world rows are placed in. |
+| `MapScreen` | The whole map screen: background, "Skill points" text, the Pilots / Unlock all / Reset progress / Open playtest logs buttons, and the `Worlds` container (a vertical layout group) that the world rows are placed in. |
 | `WorldRow` | One world: its name and the `Encounters` container (a horizontal layout group) that the encounter buttons are placed in. Name colours (open / locked) are on its `WorldRowView`. |
 | `EncounterButton` | One encounter: background, title and footer line ("Reward: +1 SP, Spark joins" / "cleared" / "locked"). Background colours per state (open, cleared, locked) are on its `EncounterButtonView`. |
 | `PilotsScreen` | The Pilots screen: background, "Skill points" text, Back to map button, and the `Cards` container (a grid layout group: cell size, spacing and columns are set there). |

@@ -63,3 +63,6 @@ InitTestScene*.unity*
 Tools/BalanceLab/bin/
 Tools/BalanceLab/reports/
 Tools/TestRunner/bin/
+
+# player builds
+/Builds/

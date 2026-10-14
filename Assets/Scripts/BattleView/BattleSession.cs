@@ -106,7 +106,33 @@ namespace BattleView
 
         private void OnDestroy()
         {
+            WriteUnfinishedLog("left unfinished");
             CancelBattle();
+        }
+
+        // ---------- playtest log ----------
+
+        // true once the current battle's playtest file is written (one file per battle)
+        private bool _battleLogged;
+
+        private void WriteBattleLog(string result)
+        {
+            if (_engine == null || _encounter == null || _battleLogged)
+            {
+                return;
+            }
+
+            _battleLogged = true;
+            var setupText = FunGame.Sim.SetupText.Write(_encounter.DisplayName, _campaignMode ? "campaign" : "test bench", _engine.Setup);
+            Campaign.PlaytestLog.WriteBattle(_encounter.DisplayName, result, setupText, _engine.Log);
+        }
+
+        private void WriteUnfinishedLog(string result)
+        {
+            if (_engine != null && _engine.Outcome == BattleOutcome.InProgress)
+            {
+                WriteBattleLog($"{result} on turn {_engine.Turn}");
+            }
         }
 
         // ---------- setup ----------
@@ -208,9 +234,12 @@ namespace BattleView
                 return;
             }
 
+            WriteUnfinishedLog("restarted");
             CancelBattle();
             ClearViews();
             _undoSnapshots.Clear();
+            _undoLogLengths.Clear();
+            _battleLogged = false;
             _battleCancellation = CancellationTokenSource.CreateLinkedTokenSource(_destroyToken);
 
             var seed = _seed != 0 ? _seed : UnityEngine.Random.Range(1, int.MaxValue);
@@ -309,8 +338,14 @@ namespace BattleView
                 return;
             }
 
+            // the copy has no log: carry the log over up to the moment of the copy, and mark the undo
+            var log = _engine.Log;
+            var keep = _undoLogLengths[_undoLogLengths.Count - 1];
+            _undoLogLengths.RemoveAt(_undoLogLengths.Count - 1);
             _engine = _undoSnapshots[_undoSnapshots.Count - 1];
             _undoSnapshots.RemoveAt(_undoSnapshots.Count - 1);
+            _engine.Log.AddRange(log.Take(keep));
+            _engine.Log.Add($"  Undo: took back \"{(log.Count > keep ? log[keep].Trim() : "an action")}\"");
             _engine.Logging = true;
             _engine.RecordEvents = true;
             _selection.Cancel();
@@ -320,9 +355,13 @@ namespace BattleView
             RefreshAll();
         }
 
+        // the log's length when each snapshot was taken (the copies have no log of their own)
+        private readonly List<int> _undoLogLengths = new List<int>();
+
         private void SaveUndo()
         {
             _undoSnapshots.Add(_engine.Clone());
+            _undoLogLengths.Add(_engine.Log.Count);
         }
 
         public void Place(int handIndex, string slotId)
@@ -427,6 +466,7 @@ namespace BattleView
             var token = _battleCancellation.Token;
             var engine = _engine;
             _undoSnapshots.Clear();
+            _undoLogLengths.Clear();
             _isResolving = true;
             _selection.Cancel();
             _hud.SetPlayEnabled(false);
@@ -619,6 +659,9 @@ namespace BattleView
             }
 
             _hud.ShowOutcome(_engine.Outcome, details);
+            WriteBattleLog(_engine.Outcome == BattleOutcome.Defeat && _engine.DefeatReason != null
+                ? $"Defeat ({_engine.DefeatReason}) on turn {_engine.Turn}"
+                : $"{_engine.Outcome} on turn {_engine.Turn}, HP {DisplayFormat.Value(_engine.PlayerHealth)}");
         }
 
         private static UniTask Wait(float seconds, CancellationToken token)
