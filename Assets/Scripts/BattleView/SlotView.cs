@@ -268,19 +268,22 @@ namespace BattleView
             Hovered?.Invoke(this, false);
         }
 
-        /// <summary>The world height of the top of the status line's text (the slot's position when there is none).</summary>
-        public float StatusTop
+        /// <summary>
+        /// The world point at the top of the status line's text (the slot's position when there is none). A point rather
+        /// than a height, so it stays right on a tilted board.
+        /// </summary>
+        public Vector3 StatusTop
         {
             get
             {
                 if (!HasStatus)
                 {
-                    return transform.position.y;
+                    return transform.position;
                 }
 
                 _pilotStatusText.ForceMeshUpdate();
                 var bounds = _pilotStatusText.textBounds;
-                return _pilotStatusText.transform.TransformPoint(new Vector3(0f, bounds.max.y, 0f)).y;
+                return _pilotStatusText.transform.TransformPoint(new Vector3(bounds.center.x, bounds.max.y, 0f));
             }
         }
 

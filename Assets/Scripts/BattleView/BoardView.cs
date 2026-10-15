@@ -295,7 +295,7 @@ namespace BattleView
                     // just above the status line, whatever its length and size
                     label.Text.ForceMeshUpdate();
                     var halfHeight = label.Text.textBounds.extents.y * label.Text.transform.lossyScale.y;
-                    var statusTop = transform.InverseTransformPoint(new Vector3(0f, terminal.StatusTop, 0f)).y;
+                    var statusTop = transform.InverseTransformPoint(terminal.StatusTop).y;
                     position.y = Mathf.Max(position.y, statusTop + _chainLabelStatusGap + halfHeight + index * _chainLabelSpacing);
                 }
 
