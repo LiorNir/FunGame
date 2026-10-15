@@ -40,7 +40,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `Assets/Campaign/Tutorial.asset` | Every tutorial line: encounter, when it shows, text (see `TUTORIAL_LINES.md`). |
 | `Assets/Rules/BattleVisuals.asset` | The battle's shared looks: which prefabs the battle uses, operator sprites, attack / defense / both / unused colours (lines, chain labels, stat texts all read these), and the "show remaining defense" switch. |
 | `Assets/Scripts/Configurations/Pilots/*.asset` | Each pilot's picture (`Sprite`), name and stats. Upgraded test-deck copies live in `Pilots/Upgrades`. |
-| `Assets/Encounters/World N/*.asset` | Each enemy's picture, name, health and actions, and each encounter's display name. |
+| `Assets/Encounters/World N/*.asset` | Each enemy's picture, **Scale** (1 = the standard size set on the `EnemyView` prefab), name, health and actions, and each encounter's display name. |
 | `Assets/Boards/World N/*.prefab` | Each encounter's board layout (slot positions; slots are `PilotSlot` / `OperatorSlot` instances, so their look comes from those prefabs). |
 | `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson). |
 

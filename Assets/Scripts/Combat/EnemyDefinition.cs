@@ -9,6 +9,9 @@ namespace Combat
     {
         [SerializeField] private string _displayName;
         [SerializeField] private Sprite _sprite;
+
+        [Tooltip("How big this enemy is drawn: 1 = the standard size set on the EnemyView prefab, 1.5 = half again as big.")]
+        [Min(0.1f)] [SerializeField] private float _scale = 1f;
         [Min(1)] [SerializeField] private int _maxHealth = 20;
 
         [Tooltip("Sequential repeats the actions in order. Random picks one and reveals it before the turn it is used.")]
@@ -18,6 +21,7 @@ namespace Combat
 
         public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
         public Sprite Sprite => _sprite;
+        public float Scale => _scale;
         public int MaxHealth => _maxHealth;
         public EnemyActionSelectionMode SelectionMode => _selectionMode;
         public IReadOnlyList<EnemyAction> Actions => _actions;

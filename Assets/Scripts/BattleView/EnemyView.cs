@@ -75,7 +75,8 @@ namespace BattleView
                 _picture.sprite = ViewFactory.WhiteSprite;
             }
 
-            ViewFactory.FitSprite(_picture, _pictureSize);
+            // the prefab sets the standard size, each enemy asset its own scale on top
+            ViewFactory.FitSprite(_picture, _pictureSize * (source != null ? source.Scale : 1f));
 
             // hovering the picture explains the enemy; a collider the size of the picture is added if missing
             var collider = GetComponent<BoxCollider2D>();
