@@ -7,7 +7,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | Scene | What it is |
 |---|---|
 | `Assets/Scenes/MapScene.unity` | The campaign menu: the map and the Pilots screen. First scene of the build. Holds a Canvas and a **Campaign Menu** object that places the two screen prefabs. |
-| `Assets/Scenes/BattleScene.unity` | The battle. Started from the map it plays that encounter with your pilots; opened on its own it is the test bench (test panel, any encounter, test decks). Holds the **Battle Session**, the board root (move or scale it to move or scale the whole board) and the camera. |
+| `Assets/Scenes/BattleScene.unity` | The battle. Started from the map it plays that encounter with your pilots; opened on its own it is the test bench (test panel, any encounter, test decks). Holds the **Battle Session**, the **Board Table** under it (tilted 45 degrees; holds Board BG and the board root **Board**: move, tilt or scale the table to move the whole board with its background) and the camera. |
 
 ## Campaign menu (`Assets/CampaignViews/Prefabs`)
 
