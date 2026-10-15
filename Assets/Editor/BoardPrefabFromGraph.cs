@@ -109,25 +109,33 @@ namespace FunGame.EditorTools
             }
 
             // spread for the tilted board (the battle scene's Board Table, 45 degrees): the outward direction looks shorter
-            // on screen, so rows are stretched more than columns; boards that are already wide keep their width
+            // on screen, so rows are stretched more than columns; within limits that keep the board between the hand, the
+            // enemies and the HUD buttons
             var halfWidth = positions.Values.Max(position => Mathf.Abs(position.x - layout.BoardCenter.x));
-            var sideStretch = halfWidth <= NarrowBoardHalfWidth ? SideStretch : 1f;
+            var spreadHalfWidth = Mathf.Min(halfWidth * SideStretch, Mathf.Max(halfWidth, MaxStretchedHalfWidth), MaxHalfWidth);
+            var sideStretch = halfWidth > 0f ? spreadHalfWidth / halfWidth : 1f;
+            var rowSpan = positions.Values.Max(position => position.y) - rootRowY;
+            var rowStretch = rowSpan > 0f ? Mathf.Min(RowStretch, MaxRowSpan / rowSpan) : RowStretch;
             foreach (var id in positions.Keys.ToList())
             {
                 var position = positions[id];
                 positions[id] = new Vector3(
                     layout.BoardCenter.x + (position.x - layout.BoardCenter.x) * sideStretch,
-                    rootRowY + (position.y - rootRowY) * RowStretch,
+                    rootRowY + (position.y - rootRowY) * rowStretch,
                     position.z);
             }
 
             return positions;
         }
 
-        // the spread applied to every board on 2026-10-15 (see the handoff), kept here so new boards match
+        // the spread applied to every board on 2026-10-15 and checked on screen (see the handoff), kept here so new boards
+        // match: rows up to 1.6x apart but the top row at most MaxRowSpan above the root row (3 rows: 2.3 apart); columns
+        // up to 1.4x but not past MaxStretchedHalfWidth, and no board wider than MaxHalfWidth (clear of the HUD buttons)
         private const float RowStretch = 1.6f;
+        private const float MaxRowSpan = 4.6f;
         private const float SideStretch = 1.4f;
-        private const float NarrowBoardHalfWidth = 3.75f;
+        private const float MaxStretchedHalfWidth = 4.5f;
+        private const float MaxHalfWidth = 6.6f;
 
         private static float Place(
             string id,
