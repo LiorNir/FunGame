@@ -101,6 +101,26 @@ namespace FunGame.Board.Tests
         }
 
         [Test]
+        public void AnOldSave_IsSwitchedFromNamesToIds_KeepingWhatItCannotMap()
+        {
+            var profile = new PlayerProfile { Version = 1 };
+            profile.OwnedPilots.AddRange(new[] { "Bolt", "Quill", "Mystery" });
+            profile.ClearedEncounters.Add("1-1");
+            profile.Upgrades.Add(new PilotUpgrade { PilotId = "Bolt", Attack = 2 });
+            var ids = new System.Collections.Generic.Dictionary<string, string> { { "Bolt", "id-bee" }, { "Quill", "id-quill" }, { "1-1", "id-11" } };
+
+            ProfileMigration.Upgrade(profile, ProfileMigration.Lookup(ids));
+
+            CollectionAssert.AreEqual(new[] { "id-bee", "id-quill", "Mystery" }, profile.OwnedPilots);
+            CollectionAssert.AreEqual(new[] { "id-11" }, profile.ClearedEncounters);
+            Assert.AreEqual("id-bee", profile.Upgrades[0].PilotId);
+            Assert.AreEqual(ProfileMigration.CurrentVersion, profile.Version);
+
+            ProfileMigration.Upgrade(profile, ProfileMigration.Lookup(new System.Collections.Generic.Dictionary<string, string> { { "id-bee", "wrong" } }));
+            Assert.AreEqual("id-bee", profile.OwnedPilots[0]); // an up-to-date save is left alone
+        }
+
+        [Test]
         public void UnlockAll_OpensEverything()
         {
             var progression = Fresh();

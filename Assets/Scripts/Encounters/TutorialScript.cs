@@ -53,7 +53,7 @@ namespace Encounters
         [TextArea(2, 5)] public string Text;
 
         /// <summary>Identifies the line in the save (shown once per save), stable while its encounter, trigger and text stay.</summary>
-        public string Id => $"{(Encounter != null ? Encounter.name : "?")}|{Trigger}|{Turn}|{StableHash(Text ?? string.Empty)}";
+        public string Id => $"{(Encounter != null ? Encounter.AssetId : "?")}|{Trigger}|{Turn}|{StableHash(Text ?? string.Empty)}";
 
         private static uint StableHash(string text)
         {

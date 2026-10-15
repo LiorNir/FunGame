@@ -23,3 +23,4 @@ MonoBehaviour:
   _allowEject: 1
   _testDeck: {fileID: 11400000, guid: f0a16b9019be1b347baeb51ee80b75d6, type: 2}
   _openingHand: []
+  _assetId: 2e9d8e73ef32d37449a447a066d7a2a3

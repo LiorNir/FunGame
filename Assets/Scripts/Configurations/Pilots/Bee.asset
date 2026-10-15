@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57faf7e97175d6d44a9ed5d22fca88c4, type: 3}
-  m_Name: Brash
+  m_Name: Bee
   m_EditorClassIdentifier: Assembly-CSharp::Configurations.PilotTokenConfiguration
-  Name: Brash
-  DisplayName: Brash
-  Sprite: {fileID: 21300000, guid: a08a982ccb344674a9cd393dad4dc9c4, type: 3}
-  AttackValue: 1.5
-  DefenseValue: 0.5
+  Name: Bee
+  DisplayName: Stinger
+  Sprite: {fileID: 471301157715313133, guid: 1c0867084eac56a40acd422a24bd0100, type: 3}
+  AttackValue: 2.5
+  DefenseValue: 1.5
   Ability: 0
-  AbilityKind: 0
+  AbilityKind: 1
   AbilityApCost: 2
+  _assetId: 6bb03e5842ccc634c9486c36de185362

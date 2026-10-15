@@ -43,7 +43,7 @@ namespace Campaign
             }
 
             Campaign = campaign;
-            Profile = Load(campaign.ToPlan());
+            Profile = Load(campaign);
         }
 
         public static void Save()
@@ -96,8 +96,9 @@ namespace Campaign
             return deck;
         }
 
-        private static PlayerProfile Load(CampaignPlan plan)
+        private static PlayerProfile Load(CampaignDefinition campaign)
         {
+            var plan = campaign.ToPlan();
             if (File.Exists(SavePath))
             {
                 try
@@ -105,6 +106,13 @@ namespace Campaign
                     var loaded = JsonUtility.FromJson<PlayerProfile>(File.ReadAllText(SavePath));
                     if (loaded != null && loaded.OwnedPilots.Count > 0)
                     {
+                        if (loaded.Version < ProfileMigration.CurrentVersion)
+                        {
+                            // an older save names pilots and encounters by asset name: switch it to stable ids
+                            ProfileMigration.Upgrade(loaded, ProfileMigration.Lookup(campaign.IdsByName()));
+                            File.WriteAllText(SavePath, JsonUtility.ToJson(loaded, true));
+                        }
+
                         return loaded;
                     }
                 }

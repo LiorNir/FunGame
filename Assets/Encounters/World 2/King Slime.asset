@@ -10,25 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2bcf0db107a8af4f8731542dd6ae4b9, type: 3}
-  m_Name: Gatekeeper
+  m_Name: King Slime
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
-  _displayName: Gatekeeper
-  _sprite: {fileID: 0}
-  _maxHealth: 14
+  _displayName: King Slime
+  _sprite: {fileID: 21300000, guid: ef09dca86e213b14bb6b01cb57852d3d, type: 3}
+  _scale: 1.5
+  _maxHealth: 30
   _selectionMode: 0
   _actions:
-  - Name: Slam
+  - Name: Grind
     Attack: 3
     Defense: 0
     LockTurns: 0
     LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0
+  - Name: Crush
+    Attack: 7
+    Defense: 0
+    LockTurns: 0
+    LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0
   - Name: Brace
-    Attack: 0
-    Defense: 2
+    Attack: 1
+    Defense: 3
     LockTurns: 0
     LockTarget: 4
-  - Name: Slam
-    Attack: 3
-    Defense: 0
-    LockTurns: 0
-    LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0

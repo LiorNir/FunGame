@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2bcf0db107a8af4f8731542dd6ae4b9, type: 3}
-  m_Name: Big grinder
+  m_Name: Slime
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
-  _displayName: Big grinder
-  _sprite: {fileID: 0}
-  _maxHealth: 10
+  _displayName: Slime
+  _sprite: {fileID: 21300000, guid: 621ef4487d6a8a94c9293f2f1fd10f6d, type: 3}
+  _scale: 1
+  _maxHealth: 9
   _selectionMode: 0
   _actions:
   - Name: Grind
@@ -22,3 +23,8 @@ MonoBehaviour:
     Defense: 0
     LockTurns: 0
     LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0

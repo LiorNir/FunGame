@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57faf7e97175d6d44a9ed5d22fca88c4, type: 3}
-  m_Name: Spark
-  m_EditorClassIdentifier: Assembly-CSharp::Configurations.PilotTokenConfiguration
-  Name: Spark
-  DisplayName: Spark
-  Sprite: {fileID: -8899381634376888805, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
-  AttackValue: 3
-  DefenseValue: 0.5
-  Ability: 0
+  m_Name: OldTurtle
+  m_EditorClassIdentifier: 
+  Name: OldTurtle
+  DisplayName: Grumpa
+  Sprite: {fileID: 4600847687123682699, guid: aeb491f14b8f34448a08e15c7d4c048c, type: 3}
+  AttackValue: 1
+  DefenseValue: 1
+  Ability: 1
   AbilityKind: 0
   AbilityApCost: 2
+  _assetId: 0d12c5cd38cce124fb76a6db43177f81

@@ -39,6 +39,19 @@ namespace Encounters
         [Tooltip("Optional: pilots drawn into the first hand before the shuffled rest (for a step that must start with a pilot).")]
         [SerializeField] private List<PilotTokenConfiguration> _openingHand = new List<PilotTokenConfiguration>();
 
+        [Tooltip("Stable id for save files (the asset's GUID), kept up to date by the editor. Do not edit.")]
+        [HideInInspector] [SerializeField] private string _assetId;
+
+        /// <summary>The id save files use for this encounter; it survives renaming the asset (see <see cref="AssetIds"/>).</summary>
+        public string AssetId => AssetIds.Of(this, _assetId);
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            AssetIds.Stamp(this, ref _assetId);
+        }
+#endif
+
         public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
         public BoardLayoutAuthoring Board => _board;
         public IReadOnlyList<LaneEnemies> Lanes => _lanes;

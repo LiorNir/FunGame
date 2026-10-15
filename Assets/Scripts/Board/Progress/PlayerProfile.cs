@@ -12,7 +12,7 @@ namespace FunGame.Progress
     public sealed class PlayerProfile
     {
         /// <summary>The save format version, for reading older saves later.</summary>
-        public int Version = 1;
+        public int Version = ProfileMigration.CurrentVersion;
 
         public int SkillPoints;
 

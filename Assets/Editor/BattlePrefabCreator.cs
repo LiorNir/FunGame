@@ -340,7 +340,7 @@ namespace FunGame.EditorTools
             var health = enemy.transform.Find("HealthText");
             var position = (health != null ? health.localPosition : new Vector3(0f, -1.63f, 0f)) + new Vector3(0f, -0.3f, 0f);
             var queue = WorldText(enemy.transform, "QueueText", 0.22f, new Color(0.75f, 0.75f, 0.8f), 6, position);
-            queue.text = "Enemy 1/2   next: Grinder";
+            queue.text = "Enemy 1/2   next: Slime";
             Assign(view, "_queueText", queue);
             return true;
         }

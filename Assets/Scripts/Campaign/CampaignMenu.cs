@@ -1,3 +1,4 @@
+using System.Linq;
 using Encounters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +30,7 @@ namespace Campaign
 
             CampaignSession.Begin(_campaign);
             PlaytestLog.Note($"map: {CampaignSession.Profile.SkillPoints} SP, cleared {CampaignSession.Profile.ClearedEncounters.Count}, " +
-                             $"pilots {string.Join(", ", CampaignSession.Profile.OwnedPilots)}");
+                             $"pilots {string.Join(", ", CampaignSession.Profile.OwnedPilots.Select(NameOf))}");
             _map = Instantiate(_mapScreenPrefab, _canvas.transform);
             _pilots = Instantiate(_pilotsScreenPrefab, _canvas.transform);
 
@@ -57,7 +58,7 @@ namespace Campaign
                 if (progression.TryUpgrade(id, stat))
                 {
                     CampaignSession.Save();
-                    PlaytestLog.Note($"upgrade {id} {stat} +1 for {cost} SP (now level {progression.LevelOf(id)}, {progression.Profile.SkillPoints} SP left)");
+                    PlaytestLog.Note($"upgrade {NameOf(id)} {stat} +1 for {cost} SP (now level {progression.LevelOf(id)}, {progression.Profile.SkillPoints} SP left)");
                 }
 
                 Show(pilots: true);
@@ -66,7 +67,7 @@ namespace Campaign
             {
                 CampaignSession.Progression.ResetUpgrades(id);
                 CampaignSession.Save();
-                PlaytestLog.Note($"refund {id} ({CampaignSession.Profile.SkillPoints} SP now)");
+                PlaytestLog.Note($"refund {NameOf(id)} ({CampaignSession.Profile.SkillPoints} SP now)");
                 Show(pilots: true);
             };
 
@@ -85,6 +86,13 @@ namespace Campaign
             {
                 _map.Show(_campaign, CampaignSession.Progression);
             }
+        }
+
+        // a pilot's display name for the playtest notes (the save stores ids)
+        private string NameOf(string pilotId)
+        {
+            var pilot = _campaign.FindPilot(pilotId);
+            return pilot == null ? pilotId : string.IsNullOrEmpty(pilot.DisplayName) ? pilot.name : pilot.DisplayName;
         }
 
         private void Play(EncounterDefinition encounter)

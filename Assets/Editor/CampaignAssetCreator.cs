@@ -24,7 +24,7 @@ namespace FunGame.EditorTools
         private const string BattleScenePath = "Assets/Scenes/BattleScene.unity";
 
         // the pilot each world's boss recruits (by display name); the World 1 to 3 rewards are the pilots that joined the test decks
-        private static readonly Dictionary<int, string> RewardPilots = new Dictionary<int, string> { { 1, "Spark" }, { 2, "Bolt" }, { 3, "Haze" } };
+        private static readonly Dictionary<int, string> RewardPilots = new Dictionary<int, string> { { 1, "Spark" }, { 2, "Stinger" }, { 3, "Haze" } };
 
         [MenuItem("Tools/Fun Game/Create Campaign And Map")]
         private static void Create()

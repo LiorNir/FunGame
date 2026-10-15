@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57faf7e97175d6d44a9ed5d22fca88c4, type: 3}
+  m_Name: GreenSlime
+  m_EditorClassIdentifier: Assembly-CSharp::Configurations.PilotTokenConfiguration
+  Name: GreenSlime
+  DisplayName: Slurp
+  Sprite: {fileID: -96231878540367941, guid: 7505e6fea8ac6604a9a4e66645482a64, type: 3}
+  AttackValue: 1.5
+  DefenseValue: 0.5
+  Ability: 0
+  AbilityKind: 0
+  AbilityApCost: 2
+  _assetId: 0b2595a4689e31145be45ab9682d5e19

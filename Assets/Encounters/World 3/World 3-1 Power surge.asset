@@ -24,3 +24,4 @@ MonoBehaviour:
   _testDeck: {fileID: 11400000, guid: 25fedaeed6a3eca42ad5199d254a0a79, type: 2}
   _openingHand:
   - {fileID: 11400000, guid: 6bb03e5842ccc634c9486c36de185362, type: 2}
+  _assetId: 759977f9fb0a0164cae460db6c021532

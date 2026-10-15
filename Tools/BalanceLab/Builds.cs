@@ -17,12 +17,12 @@ namespace BalanceLab
     {
         private static readonly (string Pilot, PilotStat Stat)[] DefenseFirst =
         {
-            ("Quill", PilotStat.Defense), ("Yawn", PilotStat.Defense), ("Osis", PilotStat.Defense), ("Sil", PilotStat.Defense), ("Pion", PilotStat.Defense)
+            ("Quill", PilotStat.Defense), ("Yawn", PilotStat.Defense), ("Osis", PilotStat.Defense), ("Sil", PilotStat.Defense), ("Grumpa", PilotStat.Defense)
         };
 
         private static readonly (string Pilot, PilotStat Stat)[] AttackFirst =
         {
-            ("Bolt", PilotStat.Attack), ("Spark", PilotStat.Attack), ("Osis", PilotStat.Attack), ("Sil", PilotStat.Attack)
+            ("Stinger", PilotStat.Attack), ("Spark", PilotStat.Attack), ("Osis", PilotStat.Attack), ("Sil", PilotStat.Attack)
         };
 
         public static int Run(string[] args)

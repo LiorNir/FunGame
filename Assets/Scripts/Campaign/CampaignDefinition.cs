@@ -22,9 +22,42 @@ namespace Campaign
         public IReadOnlyList<PilotTokenConfiguration> StartingPilots => _startingPilots;
         public IReadOnlyList<CampaignWorld> Worlds => _worlds;
 
+        /// <summary>The id a save file uses for a pilot or an encounter: a stable asset id that survives renames.</summary>
         public static string IdOf(UnityEngine.Object asset)
         {
-            return asset != null ? asset.name : null;
+            switch (asset)
+            {
+                case PilotTokenConfiguration pilot:
+                    return pilot.AssetId;
+                case EncounterDefinition encounter:
+                    return encounter.AssetId;
+                default:
+                    return asset != null ? asset.name : null;
+            }
+        }
+
+        /// <summary>
+        /// Asset names to ids for every pilot and encounter of the campaign, plus the names of pilot files renamed since
+        /// saves stored names (version 1 saves are read through this, see <see cref="ProfileMigration"/>).
+        /// </summary>
+        public Dictionary<string, string> IdsByName()
+        {
+            var ids = new Dictionary<string, string>
+            {
+                // pilot asset files renamed on 2026-10-15: Bolt -> Bee, Brash -> GreenSlime, Spark -> ElectricSnake, Squirrel -> OldTurtle
+                { "Bolt", "6bb03e5842ccc634c9486c36de185362" },
+                { "Brash", "0b2595a4689e31145be45ab9682d5e19" },
+                { "Spark", "1a34a0706bdd2024784464d98486794b" },
+                { "Squirrel", "0d12c5cd38cce124fb76a6db43177f81" }
+            };
+            var assets = _startingPilots.Concat(_worlds.SelectMany(world => world.RewardPilots)).Cast<UnityEngine.Object>()
+                .Concat(_worlds.SelectMany(world => world.Encounters));
+            foreach (var asset in assets.Where(asset => asset != null))
+            {
+                ids[asset.name] = IdOf(asset);
+            }
+
+            return ids;
         }
 
         public void SetData(List<PilotTokenConfiguration> startingPilots, List<CampaignWorld> worlds)

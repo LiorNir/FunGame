@@ -17,8 +17,8 @@ The lines live in **`Assets/Campaign/Tutorial.asset`** (one list: encounter, tri
 | 2-1 Fresh legs | Next enemy | A fresh enemy. Worn pilots can rest: click one and choose Eject. An ejected pilot that rests a whole turn in your hand recovers twice as fast. |
 | 2-2 Duck! | Battle start | Ejecting also dodges: a pilot that is not on the board cannot be hit. The damage reaches you instead, but the pilot survives. |
 | 2-3 The foreman | Battle start | This locked slot can be opened now by paying AP: click it. |
-| 3-1 Power surge | Battle start | Bolt has an ability, Surge. Place Bolt, then click it to use the ability (once per battle, it costs AP). A glow marks a pilot whose ability is ready. |
-| 3-1 Power surge | Ability used | Surge doubles Bolt's attack this turn, then its attack drops to 0 until it rests in your hand. Plan the swap. |
+| 3-1 Power surge | Battle start | Stinger has an ability, Surge. Place Stinger, then click it to use the ability (once per battle, it costs AP). A glow marks a pilot whose ability is ready. |
+| 3-1 Power surge | Ability used | Surge doubles Stinger's attack this turn, then its attack drops to 0 until it rests in your hand. Plan the swap. |
 | 3-3 The marksman | Snipe revealed | The enemy aims a snipe at the marked pilot: -50% to both its stats next turn. Swap the pilot out to dodge it, or take the hit. |
 | 3-3 The marksman | Assassinate revealed | A snipe aimed at a pilot with nothing left assassinates it: the pilot falls. |
 | 4-1 Pay the toll | Battle start | A subtract slot is a toll: its pilot's stat is taken away from the chain. Put your weakest pilot there (0 pays nothing); the x2 bonus after it is the reward. Toll pilots are never wounded. |

@@ -10,15 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2bcf0db107a8af4f8731542dd6ae4b9, type: 3}
-  m_Name: Grinder
+  m_Name: Angry Training Dummy
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
-  _displayName: Grinder
-  _sprite: {fileID: 0}
-  _maxHealth: 9
+  _displayName: Angry Training Dummy
+  _sprite: {fileID: 21300000, guid: ba2d428421565244cb7f7920bc2a782c, type: 3}
+  _scale: 1.2
+  _maxHealth: 7
   _selectionMode: 0
   _actions:
-  - Name: Grind
-    Attack: 3
-    Defense: 0
+  - Name: Shell
+    Attack: 1
+    Defense: 1
     LockTurns: 0
     LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0

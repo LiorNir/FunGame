@@ -71,12 +71,12 @@ MonoBehaviour:
   - Encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
     Trigger: 0
     Turn: 1
-    Text: Bolt has an ability, Surge. Place Bolt, then click it to use the ability
+    Text: Stinger has an ability, Surge. Place Stinger, then click it to use the ability
       (once per battle, it costs AP). A glow marks a pilot whose ability is ready.
   - Encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
     Trigger: 10
     Turn: 1
-    Text: Surge doubles Bolt's attack this turn, then its attack drops to 0 until
+    Text: Surge doubles Stinger's attack this turn, then its attack drops to 0 until
       it rests in your hand. Plan the swap.
   - Encounter: {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
     Trigger: 6

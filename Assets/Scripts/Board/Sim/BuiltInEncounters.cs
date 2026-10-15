@@ -21,8 +21,8 @@ namespace FunGame.Sim
             new PilotStats("Sil", 2f, 1f),
             new PilotStats("Quill", 1f, 2f),
             new PilotStats("Yawn", 1f, 1f),
-            new PilotStats("Brash", 1.5f, 0.5f),
-            new PilotStats("Pion", 1f, 1f)
+            new PilotStats("Slurp", 1.5f, 0.5f),
+            new PilotStats("Grumpa", 1f, 1f)
         };
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "S2"), Chain("def", "lane1", ChainRole.Defense, "S2") });
             var first = new EncounterCase("World 1-1: First steps", "Tutorial",
                 new BattleSetup(firstBoard, new List<SlotRule>(),
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Training dummy", 4, false, Act("Poke", 1, 0)) }) }, rules, StarterRoster, 1),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Training Dummy", 4, false, Act("Poke", 1, 0)) }) }, rules, StarterRoster, 1),
                 "Place pilots and win.", "World 1", 1, "placing pilots; a chain adds up");
 
             // 2: the same line with a third slot that opens on turn 2
@@ -107,7 +107,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "S3"), Chain("def", "lane1", ChainRole.Defense, "S3") });
             var second = new EncounterCase("World 1-2: A door opens", "Tutorial",
                 new BattleSetup(secondBoard, new[] { new SlotRule("S3", true, 0, 0, 2) },
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Scrapper", 7, false, Act("Shell", 1, 1)) }) }, rules, StarterRoster, 1),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Angry Training Dummy", 7, false, Act("Shell", 1, 1)) }) }, rules, StarterRoster, 1),
                 "A third slot opens on turn 2, and the enemy is too sturdy to beat without it.", "World 1", 2, "a slot that opens on a turn");
 
             // 3 (boss): attack and defense branch off one root, with multiply on the attack. The defense branch is short on
@@ -123,7 +123,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var boss = new EncounterCase("World 1-3: The gatekeeper (boss)", "Early",
                 new BattleSetup(bossBoard, new List<SlotRule>(),
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Gatekeeper", 14, false, Act("Slam", 3, 0), Act("Brace", 0, 2), Act("Slam", 3, 0)) }) }, rules, StarterRoster, 1),
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Livid Training Dummy", 14, false, Act("Slam", 3, 0), Act("Brace", 0, 2), Act("Slam", 3, 0)) }) }, rules, StarterRoster, 1),
                 "Multiply on the attack branch, a short defense branch that breaks.", "World 1", 3, "operators: add and multiply; a broken chain");
 
             return new[] { first, second, boss };
@@ -142,8 +142,8 @@ namespace FunGame.Sim
             new PilotStats("Sil", 2f, 1f),
             new PilotStats("Quill", 1f, 3f),
             new PilotStats("Yawn", 1f, 1f),
-            new PilotStats("Brash", 1.5f, 0.5f),
-            new PilotStats("Pion", 1f, 1f),
+            new PilotStats("Slurp", 1.5f, 0.5f),
+            new PilotStats("Grumpa", 1f, 1f),
             new PilotStats("Spark", 3f, 0.5f)
         };
 
@@ -163,7 +163,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A1"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var first = new EncounterCase("World 2-1: Fresh legs", "Early",
                 new BattleSetup(firstBoard, new List<SlotRule>(),
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Grinder", 9, false, Act("Grind", 3, 0)), Enemy("Big grinder", 10, false, Act("Grind", 3, 0)) }) },
+                    new[] { new LaneSpec("lane1", new[] { Enemy("Slime", 9, false, Act("Grind", 3, 0)), Enemy("Big Slime", 10, false, Act("Grind", 3, 0)) }) },
                     replaceRules, WorldTwoRoster, 1),
                 "The defense wears down every turn; swapping a worn pilot for a fresh one keeps it standing.", "World 2", 1, "replacing pilots; ejecting at the wave change");
 
@@ -202,7 +202,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var boss = new EncounterCase("World 2-3: The foreman (boss)", "Early",
                 new BattleSetup(bossBoard, new[] { new SlotRule("D1", true, 1, 0, 0) },
-                    new[] { new LaneSpec("lane1", new[] { Enemy("Foreman", 30, false, Act("Grind", 3, 0), Act("Crush", 7, 0), Act("Brace", 1, 3)) }) },
+                    new[] { new LaneSpec("lane1", new[] { Enemy("King Slime", 30, false, Act("Grind", 3, 0), Act("Crush", 7, 0), Act("Brace", 1, 3)) }) },
                     bossRules, WorldTwoRoster, 1),
                 "Wear, a guard and a crush in turn; a defense slot that costs 1 AP to open.", "World 2", 3, "replacing and ejecting together; a slot opened with AP");
 
@@ -218,7 +218,7 @@ namespace FunGame.Sim
         /// </summary>
         public static IReadOnlyList<PilotStats> WorldThreeRoster => WorldTwoRoster
             .Select(pilot => pilot.Name == "Yawn" ? pilot.WithStats(1f, 2f) : pilot)
-            .Concat(new[] { new PilotStats("Bolt", 2.5f, 1.5f, null, new SurgeAbility(2)) })
+            .Concat(new[] { new PilotStats("Stinger", 2.5f, 1.5f, null, new SurgeAbility(2)) })
             .ToList();
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace FunGame.Sim
                 new[] { Chain("atk", "lane1", ChainRole.Attack, "A2"), Chain("def", "lane1", ChainRole.Defense, "D1") });
             var firstSetup = new BattleSetup(firstBoard, new List<SlotRule>(),
                 new[] { new LaneSpec("lane1", new[] { Enemy("Shellback", 32, false, Act("Shell", 1, 8), Act("Open", 2, 0)) }) },
-                GameRules, WorldThreeRoster, 1) { OpeningHand = new[] { "Bolt" } };
+                GameRules, WorldThreeRoster, 1) { OpeningHand = new[] { "Stinger" } };
             var first = new EncounterCase("World 3-1: Power surge", "Early", firstSetup,
                 "Bolt starts in hand; the enemy shells and opens in turn, so a Surge is worth most on an open turn.", "World 3", 1, "using an ability; timing it");
 
@@ -332,7 +332,7 @@ namespace FunGame.Sim
                         Enemy("Big brute", 22, false, Act("Slam", 6, 0), Act("Brace", 2, 3))
                     }) },
                     GameRules, WorldFourRoster, 1),
-                "Defense is R / D1 + D2: dividing by a defense below 1 multiplies (Brash or Spark double the root); Haze's 0 divides by zero.", "World 4", 2, "divide: a stat below 1 multiplies");
+                "Defense is R / D1 + D2: dividing by a defense below 1 multiplies (Slurp or Spark double the root); Haze's 0 divides by zero.", "World 4", 2, "divide: a stat below 1 multiplies");
 
             // 4-3 (boss): attack = (R - A1 + A2) x2; defense = (R + D1) x D2; the ram charges (guard 8) before a big unleash
             var bossBoard = new BoardGraph(

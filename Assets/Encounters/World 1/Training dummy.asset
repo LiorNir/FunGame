@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2bcf0db107a8af4f8731542dd6ae4b9, type: 3}
-  m_Name: Training dummy
+  m_Name: Training Dummy
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
-  _displayName: Training dummy
-  _sprite: {fileID: 0}
+  _displayName: Training Dummy
+  _sprite: {fileID: 21300000, guid: 9b44b2f610316e6429695a01e92dc3c9, type: 3}
   _maxHealth: 4
   _selectionMode: 0
   _actions:
@@ -22,3 +22,8 @@ MonoBehaviour:
     Defense: 0
     LockTurns: 0
     LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0

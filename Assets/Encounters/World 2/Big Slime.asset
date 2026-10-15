@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2bcf0db107a8af4f8731542dd6ae4b9, type: 3}
-  m_Name: Foreman
+  m_Name: Big Slime
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
-  _displayName: Foreman
+  _displayName: Big Slime
   _sprite: {fileID: 0}
-  _maxHealth: 30
+  _scale: 1.25
+  _maxHealth: 10
   _selectionMode: 0
   _actions:
   - Name: Grind
@@ -22,13 +23,8 @@ MonoBehaviour:
     Defense: 0
     LockTurns: 0
     LockTarget: 4
-  - Name: Crush
-    Attack: 7
-    Defense: 0
-    LockTurns: 0
-    LockTarget: 4
-  - Name: Brace
-    Attack: 1
-    Defense: 3
-    LockTurns: 0
-    LockTarget: 4
+    SnipePercent: 0
+    SnipeTurns: 1
+    SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0
