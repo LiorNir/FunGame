@@ -44,6 +44,18 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `Assets/Boards/World N/*.prefab` | Each encounter's board layout (slot positions; slots are `PilotSlot` / `OperatorSlot` instances, so their look comes from those prefabs). |
 | `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson). |
 
+## Draw order (Order in Layer, all on the Default sorting layer)
+
+| Order | What |
+|---|---|
+| -20 | Enemies, each as one group (`EnemyView` prefab, "Sorting Order" field; its parts keep their own order inside the group) |
+| -10 | The battle scene's board background (between the enemies and the board; any value from -19 to -1 works) |
+| 0 | Lines between slots |
+| 1 to 11 | Pilot and operator slots (glow 1, background 2, pilot 3, ring 4, stat boxes 7 to 10, texts 11) |
+| 9 | Chain value labels |
+| 100 | Floating popups |
+| (UI) | HUD, hand, menus, tooltip and tutorial panel: a screen-space canvas, always on top |
+
 ## Still set in code (temporary looks, to move into prefabs when they are restyled)
 
 - Status line colours beside a pilot ("Surge ready", "SNIPED", "CRASHED", "next: LOCK"): `BoardView.DescribeEffects`.

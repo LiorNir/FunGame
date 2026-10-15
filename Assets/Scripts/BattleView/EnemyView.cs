@@ -25,6 +25,10 @@ namespace BattleView
         [Tooltip("The enemy's picture is scaled to fit in a square of this size (world units).")]
         [SerializeField] private float _pictureSize = 2.3f;
 
+        [Tooltip("Where the whole enemy (picture, bars, texts) sorts against the rest of the scene. Below 0 keeps it under the " +
+                 "board (lines 0, slots 1 and up); the board background in the battle scene sits between (for example -10).")]
+        [SerializeField] private int _sortingOrder = -20;
+
         private BattleVisuals _visuals;
         private float _barWidth;
         private float _barHeight;
@@ -50,6 +54,15 @@ namespace BattleView
         public void Init(BattleVisuals visuals)
         {
             _visuals = visuals;
+
+            // one sorting place for the whole enemy: its parts keep their order among themselves
+            var group = GetComponent<UnityEngine.Rendering.SortingGroup>();
+            if (group == null)
+            {
+                group = gameObject.AddComponent<UnityEngine.Rendering.SortingGroup>();
+            }
+
+            group.sortingOrder = _sortingOrder;
             if (_barBack.sprite == null)
             {
                 _barBack.sprite = visuals.BarSprite != null ? visuals.BarSprite : ViewFactory.WhiteSprite;
