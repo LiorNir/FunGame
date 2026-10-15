@@ -1,0 +1,1976 @@
+fileFormatVersion: 2
+guid: e4a205dd5aa986841bb76ed71d05aeae
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7319594576366746721
+    second: Enemies_IceSlime_Texture_0
+  - first:
+      213: -2756816386180359293
+    second: Enemies_IceSlime_Texture_1
+  - first:
+      213: -717218847400884454
+    second: Enemies_IceSlime_Texture_2
+  - first:
+      213: -1001015533753761203
+    second: Enemies_IceSlime_Texture_3
+  - first:
+      213: 3138941849695861929
+    second: Enemies_IceSlime_Texture_4
+  - first:
+      213: -8775197810025114409
+    second: Enemies_IceSlime_Texture_5
+  - first:
+      213: -7472984471270943892
+    second: Enemies_IceSlime_Texture_6
+  - first:
+      213: 7919987260676661329
+    second: Enemies_IceSlime_Texture_7
+  - first:
+      213: 3433454044032270528
+    second: Enemies_IceSlime_Texture_8
+  - first:
+      213: 5212467857608987312
+    second: Enemies_IceSlime_Texture_9
+  - first:
+      213: 7778651288831518324
+    second: Enemies_IceSlime_Texture_10
+  - first:
+      213: 1986244913720763618
+    second: Enemies_IceSlime_Texture_11
+  - first:
+      213: 3977204258534102866
+    second: Enemies_IceSlime_Texture_12
+  - first:
+      213: -5997601638963260446
+    second: Enemies_IceSlime_Texture_13
+  - first:
+      213: -8263688432071812444
+    second: Enemies_IceSlime_Texture_14
+  - first:
+      213: 7450999513227287495
+    second: Enemies_IceSlime_Texture_15
+  - first:
+      213: -2779570813706997294
+    second: Enemies_IceSlime_Texture_16
+  - first:
+      213: -3522562114933407613
+    second: Enemies_IceSlime_Texture_17
+  - first:
+      213: -6577661708528024762
+    second: Enemies_IceSlime_Texture_18
+  - first:
+      213: 4490677518238208745
+    second: Enemies_IceSlime_Texture_19
+  - first:
+      213: 4744928065661902212
+    second: Enemies_IceSlime_Texture_20
+  - first:
+      213: -6627705658387784134
+    second: Enemies_IceSlime_Texture_21
+  - first:
+      213: -7150972998590577914
+    second: Enemies_IceSlime_Texture_22
+  - first:
+      213: 7344234906741805437
+    second: Enemies_IceSlime_Texture_23
+  - first:
+      213: -4304707291183671099
+    second: Enemies_IceSlime_Texture_24
+  - first:
+      213: 3731137175780946134
+    second: Enemies_IceSlime_Texture_25
+  - first:
+      213: -7461026398416219921
+    second: Enemies_IceSlime_Texture_26
+  - first:
+      213: -6407733008769244180
+    second: Enemies_IceSlime_Texture_27
+  - first:
+      213: 5066509565064228037
+    second: Enemies_IceSlime_Texture_28
+  - first:
+      213: 2840573615291899600
+    second: Enemies_IceSlime_Texture_29
+  - first:
+      213: -7715933502759048158
+    second: Enemies_IceSlime_Texture_30
+  - first:
+      213: 9082562076850358616
+    second: Enemies_IceSlime_Texture_31
+  - first:
+      213: 5067495458188781507
+    second: Enemies_IceSlime_Texture_32
+  - first:
+      213: -3528546309313100639
+    second: Enemies_IceSlime_Texture_33
+  - first:
+      213: 3529396944725981008
+    second: Enemies_IceSlime_Texture_34
+  - first:
+      213: 433492117874985338
+    second: Enemies_IceSlime_Texture_35
+  - first:
+      213: -3231825277562334370
+    second: Enemies_IceSlime_Texture_36
+  - first:
+      213: -7988635963394234049
+    second: Enemies_IceSlime_Texture_37
+  - first:
+      213: 2874239479600228740
+    second: Enemies_IceSlime_Texture_38
+  - first:
+      213: -1618775166416795415
+    second: Enemies_IceSlime_Texture_39
+  - first:
+      213: 1833564064321535727
+    second: Enemies_IceSlime_Texture_40
+  - first:
+      213: -7449886889054787517
+    second: Enemies_IceSlime_Texture_41
+  - first:
+      213: 216677956079187658
+    second: Enemies_IceSlime_Texture_42
+  - first:
+      213: -4481319765320813289
+    second: Enemies_IceSlime_Texture_43
+  - first:
+      213: 7634722679575405506
+    second: Enemies_IceSlime_Texture_44
+  - first:
+      213: -7330596562485902702
+    second: Enemies_IceSlime_Texture_45
+  - first:
+      213: -768876514523481610
+    second: Enemies_IceSlime_Texture_46
+  - first:
+      213: -6302958116564331774
+    second: Enemies_IceSlime_Texture_47
+  - first:
+      213: 3552965897460984374
+    second: Enemies_IceSlime_Texture_48
+  - first:
+      213: -4238595377257595754
+    second: Enemies_IceSlime_Texture_49
+  - first:
+      213: 2731028485291402135
+    second: Enemies_IceSlime_Texture_50
+  - first:
+      213: 1855441330738651281
+    second: Enemies_IceSlime_Texture_51
+  - first:
+      213: 9088224274778708720
+    second: Enemies_IceSlime_Texture_52
+  - first:
+      213: 5918525480989802060
+    second: Enemies_IceSlime_Texture_53
+  - first:
+      213: 661965819604268742
+    second: Enemies_IceSlime_Texture_54
+  - first:
+      213: 3170995254297024275
+    second: Enemies_IceSlime_Texture_55
+  - first:
+      213: 7018965861192639697
+    second: Enemies_IceSlime_Texture_56
+  - first:
+      213: -2091342879676943267
+    second: Enemies_IceSlime_Texture_57
+  - first:
+      213: 1544309218443795179
+    second: Enemies_IceSlime_Texture_58
+  - first:
+      213: 6843230665104355202
+    second: Enemies_IceSlime_Texture_59
+  - first:
+      213: -3301251065315758873
+    second: Enemies_IceSlime_Texture_60
+  - first:
+      213: 3058057957606013870
+    second: Enemies_IceSlime_Texture_61
+  - first:
+      213: 1354381181262027982
+    second: Enemies_IceSlime_Texture_62
+  - first:
+      213: 5634546626930524227
+    second: Enemies_IceSlime_Texture_63
+  - first:
+      213: -7609366687171496186
+    second: Enemies_IceSlime_Texture_64
+  - first:
+      213: 5325648329642772363
+    second: Enemies_IceSlime_Texture_65
+  - first:
+      213: -7225020846023018023
+    second: Enemies_IceSlime_Texture_66
+  - first:
+      213: -4802310542623755222
+    second: Enemies_IceSlime_Texture_67
+  - first:
+      213: 8581047119759429498
+    second: Enemies_IceSlime_Texture_68
+  - first:
+      213: -4100539619964090793
+    second: Enemies_IceSlime_Texture_69
+  - first:
+      213: -3248074263833899102
+    second: Enemies_IceSlime_Texture_70
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1235
+        height: 1232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16c37308c7c649560800000000000000
+      internalID: 7319594576366746721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1164
+        width: 98
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b5ebe5a12ddb9d0800000000000000
+      internalID: -2756816386180359293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 1194
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a17847e124deb06f0800000000000000
+      internalID: -717218847400884454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1183
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4285f7fcadab12f0800000000000000
+      internalID: -1001015533753761203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 1180
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9acbab14bf2cf8b20800000000000000
+      internalID: 3138941849695861929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 1162
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d4daa3b51c383680800000000000000
+      internalID: -8775197810025114409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 1152
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6392e98730aa4890800000000000000
+      internalID: -7472984471270943892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 1092
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1506042a37279ed60800000000000000
+      internalID: 7919987260676661329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 1094
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c00c27034416af20800000000000000
+      internalID: 3433454044032270528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 1082
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b2dcef46e7665840800000000000000
+      internalID: 5212467857608987312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 1058
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 476ef66522253fb60800000000000000
+      internalID: 7778651288831518324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 1036
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e4a047b93f809b10800000000000000
+      internalID: 1986244913720763618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 1052
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2579815733ed13730800000000000000
+      internalID: 3977204258534102866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_13
+      rect:
+        serializedVersion: 2
+        x: 1107
+        y: 1051
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e35b45061d34cca0800000000000000
+      internalID: -5997601638963260446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_14
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 892
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4aadad7672b715d80800000000000000
+      internalID: -8263688432071812444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_15
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 795
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cb55878494476760800000000000000
+      internalID: 7450999513227287495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_16
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 714
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d173fc521bfc69d0800000000000000
+      internalID: -2779570813706997294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_17
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 678
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38045287b685d1fc0800000000000000
+      internalID: -3522562114933407613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_18
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 652
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6438f7aa68377b4a0800000000000000
+      internalID: -6577661708528024762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_19
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 658
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e2db630967125e30800000000000000
+      internalID: 4490677518238208745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_20
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 628
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48d1f8e9fee59d140800000000000000
+      internalID: 4744928065661902212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_21
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 642
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3e13fb91d8a504a0800000000000000
+      internalID: -6627705658387784134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_22
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 618
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 603499cf1f3a2cc90800000000000000
+      internalID: -7150972998590577914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_23
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 586
+        width: 26
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d719e5b7cb6fbe560800000000000000
+      internalID: 7344234906741805437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_24
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 596
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c896f6a68b9244c0800000000000000
+      internalID: -4304707291183671099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_25
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 562
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d07da23e79a7c330800000000000000
+      internalID: 3731137175780946134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_26
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 569
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe0d696550c157890800000000000000
+      internalID: -7461026398416219921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_27
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 550
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3a3c437c82317a0800000000000000
+      internalID: -6407733008769244180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_28
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 554
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cca5cc1b9bdf4640800000000000000
+      internalID: 5066509565064228037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_29
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 451
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de12d137aebb6720800000000000000
+      internalID: 2840573615291899600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_30
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 458
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ce2892c5f7be490800000000000000
+      internalID: -7715933502759048158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_31
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 421
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8598911661ebb0e70800000000000000
+      internalID: 9082562076850358616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_32
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 424
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c76f3e354c535640800000000000000
+      internalID: 5067495458188781507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 347
+        width: 5
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a480e3a3d5180fc0800000000000000
+      internalID: -3528546309313100639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_34
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 353
+        width: 27
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 057bdb952dfeaf030800000000000000
+      internalID: 3529396944725981008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_35
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 343
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79ced2d8c2140600800000000000000
+      internalID: 433492117874985338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_36
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 294
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e53d4c278004623d0800000000000000
+      internalID: -3231825277562334370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_37
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 282
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39e9f9bae9a22190800000000000000
+      internalID: -7988635963394234049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_38
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 288
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 489a9fc049953e720800000000000000
+      internalID: 2874239479600228740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_39
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 296
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e8c0821094f889e0800000000000000
+      internalID: -1618775166416795415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_40
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 290
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fee7ec64dc0227910800000000000000
+      internalID: 1833564064321535727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_41
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 295
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 348ac09785fac9890800000000000000
+      internalID: -7449886889054787517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_42
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 294
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac6f1caf37bc10300800000000000000
+      internalID: 216677956079187658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_43
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 270
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 715bd1f9a672fc1c0800000000000000
+      internalID: -4481319765320813289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_44
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 101
+        width: 41
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c3e5ba93dbf3f960800000000000000
+      internalID: 7634722679575405506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_45
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 146
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 292045df34d744a90800000000000000
+      internalID: -7330596562485902702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_46
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 150
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f9ffab32e66455f0800000000000000
+      internalID: -768876514523481610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_47
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 117
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 203940cccf46788a0800000000000000
+      internalID: -6302958116564331774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_48
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 101
+        width: 60
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63a2d39c8abae4130800000000000000
+      internalID: 3552965897460984374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_49
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 111
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69cb2ff16fb7d25c0800000000000000
+      internalID: -4238595377257595754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_50
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 119
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 793644110ff86e520800000000000000
+      internalID: 2731028485291402135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_51
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 97
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190614c4f0adfb910800000000000000
+      internalID: 1855441330738651281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_52
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 117
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa544193dbdf1e70800000000000000
+      internalID: 9088224274778708720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_53
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 65
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ebe783193d22250800000000000000
+      internalID: 5918525480989802060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_54
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 97
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c676fad766cf2900800000000000000
+      internalID: 661965819604268742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_55
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 103
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 317d2d41263a10c20800000000000000
+      internalID: 3170995254297024275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_56
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 103
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d42bfe3340686160800000000000000
+      internalID: 7018965861192639697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_57
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 83
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5430593bbe0af2e0800000000000000
+      internalID: -2091342879676943267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_58
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 77
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bea14b45d0d7e6510800000000000000
+      internalID: 1544309218443795179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_59
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 82
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28fea9d680a08fe50800000000000000
+      internalID: 6843230665104355202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_60
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 29
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ec697995a99f22d0800000000000000
+      internalID: -3301251065315758873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_61
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 62
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabb9a99287607a20800000000000000
+      internalID: 3058057957606013870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_62
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 37
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eccd89f228abbc210800000000000000
+      internalID: 1354381181262027982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_63
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 47
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 340c198dd4ee13e40800000000000000
+      internalID: 5634546626930524227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_64
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 12
+        width: 33
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 607b37d6059166690800000000000000
+      internalID: -7609366687171496186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_65
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 31
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b87820770f088e940800000000000000
+      internalID: 5325648329642772363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_66
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 31
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d9710202d19bbb90800000000000000
+      internalID: -7225020846023018023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_67
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 31
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a243cc55104ca5db0800000000000000
+      internalID: -4802310542623755222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_68
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 36
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7f462e14e0061770800000000000000
+      internalID: 8581047119759429498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_69
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 31
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75600a4f0f4f717c0800000000000000
+      internalID: -4100539619964090793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemies_IceSlime_Texture_70
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 19
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2af87148aa58ce2d0800000000000000
+      internalID: -3248074263833899102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Enemies_IceSlime_Texture_0: 7319594576366746721
+      Enemies_IceSlime_Texture_1: -2756816386180359293
+      Enemies_IceSlime_Texture_10: 7778651288831518324
+      Enemies_IceSlime_Texture_11: 1986244913720763618
+      Enemies_IceSlime_Texture_12: 3977204258534102866
+      Enemies_IceSlime_Texture_13: -5997601638963260446
+      Enemies_IceSlime_Texture_14: -8263688432071812444
+      Enemies_IceSlime_Texture_15: 7450999513227287495
+      Enemies_IceSlime_Texture_16: -2779570813706997294
+      Enemies_IceSlime_Texture_17: -3522562114933407613
+      Enemies_IceSlime_Texture_18: -6577661708528024762
+      Enemies_IceSlime_Texture_19: 4490677518238208745
+      Enemies_IceSlime_Texture_2: -717218847400884454
+      Enemies_IceSlime_Texture_20: 4744928065661902212
+      Enemies_IceSlime_Texture_21: -6627705658387784134
+      Enemies_IceSlime_Texture_22: -7150972998590577914
+      Enemies_IceSlime_Texture_23: 7344234906741805437
+      Enemies_IceSlime_Texture_24: -4304707291183671099
+      Enemies_IceSlime_Texture_25: 3731137175780946134
+      Enemies_IceSlime_Texture_26: -7461026398416219921
+      Enemies_IceSlime_Texture_27: -6407733008769244180
+      Enemies_IceSlime_Texture_28: 5066509565064228037
+      Enemies_IceSlime_Texture_29: 2840573615291899600
+      Enemies_IceSlime_Texture_3: -1001015533753761203
+      Enemies_IceSlime_Texture_30: -7715933502759048158
+      Enemies_IceSlime_Texture_31: 9082562076850358616
+      Enemies_IceSlime_Texture_32: 5067495458188781507
+      Enemies_IceSlime_Texture_33: -3528546309313100639
+      Enemies_IceSlime_Texture_34: 3529396944725981008
+      Enemies_IceSlime_Texture_35: 433492117874985338
+      Enemies_IceSlime_Texture_36: -3231825277562334370
+      Enemies_IceSlime_Texture_37: -7988635963394234049
+      Enemies_IceSlime_Texture_38: 2874239479600228740
+      Enemies_IceSlime_Texture_39: -1618775166416795415
+      Enemies_IceSlime_Texture_4: 3138941849695861929
+      Enemies_IceSlime_Texture_40: 1833564064321535727
+      Enemies_IceSlime_Texture_41: -7449886889054787517
+      Enemies_IceSlime_Texture_42: 216677956079187658
+      Enemies_IceSlime_Texture_43: -4481319765320813289
+      Enemies_IceSlime_Texture_44: 7634722679575405506
+      Enemies_IceSlime_Texture_45: -7330596562485902702
+      Enemies_IceSlime_Texture_46: -768876514523481610
+      Enemies_IceSlime_Texture_47: -6302958116564331774
+      Enemies_IceSlime_Texture_48: 3552965897460984374
+      Enemies_IceSlime_Texture_49: -4238595377257595754
+      Enemies_IceSlime_Texture_5: -8775197810025114409
+      Enemies_IceSlime_Texture_50: 2731028485291402135
+      Enemies_IceSlime_Texture_51: 1855441330738651281
+      Enemies_IceSlime_Texture_52: 9088224274778708720
+      Enemies_IceSlime_Texture_53: 5918525480989802060
+      Enemies_IceSlime_Texture_54: 661965819604268742
+      Enemies_IceSlime_Texture_55: 3170995254297024275
+      Enemies_IceSlime_Texture_56: 7018965861192639697
+      Enemies_IceSlime_Texture_57: -2091342879676943267
+      Enemies_IceSlime_Texture_58: 1544309218443795179
+      Enemies_IceSlime_Texture_59: 6843230665104355202
+      Enemies_IceSlime_Texture_6: -7472984471270943892
+      Enemies_IceSlime_Texture_60: -3301251065315758873
+      Enemies_IceSlime_Texture_61: 3058057957606013870
+      Enemies_IceSlime_Texture_62: 1354381181262027982
+      Enemies_IceSlime_Texture_63: 5634546626930524227
+      Enemies_IceSlime_Texture_64: -7609366687171496186
+      Enemies_IceSlime_Texture_65: 5325648329642772363
+      Enemies_IceSlime_Texture_66: -7225020846023018023
+      Enemies_IceSlime_Texture_67: -4802310542623755222
+      Enemies_IceSlime_Texture_68: 8581047119759429498
+      Enemies_IceSlime_Texture_69: -4100539619964090793
+      Enemies_IceSlime_Texture_7: 7919987260676661329
+      Enemies_IceSlime_Texture_70: -3248074263833899102
+      Enemies_IceSlime_Texture_8: 3433454044032270528
+      Enemies_IceSlime_Texture_9: 5212467857608987312
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,3588 @@
+fileFormatVersion: 2
+guid: 7505e6fea8ac6604a9a4e66645482a64
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -96231878540367941
+    second: Pilots_Slime_Texture_0
+  - first:
+      213: 1226132350300124410
+    second: Pilots_Slime_Texture_1
+  - first:
+      213: 7302264827082254935
+    second: Pilots_Slime_Texture_2
+  - first:
+      213: 7593213560001959391
+    second: Pilots_Slime_Texture_3
+  - first:
+      213: -2684853419911365058
+    second: Pilots_Slime_Texture_4
+  - first:
+      213: 2168690472756529438
+    second: Pilots_Slime_Texture_5
+  - first:
+      213: 8883339112953870033
+    second: Pilots_Slime_Texture_6
+  - first:
+      213: 132850819153761532
+    second: Pilots_Slime_Texture_7
+  - first:
+      213: 2772087484746935514
+    second: Pilots_Slime_Texture_8
+  - first:
+      213: 2756047168878626902
+    second: Pilots_Slime_Texture_9
+  - first:
+      213: -4943526677478807511
+    second: Pilots_Slime_Texture_10
+  - first:
+      213: -6556286907803707355
+    second: Pilots_Slime_Texture_11
+  - first:
+      213: 1854640057854031635
+    second: Pilots_Slime_Texture_12
+  - first:
+      213: 1273735944450072899
+    second: Pilots_Slime_Texture_13
+  - first:
+      213: 6858803649781692340
+    second: Pilots_Slime_Texture_14
+  - first:
+      213: 7384619860649285841
+    second: Pilots_Slime_Texture_15
+  - first:
+      213: -7265970304604989819
+    second: Pilots_Slime_Texture_16
+  - first:
+      213: 6551833316493192176
+    second: Pilots_Slime_Texture_17
+  - first:
+      213: 1297831045494348108
+    second: Pilots_Slime_Texture_18
+  - first:
+      213: 4539716851499108286
+    second: Pilots_Slime_Texture_19
+  - first:
+      213: -1235254211439354579
+    second: Pilots_Slime_Texture_20
+  - first:
+      213: 4030931431118361425
+    second: Pilots_Slime_Texture_21
+  - first:
+      213: 2923596403808966413
+    second: Pilots_Slime_Texture_22
+  - first:
+      213: 1516567298475063225
+    second: Pilots_Slime_Texture_23
+  - first:
+      213: 7484057328583180150
+    second: Pilots_Slime_Texture_24
+  - first:
+      213: 7879249636253077304
+    second: Pilots_Slime_Texture_25
+  - first:
+      213: 7536315559606175668
+    second: Pilots_Slime_Texture_26
+  - first:
+      213: 626716793359737525
+    second: Pilots_Slime_Texture_27
+  - first:
+      213: 4042958543753730306
+    second: Pilots_Slime_Texture_28
+  - first:
+      213: 7336687237140291947
+    second: Pilots_Slime_Texture_29
+  - first:
+      213: -2380254994606626847
+    second: Pilots_Slime_Texture_30
+  - first:
+      213: -8805881729010350983
+    second: Pilots_Slime_Texture_31
+  - first:
+      213: -1172948602399598888
+    second: Pilots_Slime_Texture_32
+  - first:
+      213: -4661731919064258982
+    second: Pilots_Slime_Texture_33
+  - first:
+      213: 2042105196541404826
+    second: Pilots_Slime_Texture_34
+  - first:
+      213: 5301950279877266675
+    second: Pilots_Slime_Texture_35
+  - first:
+      213: 1048775783874208551
+    second: Pilots_Slime_Texture_36
+  - first:
+      213: -1840777340470321766
+    second: Pilots_Slime_Texture_37
+  - first:
+      213: -5619281456374767230
+    second: Pilots_Slime_Texture_38
+  - first:
+      213: 6023485960374950578
+    second: Pilots_Slime_Texture_39
+  - first:
+      213: 1983781747800769635
+    second: Pilots_Slime_Texture_40
+  - first:
+      213: 7893847154244208951
+    second: Pilots_Slime_Texture_41
+  - first:
+      213: 1550166052083609744
+    second: Pilots_Slime_Texture_42
+  - first:
+      213: 3184012268956697582
+    second: Pilots_Slime_Texture_43
+  - first:
+      213: 7612902632895345385
+    second: Pilots_Slime_Texture_44
+  - first:
+      213: -8508861330582698124
+    second: Pilots_Slime_Texture_45
+  - first:
+      213: 4929569430775166125
+    second: Pilots_Slime_Texture_46
+  - first:
+      213: -5378779026572521648
+    second: Pilots_Slime_Texture_47
+  - first:
+      213: 2675850512803703920
+    second: Pilots_Slime_Texture_48
+  - first:
+      213: -1055203696213069924
+    second: Pilots_Slime_Texture_49
+  - first:
+      213: 3185912234815570008
+    second: Pilots_Slime_Texture_50
+  - first:
+      213: -44290699621072170
+    second: Pilots_Slime_Texture_51
+  - first:
+      213: 7010213182685666788
+    second: Pilots_Slime_Texture_52
+  - first:
+      213: -2901148587173781563
+    second: Pilots_Slime_Texture_53
+  - first:
+      213: 6592673280068119115
+    second: Pilots_Slime_Texture_54
+  - first:
+      213: 8780948187223621474
+    second: Pilots_Slime_Texture_55
+  - first:
+      213: -1633258776137975815
+    second: Pilots_Slime_Texture_56
+  - first:
+      213: -5577289285918878440
+    second: Pilots_Slime_Texture_57
+  - first:
+      213: -1480562583470056764
+    second: Pilots_Slime_Texture_58
+  - first:
+      213: 5004070344728527545
+    second: Pilots_Slime_Texture_59
+  - first:
+      213: 3548470430754798221
+    second: Pilots_Slime_Texture_60
+  - first:
+      213: 4340659838230379852
+    second: Pilots_Slime_Texture_61
+  - first:
+      213: 8489796032063004660
+    second: Pilots_Slime_Texture_62
+  - first:
+      213: 410653625572063385
+    second: Pilots_Slime_Texture_63
+  - first:
+      213: 334842691992907647
+    second: Pilots_Slime_Texture_64
+  - first:
+      213: -8959249323974194539
+    second: Pilots_Slime_Texture_65
+  - first:
+      213: -3899457508071293471
+    second: Pilots_Slime_Texture_66
+  - first:
+      213: 4138775472742191837
+    second: Pilots_Slime_Texture_67
+  - first:
+      213: 1121862941609164420
+    second: Pilots_Slime_Texture_68
+  - first:
+      213: 7041635685043682018
+    second: Pilots_Slime_Texture_69
+  - first:
+      213: -7035101129912943985
+    second: Pilots_Slime_Texture_70
+  - first:
+      213: -1944890785357466334
+    second: Pilots_Slime_Texture_71
+  - first:
+      213: -8844078794019361938
+    second: Pilots_Slime_Texture_72
+  - first:
+      213: -644226566303939633
+    second: Pilots_Slime_Texture_73
+  - first:
+      213: -4260814612374018278
+    second: Pilots_Slime_Texture_74
+  - first:
+      213: -7869186051682630995
+    second: Pilots_Slime_Texture_75
+  - first:
+      213: -3795512547143918331
+    second: Pilots_Slime_Texture_76
+  - first:
+      213: -8279929063461778218
+    second: Pilots_Slime_Texture_77
+  - first:
+      213: 971196137092689779
+    second: Pilots_Slime_Texture_78
+  - first:
+      213: -5983628755367351032
+    second: Pilots_Slime_Texture_79
+  - first:
+      213: -7726519378404404421
+    second: Pilots_Slime_Texture_80
+  - first:
+      213: -8108652993293893400
+    second: Pilots_Slime_Texture_81
+  - first:
+      213: 907436009728780428
+    second: Pilots_Slime_Texture_82
+  - first:
+      213: 1239617257573459253
+    second: Pilots_Slime_Texture_83
+  - first:
+      213: -4824445374221280405
+    second: Pilots_Slime_Texture_84
+  - first:
+      213: -1643391579318961343
+    second: Pilots_Slime_Texture_85
+  - first:
+      213: -4328799097722212865
+    second: Pilots_Slime_Texture_86
+  - first:
+      213: 3666528975839804206
+    second: Pilots_Slime_Texture_87
+  - first:
+      213: 6206742182724311040
+    second: Pilots_Slime_Texture_88
+  - first:
+      213: -7083631573567310479
+    second: Pilots_Slime_Texture_89
+  - first:
+      213: 6802110221761121998
+    second: Pilots_Slime_Texture_90
+  - first:
+      213: -1386199026749827542
+    second: Pilots_Slime_Texture_91
+  - first:
+      213: 5155091965688438156
+    second: Pilots_Slime_Texture_92
+  - first:
+      213: -8180974995423419188
+    second: Pilots_Slime_Texture_93
+  - first:
+      213: -310131246549963855
+    second: Pilots_Slime_Texture_94
+  - first:
+      213: 2697113592094770328
+    second: Pilots_Slime_Texture_95
+  - first:
+      213: 5172163050330217555
+    second: Pilots_Slime_Texture_96
+  - first:
+      213: -4031594529461934572
+    second: Pilots_Slime_Texture_97
+  - first:
+      213: -8855742278783001517
+    second: Pilots_Slime_Texture_98
+  - first:
+      213: 509900346984543264
+    second: Pilots_Slime_Texture_99
+  - first:
+      213: 6392179307481667080
+    second: Pilots_Slime_Texture_100
+  - first:
+      213: 6883725149928726614
+    second: Pilots_Slime_Texture_101
+  - first:
+      213: -3401509623534863167
+    second: Pilots_Slime_Texture_102
+  - first:
+      213: 5092319663813027828
+    second: Pilots_Slime_Texture_103
+  - first:
+      213: -8242768298514187131
+    second: Pilots_Slime_Texture_104
+  - first:
+      213: -8169216475318033533
+    second: Pilots_Slime_Texture_105
+  - first:
+      213: 574803098034777124
+    second: Pilots_Slime_Texture_106
+  - first:
+      213: -5800436673533274190
+    second: Pilots_Slime_Texture_107
+  - first:
+      213: 4347378689168065051
+    second: Pilots_Slime_Texture_108
+  - first:
+      213: 1183367992521218496
+    second: Pilots_Slime_Texture_109
+  - first:
+      213: 2700626201942717898
+    second: Pilots_Slime_Texture_110
+  - first:
+      213: 8991680720193747943
+    second: Pilots_Slime_Texture_111
+  - first:
+      213: 8443093834026634698
+    second: Pilots_Slime_Texture_112
+  - first:
+      213: 3001365292893249657
+    second: Pilots_Slime_Texture_113
+  - first:
+      213: 3939212709442235655
+    second: Pilots_Slime_Texture_114
+  - first:
+      213: 3706616996485177614
+    second: Pilots_Slime_Texture_115
+  - first:
+      213: 3549356802748351989
+    second: Pilots_Slime_Texture_116
+  - first:
+      213: 116619293497339506
+    second: Pilots_Slime_Texture_117
+  - first:
+      213: -805995420823118932
+    second: Pilots_Slime_Texture_118
+  - first:
+      213: 8231514761296262603
+    second: Pilots_Slime_Texture_119
+  - first:
+      213: -4907840947132141171
+    second: Pilots_Slime_Texture_120
+  - first:
+      213: 7777244790172886964
+    second: Pilots_Slime_Texture_121
+  - first:
+      213: -7938752103701522514
+    second: Pilots_Slime_Texture_122
+  - first:
+      213: -6855828078190647194
+    second: Pilots_Slime_Texture_123
+  - first:
+      213: 1630023338163348340
+    second: Pilots_Slime_Texture_124
+  - first:
+      213: -2632822305829960120
+    second: Pilots_Slime_Texture_125
+  - first:
+      213: 3452775042237934510
+    second: Pilots_Slime_Texture_126
+  - first:
+      213: -7108449183810087700
+    second: Pilots_Slime_Texture_127
+  - first:
+      213: -4939380161051825181
+    second: Pilots_Slime_Texture_128
+  - first:
+      213: -1197073357336374730
+    second: Pilots_Slime_Texture_129
+  - first:
+      213: -877125422008207945
+    second: Pilots_Slime_Texture_130
+  - first:
+      213: -9170204239831658717
+    second: Pilots_Slime_Texture_131
+  - first:
+      213: -8755497386364752602
+    second: Pilots_Slime_Texture_132
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1000
+        width: 61
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb76887cd9d1aaef0800000000000000
+      internalID: -96231878540367941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 1010
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af4f04350e8140110800000000000000
+      internalID: 1226132350300124410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 672
+        width: 361
+        height: 390
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a2112db2bd65560800000000000000
+      internalID: 7302264827082254935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1036
+        width: 39
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd598939083806960800000000000000
+      internalID: 7593213560001959391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 1055
+        width: 74
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3eb0302a0c7dbad0800000000000000
+      internalID: -2684853419911365058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 1051
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e194d68ae7cb81e10800000000000000
+      internalID: 2168690472756529438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 1036
+        width: 49
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d6f2f67bd5f74b70800000000000000
+      internalID: 8883339112953870033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 1008
+        width: 66
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf497cbbd1bf7d100800000000000000
+      internalID: 132850819153761532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 957
+        width: 96
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adca5a651ee687620800000000000000
+      internalID: 2772087484746935514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1032
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6584b354c427f3620800000000000000
+      internalID: 2756047168878626902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 1059
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9286533cda0156bb0800000000000000
+      internalID: -4943526677478807511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 1016
+        width: 35
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 528d0d64bc36305a0800000000000000
+      internalID: -6556286907803707355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 1047
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 317799a6e410db910800000000000000
+      internalID: 1854640057854031635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_13
+      rect:
+        serializedVersion: 2
+        x: 957
+        y: 959
+        width: 100
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 341e79ac7183da110800000000000000
+      internalID: 1273735944450072899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_14
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 615
+        width: 349
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b7f369749d5f2f50800000000000000
+      internalID: 6858803649781692340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_15
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 1022
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d89b4b43a07b7660800000000000000
+      internalID: 7384619860649285841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_16
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 1016
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5869b7531861a2b90800000000000000
+      internalID: -7265970304604989819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_17
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1000
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fb652130b9ccea50800000000000000
+      internalID: 6551833316493192176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_18
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1042
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c491a2da572d20210800000000000000
+      internalID: 1297831045494348108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_19
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1038
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7857a8c60500f30800000000000000
+      internalID: 4539716851499108286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_20
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 1024
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2d1adfd6de7bdee0800000000000000
+      internalID: -1235254211439354579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_21
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 1008
+        width: 87
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15354c1a7ceb0f730800000000000000
+      internalID: 4030931431118361425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_22
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 1013
+        width: 40
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0794ab7073b29820800000000000000
+      internalID: 2923596403808966413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_23
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 1036
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b7749f3cedeb0510800000000000000
+      internalID: 1516567298475063225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_24
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 1006
+        width: 37
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ffbd4fc76bcd760800000000000000
+      internalID: 7484057328583180150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_25
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 982
+        width: 23
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83f8d715cc7b85d60800000000000000
+      internalID: 7879249636253077304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_26
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 1040
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b74395821f569860800000000000000
+      internalID: 7536315559606175668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_27
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 1037
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2aaf26a9b82b800800000000000000
+      internalID: 626716793359737525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_28
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 1038
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 209521200697b1830800000000000000
+      internalID: 4042958543753730306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_29
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 1030
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b61a3e5bb2621d560800000000000000
+      internalID: 7336687237140291947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_30
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1036
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e76f9b81b2a7fed0800000000000000
+      internalID: -2380254994606626847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_31
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 1036
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9744c3819393bc580800000000000000
+      internalID: -8805881729010350983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_32
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 1004
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d65e2ee579d8bfe0800000000000000
+      internalID: -1172948602399598888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_33
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 961
+        width: 21
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56231eb4833e4fb0800000000000000
+      internalID: -4661731919064258982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_34
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 1006
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9664d15bd3075c10800000000000000
+      internalID: 2042105196541404826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_35
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 1034
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc0ed840bf449940800000000000000
+      internalID: 5301950279877266675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_36
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 994
+        width: 49
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 723aadec4000e8e00800000000000000
+      internalID: 1048775783874208551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_37
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 1006
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9d9daef2ce3476e0800000000000000
+      internalID: -1840777340470321766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_38
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 970
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 281a7d3a94d4402b0800000000000000
+      internalID: -5619281456374767230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_39
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 1036
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ba93b13198b79350800000000000000
+      internalID: 6023485960374950578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 605
+        width: 371
+        height: 396
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36481953dfec78b10800000000000000
+      internalID: 1983781747800769635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_41
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 955
+        width: 49
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73944f3d9249c8d60800000000000000
+      internalID: 7893847154244208951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_42
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 969
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 090305dafcb438510800000000000000
+      internalID: 1550166052083609744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_43
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 990
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee346abf942ef2c20800000000000000
+      internalID: 3184012268956697582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_44
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 957
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e2fc571c9676a960800000000000000
+      internalID: 7612902632895345385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_45
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 950
+        width: 17
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4778f83a3b37ae980800000000000000
+      internalID: -8508861330582698124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_46
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 941
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da47af08749596440800000000000000
+      internalID: 4929569430775166125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_47
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 941
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05fc2db29fcba55b0800000000000000
+      internalID: -5378779026572521648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_48
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 961
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07c26b73dd7822520800000000000000
+      internalID: 2675850512803703920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_49
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 941
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9f6a8934d92b51f0800000000000000
+      internalID: -1055203696213069924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_50
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 672
+        width: 353
+        height: 280
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 850c0c14c42a63c20800000000000000
+      internalID: 3185912234815570008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_51
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 949
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d28b36e7d5a26ff0800000000000000
+      internalID: -44290699621072170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_52
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 923
+        width: 51
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed5db97fb7494160800000000000000
+      internalID: 7010213182685666788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_53
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 907
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cf51ec1bbc0db7d0800000000000000
+      internalID: -2901148587173781563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_54
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 850
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a6ba23b61ed7b50800000000000000
+      internalID: 6592673280068119115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_55
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 801
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26ff2925ad13cd970800000000000000
+      internalID: 8780948187223621474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_56
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 736
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f7b106ebcf7559e0800000000000000
+      internalID: -1633258776137975815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_57
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 733
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8159637b1fc7992b0800000000000000
+      internalID: -5577289285918878440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_58
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 720
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ca5888bc2cf37be0800000000000000
+      internalID: -1480562583470056764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_59
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 712
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b24c904777027540800000000000000
+      internalID: 5004070344728527545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_60
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 714
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8afd116e03be3130800000000000000
+      internalID: 3548470430754798221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_61
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 703
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4db684002f1d3c30800000000000000
+      internalID: 4340659838230379852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_62
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 696
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ffd2a2a280d1d570800000000000000
+      internalID: 8489796032063004660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_63
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 688
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 998f2f5fb4fe2b500800000000000000
+      internalID: 410653625572063385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_64
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 686
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7f6fdf77a995a400800000000000000
+      internalID: 334842691992907647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_65
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 694
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59a0c5e353a5aa380800000000000000
+      internalID: -8959249323974194539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_66
+      rect:
+        serializedVersion: 2
+        x: 1237
+        y: 704
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ed3eae7e0852e9c0800000000000000
+      internalID: -3899457508071293471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_67
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 702
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2d5e14d52ef6930800000000000000
+      internalID: 4138775472742191837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_68
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 696
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48ef949c668a19f00800000000000000
+      internalID: 1121862941609164420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_69
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 688
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea3ebce85ae8b160800000000000000
+      internalID: 7041635685043682018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_70
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 688
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8af690cbcc4e5e90800000000000000
+      internalID: -7035101129912943985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_71
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 686
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22576db922c5205e0800000000000000
+      internalID: -1944890785357466334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_72
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 686
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6b29ecd135834580800000000000000
+      internalID: -8844078794019361938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_73
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 686
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc38598e95f3f07f0800000000000000
+      internalID: -644226566303939633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_74
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 680
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1727af4fab8ed4c0800000000000000
+      internalID: -4260814612374018278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_75
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 692
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da28ffd8af80bc290800000000000000
+      internalID: -7869186051682630995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_76
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 686
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50dd2f6a271a35bc0800000000000000
+      internalID: -3795512547143918331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_77
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 682
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dc8deeb268c71d80800000000000000
+      internalID: -8279929063461778218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_78
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 680
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37f24a6bdb16a7d00800000000000000
+      internalID: 971196137092689779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_79
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 674
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80d24808951e5fca0800000000000000
+      internalID: -5983628755367351032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_80
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 680
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b33980cef83e5c490800000000000000
+      internalID: -7726519378404404421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_81
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 654
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e04fc76017487f80800000000000000
+      internalID: -8108652993293893400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_82
+      rect:
+        serializedVersion: 2
+        x: 1233
+        y: 666
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8828483e3cd79c00800000000000000
+      internalID: 907436009728780428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_83
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 668
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5352c17f351043110800000000000000
+      internalID: 1239617257573459253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_84
+      rect:
+        serializedVersion: 2
+        x: 1259
+        y: 670
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6b934f3e702c0db0800000000000000
+      internalID: -4824445374221280405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_85
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 667
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14b33dfc0108139e0800000000000000
+      internalID: -1643391579318961343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_86
+      rect:
+        serializedVersion: 2
+        x: 1373
+        y: 666
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffd6c34d7240de3c0800000000000000
+      internalID: -4328799097722212865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_87
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 641
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2bbb9b6da022e230800000000000000
+      internalID: 3666528975839804206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_88
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 649
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00817b56127c22650800000000000000
+      internalID: 6206742182724311040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_89
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 296
+        width: 693
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17577c15d92e1bd90800000000000000
+      internalID: -7083631573567310479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_90
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 617
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ece00232533f56e50800000000000000
+      internalID: 6802110221761121998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_91
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 617
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a26959e545b33cce0800000000000000
+      internalID: -1386199026749827542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_92
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 605
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8d545774d09a8740800000000000000
+      internalID: 5155091965688438156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_93
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 618
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc42f691696577e80800000000000000
+      internalID: -8180974995423419188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_94
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 614
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bbe3af364132bbf0800000000000000
+      internalID: -310131246549963855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_95
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 309
+        width: 377
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894cfa7a5821e6520800000000000000
+      internalID: 2697113592094770328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_96
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 350
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35c555714e637c740800000000000000
+      internalID: 5172163050330217555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_97
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 299
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4166301c226ec08c0800000000000000
+      internalID: -4031594529461934572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_98
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 323
+        width: 20
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35c1bb231551a1580800000000000000
+      internalID: -8855742278783001517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_99
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 326
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024bcdcf9a7831700800000000000000
+      internalID: 509900346984543264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_100
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 339
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8061c03863595b850800000000000000
+      internalID: 6392179307481667080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_101
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 343
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 650ace46d87e78f50800000000000000
+      internalID: 6883725149928726614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_102
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 356
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ccb125f4096bc0d0800000000000000
+      internalID: -3401509623534863167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_103
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 317
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f7ef4401cd8ba640800000000000000
+      internalID: 5092319663813027828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_104
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 299
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58cf53197edcb9d80800000000000000
+      internalID: -8242768298514187131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_105
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 305
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3836667e5ec11ae80800000000000000
+      internalID: -8169216475318033533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_106
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 297
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c282a4f5c1af700800000000000000
+      internalID: 574803098034777124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_107
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 313
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b796e3d395b08fa0800000000000000
+      internalID: -5800436673533274190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_108
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 331
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1247f762edf45c30800000000000000
+      internalID: 4347378689168065051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_109
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 309
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c95bc06bea2c6010800000000000000
+      internalID: 1183367992521218496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_110
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 297
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac578edd83d8a7520800000000000000
+      internalID: 2700626201942717898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_111
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 345
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eb70ec99fdd8cc70800000000000000
+      internalID: 8991680720193747943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_112
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 337
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acdc27ecb15eb2570800000000000000
+      internalID: 8443093834026634698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_113
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 342
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 970a61cf4ddf6a920800000000000000
+      internalID: 3001365292893249657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_114
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 316
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70d2201a615eaa630800000000000000
+      internalID: 3939212709442235655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_115
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 315
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e01ace1158c807330800000000000000
+      internalID: 3706616996485177614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_116
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 317
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f58ee0f439d14130800000000000000
+      internalID: 3549356802748351989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_117
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 296
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27eadda21a05e9100800000000000000
+      internalID: 116619293497339506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_118
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 297
+        width: 355
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cab1f336f6780d4f0800000000000000
+      internalID: -805995420823118932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_119
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 287
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc5b27e10173c3270800000000000000
+      internalID: 8231514761296262603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_120
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 325
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81721459a8d3ebb0800000000000000
+      internalID: -4907840947132141171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_121
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 242
+        width: 36
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b723895ee25eeb60800000000000000
+      internalID: 7777244790172886964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_122
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 323
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea75cf2e503e3d190800000000000000
+      internalID: -7938752103701522514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_123
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 289
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6682c46cfa43bd0a0800000000000000
+      internalID: -6855828078190647194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_124
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 303
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 473a2def6910f9610800000000000000
+      internalID: 1630023338163348340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_125
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 323
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 846c748ef06567bd0800000000000000
+      internalID: -2632822305829960120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_126
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 1421
+        height: 304
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab2de97b98baef20800000000000000
+      internalID: 3452775042237934510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_127
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 293
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce495172127b95d90800000000000000
+      internalID: -7108449183810087700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_128
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 299
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ebe4e9d9ebc37bb0800000000000000
+      internalID: -4939380161051825181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_129
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 289
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63291e5bf14236fe0800000000000000
+      internalID: -1197073357336374730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_130
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 296
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b57cbd6313d3d3f0800000000000000
+      internalID: -877125422008207945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_131
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 281
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32f8d0764d3ecb080800000000000000
+      internalID: -9170204239831658717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slime_Texture_132
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 234
+        width: 5
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62d2ed504893e7680800000000000000
+      internalID: -8755497386364752602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pilots_Slime_Texture_0: -96231878540367941
+      Pilots_Slime_Texture_1: 1226132350300124410
+      Pilots_Slime_Texture_10: -4943526677478807511
+      Pilots_Slime_Texture_100: 6392179307481667080
+      Pilots_Slime_Texture_101: 6883725149928726614
+      Pilots_Slime_Texture_102: -3401509623534863167
+      Pilots_Slime_Texture_103: 5092319663813027828
+      Pilots_Slime_Texture_104: -8242768298514187131
+      Pilots_Slime_Texture_105: -8169216475318033533
+      Pilots_Slime_Texture_106: 574803098034777124
+      Pilots_Slime_Texture_107: -5800436673533274190
+      Pilots_Slime_Texture_108: 4347378689168065051
+      Pilots_Slime_Texture_109: 1183367992521218496
+      Pilots_Slime_Texture_11: -6556286907803707355
+      Pilots_Slime_Texture_110: 2700626201942717898
+      Pilots_Slime_Texture_111: 8991680720193747943
+      Pilots_Slime_Texture_112: 8443093834026634698
+      Pilots_Slime_Texture_113: 3001365292893249657
+      Pilots_Slime_Texture_114: 3939212709442235655
+      Pilots_Slime_Texture_115: 3706616996485177614
+      Pilots_Slime_Texture_116: 3549356802748351989
+      Pilots_Slime_Texture_117: 116619293497339506
+      Pilots_Slime_Texture_118: -805995420823118932
+      Pilots_Slime_Texture_119: 8231514761296262603
+      Pilots_Slime_Texture_12: 1854640057854031635
+      Pilots_Slime_Texture_120: -4907840947132141171
+      Pilots_Slime_Texture_121: 7777244790172886964
+      Pilots_Slime_Texture_122: -7938752103701522514
+      Pilots_Slime_Texture_123: -6855828078190647194
+      Pilots_Slime_Texture_124: 1630023338163348340
+      Pilots_Slime_Texture_125: -2632822305829960120
+      Pilots_Slime_Texture_126: 3452775042237934510
+      Pilots_Slime_Texture_127: -7108449183810087700
+      Pilots_Slime_Texture_128: -4939380161051825181
+      Pilots_Slime_Texture_129: -1197073357336374730
+      Pilots_Slime_Texture_13: 1273735944450072899
+      Pilots_Slime_Texture_130: -877125422008207945
+      Pilots_Slime_Texture_131: -9170204239831658717
+      Pilots_Slime_Texture_132: -8755497386364752602
+      Pilots_Slime_Texture_14: 6858803649781692340
+      Pilots_Slime_Texture_15: 7384619860649285841
+      Pilots_Slime_Texture_16: -7265970304604989819
+      Pilots_Slime_Texture_17: 6551833316493192176
+      Pilots_Slime_Texture_18: 1297831045494348108
+      Pilots_Slime_Texture_19: 4539716851499108286
+      Pilots_Slime_Texture_2: 7302264827082254935
+      Pilots_Slime_Texture_20: -1235254211439354579
+      Pilots_Slime_Texture_21: 4030931431118361425
+      Pilots_Slime_Texture_22: 2923596403808966413
+      Pilots_Slime_Texture_23: 1516567298475063225
+      Pilots_Slime_Texture_24: 7484057328583180150
+      Pilots_Slime_Texture_25: 7879249636253077304
+      Pilots_Slime_Texture_26: 7536315559606175668
+      Pilots_Slime_Texture_27: 626716793359737525
+      Pilots_Slime_Texture_28: 4042958543753730306
+      Pilots_Slime_Texture_29: 7336687237140291947
+      Pilots_Slime_Texture_3: 7593213560001959391
+      Pilots_Slime_Texture_30: -2380254994606626847
+      Pilots_Slime_Texture_31: -8805881729010350983
+      Pilots_Slime_Texture_32: -1172948602399598888
+      Pilots_Slime_Texture_33: -4661731919064258982
+      Pilots_Slime_Texture_34: 2042105196541404826
+      Pilots_Slime_Texture_35: 5301950279877266675
+      Pilots_Slime_Texture_36: 1048775783874208551
+      Pilots_Slime_Texture_37: -1840777340470321766
+      Pilots_Slime_Texture_38: -5619281456374767230
+      Pilots_Slime_Texture_39: 6023485960374950578
+      Pilots_Slime_Texture_4: -2684853419911365058
+      Pilots_Slime_Texture_40: 1983781747800769635
+      Pilots_Slime_Texture_41: 7893847154244208951
+      Pilots_Slime_Texture_42: 1550166052083609744
+      Pilots_Slime_Texture_43: 3184012268956697582
+      Pilots_Slime_Texture_44: 7612902632895345385
+      Pilots_Slime_Texture_45: -8508861330582698124
+      Pilots_Slime_Texture_46: 4929569430775166125
+      Pilots_Slime_Texture_47: -5378779026572521648
+      Pilots_Slime_Texture_48: 2675850512803703920
+      Pilots_Slime_Texture_49: -1055203696213069924
+      Pilots_Slime_Texture_5: 2168690472756529438
+      Pilots_Slime_Texture_50: 3185912234815570008
+      Pilots_Slime_Texture_51: -44290699621072170
+      Pilots_Slime_Texture_52: 7010213182685666788
+      Pilots_Slime_Texture_53: -2901148587173781563
+      Pilots_Slime_Texture_54: 6592673280068119115
+      Pilots_Slime_Texture_55: 8780948187223621474
+      Pilots_Slime_Texture_56: -1633258776137975815
+      Pilots_Slime_Texture_57: -5577289285918878440
+      Pilots_Slime_Texture_58: -1480562583470056764
+      Pilots_Slime_Texture_59: 5004070344728527545
+      Pilots_Slime_Texture_6: 8883339112953870033
+      Pilots_Slime_Texture_60: 3548470430754798221
+      Pilots_Slime_Texture_61: 4340659838230379852
+      Pilots_Slime_Texture_62: 8489796032063004660
+      Pilots_Slime_Texture_63: 410653625572063385
+      Pilots_Slime_Texture_64: 334842691992907647
+      Pilots_Slime_Texture_65: -8959249323974194539
+      Pilots_Slime_Texture_66: -3899457508071293471
+      Pilots_Slime_Texture_67: 4138775472742191837
+      Pilots_Slime_Texture_68: 1121862941609164420
+      Pilots_Slime_Texture_69: 7041635685043682018
+      Pilots_Slime_Texture_7: 132850819153761532
+      Pilots_Slime_Texture_70: -7035101129912943985
+      Pilots_Slime_Texture_71: -1944890785357466334
+      Pilots_Slime_Texture_72: -8844078794019361938
+      Pilots_Slime_Texture_73: -644226566303939633
+      Pilots_Slime_Texture_74: -4260814612374018278
+      Pilots_Slime_Texture_75: -7869186051682630995
+      Pilots_Slime_Texture_76: -3795512547143918331
+      Pilots_Slime_Texture_77: -8279929063461778218
+      Pilots_Slime_Texture_78: 971196137092689779
+      Pilots_Slime_Texture_79: -5983628755367351032
+      Pilots_Slime_Texture_8: 2772087484746935514
+      Pilots_Slime_Texture_80: -7726519378404404421
+      Pilots_Slime_Texture_81: -8108652993293893400
+      Pilots_Slime_Texture_82: 907436009728780428
+      Pilots_Slime_Texture_83: 1239617257573459253
+      Pilots_Slime_Texture_84: -4824445374221280405
+      Pilots_Slime_Texture_85: -1643391579318961343
+      Pilots_Slime_Texture_86: -4328799097722212865
+      Pilots_Slime_Texture_87: 3666528975839804206
+      Pilots_Slime_Texture_88: 6206742182724311040
+      Pilots_Slime_Texture_89: -7083631573567310479
+      Pilots_Slime_Texture_9: 2756047168878626902
+      Pilots_Slime_Texture_90: 6802110221761121998
+      Pilots_Slime_Texture_91: -1386199026749827542
+      Pilots_Slime_Texture_92: 5155091965688438156
+      Pilots_Slime_Texture_93: -8180974995423419188
+      Pilots_Slime_Texture_94: -310131246549963855
+      Pilots_Slime_Texture_95: 2697113592094770328
+      Pilots_Slime_Texture_96: 5172163050330217555
+      Pilots_Slime_Texture_97: -4031594529461934572
+      Pilots_Slime_Texture_98: -8855742278783001517
+      Pilots_Slime_Texture_99: 509900346984543264
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

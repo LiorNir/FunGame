@@ -22,7 +22,7 @@ The lines live in **`Assets/Campaign/Tutorial.asset`** (one list: encounter, tri
 | 3-3 The marksman | Snipe revealed | The enemy aims a snipe at the marked pilot: -50% to both its stats next turn. Swap the pilot out to dodge it, or take the hit. |
 | 3-3 The marksman | Assassinate revealed | A snipe aimed at a pilot with nothing left assassinates it: the pilot falls. |
 | 4-1 Pay the toll | Battle start | A subtract slot is a toll: its pilot's stat is taken away from the chain. Put your weakest pilot there (0 pays nothing); the x2 bonus after it is the reward. Toll pilots are never wounded. |
-| 4-1 Pay the toll | Turn 2 | The enemy hunkers down: a big guard and no attack. Brash's No Guard halves both sides' defense this turn, which costs you nothing while the enemy is not attacking. |
+| 4-1 Pay the toll | Turn 2 | The enemy hunkers down: a big guard and no attack. Haze's No Guard halves both sides' defense this turn, which costs you nothing while the enemy is not attacking. |
 | 4-2 Divide and conquer | Battle start | A divide slot divides the chain by its pilot's stat. Dividing by less than 1 multiplies! Dividing by 0 is a very bad idea. |
 | 4-3 The ram | Battle start | Defense can multiply too: the x slot on the blue chain multiplies everything before it. |
 | 4-3 The ram | Charge revealed | The ram is charging: a big guard now and a huge Unleash next turn. Break through the whole guard this turn and it is stunned instead. |

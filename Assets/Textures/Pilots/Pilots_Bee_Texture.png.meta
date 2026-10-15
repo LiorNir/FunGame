@@ -1,0 +1,3432 @@
+fileFormatVersion: 2
+guid: 1c0867084eac56a40acd422a24bd0100
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 471301157715313133
+    second: Pilots_Bee_Texture_0
+  - first:
+      213: -5265666826260468115
+    second: Pilots_Bee_Texture_1
+  - first:
+      213: -7345851531756684149
+    second: Pilots_Bee_Texture_2
+  - first:
+      213: -6398392120653130112
+    second: Pilots_Bee_Texture_3
+  - first:
+      213: -3585407839210090569
+    second: Pilots_Bee_Texture_4
+  - first:
+      213: -2504253131372297341
+    second: Pilots_Bee_Texture_5
+  - first:
+      213: -6800020120832228273
+    second: Pilots_Bee_Texture_6
+  - first:
+      213: 1630311880404499690
+    second: Pilots_Bee_Texture_7
+  - first:
+      213: -8366557350269862625
+    second: Pilots_Bee_Texture_8
+  - first:
+      213: -8502573738970269029
+    second: Pilots_Bee_Texture_9
+  - first:
+      213: 7175231877931405481
+    second: Pilots_Bee_Texture_10
+  - first:
+      213: 126953319904687104
+    second: Pilots_Bee_Texture_11
+  - first:
+      213: -3779416725317587384
+    second: Pilots_Bee_Texture_12
+  - first:
+      213: -8636025298544703354
+    second: Pilots_Bee_Texture_13
+  - first:
+      213: 6798994088368721920
+    second: Pilots_Bee_Texture_14
+  - first:
+      213: -4601354361275911780
+    second: Pilots_Bee_Texture_15
+  - first:
+      213: -1957840708839425914
+    second: Pilots_Bee_Texture_16
+  - first:
+      213: -3334973816529372263
+    second: Pilots_Bee_Texture_17
+  - first:
+      213: 5553623526406122325
+    second: Pilots_Bee_Texture_18
+  - first:
+      213: -4976916743428400369
+    second: Pilots_Bee_Texture_19
+  - first:
+      213: -917303726632651939
+    second: Pilots_Bee_Texture_20
+  - first:
+      213: -7152976635125936817
+    second: Pilots_Bee_Texture_21
+  - first:
+      213: 3577128007574974214
+    second: Pilots_Bee_Texture_22
+  - first:
+      213: 3340224984921742490
+    second: Pilots_Bee_Texture_23
+  - first:
+      213: -7677893081680947432
+    second: Pilots_Bee_Texture_24
+  - first:
+      213: -9141887008869409864
+    second: Pilots_Bee_Texture_25
+  - first:
+      213: 1711552434637918595
+    second: Pilots_Bee_Texture_26
+  - first:
+      213: -1741604617904784524
+    second: Pilots_Bee_Texture_27
+  - first:
+      213: -3458028226164907418
+    second: Pilots_Bee_Texture_28
+  - first:
+      213: -4120837308564373902
+    second: Pilots_Bee_Texture_29
+  - first:
+      213: 496816991722256788
+    second: Pilots_Bee_Texture_30
+  - first:
+      213: 1574349259202553845
+    second: Pilots_Bee_Texture_31
+  - first:
+      213: 4117992641281239835
+    second: Pilots_Bee_Texture_32
+  - first:
+      213: -7175810337194323083
+    second: Pilots_Bee_Texture_33
+  - first:
+      213: -5665107007042522753
+    second: Pilots_Bee_Texture_34
+  - first:
+      213: -7392419236483326260
+    second: Pilots_Bee_Texture_35
+  - first:
+      213: -6489339428923237598
+    second: Pilots_Bee_Texture_36
+  - first:
+      213: -1209242089178612149
+    second: Pilots_Bee_Texture_37
+  - first:
+      213: 1516380699622716273
+    second: Pilots_Bee_Texture_38
+  - first:
+      213: -6240577748217677903
+    second: Pilots_Bee_Texture_39
+  - first:
+      213: 2921290172444439444
+    second: Pilots_Bee_Texture_40
+  - first:
+      213: 4039991441690912614
+    second: Pilots_Bee_Texture_41
+  - first:
+      213: 3265392026212345216
+    second: Pilots_Bee_Texture_42
+  - first:
+      213: -2391134689598408798
+    second: Pilots_Bee_Texture_43
+  - first:
+      213: 2869031124933492006
+    second: Pilots_Bee_Texture_44
+  - first:
+      213: -4558422701321882045
+    second: Pilots_Bee_Texture_45
+  - first:
+      213: -1511156916229374284
+    second: Pilots_Bee_Texture_46
+  - first:
+      213: 2124221941445221865
+    second: Pilots_Bee_Texture_47
+  - first:
+      213: -3331927929973662725
+    second: Pilots_Bee_Texture_48
+  - first:
+      213: 8856846485589987955
+    second: Pilots_Bee_Texture_49
+  - first:
+      213: -4135040617789764421
+    second: Pilots_Bee_Texture_50
+  - first:
+      213: 5883384536248833394
+    second: Pilots_Bee_Texture_51
+  - first:
+      213: 3312744409699147841
+    second: Pilots_Bee_Texture_52
+  - first:
+      213: -1156591361659342467
+    second: Pilots_Bee_Texture_53
+  - first:
+      213: 7461571785913792129
+    second: Pilots_Bee_Texture_54
+  - first:
+      213: -8806793868931583660
+    second: Pilots_Bee_Texture_55
+  - first:
+      213: 4566811619944985710
+    second: Pilots_Bee_Texture_56
+  - first:
+      213: 2370638463283224411
+    second: Pilots_Bee_Texture_57
+  - first:
+      213: 5214867608456925233
+    second: Pilots_Bee_Texture_58
+  - first:
+      213: -2494390122239916252
+    second: Pilots_Bee_Texture_59
+  - first:
+      213: -7528726465800123242
+    second: Pilots_Bee_Texture_60
+  - first:
+      213: 5247367075125759383
+    second: Pilots_Bee_Texture_61
+  - first:
+      213: -7657221097572554214
+    second: Pilots_Bee_Texture_62
+  - first:
+      213: -5932709872891284542
+    second: Pilots_Bee_Texture_63
+  - first:
+      213: 7143432540889115913
+    second: Pilots_Bee_Texture_64
+  - first:
+      213: -8757803437212007380
+    second: Pilots_Bee_Texture_65
+  - first:
+      213: 5548584384172906692
+    second: Pilots_Bee_Texture_66
+  - first:
+      213: 3841832885688463952
+    second: Pilots_Bee_Texture_67
+  - first:
+      213: 5161819526225165596
+    second: Pilots_Bee_Texture_68
+  - first:
+      213: -6256744062679464377
+    second: Pilots_Bee_Texture_69
+  - first:
+      213: -1640199064344812621
+    second: Pilots_Bee_Texture_70
+  - first:
+      213: 9113278898961688966
+    second: Pilots_Bee_Texture_71
+  - first:
+      213: -4090815631410466371
+    second: Pilots_Bee_Texture_72
+  - first:
+      213: -6779307325151981700
+    second: Pilots_Bee_Texture_73
+  - first:
+      213: 6261691979576157191
+    second: Pilots_Bee_Texture_74
+  - first:
+      213: 6516642623856584195
+    second: Pilots_Bee_Texture_75
+  - first:
+      213: -2454429553542369778
+    second: Pilots_Bee_Texture_76
+  - first:
+      213: 4837934408947785882
+    second: Pilots_Bee_Texture_77
+  - first:
+      213: 2837314820524276868
+    second: Pilots_Bee_Texture_78
+  - first:
+      213: -7423845635456974766
+    second: Pilots_Bee_Texture_79
+  - first:
+      213: -7995176489115724382
+    second: Pilots_Bee_Texture_80
+  - first:
+      213: 711950658702529214
+    second: Pilots_Bee_Texture_81
+  - first:
+      213: -4390324857991086470
+    second: Pilots_Bee_Texture_82
+  - first:
+      213: 1960538483485919042
+    second: Pilots_Bee_Texture_83
+  - first:
+      213: -5399937095270288733
+    second: Pilots_Bee_Texture_84
+  - first:
+      213: 425579205265907508
+    second: Pilots_Bee_Texture_85
+  - first:
+      213: 5370371873477922961
+    second: Pilots_Bee_Texture_86
+  - first:
+      213: -100441451626858241
+    second: Pilots_Bee_Texture_87
+  - first:
+      213: 3015881328805968310
+    second: Pilots_Bee_Texture_88
+  - first:
+      213: 535098062230200196
+    second: Pilots_Bee_Texture_89
+  - first:
+      213: -6848420650148204858
+    second: Pilots_Bee_Texture_90
+  - first:
+      213: -6675260188924579413
+    second: Pilots_Bee_Texture_91
+  - first:
+      213: -1012693729440984483
+    second: Pilots_Bee_Texture_92
+  - first:
+      213: -4990035613842008311
+    second: Pilots_Bee_Texture_93
+  - first:
+      213: -7102909176121190616
+    second: Pilots_Bee_Texture_94
+  - first:
+      213: -2731704081431064117
+    second: Pilots_Bee_Texture_95
+  - first:
+      213: -5234113901322291291
+    second: Pilots_Bee_Texture_96
+  - first:
+      213: 7768225432014173074
+    second: Pilots_Bee_Texture_97
+  - first:
+      213: 8421171203510377504
+    second: Pilots_Bee_Texture_98
+  - first:
+      213: -2173010775670433941
+    second: Pilots_Bee_Texture_99
+  - first:
+      213: -3533946988027108016
+    second: Pilots_Bee_Texture_100
+  - first:
+      213: 7176092611177840787
+    second: Pilots_Bee_Texture_101
+  - first:
+      213: 6200430991814385206
+    second: Pilots_Bee_Texture_102
+  - first:
+      213: -2729335862447375839
+    second: Pilots_Bee_Texture_103
+  - first:
+      213: -5953882410448163521
+    second: Pilots_Bee_Texture_104
+  - first:
+      213: -2474035439795784582
+    second: Pilots_Bee_Texture_105
+  - first:
+      213: -7757975089417584780
+    second: Pilots_Bee_Texture_106
+  - first:
+      213: 3259031389919052564
+    second: Pilots_Bee_Texture_107
+  - first:
+      213: 69022750568802430
+    second: Pilots_Bee_Texture_108
+  - first:
+      213: 2453888590845234230
+    second: Pilots_Bee_Texture_109
+  - first:
+      213: -5241866889433759025
+    second: Pilots_Bee_Texture_110
+  - first:
+      213: 5741333855530716771
+    second: Pilots_Bee_Texture_111
+  - first:
+      213: 6081779982898494149
+    second: Pilots_Bee_Texture_112
+  - first:
+      213: 5115183380308087654
+    second: Pilots_Bee_Texture_113
+  - first:
+      213: -9006065673332475969
+    second: Pilots_Bee_Texture_114
+  - first:
+      213: 7399836872341048450
+    second: Pilots_Bee_Texture_115
+  - first:
+      213: 1312551543460382685
+    second: Pilots_Bee_Texture_116
+  - first:
+      213: 8493538627466845768
+    second: Pilots_Bee_Texture_117
+  - first:
+      213: -4072091873271542290
+    second: Pilots_Bee_Texture_118
+  - first:
+      213: -3673624581569566495
+    second: Pilots_Bee_Texture_119
+  - first:
+      213: 8681347139989769773
+    second: Pilots_Bee_Texture_120
+  - first:
+      213: 3418147801692904194
+    second: Pilots_Bee_Texture_121
+  - first:
+      213: -6107850495469563359
+    second: Pilots_Bee_Texture_122
+  - first:
+      213: 6419833336432091621
+    second: Pilots_Bee_Texture_123
+  - first:
+      213: -8642586315696433823
+    second: Pilots_Bee_Texture_124
+  - first:
+      213: 7390792328848123101
+    second: Pilots_Bee_Texture_125
+  - first:
+      213: -6886260686644284604
+    second: Pilots_Bee_Texture_126
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 668
+        width: 359
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de10ad7e7e56a8600800000000000000
+      internalID: 471301157715313133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 1020
+        width: 38
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6eaf239be79ce6b0800000000000000
+      internalID: -5265666826260468115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 1022
+        width: 41
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8c32eca3fa4e0a90800000000000000
+      internalID: -7345851531756684149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 1020
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 086dfc234485437a0800000000000000
+      internalID: -6398392120653130112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 1038
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf4bf801921e3ec0800000000000000
+      internalID: -3585407839210090569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 1002
+        width: 51
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38305ec8b0b1f3dd0800000000000000
+      internalID: -2504253131372297341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 1058
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4449486ab971a1a0800000000000000
+      internalID: -6800020120832228273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 992
+        width: 26
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aecfb98740800a610800000000000000
+      internalID: 1630311880404499690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 1040
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1d3b38fa6404eb80800000000000000
+      internalID: -8366557350269862625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 1044
+        width: 30
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9abc14ab3ac00a80800000000000000
+      internalID: -8502573738970269029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 260
+        width: 713
+        height: 745
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a01921806b839360800000000000000
+      internalID: 7175231877931405481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 996
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 004b9ff2f5703c100800000000000000
+      internalID: 126953319904687104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 998
+        width: 55
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84e66453380dc8bc0800000000000000
+      internalID: -3779416725317587384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_13
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1000
+        width: 128
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688c4f02fbca62880800000000000000
+      internalID: -8636025298544703354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_14
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 1018
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 000d23bc911ea5e50800000000000000
+      internalID: 6798994088368721920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_15
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 1010
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9174726694b420c0800000000000000
+      internalID: -4601354361275911780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_16
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 988
+        width: 118
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688b3d69f3a54d4e0800000000000000
+      internalID: -1957840708839425914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_17
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 986
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99bb98abbfac7b1d0800000000000000
+      internalID: -3334973816529372263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_18
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 1002
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b60b34c2f621d40800000000000000
+      internalID: 5553623526406122325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_19
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 1007
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b914737907eeab0800000000000000
+      internalID: -4976916743428400369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_20
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1008
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d533be6ee151543f0800000000000000
+      internalID: -917303726632651939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_21
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 978
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d46a006a58bbc90800000000000000
+      internalID: -7152976635125936817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_22
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 998
+        width: 73
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60f6b9f68f284a130800000000000000
+      internalID: 3577128007574974214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_23
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 1024
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c15203decda5e20800000000000000
+      internalID: 3340224984921742490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_24
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 1008
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8175af2ebe4a27590800000000000000
+      internalID: -7677893081680947432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_25
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 1020
+        width: 41
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bb9493833e712180800000000000000
+      internalID: -9141887008869409864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_26
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 996
+        width: 79
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3815c010fd7a0c710800000000000000
+      internalID: 1711552434637918595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_27
+      rect:
+        serializedVersion: 2
+        x: 903
+        y: 998
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47bfa92d3d394d7e0800000000000000
+      internalID: -1741604617904784524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_28
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 986
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 662aa2456ad9200d0800000000000000
+      internalID: -3458028226164907418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_29
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 1000
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27ef7dd0d48dfc6c0800000000000000
+      internalID: -4120837308564373902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_30
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 1006
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 499bbf5fb6c05e600800000000000000
+      internalID: 496816991722256788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_31
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 990
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f7ea2b5f4639d510800000000000000
+      internalID: 1574349259202553845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_32
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 986
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1bad3b3d7c062930800000000000000
+      internalID: 4117992641281239835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_33
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 996
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 573d4f374866a6c90800000000000000
+      internalID: -7175810337194323083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_34
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 996
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7177ae213f7161b0800000000000000
+      internalID: -5665107007042522753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_35
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 1036
+        width: 11
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce95a20fd9d86990800000000000000
+      internalID: -7392419236483326260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_36
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 1000
+        width: 89
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b1810eb2c31f5a0800000000000000
+      internalID: -6489339428923237598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_37
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 653
+        width: 362
+        height: 346
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4ebe0b0ab8e73fe0800000000000000
+      internalID: -1209242089178612149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_38
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 1040
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 173354156344b0510800000000000000
+      internalID: 1516380699622716273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_39
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 1012
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b7374c1a930569a0800000000000000
+      internalID: -6240577748217677903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_40
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 1051
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 493f3662fe18a8820800000000000000
+      internalID: 2921290172444439444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_41
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 1026
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 667ea99bfcee01830800000000000000
+      internalID: 4039991441690912614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_42
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 1032
+        width: 73
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 085a7ce3fb0015d20800000000000000
+      internalID: 3265392026212345216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_43
+      rect:
+        serializedVersion: 2
+        x: 1219
+        y: 1004
+        width: 43
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a77f582babf0ded0800000000000000
+      internalID: -2391134689598408798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_44
+      rect:
+        serializedVersion: 2
+        x: 1227
+        y: 1018
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62d333b7b98d0d720800000000000000
+      internalID: 2869031124933492006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_45
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 1018
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 346f1a764ba3db0c0800000000000000
+      internalID: -4558422701321882045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_46
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 983
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bef5488aca470be0800000000000000
+      internalID: -1511156916229374284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_47
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 1018
+        width: 17
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eddee3e990ca7d10800000000000000
+      internalID: 2124221941445221865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_48
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 1009
+        width: 54
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfb97b4733d92c1d0800000000000000
+      internalID: -3331927929973662725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_49
+      rect:
+        serializedVersion: 2
+        x: 1309
+        y: 980
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37212cbf3f6d9ea70800000000000000
+      internalID: 8856846485589987955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_50
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 1040
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc44dc67726d96c0800000000000000
+      internalID: -4135040617789764421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_51
+      rect:
+        serializedVersion: 2
+        x: 1343
+        y: 1023
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2755320701bf5a150800000000000000
+      internalID: 5883384536248833394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_52
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 971
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14067cb2d7b39fd20800000000000000
+      internalID: 3312744409699147841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_53
+      rect:
+        serializedVersion: 2
+        x: 1382
+        y: 996
+        width: 53
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d717202d846f2ffe0800000000000000
+      internalID: -1156591361659342467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_54
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 848
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 186f7759104dc8760800000000000000
+      internalID: 7461571785913792129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_55
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 676
+        width: 332
+        height: 318
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 451be38f2abf7c580800000000000000
+      internalID: -8806793868931583660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_56
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 860
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6472fae8f2906f30800000000000000
+      internalID: 4566811619944985710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_57
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 822
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5fdfd64f1336e020800000000000000
+      internalID: 2370638463283224411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_58
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 678
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13014c8d57eee5840800000000000000
+      internalID: 5214867608456925233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_59
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 629
+        width: 92
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42785a05665226dd0800000000000000
+      internalID: -2494390122239916252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_60
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 676
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69cc6e21b27948790800000000000000
+      internalID: -7528726465800123242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_61
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 675
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79d83f69d8462d840800000000000000
+      internalID: 5247367075125759383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_62
+      rect:
+        serializedVersion: 2
+        x: 1257
+        y: 585
+        width: 102
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1aaf804bf51cb590800000000000000
+      internalID: -7657221097572554214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_63
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 671
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c3bcdeadc7caada0800000000000000
+      internalID: -5932709872891284542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 319
+        width: 381
+        height: 351
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90d69a46c02922360800000000000000
+      internalID: 7143432540889115913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_65
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 662
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c248848bc28067680800000000000000
+      internalID: -8757803437212007380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_66
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 241
+        width: 345
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8d7e88918800d40800000000000000
+      internalID: 5548584384172906692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_67
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 648
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 052ffd597aee05530800000000000000
+      internalID: 3841832885688463952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_68
+      rect:
+        serializedVersion: 2
+        x: 1078
+        y: 550
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1d7357b28772a740800000000000000
+      internalID: 5161819526225165596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_69
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 451
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 746c475bc649b29a0800000000000000
+      internalID: -6256744062679464377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_70
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 461
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b3acc024a7dc39e0800000000000000
+      internalID: -1640199064344812621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_71
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 388
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 689aca7dfded87e70800000000000000
+      internalID: 9113278898961688966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_72
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 319
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db1f9287bd08a37c0800000000000000
+      internalID: -4090815631410466371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_73
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 311
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7fcc15f7ef0be1a0800000000000000
+      internalID: -6779307325151981700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_74
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 331
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704ac87fdaff5e650800000000000000
+      internalID: 6261691979576157191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_75
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 321
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 306242390f3cf6a50800000000000000
+      internalID: 6516642623856584195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_76
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 323
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0ee2ee335d10fdd0800000000000000
+      internalID: -2454429553542369778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_77
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 327
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a90e8f366bbc32340800000000000000
+      internalID: 4837934408947785882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_78
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 313
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48cfc49ebca206720800000000000000
+      internalID: 2837314820524276868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_79
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 309
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 250c04f4ab339f890800000000000000
+      internalID: -7423845635456974766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_80
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 311
+        width: 23
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a5d3b9e75d6b0190800000000000000
+      internalID: -7995176489115724382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_81
+      rect:
+        serializedVersion: 2
+        x: 1384
+        y: 320
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb2d19d1a5b51e900800000000000000
+      internalID: 711950658702529214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_82
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 719
+        height: 324
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7ebfd67dce6213c0800000000000000
+      internalID: -4390324857991086470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_83
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 311
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24749a40d5b353b10800000000000000
+      internalID: 1960538483485919042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_84
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 305
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a2b5fa62d19f05b0800000000000000
+      internalID: -5399937095270288733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_85
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 278
+        width: 31
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43fdaa94806f7e500800000000000000
+      internalID: 425579205265907508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_86
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 297
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1909666f3c4678a40800000000000000
+      internalID: 5370371873477922961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_87
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 307
+        width: 36
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff87e0b28092b9ef0800000000000000
+      internalID: -100441451626858241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_88
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 312
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b97638f6109ad920800000000000000
+      internalID: 3015881328805968310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_89
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 311
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f1b3f3adc0d6700800000000000000
+      internalID: 535098062230200196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_90
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 257
+        width: 59
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ce677304b585f0a0800000000000000
+      internalID: -6848420650148204858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_91
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 313
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1f7d7a936bc53a0800000000000000
+      internalID: -6675260188924579413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_92
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 279
+        width: 19
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5297662b6032f1f0800000000000000
+      internalID: -1012693729440984483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_93
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 258
+        width: 52
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 907166c2c05dfbab0800000000000000
+      internalID: -4990035613842008311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_94
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 262
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8271f65bcb56d6d90800000000000000
+      internalID: -7102909176121190616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_95
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 264
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc111d27c99071ad0800000000000000
+      internalID: -2731704081431064117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_96
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 291
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a730c56321bc57b0800000000000000
+      internalID: -5234113901322291291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_97
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 272
+        width: 30
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2933c526fd74ecb60800000000000000
+      internalID: 7768225432014173074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_98
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 262
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02c1cf1a7920ed470800000000000000
+      internalID: 8421171203510377504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_99
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 264
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b67511f663ae7d1e0800000000000000
+      internalID: -2173010775670433941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_100
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 260
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 055259320f5e4fec0800000000000000
+      internalID: -3533946988027108016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_101
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 260
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3908f84953a969360800000000000000
+      internalID: 7176092611177840787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_102
+      rect:
+        serializedVersion: 2
+        x: 1186
+        y: 270
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e5b61c22b5c0650800000000000000
+      internalID: 6200430991814385206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_103
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 246
+        width: 53
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12af6166e737f1ad0800000000000000
+      internalID: -2729335862447375839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_104
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 264
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3d6ac22e7f8f5da0800000000000000
+      internalID: -5953882410448163521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_105
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 259
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a74be3120e57aadd0800000000000000
+      internalID: -2474035439795784582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_106
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 0
+        width: 351
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47f7fea72c2265490800000000000000
+      internalID: -7757975089417584780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_107
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 242
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41309f338c76a3d20800000000000000
+      internalID: 3259031389919052564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_108
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 240
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e78e21173d735f000800000000000000
+      internalID: 69022750568802430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_109
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 240
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63cc6bf0ca6fd0220800000000000000
+      internalID: 2453888590845234230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_110
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 244
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc24b6f26d52147b0800000000000000
+      internalID: -5241866889433759025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_111
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 242
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e05d309b05daf40800000000000000
+      internalID: 5741333855530716771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_112
+      rect:
+        serializedVersion: 2
+        x: 1188
+        y: 241
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cafebafba2d66450800000000000000
+      internalID: 6081779982898494149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_113
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 250
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663de38de28ccf640800000000000000
+      internalID: 5115183380308087654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_114
+      rect:
+        serializedVersion: 2
+        x: 1291
+        y: 242
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb7bd2d7cf6040380800000000000000
+      internalID: -9006065673332475969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_115
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 187
+        width: 54
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28cc9bbed6081b660800000000000000
+      internalID: 7399836872341048450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_116
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 0
+        width: 369
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd7c851bcae173210800000000000000
+      internalID: 1312551543460382685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_117
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 238
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84e5838816c1fd570800000000000000
+      internalID: 8493538627466845768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_118
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 224
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eed05e024060d77c0800000000000000
+      internalID: -4072091873271542290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_119
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 170
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e8276128e9a40dc0800000000000000
+      internalID: -3673624581569566495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_120
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 170
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2e81f26a375a7870800000000000000
+      internalID: 8681347139989769773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_121
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 109
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20b10b5c053bf6f20800000000000000
+      internalID: 3418147801692904194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_122
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 58
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 122d75cc55e8c3ba0800000000000000
+      internalID: -6107850495469563359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_123
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 54
+        width: 25
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e1ee3fd764d71950800000000000000
+      internalID: 6419833336432091621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_124
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 29
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1651348498d5f0880800000000000000
+      internalID: -8642586315696433823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_125
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 18
+        width: 13
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd4aca9077e519660800000000000000
+      internalID: 7390792328848123101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Bee_Texture_126
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 19
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44374d5f3661f60a0800000000000000
+      internalID: -6886260686644284604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pilots_Bee_Texture_0: 471301157715313133
+      Pilots_Bee_Texture_1: -5265666826260468115
+      Pilots_Bee_Texture_10: 7175231877931405481
+      Pilots_Bee_Texture_100: -3533946988027108016
+      Pilots_Bee_Texture_101: 7176092611177840787
+      Pilots_Bee_Texture_102: 6200430991814385206
+      Pilots_Bee_Texture_103: -2729335862447375839
+      Pilots_Bee_Texture_104: -5953882410448163521
+      Pilots_Bee_Texture_105: -2474035439795784582
+      Pilots_Bee_Texture_106: -7757975089417584780
+      Pilots_Bee_Texture_107: 3259031389919052564
+      Pilots_Bee_Texture_108: 69022750568802430
+      Pilots_Bee_Texture_109: 2453888590845234230
+      Pilots_Bee_Texture_11: 126953319904687104
+      Pilots_Bee_Texture_110: -5241866889433759025
+      Pilots_Bee_Texture_111: 5741333855530716771
+      Pilots_Bee_Texture_112: 6081779982898494149
+      Pilots_Bee_Texture_113: 5115183380308087654
+      Pilots_Bee_Texture_114: -9006065673332475969
+      Pilots_Bee_Texture_115: 7399836872341048450
+      Pilots_Bee_Texture_116: 1312551543460382685
+      Pilots_Bee_Texture_117: 8493538627466845768
+      Pilots_Bee_Texture_118: -4072091873271542290
+      Pilots_Bee_Texture_119: -3673624581569566495
+      Pilots_Bee_Texture_12: -3779416725317587384
+      Pilots_Bee_Texture_120: 8681347139989769773
+      Pilots_Bee_Texture_121: 3418147801692904194
+      Pilots_Bee_Texture_122: -6107850495469563359
+      Pilots_Bee_Texture_123: 6419833336432091621
+      Pilots_Bee_Texture_124: -8642586315696433823
+      Pilots_Bee_Texture_125: 7390792328848123101
+      Pilots_Bee_Texture_126: -6886260686644284604
+      Pilots_Bee_Texture_13: -8636025298544703354
+      Pilots_Bee_Texture_14: 6798994088368721920
+      Pilots_Bee_Texture_15: -4601354361275911780
+      Pilots_Bee_Texture_16: -1957840708839425914
+      Pilots_Bee_Texture_17: -3334973816529372263
+      Pilots_Bee_Texture_18: 5553623526406122325
+      Pilots_Bee_Texture_19: -4976916743428400369
+      Pilots_Bee_Texture_2: -7345851531756684149
+      Pilots_Bee_Texture_20: -917303726632651939
+      Pilots_Bee_Texture_21: -7152976635125936817
+      Pilots_Bee_Texture_22: 3577128007574974214
+      Pilots_Bee_Texture_23: 3340224984921742490
+      Pilots_Bee_Texture_24: -7677893081680947432
+      Pilots_Bee_Texture_25: -9141887008869409864
+      Pilots_Bee_Texture_26: 1711552434637918595
+      Pilots_Bee_Texture_27: -1741604617904784524
+      Pilots_Bee_Texture_28: -3458028226164907418
+      Pilots_Bee_Texture_29: -4120837308564373902
+      Pilots_Bee_Texture_3: -6398392120653130112
+      Pilots_Bee_Texture_30: 496816991722256788
+      Pilots_Bee_Texture_31: 1574349259202553845
+      Pilots_Bee_Texture_32: 4117992641281239835
+      Pilots_Bee_Texture_33: -7175810337194323083
+      Pilots_Bee_Texture_34: -5665107007042522753
+      Pilots_Bee_Texture_35: -7392419236483326260
+      Pilots_Bee_Texture_36: -6489339428923237598
+      Pilots_Bee_Texture_37: -1209242089178612149
+      Pilots_Bee_Texture_38: 1516380699622716273
+      Pilots_Bee_Texture_39: -6240577748217677903
+      Pilots_Bee_Texture_4: -3585407839210090569
+      Pilots_Bee_Texture_40: 2921290172444439444
+      Pilots_Bee_Texture_41: 4039991441690912614
+      Pilots_Bee_Texture_42: 3265392026212345216
+      Pilots_Bee_Texture_43: -2391134689598408798
+      Pilots_Bee_Texture_44: 2869031124933492006
+      Pilots_Bee_Texture_45: -4558422701321882045
+      Pilots_Bee_Texture_46: -1511156916229374284
+      Pilots_Bee_Texture_47: 2124221941445221865
+      Pilots_Bee_Texture_48: -3331927929973662725
+      Pilots_Bee_Texture_49: 8856846485589987955
+      Pilots_Bee_Texture_5: -2504253131372297341
+      Pilots_Bee_Texture_50: -4135040617789764421
+      Pilots_Bee_Texture_51: 5883384536248833394
+      Pilots_Bee_Texture_52: 3312744409699147841
+      Pilots_Bee_Texture_53: -1156591361659342467
+      Pilots_Bee_Texture_54: 7461571785913792129
+      Pilots_Bee_Texture_55: -8806793868931583660
+      Pilots_Bee_Texture_56: 4566811619944985710
+      Pilots_Bee_Texture_57: 2370638463283224411
+      Pilots_Bee_Texture_58: 5214867608456925233
+      Pilots_Bee_Texture_59: -2494390122239916252
+      Pilots_Bee_Texture_6: -6800020120832228273
+      Pilots_Bee_Texture_60: -7528726465800123242
+      Pilots_Bee_Texture_61: 5247367075125759383
+      Pilots_Bee_Texture_62: -7657221097572554214
+      Pilots_Bee_Texture_63: -5932709872891284542
+      Pilots_Bee_Texture_64: 7143432540889115913
+      Pilots_Bee_Texture_65: -8757803437212007380
+      Pilots_Bee_Texture_66: 5548584384172906692
+      Pilots_Bee_Texture_67: 3841832885688463952
+      Pilots_Bee_Texture_68: 5161819526225165596
+      Pilots_Bee_Texture_69: -6256744062679464377
+      Pilots_Bee_Texture_7: 1630311880404499690
+      Pilots_Bee_Texture_70: -1640199064344812621
+      Pilots_Bee_Texture_71: 9113278898961688966
+      Pilots_Bee_Texture_72: -4090815631410466371
+      Pilots_Bee_Texture_73: -6779307325151981700
+      Pilots_Bee_Texture_74: 6261691979576157191
+      Pilots_Bee_Texture_75: 6516642623856584195
+      Pilots_Bee_Texture_76: -2454429553542369778
+      Pilots_Bee_Texture_77: 4837934408947785882
+      Pilots_Bee_Texture_78: 2837314820524276868
+      Pilots_Bee_Texture_79: -7423845635456974766
+      Pilots_Bee_Texture_8: -8366557350269862625
+      Pilots_Bee_Texture_80: -7995176489115724382
+      Pilots_Bee_Texture_81: 711950658702529214
+      Pilots_Bee_Texture_82: -4390324857991086470
+      Pilots_Bee_Texture_83: 1960538483485919042
+      Pilots_Bee_Texture_84: -5399937095270288733
+      Pilots_Bee_Texture_85: 425579205265907508
+      Pilots_Bee_Texture_86: 5370371873477922961
+      Pilots_Bee_Texture_87: -100441451626858241
+      Pilots_Bee_Texture_88: 3015881328805968310
+      Pilots_Bee_Texture_89: 535098062230200196
+      Pilots_Bee_Texture_9: -8502573738970269029
+      Pilots_Bee_Texture_90: -6848420650148204858
+      Pilots_Bee_Texture_91: -6675260188924579413
+      Pilots_Bee_Texture_92: -1012693729440984483
+      Pilots_Bee_Texture_93: -4990035613842008311
+      Pilots_Bee_Texture_94: -7102909176121190616
+      Pilots_Bee_Texture_95: -2731704081431064117
+      Pilots_Bee_Texture_96: -5234113901322291291
+      Pilots_Bee_Texture_97: 7768225432014173074
+      Pilots_Bee_Texture_98: 8421171203510377504
+      Pilots_Bee_Texture_99: -2173010775670433941
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

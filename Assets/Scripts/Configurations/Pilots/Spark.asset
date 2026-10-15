@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Configurations.PilotTokenConfiguration
   Name: Spark
   DisplayName: Spark
-  Sprite: {fileID: 21300000, guid: cdebcb9eb30861a4db524d68ef631c42, type: 3}
+  Sprite: {fileID: -8899381634376888805, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
   AttackValue: 3
   DefenseValue: 0.5
   Ability: 0
+  AbilityKind: 0
+  AbilityApCost: 2

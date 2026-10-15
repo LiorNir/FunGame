@@ -15,6 +15,8 @@ MonoBehaviour:
   Name: PurpleHaze
   DisplayName: Haze
   Sprite: {fileID: 4621721856859205188, guid: bf924e7443c28b440bd979e76b09738a, type: 3}
-  AttackValue: 1.5
-  DefenseValue: 0.5
+  AttackValue: 2
+  DefenseValue: 0
   Ability: 0
+  AbilityKind: 2
+  AbilityApCost: 1

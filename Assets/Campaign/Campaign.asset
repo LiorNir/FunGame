@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 86a893818e604d14faa9f52281111cde, type: 2}
   - {fileID: 11400000, guid: b46067d269bd7cb4bba27f8f35273fe2, type: 2}
   - {fileID: 11400000, guid: 4d67bd2f0f789ab4db099c33f25bbb93, type: 2}
-  - {fileID: 11400000, guid: eadb9650b9ad2984e88d2d66cdfcacdf, type: 2}
+  - {fileID: 11400000, guid: 0b2595a4689e31145be45ab9682d5e19, type: 2}
   - {fileID: 11400000, guid: 0d12c5cd38cce124fb76a6db43177f81, type: 2}
   _worlds:
   - Name: World 1
@@ -40,7 +40,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a262a1b3112dd5a44865429c93963e1d, type: 2}
     - {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
     RewardPilots:
-    - {fileID: 11400000, guid: 0b2595a4689e31145be45ab9682d5e19, type: 2}
+    - {fileID: 11400000, guid: eadb9650b9ad2984e88d2d66cdfcacdf, type: 2}
   - Name: World 4
     Encounters:
     - {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}

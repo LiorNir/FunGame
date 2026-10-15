@@ -1,0 +1,702 @@
+fileFormatVersion: 2
+guid: 621ef4487d6a8a94c9293f2f1fd10f6d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3754543253069065374
+    second: Enemis_RockSlime_Texture_0
+  - first:
+      213: 2388647427640161939
+    second: Enemis_RockSlime_Texture_1
+  - first:
+      213: 2733645572053884016
+    second: Enemis_RockSlime_Texture_2
+  - first:
+      213: -1341647935018926420
+    second: Enemis_RockSlime_Texture_3
+  - first:
+      213: 4380284314089289133
+    second: Enemis_RockSlime_Texture_4
+  - first:
+      213: -4995477623468343015
+    second: Enemis_RockSlime_Texture_5
+  - first:
+      213: -4999584755308653092
+    second: Enemis_RockSlime_Texture_6
+  - first:
+      213: 7968185757383452945
+    second: Enemis_RockSlime_Texture_7
+  - first:
+      213: 2615569958372585404
+    second: Enemis_RockSlime_Texture_8
+  - first:
+      213: -6130494577542261024
+    second: Enemis_RockSlime_Texture_9
+  - first:
+      213: 4449146842223829322
+    second: Enemis_RockSlime_Texture_10
+  - first:
+      213: -5802742874563968715
+    second: Enemis_RockSlime_Texture_11
+  - first:
+      213: -2070220169194830426
+    second: Enemis_RockSlime_Texture_12
+  - first:
+      213: -4592133938432081448
+    second: Enemis_RockSlime_Texture_13
+  - first:
+      213: -3094781566406231137
+    second: Enemis_RockSlime_Texture_14
+  - first:
+      213: -2327019734532159021
+    second: Enemis_RockSlime_Texture_15
+  - first:
+      213: -2819932610514275188
+    second: Enemis_RockSlime_Texture_16
+  - first:
+      213: 2556611516420461113
+    second: Enemis_RockSlime_Texture_17
+  - first:
+      213: 3854469913336974960
+    second: Enemis_RockSlime_Texture_18
+  - first:
+      213: -3683915082735877866
+    second: Enemis_RockSlime_Texture_19
+  - first:
+      213: -7267715727406631225
+    second: Enemis_RockSlime_Texture_20
+  - first:
+      213: 9038327190656657747
+    second: Enemis_RockSlime_Texture_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1241
+        height: 1203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2639af2cdce25ebc0800000000000000
+      internalID: -3754543253069065374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 870
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 396742a0e2e262120800000000000000
+      internalID: 2388647427640161939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 771
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07c57101a2cdfe520800000000000000
+      internalID: 2733645572053884016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 724
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae7f8bbf42816de0800000000000000
+      internalID: -1341647935018926420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 730
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5f18c3065e9cc30800000000000000
+      internalID: 4380284314089289133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 706
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 911c1c1919f7caab0800000000000000
+      internalID: -4995477623468343015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 626
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd59e5b6728ed9ab0800000000000000
+      internalID: -4999584755308653092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 599
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 119ea25aabea49e60800000000000000
+      internalID: 7968185757383452945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 375
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbf2bfde40f5c4420800000000000000
+      internalID: 2615569958372585404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 361
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e6922899ab1ceaa0800000000000000
+      internalID: -6130494577542261024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 316
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a416d4cfa7b8ebd30800000000000000
+      internalID: 4449146842223829322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 274
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5318fae8914887fa0800000000000000
+      internalID: -5802742874563968715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 259
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a50b4089b91543e0800000000000000
+      internalID: -2070220169194830426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_13
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 115
+        width: 122
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d18dbe53867540c0800000000000000
+      internalID: -4592133938432081448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_14
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 93
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9bfdecef802d05d0800000000000000
+      internalID: -3094781566406231137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_15
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 63
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d903e961e3c4bfd0800000000000000
+      internalID: -2327019734532159021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_16
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 62
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c84b1cb3b369dd8d0800000000000000
+      internalID: -2819932610514275188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_17
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 29
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9321ae0f0a8ea7320800000000000000
+      internalID: 2556611516420461113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_18
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 37
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e81edd6f3dd7530800000000000000
+      internalID: 3854469913336974960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_19
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 7
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61103de10ca10ecc0800000000000000
+      internalID: -3683915082735877866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_20
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 15
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c6786b4d03e32b90800000000000000
+      internalID: -7267715727406631225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_RockSlime_Texture_21
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 0
+        width: 140
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35928da51b69e6d70800000000000000
+      internalID: 9038327190656657747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Enemis_RockSlime_Texture_0: -3754543253069065374
+      Enemis_RockSlime_Texture_1: 2388647427640161939
+      Enemis_RockSlime_Texture_10: 4449146842223829322
+      Enemis_RockSlime_Texture_11: -5802742874563968715
+      Enemis_RockSlime_Texture_12: -2070220169194830426
+      Enemis_RockSlime_Texture_13: -4592133938432081448
+      Enemis_RockSlime_Texture_14: -3094781566406231137
+      Enemis_RockSlime_Texture_15: -2327019734532159021
+      Enemis_RockSlime_Texture_16: -2819932610514275188
+      Enemis_RockSlime_Texture_17: 2556611516420461113
+      Enemis_RockSlime_Texture_18: 3854469913336974960
+      Enemis_RockSlime_Texture_19: -3683915082735877866
+      Enemis_RockSlime_Texture_2: 2733645572053884016
+      Enemis_RockSlime_Texture_20: -7267715727406631225
+      Enemis_RockSlime_Texture_21: 9038327190656657747
+      Enemis_RockSlime_Texture_3: -1341647935018926420
+      Enemis_RockSlime_Texture_4: 4380284314089289133
+      Enemis_RockSlime_Texture_5: -4995477623468343015
+      Enemis_RockSlime_Texture_6: -4999584755308653092
+      Enemis_RockSlime_Texture_7: 7968185757383452945
+      Enemis_RockSlime_Texture_8: 2615569958372585404
+      Enemis_RockSlime_Texture_9: -6130494577542261024
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

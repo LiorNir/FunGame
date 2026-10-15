@@ -21,7 +21,7 @@ namespace FunGame.Sim
             new PilotStats("Sil", 2f, 1f),
             new PilotStats("Quill", 1f, 2f),
             new PilotStats("Yawn", 1f, 1f),
-            new PilotStats("Haze", 1.5f, 0.5f),
+            new PilotStats("Brash", 1.5f, 0.5f),
             new PilotStats("Pion", 1f, 1f)
         };
 
@@ -142,7 +142,7 @@ namespace FunGame.Sim
             new PilotStats("Sil", 2f, 1f),
             new PilotStats("Quill", 1f, 3f),
             new PilotStats("Yawn", 1f, 1f),
-            new PilotStats("Haze", 1.5f, 0.5f),
+            new PilotStats("Brash", 1.5f, 0.5f),
             new PilotStats("Pion", 1f, 1f),
             new PilotStats("Spark", 3f, 0.5f)
         };
@@ -284,17 +284,17 @@ namespace FunGame.Sim
         // ---------- World 4: the board's math (tolls, divide, bonus slots) ----------
 
         /// <summary>
-        /// The pilots the player has by World 4: the World 3 roster and the World 3 boss's reward pilot Brash (2 ATK / 0 DEF):
+        /// The pilots the player has by World 4: the World 3 roster and the World 3 boss's reward pilot Haze (2 ATK / 0 DEF):
         /// its zero defense pays a defense toll for free (but divides by zero), and its ability No Guard halves both sides'
         /// defense for a turn (a way through a charge's guard).
         /// </summary>
         public static IReadOnlyList<PilotStats> WorldFourRoster => WorldThreeRoster
-            .Concat(new[] { new PilotStats("Brash", 2f, 0f, null, new NoGuardAbility(1)) })
+            .Concat(new[] { new PilotStats("Haze", 2f, 0f, null, new NoGuardAbility(1)) })
             .ToList();
 
         /// <summary>
         /// The fourth world: the board's math. 4-1 a subtract toll in front of a x2 bonus slot (the weakest defense pays
-        /// the toll; Brash pays nothing), 4-2 a divide slot (a defense below 1 multiplies, 0 divides by zero), the boss charges
+        /// the toll; Haze pays nothing), 4-2 a divide slot (a defense below 1 multiplies, 0 divides by zero), the boss charges
         /// a big unleash (break its guard with Surge or No Guard, or hold it with a multiplied defense).
         /// </summary>
         public static IReadOnlyList<EncounterCase> WorldFour()
@@ -312,8 +312,8 @@ namespace FunGame.Sim
             var first = new EncounterCase("World 4-1: Pay the toll", "Early",
                 new BattleSetup(firstBoard, new List<SlotRule>(),
                     new[] { new LaneSpec("lane1", new[] { Enemy("Collector", 18, false, Act("Smash", 6, 0), Act("Hunker", 0, 5), Act("Jab", 2, 0)) }) },
-                    GameRules, WorldFourRoster, 1) { OpeningHand = new[] { "Brash" } },
-                "Defense is (R - D1 + D2) x2: the weakest defense pays the toll in D1, and Brash's 0 pays nothing. The enemy hunkers (guard 5, no attack): a free turn for No Guard.", "World 4", 1, "a subtract toll in front of a bonus slot; No Guard on a guard turn");
+                    GameRules, WorldFourRoster, 1) { OpeningHand = new[] { "Haze" } },
+                "Defense is (R - D1 + D2) x2: the weakest defense pays the toll in D1, and Haze's 0 pays nothing. The enemy hunkers (guard 5, no attack): a free turn for No Guard.", "World 4", 1, "a subtract toll in front of a bonus slot; No Guard on a guard turn");
 
             // 4-2: defense = R / D1 + D2; attack = (R + A1) x A2
             var secondBoard = new BoardGraph(
@@ -332,7 +332,7 @@ namespace FunGame.Sim
                         Enemy("Big brute", 22, false, Act("Slam", 6, 0), Act("Brace", 2, 3))
                     }) },
                     GameRules, WorldFourRoster, 1),
-                "Defense is R / D1 + D2: dividing by a defense below 1 multiplies (Haze or Spark double the root); Brash's 0 divides by zero.", "World 4", 2, "divide: a stat below 1 multiplies");
+                "Defense is R / D1 + D2: dividing by a defense below 1 multiplies (Brash or Spark double the root); Haze's 0 divides by zero.", "World 4", 2, "divide: a stat below 1 multiplies");
 
             // 4-3 (boss): attack = (R - A1 + A2) x2; defense = (R + D1) x D2; the ram charges (guard 8) before a big unleash
             var bossBoard = new BoardGraph(

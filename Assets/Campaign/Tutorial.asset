@@ -97,7 +97,7 @@ MonoBehaviour:
   - Encounter: {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
     Trigger: 1
     Turn: 2
-    Text: 'The enemy hunkers down: a big guard and no attack. Brash''s No Guard halves
+    Text: 'The enemy hunkers down: a big guard and no attack. Haze''s No Guard halves
       both sides'' defense this turn, which costs you nothing while the enemy is
       not attacking.'
   - Encounter: {fileID: 11400000, guid: b30786470eb698f4194bf29f90ac94d4, type: 2}

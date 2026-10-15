@@ -15,8 +15,8 @@ MonoBehaviour:
   Name: Brash
   DisplayName: Brash
   Sprite: {fileID: 21300000, guid: a08a982ccb344674a9cd393dad4dc9c4, type: 3}
-  AttackValue: 2
-  DefenseValue: 0
+  AttackValue: 1.5
+  DefenseValue: 0.5
   Ability: 0
-  AbilityKind: 2
-  AbilityApCost: 1
+  AbilityKind: 0
+  AbilityApCost: 2
