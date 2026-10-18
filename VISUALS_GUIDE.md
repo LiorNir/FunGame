@@ -47,7 +47,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `Assets/Art/PilotAnimations/<pilot>/` | Each pilot's animation prefab: its frames (`Sprite Frames`) and its legacy clips Idle (loops), Attack and Defeated (play once). The clips key the frame number (and anything else, such as scale or position); open the prefab and edit them in the Animation window, which previews the frames. |
 | `Assets/Art/Worlds/` | `Default/Default Look` (the board and background used when a world sets none; on the Battle Visuals asset) and `World N/World N Look` (each world's board and background pictures; every encounter of the world points to it; empty = default). A world's pictures should share the default pictures' framing. |
 | `Assets/Art/Fonts/` | One black-outline material per font (`<font> - Black Outline`), made and assigned to every text in the battle and campaign prefabs by *Tools > Fun Game > Apply Text Outline*; tune the outline's width and colour on the material. Run the menu again after changing fonts. |
-| `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson), the connection strip (`ConnectionStrip`) and the shadow circle (`Circle`, a copy of Unity's default circle). |
+| `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson), the connection strip (`ConnectionStrip`), the shadow circle (`Circle`, a copy of Unity's default circle) and the bar frame (`BarFrame`: a hollow 9-sliced black border, used Sliced by the card bars' `Frame` and the enemy's `BarFrame`, so it keeps one thickness on any bar). |
 
 ## Draw order (Order in Layer, all on the Default sorting layer)
 
