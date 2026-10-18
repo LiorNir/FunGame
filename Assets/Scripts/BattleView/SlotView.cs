@@ -27,7 +27,6 @@ namespace BattleView
     /// border and number.</item>
     /// <item>LockIcon and LockText: shown while the slot is locked, the text under the icon says how it unlocks.</item>
     /// <item>BonusBadge and BonusText: the slot's bonus, shown only when it has one.</item>
-    /// <item>AbilityGlow: behind the background, pulses while the pilot has an ability it can use now (temporary look).</item>
     /// <item>PilotStatusText: beside the pilot, one line each: its ability, its lock ("LOCKED 2") or the enemy effect aimed
     /// at it ("next: LOCK 2").</item>
     /// <item>Ring: a decorative frame around the slot with the lerp-colour material. This script sets its colours (and the
@@ -64,9 +63,6 @@ namespace BattleView
         [SerializeField] private SpriteRenderer _bonusBadge;
         [Tooltip("Beside the pilot: its ability, its lock, or an enemy effect aimed at it (for example a coming lock), one per line.")]
         [SerializeField] private TextMeshPro _pilotStatusText;
-        [Tooltip("Behind the background: pulses while the pilot has an ability it can use now. Its colour is set on the prefab.")]
-        [SerializeField] private SpriteRenderer _abilityGlow;
-        [SerializeField] private float _abilityGlowPulseSeconds = 0.6f;
         [Tooltip("The pilot's name, only for a pilot that has no picture yet.")]
         [FormerlySerializedAs("_centerText")]
         [SerializeField] private TextMeshPro _pilotNameText;
@@ -114,12 +110,8 @@ namespace BattleView
         private SlotVisualState _state;
         private bool _attackUsed;
         private bool _defenseUsed;
-        private int _abilityGlowState; // 0 off, 1 faint, 2 pulsing
         private string _tollSymbol;
 
-        private Color _abilityGlowColor;
-        private Vector3 _abilityGlowScale;
-        private Sequence _abilityGlowPulse;
 
         public string SlotId { get; private set; }
         public PilotUnit Pilot => _pilot;
@@ -184,13 +176,6 @@ namespace BattleView
             if (_lockIcon != null)
             {
                 _lockIcon.enabled = false;
-            }
-
-            if (_abilityGlow != null)
-            {
-                _abilityGlowColor = _abilityGlow.color;
-                _abilityGlowScale = _abilityGlow.transform.localScale;
-                _abilityGlow.enabled = false;
             }
 
             // clicks land on the background, whatever size the prefab's background has
@@ -322,45 +307,12 @@ namespace BattleView
         public bool HasStatus => _pilotStatusText != null && !string.IsNullOrEmpty(_pilotStatusText.text);
 
         /// <summary>
-        /// Marks the pilot whose ability can be used now (pulsing glow). <paramref name="usable"/> false while it cannot be
-        /// afforded: the glow stays, faint and still, so the pilot can still be found.
+        /// Marks the pilot whose ability can be used right now (unused and enough AP) with the Ability Ready effect.
+        /// <paramref name="ready"/>: the ability is unused; <paramref name="usable"/>: it can also be afforded now.
         /// </summary>
         public void SetAbilityReady(bool ready, bool usable)
         {
-            // the Ability Ready effect only while the ability can be used right now (unused and enough AP)
-            _effects?.SetAbilityReady(usable && _pilot != null && !_pilot.Fallen);
-            if (_abilityGlow == null)
-            {
-                return;
-            }
-
-            var state = !ready ? 0 : usable ? 2 : 1;
-            _abilityGlow.enabled = ready;
-            if (state == _abilityGlowState)
-            {
-                return;
-            }
-
-            _abilityGlowState = state;
-            _abilityGlowPulse?.Kill();
-            _abilityGlowPulse = null;
-            _abilityGlow.transform.localScale = _abilityGlowScale;
-            if (!ready)
-            {
-                return;
-            }
-
-            if (!usable)
-            {
-                _abilityGlow.color = WithAlpha(_abilityGlowColor, 0.35f);
-                return;
-            }
-
-            _abilityGlow.color = _abilityGlowColor;
-            _abilityGlowPulse = DOTween.Sequence()
-                .Join(_abilityGlow.DOFade(_abilityGlowColor.a * 0.3f, _abilityGlowPulseSeconds))
-                .Join(_abilityGlow.transform.DOScale(_abilityGlowScale * 1.08f, _abilityGlowPulseSeconds))
-                .SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetLink(gameObject);
+            _effects?.SetAbilityReady(ready && usable && _pilot != null && !_pilot.Fallen);
         }
 
         public void SetHighlight(bool on)

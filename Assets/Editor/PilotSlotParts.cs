@@ -14,7 +14,6 @@ namespace FunGame.EditorTools
     /// <code>
     /// PilotSlot                      slot data, slot view, click collider
     ///   GeneralScaler                scales the whole look
-    ///     AbilityGlow                behind the background; pulses while the pilot's ability can be used
     ///     PilotBackground            disc behind the pilot; its size is the slot's size
     ///     Pilot                      the placed pilot's picture
     ///     Ring                       decorative frame with its own material (not touched by code)
@@ -52,15 +51,12 @@ namespace FunGame.EditorTools
         private const float BackgroundDiameter = 0.9f;
         private const float ScalerScale = 1.4f;
         private static readonly Color BackgroundColor = new Color(0.12f, 0.12f, 0.2f);
-        private static readonly Color AbilityGlowColor = new Color(1f, 0.82f, 0.3f, 0.85f);
-        private const float AbilityGlowDiameter = 1.3f;
         private static readonly Color BonusTextColor = new Color(1f, 0.85f, 0.3f);
         private static readonly Color StatsBorderColor = new Color(0.6f, 0.6f, 0.65f);
         private static readonly Color StatsBackgroundColor = new Color(0f, 0f, 0f, 0.92f);
         private static readonly Color StatFillColor = new Color(0.15f, 0.25f, 0.4f); // only a preview: the slot colours it
 
         // draw order, back to front (the operator slot's base uses 2; board lines use 0)
-        private const int OrderAbilityGlow = 1;
         private const int OrderBackground = 2;
         private const int OrderPilot = 3;
         private const int OrderRing = 4;
@@ -94,11 +90,11 @@ namespace FunGame.EditorTools
                 ViewFactory.FitSprite(background, BackgroundDiameter);
             }
 
-            var abilityGlow = EnsureSprite(parent, "AbilityGlow", null, visuals.SlotBase, AbilityGlowColor, OrderAbilityGlow, Vector3.zero, out created);
-            if (created)
+            // the pulsing ability glow was replaced by the Ability Ready particle effect
+            var oldGlow = parent.Find("AbilityGlow");
+            if (oldGlow != null)
             {
-                ViewFactory.FitSprite(abilityGlow, AbilityGlowDiameter);
-                abilityGlow.transform.SetAsFirstSibling();
+                Object.DestroyImmediate(oldGlow.gameObject);
             }
 
             var pilot = EnsureSprite(parent, "Pilot", null, null, Color.white, OrderPilot, Vector3.zero, out _);
@@ -185,7 +181,6 @@ namespace FunGame.EditorTools
             Assign(serialized, "_bonusBadge", bonusBadge);
             Assign(serialized, "_pilotNameText", nameText);
             Assign(serialized, "_pilotStatusText", statusText);
-            Assign(serialized, "_abilityGlow", abilityGlow);
             // INACTIVE LABEL: Assign(serialized, "_inactiveText", inactiveText);
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
