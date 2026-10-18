@@ -14,7 +14,8 @@ namespace BattleView
     public class EnemiesView : MonoBehaviour
     {
         [Header("Used only for lanes without an anchor")]
-        [SerializeField] private float _enemyY = 3.1f;
+        [Tooltip("Height of the enemies; their health bar must stay above the world's board art (WorldLook prefab).")]
+        [SerializeField] private float _enemyY = 3.35f;
         [SerializeField] private float _laneSpacing = 4.6f;
         [SerializeField] private float _wideSpread = 6.5f;
 
