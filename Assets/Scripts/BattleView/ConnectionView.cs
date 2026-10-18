@@ -15,9 +15,12 @@ namespace BattleView
         [SerializeField] private float _width = 0.12f;
         [Tooltip("Width while a pilot powers the connection.")]
         [SerializeField] private float _poweredWidth = 0.2f;
-        [Tooltip("Opacity of a connection no pilot powers yet (1 = as bright as a powered one).")]
+        [Tooltip("Opacity of a connection no pilot powers yet (1 = as opaque as a powered one).")]
         [Range(0f, 1f)]
         [SerializeField] private float _unpoweredAlpha = 0.35f;
+        [Tooltip("Brightness of a connection no pilot powers yet: its role colour is darkened by this (1 = as bright as a powered one), so idle lines stay visible but quieter.")]
+        [Range(0f, 1f)]
+        [SerializeField] private float _unpoweredBrightness = 0.45f;
 
         [Header("Material")]
         [Tooltip("The material's colour property; it gets the role colour.")]
@@ -47,7 +50,8 @@ namespace BattleView
 
             if (!powered)
             {
-                color.a *= _unpoweredAlpha;
+                color = new Color(color.r * _unpoweredBrightness, color.g * _unpoweredBrightness, color.b * _unpoweredBrightness,
+                    color.a * _unpoweredAlpha);
             }
 
             // a material that reads the sprite's own colour still gets it this way too
