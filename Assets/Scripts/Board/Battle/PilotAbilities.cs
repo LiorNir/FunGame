@@ -63,7 +63,7 @@ namespace FunGame.Battle
     /// </summary>
     public sealed class SurgeAbility : IPilotAbility
     {
-        public float Multiplier { get; }
+        public float Multiplier { get; private set; }
         public int ApCost { get; }
         public string Name => "Surge";
 
@@ -75,7 +75,7 @@ namespace FunGame.Battle
 
         public string Describe()
         {
-            return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, then ATK 0 until rested in the hand";
+            return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, then ATK 0, recovered in the hand like a wound";
         }
 
         public void Activate(PilotUnit pilot, BattleEngine engine)
@@ -128,7 +128,7 @@ namespace FunGame.Battle
     /// </summary>
     public sealed class StatModifier
     {
-        public float Multiplier { get; }
+        public float Multiplier { get; private set; }
 
         /// <summary>Turns until it starts: 0 = it applies this turn.</summary>
         public int StartsIn { get; private set; }
@@ -136,7 +136,10 @@ namespace FunGame.Battle
         /// <summary>How many turns it applies once started.</summary>
         public int TurnsLeft { get; private set; }
 
-        /// <summary>True if it lasts, once started, until the pilot rests in the hand instead of for a number of turns.</summary>
+        /// <summary>
+        /// True if it lasts, once started, until the pilot has recovered from it in the hand instead of for a number of turns
+        /// (see <see cref="Recover"/>).
+        /// </summary>
         public bool LastsUntilRested { get; }
 
         public bool IsActive => StartsIn == 0 && TurnsLeft > 0;
@@ -150,7 +153,7 @@ namespace FunGame.Battle
             LastsUntilRested = lastsUntilRested;
         }
 
-        /// <summary>A modifier that starts in some turns and lasts until the pilot rests in the hand (see <see cref="PilotUnit.Rest"/>).</summary>
+        /// <summary>A modifier that starts in some turns and lasts until the pilot recovers from it in the hand (see <see cref="PilotUnit.Rest"/>).</summary>
         public static StatModifier UntilRested(float multiplier, int startsIn)
         {
             return new StatModifier(multiplier, startsIn, int.MaxValue, true);
@@ -167,6 +170,16 @@ namespace FunGame.Battle
             {
                 TurnsLeft--;
             }
+        }
+
+        /// <summary>
+        /// A turn start resting in the hand: the multiplier moves toward 1 by <paramref name="amount"/> (the same share of the
+        /// stat that a wound recovers). True once it is back to 1 and can be removed.
+        /// </summary>
+        public bool Recover(float amount)
+        {
+            Multiplier = Multiplier < 1f ? System.Math.Min(1f, Multiplier + amount) : System.Math.Max(1f, Multiplier - amount);
+            return System.Math.Abs(Multiplier - 1f) < 0.001f;
         }
 
         public StatModifier Copy()

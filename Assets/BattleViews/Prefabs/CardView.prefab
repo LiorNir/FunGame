@@ -170,6 +170,10 @@ MonoBehaviour:
   _label: {fileID: 6802696902993268693}
   _preview: {fileID: 6399700420863694028}
   _previewColor: {r: 0.4, g: 1, b: 0.4, a: 0.35}
+  _previewBlinkAlpha: 0.3
+  _blinkSeconds: 0.45
+  _boostColor: {r: 1, g: 0.85, b: 0.25, a: 1}
+  _dropColor: {r: 1, g: 0.45, b: 0.45, a: 1}
   _fillBrightness: 0.45
   _animationSeconds: 0.4
 --- !u!1 &1553723524306602185
@@ -457,6 +461,7 @@ GameObject:
   - component: {fileID: 7322812455971090440}
   - component: {fileID: 4597797001512842660}
   - component: {fileID: 6618857992175854853}
+  - component: {fileID: 6723483892551621014}
   m_Layer: 0
   m_Name: Picture
   m_TagString: Untagged
@@ -521,6 +526,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6723483892551621014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3706130987430145058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7e1c2a9d3f4e58a6c0d1e2f3a4b5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Views.PilotAnimationView
+  _animation: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _image: {fileID: 6618857992175854853}
+  _idle:
+    _sprites: []
+    _spriteChangeTime: 0.1
+    _loop: 1
+  _attack:
+    _sprites: []
+    _spriteChangeTime: 0.1
+    _loop: 1
+  _defeated:
+    _sprites: []
+    _spriteChangeTime: 0.1
+    _loop: 1
+  ShouldPlayIdle: 0
+  ShouldPlayAttack: 0
+  ShouldPlayDefeated: 0
 --- !u!1 &3733265679428435124
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +726,10 @@ MonoBehaviour:
   _label: {fileID: 2678093458905348584}
   _preview: {fileID: 5579170101341079251}
   _previewColor: {r: 0.4, g: 1, b: 0.4, a: 0.35}
+  _previewBlinkAlpha: 0.3
+  _blinkSeconds: 0.45
+  _boostColor: {r: 1, g: 0.85, b: 0.25, a: 1}
+  _dropColor: {r: 1, g: 0.45, b: 0.45, a: 1}
   _fillBrightness: 0.45
   _animationSeconds: 0.4
 --- !u!1 &6350508656998546703
@@ -973,6 +1012,7 @@ MonoBehaviour:
   _button: {fileID: 1157168081411790550}
   _background: {fileID: 733212430563598367}
   _picture: {fileID: 6618857992175854853}
+  _pictureAnimation: {fileID: 6723483892551621014}
   _name: {fileID: 7688131208577872352}
   _stats: {fileID: 2315741747524827796}
   _attackBar: {fileID: 7361691416416620350}

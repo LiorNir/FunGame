@@ -50,10 +50,22 @@ namespace FunGame.Battle
             return _ejectedThisTurn.Contains(pilot);
         }
 
+        /// <summary>How much a pilot in the hand recovers at the next turn start (wounds and the Surge crash alike).</summary>
+        public float RecoveryOf(PilotUnit pilot)
+        {
+            return Setup.Rules.HandRecoveryPerTurn * (WasEjectedThisTurn(pilot) ? Setup.Rules.EjectedRecoveryMultiplier : 1f);
+        }
+
+        /// <summary>The attack a pilot in the hand will have after the next turn starts, by the recovery rules.</summary>
+        public float AttackAfterRest(PilotUnit pilot)
+        {
+            return pilot.AttackAfterRest(RecoveryOf(pilot));
+        }
+
         /// <summary>The wound a pilot in the hand will have after the next turn starts, by the recovery rules.</summary>
         public float WoundAfterRest(PilotUnit pilot)
         {
-            var recovery = Setup.Rules.HandRecoveryPerTurn * (WasEjectedThisTurn(pilot) ? Setup.Rules.EjectedRecoveryMultiplier : 1f);
+            var recovery = RecoveryOf(pilot);
             var rested = pilot.Copy();
             rested.DefenseWound = Math.Max(0f, pilot.DefenseWound - recovery);
             rested.SnapWound(Setup.Rules.DefenseStep);
@@ -1165,23 +1177,18 @@ namespace FunGame.Battle
         }
 
         /// <summary>
-        /// Pilots resting in the hand shake off "until rested" modifiers (the Surge crash) and get back part of their defense
-        /// (see <see cref="BattleRules.HandRecoveryPerTurn"/>); one
-        /// ejected last turn and still in the hand gets the ejected pilot's bonus (<see cref="BattleRules.EjectedRecoveryMultiplier"/>).
+        /// Pilots resting in the hand get back part of their defense and recover from "until rested" modifiers (the Surge
+        /// crash) by the same share (see <see cref="BattleRules.HandRecoveryPerTurn"/>); one ejected last turn and still in
+        /// the hand gets the ejected pilot's bonus (<see cref="BattleRules.EjectedRecoveryMultiplier"/>).
         /// </summary>
         private void RecoverHand()
         {
             foreach (var pilot in Hand)
             {
-                pilot.Rest();
-            }
-
-            var recovery = Setup.Rules.HandRecoveryPerTurn;
-            if (recovery > 0f)
-            {
-                foreach (var pilot in Hand)
+                var amount = RecoveryOf(pilot);
+                pilot.Rest(amount);
+                if (amount > 0f)
                 {
-                    var amount = _ejectedThisTurn.Contains(pilot) ? recovery * Setup.Rules.EjectedRecoveryMultiplier : recovery;
                     pilot.DefenseWound = Math.Max(0f, pilot.DefenseWound - amount);
                     pilot.SnapWound(Setup.Rules.DefenseStep);
                 }

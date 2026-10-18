@@ -126,24 +126,6 @@ namespace BattleView
             text.fontSize = heightInWorldUnits * FontSizePerWorldUnit;
         }
 
-        /// <summary>Creates a line between two world positions (given in world space, stored relative to the parent).</summary>
-        public static LineRenderer CreateLine(Transform parent, string name, Vector3 from, Vector3 to, float width, int sortingOrder)
-        {
-            var go = new GameObject(name);
-            go.transform.SetParent(parent, false);
-            var line = go.AddComponent<LineRenderer>();
-            // local space, so the line follows its parent when the board is moved or scaled
-            line.useWorldSpace = false;
-            line.positionCount = 2;
-            line.SetPosition(0, parent.InverseTransformPoint(from));
-            line.SetPosition(1, parent.InverseTransformPoint(to));
-            line.startWidth = width;
-            line.endWidth = width;
-            line.material = SpriteMaterial;
-            line.sortingOrder = sortingOrder;
-            return line;
-        }
-
         /// <summary>Shows a number or word that floats up from a world position and fades out.</summary>
         public static void ShowPopup(Vector3 worldPosition, string text, Color color, float height = 0.45f)
         {

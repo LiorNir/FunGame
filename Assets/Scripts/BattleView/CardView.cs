@@ -1,5 +1,6 @@
 using System;
 using Configurations;
+using Cysharp.Threading.Tasks;
 using FunGame.Battle;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace BattleView
         [SerializeField] private Button _button;
         [SerializeField] private Image _background;
         [SerializeField] private Image _picture;
+        [Tooltip("Optional: plays the pilot asset's Idle frames on the picture. Pilots without frames keep their still picture.")]
+        [SerializeField] private Views.PilotAnimationView _pictureAnimation;
         [SerializeField] private TextMeshProUGUI _name;
         [Tooltip("Shown only when the card has no stat bars.")]
         [SerializeField] private TextMeshProUGUI _stats;
@@ -66,6 +69,12 @@ namespace BattleView
             {
                 _picture.sprite = null;
                 _picture.color = new Color(1f, 1f, 1f, 0.08f);
+            }
+
+            if (_pictureAnimation != null)
+            {
+                _pictureAnimation.SetSequences(source != null ? source.IdleAnimation : null, null, null);
+                _pictureAnimation.PlayIdleAnimation().Forget();
             }
 
             var attack = DisplayFormat.Value(pilot.EffectiveAttack);

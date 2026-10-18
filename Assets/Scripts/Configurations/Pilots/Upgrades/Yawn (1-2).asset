@@ -20,4 +20,14 @@ MonoBehaviour:
   Ability: 0
   AbilityKind: 0
   AbilityApCost: 2
+  IdleFrames:
+    _sprites: []
+    _spriteChangeTime: 0.1
+  AttackFrames:
+    _sprites: []
+    _spriteChangeTime: 0.1
+  DefeatedFrames:
+    _sprites: []
+    _spriteChangeTime: 0.1
+  BasePilot: {fileID: 11400000, guid: 4d67bd2f0f789ab4db099c33f25bbb93, type: 2}
   _assetId: 14d811f7d2cbcd54b9585df5d5993e5a

@@ -60,7 +60,7 @@ namespace BattleView
                 // where its stats will be next turn if it rests here (the bars preview it when that is higher than now)
                 var defenseAfterRest = StatShares.DefenseAfterRest(pilot, engine.WoundAfterRest(pilot));
                 card.Set(pilot, index, index == selectedIndex, _visuals, restsFaster ? rules.EjectedRecoveryMultiplier : 1f,
-                         defenseAfterRest, StatShares.AttackAfterRest(pilot));
+                         defenseAfterRest, StatShares.AttackAfterRest(pilot, engine.AttackAfterRest(pilot)));
                 card.Clicked += clicked => CardClicked?.Invoke(clicked.Index, clicked.Rect);
                 card.Rect.anchoredPosition = new Vector2((index - (count - 1) * 0.5f) * _spacing, index == selectedIndex ? _raiseWhenSelected : 0f);
                 _cards.Add(card);

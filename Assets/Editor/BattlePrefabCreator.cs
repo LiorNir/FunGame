@@ -387,6 +387,7 @@ namespace FunGame.EditorTools
             visuals.CardPrefab = EnsureComponent<CardView>("CardView", overwrite, visuals, CreateCard);
             visuals.ChainLabelPrefab = EnsureComponent<TextMeshPro>("ChainLabel", overwrite, visuals, CreateChainLabel);
             visuals.PopupPrefab = EnsureComponent<TextMeshPro>("Popup", overwrite, visuals, CreatePopup);
+            visuals.ConnectionPrefab = EnsureComponent<ConnectionView>("Connection", overwrite, visuals, CreateConnection);
             visuals.HudPrefab = EnsureComponent<HudView>("BattleHud", overwrite, visuals,
                 v => CreateHud(v, option.GetComponent<Button>()));
 
@@ -539,8 +540,27 @@ namespace FunGame.EditorTools
             text.textWrappingMode = TextWrappingModes.NoWrap;
             text.sortingOrder = 9;
             text.rectTransform.sizeDelta = new Vector2(6f, 1f);
+            // upright on the tilted board
+            root.AddComponent<FaceCamera>();
             return root;
         }
+
+        /// <summary>The placeholder strip picture of a connection (white, soft edges; tinted by role at runtime).</summary>
+        private const string ConnectionStripPath = "Assets/Art/Placeholders/ConnectionStrip.png";
+
+        private static GameObject CreateConnection(BattleVisuals visuals)
+        {
+            var root = new GameObject("Connection");
+            var strip = ViewFactory.CreateSprite(root.transform, "Strip", null, Color.white, ConnectionSortingOrder, Vector3.zero);
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(ConnectionStripPath);
+            strip.sprite = sprite != null ? sprite : ViewFactory.WhiteSprite;
+            var view = root.AddComponent<ConnectionView>();
+            Assign(view, "_strip", strip);
+            return root;
+        }
+
+        // below the slot shadows (-1) and the slots, above the board background (-10)
+        private const int ConnectionSortingOrder = -2;
 
         private static GameObject CreatePopup(BattleVisuals visuals)
         {
@@ -570,12 +590,16 @@ namespace FunGame.EditorTools
             var picture = ViewFactory.CreateImage(rect, "Picture", Color.white, new Vector2(130f, 120f), new Vector2(0f, 38f));
             picture.raycastTarget = false;
             picture.preserveAspect = true;
+            // plays the pilot asset's Idle frames on the picture
+            var pictureAnimation = picture.gameObject.AddComponent<Views.PilotAnimationView>();
+            Assign(pictureAnimation, "_image", picture);
             var name = ViewFactory.CreateUiText(rect, "Name", string.Empty, 30f, Color.white, new Vector2(160f, 40f), new Vector2(0f, -40f));
             var stats = ViewFactory.CreateUiText(rect, "Stats", string.Empty, 28f, Color.white, new Vector2(160f, 80f), new Vector2(0f, -92f));
 
             Assign(view, "_button", button);
             Assign(view, "_background", background);
             Assign(view, "_picture", picture);
+            Assign(view, "_pictureAnimation", pictureAnimation);
             Assign(view, "_name", name);
             Assign(view, "_stats", stats);
             EnsureCardStatBars(rect.gameObject);

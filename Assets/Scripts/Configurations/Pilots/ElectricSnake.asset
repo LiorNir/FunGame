@@ -20,4 +20,26 @@ MonoBehaviour:
   Ability: 0
   AbilityKind: 0
   AbilityApCost: 2
+  IdleFrames:
+    _sprites:
+    - {fileID: -8899381634376888805, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -6513974472601313803, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -8428193363709111288, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: 4968475044160372035, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    _spriteChangeTime: 0.175
+  AttackFrames:
+    _sprites:
+    - {fileID: -7296609514444212945, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: 4654548001646319165, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -2436802873399427129, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -1265955733614828915, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    _spriteChangeTime: 0.175
+  DefeatedFrames:
+    _sprites:
+    - {fileID: -2231087667511495656, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -774421548205423014, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -653282766347002651, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    - {fileID: -7676854773044756716, guid: 52a3d4f020473104294fc3e4e1ca4a51, type: 3}
+    _spriteChangeTime: 0.175
+  BasePilot: {fileID: 0}
   _assetId: 1a34a0706bdd2024784464d98486794b

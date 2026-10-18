@@ -18,10 +18,6 @@ namespace BattleView
     /// </summary>
     public class BoardView : MonoBehaviour
     {
-        [Header("Lines between slots")]
-        [SerializeField] private float _lineWidth = 0.05f;
-        [SerializeField] private float _poweredLineWidth = 0.1f;
-
         [Header("Chain value labels")]
         [Tooltip("Height of the label above the last slot of a chain.")]
         [SerializeField] private float _chainLabelOffsetY = 0.72f;
@@ -31,7 +27,7 @@ namespace BattleView
 
         private sealed class LineSegment
         {
-            public LineRenderer Line;
+            public ConnectionView Line;
             public BoardLayoutAuthoring.RoleFlags Roles;
             public List<string> PoweredBySlots = new List<string>();
         }
@@ -123,6 +119,11 @@ namespace BattleView
                 var label = visuals.ChainLabelPrefab != null
                     ? Track(Instantiate(visuals.ChainLabelPrefab, transform))
                     : Track(ViewFactory.CreateWorldText(transform, string.Empty, string.Empty, 0.3f, Color.white, 9, Vector3.zero));
+                if (visuals.ChainLabelPrefab == null)
+                {
+                    label.gameObject.AddComponent<FaceCamera>();
+                }
+
                 label.name = "Chain " + chain.Id;
                 _labels.Add(new ChainLabel { Chain = chain, Text = label });
             }
@@ -169,9 +170,12 @@ namespace BattleView
                 parts.Add($"<color=#FF7A5C>SNIPED -{DisplayFormat.Value((1f - defenseMultiplier) * 100f)}%</color>");
             }
 
-            if (pilot.AttackModifiers.Any(modifier => modifier.IsActive && modifier.LastsUntilRested))
+            var crash = pilot.AttackModifiers.FirstOrDefault(modifier => modifier.IsActive && modifier.LastsUntilRested);
+            if (crash != null)
             {
-                parts.Add("<color=#FF7070>CRASHED: ATK 0 until rested</color>");
+                parts.Add(crash.Multiplier <= 0.001f
+                    ? "<color=#FF7070>CRASHED: ATK 0, recovers in the hand</color>"
+                    : $"<color=#FF7070>CRASHED: ATK x{DisplayFormat.Value(crash.Multiplier)}, recovers in the hand</color>");
             }
             else if (multiplier > 1.001f)
             {
@@ -289,18 +293,30 @@ namespace BattleView
 
                 label.Text.text = (isAttack ? "ATK " : "DEF ") + shown;
                 label.Text.color = dividesByZero ? new Color(1f, 0.25f, 0.25f) : _visuals.ColorForRole(label.Chain.Role);
-                var position = terminal.transform.localPosition + new Vector3(0f, _chainLabelOffsetY + index * _chainLabelSpacing, 0f);
+                // the labels stand upright (Face Camera), so their distances are measured as seen on screen and turned into
+                // the board's own (possibly tilted) up direction
+                var screenToBoard = 1f / ScreenHeightOfBoardUp();
+                var position = terminal.transform.localPosition + new Vector3(0f, (_chainLabelOffsetY + index * _chainLabelSpacing) * screenToBoard, 0f);
                 if (terminal.HasStatus)
                 {
                     // just above the status line, whatever its length and size
                     label.Text.ForceMeshUpdate();
                     var halfHeight = label.Text.textBounds.extents.y * label.Text.transform.lossyScale.y;
                     var statusTop = transform.InverseTransformPoint(terminal.StatusTop).y;
-                    position.y = Mathf.Max(position.y, statusTop + _chainLabelStatusGap + halfHeight + index * _chainLabelSpacing);
+                    position.y = Mathf.Max(position.y, statusTop + (_chainLabelStatusGap + halfHeight + index * _chainLabelSpacing) * screenToBoard);
                 }
 
                 label.Text.transform.localPosition = position;
             }
+        }
+
+        /// <summary>How tall one unit of the board's up direction looks on screen (1 on a flat, unscaled board; about 0.7 tilted 45 degrees).</summary>
+        private float ScreenHeightOfBoardUp()
+        {
+            var camera = Camera.main;
+            var screenUp = camera != null ? camera.transform.up : Vector3.up;
+            var height = Vector3.Dot(transform.TransformVector(Vector3.up), screenUp);
+            return height > 0.05f ? height : 1f;
         }
 
         /// <summary>Shows on the chain labels what each chain would become (a placement being considered); null clears it.</summary>
@@ -410,7 +426,14 @@ namespace BattleView
                         continue;
                     }
 
-                    DOVirtual.DelayedCall(delay, () => view.Punch(0.25f));
+                    DOVirtual.DelayedCall(delay, () =>
+                    {
+                        view.Punch(0.25f);
+                        if (role == ChainRole.Attack)
+                        {
+                            view.PlayAttack();
+                        }
+                    });
                     delay += 0.08f;
                 }
             }
@@ -457,7 +480,15 @@ namespace BattleView
 
         private void AddLine(Vector3 from, Vector3 to, BoardLayoutAuthoring.RoleFlags roles, List<string> poweredBy)
         {
-            var line = Track(ViewFactory.CreateLine(transform, "Line", from, to, _lineWidth, 0));
+            if (_visuals.ConnectionPrefab == null)
+            {
+                Debug.LogError("The Battle Visuals asset has no Connection prefab. Create it with Tools > Fun Game > Create Battle Prefabs.", _visuals);
+                return;
+            }
+
+            var line = Track(Instantiate(_visuals.ConnectionPrefab, transform));
+            line.name = "Connection";
+            line.Connect(transform.InverseTransformPoint(from), transform.InverseTransformPoint(to));
             var segment = new LineSegment { Line = line, Roles = roles, PoweredBySlots = poweredBy };
             _lines.Add(segment);
             ApplyLineStyle(segment, false);
@@ -465,17 +496,7 @@ namespace BattleView
 
         private void ApplyLineStyle(LineSegment segment, bool powered)
         {
-            var color = _visuals.ColorForRoles(segment.Roles);
-            if (!powered)
-            {
-                color.a = 0.35f;
-            }
-
-            segment.Line.startColor = color;
-            segment.Line.endColor = color;
-            var width = powered ? _poweredLineWidth : _lineWidth;
-            segment.Line.startWidth = width;
-            segment.Line.endWidth = width;
+            segment.Line.SetStyle(_visuals.ColorForRoles(segment.Roles), powered);
         }
 
         private string DescribeLock(string slotId)

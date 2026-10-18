@@ -49,9 +49,10 @@ namespace BattleView
             return Clamp01(StatModifier.Product(pilot.DefenseModifiers));
         }
 
-        public static float AttackAfterRest(PilotUnit pilot)
+        /// <param name="attackAfterRest">The attack the pilot will have after the next turn's recovery (<see cref="BattleEngine.AttackAfterRest"/>).</param>
+        public static float AttackAfterRest(PilotUnit pilot, float attackAfterRest)
         {
-            return pilot.BaseAttack > 0f ? Clamp01(pilot.AttackAfterRest / pilot.BaseAttack) : 0f;
+            return pilot.BaseAttack > 0f ? Clamp01(attackAfterRest / pilot.BaseAttack) : 0f;
         }
 
         /// <param name="woundAfterRest">The wound the pilot will have after the next turn's recovery.</param>

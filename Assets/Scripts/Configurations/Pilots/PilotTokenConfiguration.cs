@@ -22,6 +22,26 @@ namespace Configurations
         [Tooltip("What the ability costs in AP. Every ability has its own cost.")]
         [Min(0)] [SerializeField] public int AbilityApCost = 2;
 
+        [Header("Animation (optional)")]
+        [Tooltip("Loops while the pilot is on the board or in the hand. Leave empty to show the still Sprite.")]
+        [SerializeField] public SpriteSequence IdleFrames;
+        [Tooltip("Played once when the pilot's attack chain hits or it uses its ability, then back to the Idle loop. Leave empty for no attack animation.")]
+        [SerializeField] public SpriteSequence AttackFrames;
+        [Tooltip("Played once when the pilot falls (it stays on the last frame, which then goes dark). Leave empty to darken the still Sprite at once.")]
+        [SerializeField] public SpriteSequence DefeatedFrames;
+        [Tooltip("For an upgraded copy (Pilots/Upgrades): the pilot it was made from. Any animation left empty here uses that pilot's frames, so the art lives in one place.")]
+        [SerializeField] public PilotTokenConfiguration BasePilot;
+
+        /// <summary>The frames to play: this pilot's own, or its base pilot's when it has none.</summary>
+        public SpriteSequence IdleAnimation => OwnOrBase(IdleFrames, BasePilot != null ? BasePilot.IdleFrames : null);
+        public SpriteSequence AttackAnimation => OwnOrBase(AttackFrames, BasePilot != null ? BasePilot.AttackFrames : null);
+        public SpriteSequence DefeatedAnimation => OwnOrBase(DefeatedFrames, BasePilot != null ? BasePilot.DefeatedFrames : null);
+
+        private SpriteSequence OwnOrBase(SpriteSequence own, SpriteSequence fromBase)
+        {
+            return own != null && own.HasFrames || BasePilot == null || BasePilot == this ? own : fromBase;
+        }
+
         [Tooltip("Stable id for save files (the asset's GUID), kept up to date by the editor. Do not edit.")]
         [HideInInspector] [SerializeField] private string _assetId;
 

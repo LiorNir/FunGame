@@ -174,6 +174,11 @@ namespace FunGame.EditorTools
                 upgraded.AbilityApCost = stats.Ability?.ApCost ?? upgraded.AbilityApCost;
                 upgraded.AttackValue = stats.Attack;
                 upgraded.DefenseValue = stats.Defense;
+                // the copy shows the base pilot's animation frames (its own lists start empty)
+                upgraded.BasePilot = basePilot.BasePilot != null ? basePilot.BasePilot : basePilot;
+                upgraded.IdleFrames = null;
+                upgraded.AttackFrames = null;
+                upgraded.DefeatedFrames = null;
                 AssetDatabase.CreateAsset(upgraded, AssetDatabase.GenerateUniqueAssetPath(
                     $"{upgradesFolder}/{stats.Name} ({stats.Attack:0.##}-{stats.Defense:0.##}).asset"));
                 pilots.Add(upgraded);

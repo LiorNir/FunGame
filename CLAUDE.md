@@ -13,7 +13,7 @@ The design is moving from one fixed structure with a single enemy to a **branchi
 Conventions agreed with the user:
 - Composition over inheritance: small single-responsibility scripts, reusable where possible. Put game rules (board evaluation, defense wounds, AP) in pure C# classes without `MonoBehaviour` so they are unit-testable and reusable by the planned solver editor tool.
 - Use the vocabulary from the handoff glossary (AP vs SP, Board, Encounter, lane, chain) in code and docs.
-- `PilotAnimationView` (`Assets/Scripts/Views`) plays Idle/Attack/Defeated sprite sequences with optional looping; a new play call cancels the running one. Its `ShouldPlay*`/`Start` block on `TestMogli` is throwaway test code.
+- `PilotAnimationView` (`Assets/Scripts/Views`) plays Idle/Attack/Defeated sprite sequences (`Configurations.SpriteSequence`) (only Idle loops); a new play call cancels the running one, a missing or empty sequence is skipped, and Attack returns to Idle. It drives a SpriteRenderer (board) or a UI Image (hand card); Idle starts at the frame the clock says, so a redrawn hand card carries on smoothly. In battle it sits on the PilotSlot prefab's `Pilot` picture, where `SlotView` feeds it the pilot asset's `IdleFrames` / `AttackFrames` / `DefeatedFrames` (Idle loops from placement; Attack plays once when the pilot's attack chain hits or it uses its ability, then back to Idle; Defeated plays once when it falls and the picture darkens only after it, and the turn waits for it; no Defeated frames = darkens at once), and on the CardView prefab's `Picture`, where `CardView` plays the Idle frames. Its `ShouldPlay*`/`Start` block is throwaway test code.
 
 ## Build / test
 

@@ -27,6 +27,8 @@ namespace BattleView
         public TextMeshPro ChainLabelPrefab;
         [Tooltip("A world-space text that floats up and fades out (damage numbers and so on).")]
         public TextMeshPro PopupPrefab;
+        [Tooltip("The connection drawn between slots and operators on the board.")]
+        public ConnectionView ConnectionPrefab;
 
         [Header("Sprites used when a prefab has none")]
         public Sprite SlotBase;

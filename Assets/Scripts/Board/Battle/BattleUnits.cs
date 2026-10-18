@@ -82,15 +82,23 @@ namespace FunGame.Battle
             DefenseWound = System.Math.Max(0f, 1f - System.Math.Min(snapped, BaseDefense) / BaseDefense);
         }
 
-        /// <summary>A turn start spent resting in the hand: modifiers that last until rested (the Surge crash) end.</summary>
-        public void Rest()
+        /// <summary>
+        /// A turn start spent resting in the hand: modifiers that last until rested (the Surge crash) recover by
+        /// <paramref name="recovery"/>, the same share a wound recovers, and end once fully recovered.
+        /// </summary>
+        public void Rest(float recovery)
         {
-            AttackModifiers.RemoveAll(modifier => modifier.LastsUntilRested);
-            DefenseModifiers.RemoveAll(modifier => modifier.LastsUntilRested);
+            AttackModifiers.RemoveAll(modifier => modifier.LastsUntilRested && modifier.Recover(recovery));
+            DefenseModifiers.RemoveAll(modifier => modifier.LastsUntilRested && modifier.Recover(recovery));
         }
 
-        /// <summary>The attack the pilot will have next turn if it stays in the hand (it rests at the turn start).</summary>
-        public float AttackAfterRest => BaseAttack * StatModifier.Product(AttackModifiers.Where(modifier => !modifier.LastsUntilRested), nextTurn: true);
+        /// <summary>The attack the pilot will have next turn if it stays in the hand and recovers by <paramref name="recovery"/>.</summary>
+        public float AttackAfterRest(float recovery)
+        {
+            var rested = Copy();
+            rested.Rest(recovery);
+            return BaseAttack * StatModifier.Product(rested.AttackModifiers, nextTurn: true);
+        }
         public float EffectiveDefense => BaseDefense * (1f - DefenseWound) * StatModifier.Product(DefenseModifiers);
 
         public PilotUnit(string name, float baseAttack, float baseDefense, object source = null, IPilotAbility ability = null)

@@ -512,6 +512,7 @@ namespace BattleView
                 if (slot != null)
                 {
                     slot.Punch(0.3f);
+                    slot.PlayAttack();
                     ViewFactory.ShowPopup(slot.transform.position + Vector3.up * 0.9f, _engine.PilotBySlot[slotId].Ability.Name + "!", new Color(1f, 0.82f, 0.29f), 0.5f);
                 }
 
@@ -688,13 +689,10 @@ namespace BattleView
                         break;
 
                     case BattleEventType.ChainDestroyed:
-                        foreach (var slotId in battleEvent.Slots)
-                        {
-                            _board.GetSlot(slotId)?.PlayFallen();
-                        }
-
+                        var destroyed = PlayFalls(battleEvent);
                         PopupAtFirstSlot(battleEvent, "Chain destroyed!", _visuals.DefenseColor);
-                        await Wait(0.8f, token);
+                        // the turn goes on once the popup has been read and every Defeated animation has played
+                        await UniTask.WhenAll(destroyed, Wait(0.8f, token));
                         break;
 
                     case BattleEventType.PlayerDamaged:
@@ -725,13 +723,9 @@ namespace BattleView
                         break;
 
                     case BattleEventType.PilotAssassinated:
-                        foreach (var slotId in battleEvent.Slots)
-                        {
-                            _board.GetSlot(slotId)?.PlayFallen();
-                        }
-
+                        var assassinated = PlayFalls(battleEvent);
                         PopupAtFirstSlot(battleEvent, "Assassinated!", new Color(1f, 0.3f, 0.3f));
-                        await Wait(0.8f, token);
+                        await UniTask.WhenAll(assassinated, Wait(0.8f, token));
                         break;
 
                     case BattleEventType.EffectFizzled:
@@ -788,6 +782,15 @@ namespace BattleView
             WriteBattleLog(_engine.Outcome == BattleOutcome.Defeat && _engine.DefeatReason != null
                 ? $"Defeat ({_engine.DefeatReason}) on turn {_engine.Turn}"
                 : $"{_engine.Outcome} on turn {_engine.Turn}, HP {DisplayFormat.Value(_engine.PlayerHealth)}");
+        }
+
+        /// <summary>Every pilot of the event falls at once; the task ends when the last Defeated animation has played.</summary>
+        private UniTask PlayFalls(BattleEvent battleEvent)
+        {
+            return UniTask.WhenAll(battleEvent.Slots
+                .Select(slotId => _board.GetSlot(slotId))
+                .Where(slot => slot != null)
+                .Select(slot => slot.PlayFallen()));
         }
 
         private static UniTask Wait(float seconds, CancellationToken token)

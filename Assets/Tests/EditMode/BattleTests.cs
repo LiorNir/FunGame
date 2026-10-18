@@ -604,7 +604,9 @@ namespace FunGame.Board.Tests
         {
             var enemy = Enemy("Dummy", 100, new EnemyActionData("Idle", 0, 0));
             var deck = new[] { new PilotStats("Bolt", 2.5f, 1.5f, null, new SurgeAbility(apCost)), new PilotStats("Plain", 1f, 1f) };
-            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, deck));
+            // the game's recovery: half per turn in the hand, twice that for a pilot ejected the turn before
+            var rules = new BattleRules { HandRecoveryPerTurn = 0.5f, EjectedRecoveryMultiplier = 2f };
+            var engine = new BattleEngine(Setup(OneSlotBoard(), new[] { enemy }, deck, rules: rules));
             engine.Start();
             PlaceByName(engine, "Bolt", "R");
             return engine;
@@ -629,7 +631,7 @@ namespace FunGame.Board.Tests
         }
 
         [Test]
-        public void SurgeCrash_EndsWhenThePilotRestsInTheHand()
+        public void SurgeCrash_EjectedPilot_RecoversFullyInOneTurn()
         {
             var engine = SurgeBattle();
             Assert.IsTrue(engine.TryActivate("R"));
@@ -638,10 +640,31 @@ namespace FunGame.Board.Tests
             Assert.IsTrue(engine.TryEject("R"));
             var bolt = engine.Hand.Single(pilot => pilot.Name == "Bolt");
             Assert.AreEqual(0f, bolt.EffectiveAttack, Tolerance); // still crashed until the turn starts in the hand
-            Assert.AreEqual(2.5f, bolt.AttackAfterRest, Tolerance);
+            Assert.AreEqual(2.5f, engine.AttackAfterRest(bolt), Tolerance); // ejected: 50% x 2
 
             engine.ResolveTurn();
             Assert.AreEqual(2.5f, bolt.EffectiveAttack, Tolerance);
+            Assert.IsFalse(bolt.AttackModifiers.Any(modifier => modifier.LastsUntilRested));
+        }
+
+        [Test]
+        public void SurgeCrash_SwappedPilot_RecoversAtTheHandRate()
+        {
+            var engine = SurgeBattle();
+            Assert.IsTrue(engine.TryActivate("R"));
+            engine.ResolveTurn();
+
+            PlaceByName(engine, "Plain", "R"); // pushes Bolt back to the hand: not ejected, so the normal rate
+            var bolt = engine.Hand.Single(pilot => pilot.Name == "Bolt");
+            Assert.AreEqual(1.25f, engine.AttackAfterRest(bolt), Tolerance);
+
+            engine.ResolveTurn();
+            Assert.AreEqual(1.25f, bolt.EffectiveAttack, Tolerance); // half its attack back after one turn
+            Assert.AreEqual(2.5f, engine.AttackAfterRest(bolt), Tolerance);
+
+            engine.ResolveTurn();
+            Assert.AreEqual(2.5f, bolt.EffectiveAttack, Tolerance);
+            Assert.IsFalse(bolt.AttackModifiers.Any(modifier => modifier.LastsUntilRested));
         }
 
         [Test]

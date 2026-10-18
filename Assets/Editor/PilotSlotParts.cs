@@ -38,8 +38,10 @@ namespace FunGame.EditorTools
         private const string AttackBoxName = "AttackBox";
         private const string DefenseBoxName = "DefenseBox";
 
-        // the two boxes sit side by side under the pilot
-        private const float StatBoxOffsetX = 0.37f;
+        // the two boxes sit one above the other to the left of the pilot (attack on top), so nothing is drawn under the
+        // slot, where the operator of the row below and, on the root row, the hand would hide it
+        private static readonly Vector3 StatsBoxPosition = new Vector3(-1.07f, 0f, 0f);
+        private const float StatBoxOffsetY = 0.2f;
 
         // names used before the parts were reorganised
         private const string LegacyBackground = "Base";
@@ -99,6 +101,16 @@ namespace FunGame.EditorTools
             }
 
             var pilot = EnsureSprite(parent, "Pilot", null, null, Color.white, OrderPilot, Vector3.zero, out _);
+            // plays the pilot asset's Idle / Attack / Defeated frames on the picture (the frames come from the pilot asset)
+            var pilotAnimation = pilot.GetComponent<Views.PilotAnimationView>();
+            if (pilotAnimation == null)
+            {
+                pilotAnimation = pilot.gameObject.AddComponent<Views.PilotAnimationView>();
+            }
+
+            var animationSerialized = new SerializedObject(pilotAnimation);
+            Assign(animationSerialized, "_spriteRenderer", pilot);
+            animationSerialized.ApplyModifiedPropertiesWithoutUndo();
 
             // the ring is decoration with its own graphic and material; an old placeholder disc would hide the pilot
             var ring = EnsureSprite(parent, "Ring", null, null, Color.white, OrderRing, Vector3.zero, out _);
@@ -162,6 +174,7 @@ namespace FunGame.EditorTools
             var serialized = new SerializedObject(view);
             Assign(serialized, "_pilotBackground", background);
             Assign(serialized, "_pilotRenderer", pilot);
+            Assign(serialized, "_pilotAnimation", pilotAnimation);
             Assign(serialized, "_attackBox", attackBox);
             Assign(serialized, "_defenseBox", defenseBox);
             Assign(serialized, "_ring", ring);
@@ -276,7 +289,7 @@ namespace FunGame.EditorTools
             {
                 group = new GameObject(StatsBoxName).transform;
                 group.SetParent(parent, false);
-                group.localPosition = new Vector3(0f, -0.84f, 0f);
+                group.localPosition = StatsBoxPosition;
             }
 
             // the single combined box (and, before that, the loose numbers) is replaced by the two boxes
@@ -288,20 +301,20 @@ namespace FunGame.EditorTools
                 }
             }
 
-            attackBox = EnsureStatBox(group, AttackBoxName, -StatBoxOffsetX, visuals);
-            defenseBox = EnsureStatBox(group, DefenseBoxName, StatBoxOffsetX, visuals);
+            attackBox = EnsureStatBox(group, AttackBoxName, StatBoxOffsetY, visuals);
+            defenseBox = EnsureStatBox(group, DefenseBoxName, -StatBoxOffsetY, visuals);
             return group;
         }
 
         /// <summary>Finds a stat box in the group or adds an instance of the StatBox prefab; returns its view.</summary>
-        private static StatBoxView EnsureStatBox(Transform group, string name, float offsetX, BattleVisuals visuals)
+        private static StatBoxView EnsureStatBox(Transform group, string name, float offsetY, BattleVisuals visuals)
         {
             var box = group.Find(name);
             if (box == null)
             {
                 var instance = (GameObject)PrefabUtility.InstantiatePrefab(EnsureStatBoxPrefab(visuals, false), group);
                 instance.name = name;
-                instance.transform.localPosition = new Vector3(offsetX, 0f, 0f);
+                instance.transform.localPosition = new Vector3(0f, offsetY, 0f);
                 box = instance.transform;
             }
 

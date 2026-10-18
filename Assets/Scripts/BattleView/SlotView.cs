@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BoardAuthoring;
+using Cysharp.Threading.Tasks;
 using Configurations;
 using DG.Tweening;
 using FunGame.Battle;
@@ -40,6 +41,8 @@ namespace BattleView
         [FormerlySerializedAs("_coin")]
         [SerializeField] private SpriteRenderer _pilotBackground;
         [SerializeField] private SpriteRenderer _pilotRenderer;
+        [Tooltip("Optional: plays the pilot's Idle / Attack / Defeated frames (from its pilot asset) on the Pilot picture. Pilots without frames keep their still picture.")]
+        [SerializeField] private Views.PilotAnimationView _pilotAnimation;
         [SerializeField] private StatBoxView _attackBox;
         [SerializeField] private StatBoxView _defenseBox;
         [SerializeField] private TextMeshPro _bonusText;
@@ -92,6 +95,8 @@ namespace BattleView
         private Color _bonusBaseColor;
         private Color _bonusBadgeBaseColor;
         private PilotUnit _pilot;
+        private PilotUnit _animatedPilot;
+        private bool _defeatPlaying;
         private float _displayWound;
         private bool _locked;
         private bool _highlighted;
@@ -216,10 +221,19 @@ namespace BattleView
 
             var source = hasPilot ? pilot.Source as PilotTokenConfiguration : null;
             var sprite = source != null ? source.Sprite : null;
+            UpdatePilotAnimation(pilot, source, fallen);
             _pilotRenderer.enabled = hasPilot && sprite != null;
-            _pilotRenderer.sprite = sprite;
+            if (!ShowsAnimationFrames)
+            {
+                _pilotRenderer.sprite = sprite;
+            }
+
             ViewFactory.FitSprite(_pilotRenderer, _pilotPictureSize);
-            _pilotRenderer.color = fallen ? _fallenColor : (_inactive ? _inactiveColor : Color.white);
+            // while the Defeated frames play the picture keeps its colours; it goes dark when they end (PlayFallen)
+            if (!_defeatPlaying)
+            {
+                _pilotRenderer.color = fallen ? _fallenColor : (_inactive ? _inactiveColor : Color.white);
+            }
 
             ShowLock(locked, lockDescription);
             SetText(_pilotNameText, !locked && hasPilot && sprite == null ? pilot.Name : string.Empty);
@@ -346,17 +360,85 @@ namespace BattleView
             }, wound, duration).SetEase(Ease.OutCubic);
         }
 
-        public void PlayFallen()
+        /// <summary>The pilot falls: its Defeated frames play first (if it has any), then the picture goes dark.</summary>
+        public async UniTask PlayFallen()
         {
             if (_pilot == null)
             {
                 return;
             }
 
-            ViewFactory.TweenColor(_pilotRenderer, _fallenColor, 0.4f);
             transform.DOPunchScale(Vector3.one * 0.25f, 0.35f);
             SetPilotPartsVisible(false);
             SetState(SlotVisualState.Fallen);
+            _defeatPlaying = true;
+            await PlayDefeatedFrames();
+            _defeatPlaying = false;
+            if (this != null)
+            {
+                ViewFactory.TweenColor(_pilotRenderer, _fallenColor, 0.4f);
+            }
+        }
+
+        /// <summary>The pilot's attack frames (when its attack chain hits); nothing if it has none.</summary>
+        public void PlayAttack()
+        {
+            if (_pilotAnimation != null && _pilot != null && !_pilot.Fallen && _animatedPilot == _pilot)
+            {
+                _pilotAnimation.PlayAttackAnimation().Forget();
+            }
+        }
+
+        // the animation view drives the picture while it shows frames; otherwise the still Sprite is shown
+        private bool ShowsAnimationFrames => _pilotAnimation != null && _animatedPilot != null && _pilotAnimation.IsShowingFrames;
+
+        /// <summary>Starts Idle (or Defeated) when a different pilot appears in the slot; the same pilot keeps what is playing.</summary>
+        private void UpdatePilotAnimation(PilotUnit pilot, PilotTokenConfiguration source, bool fallen)
+        {
+            if (_pilotAnimation == null || pilot == _animatedPilot)
+            {
+                return;
+            }
+
+            _animatedPilot = pilot;
+            if (pilot == null || source == null)
+            {
+                _pilotAnimation.SetSequences(null, null, null);
+                return;
+            }
+
+            _pilotAnimation.SetSequences(source.IdleAnimation, source.AttackAnimation, source.DefeatedAnimation);
+            if (fallen)
+            {
+                PlayDefeatedFrames().Forget();
+            }
+            else
+            {
+                _pilotAnimation.PlayIdleAnimation().Forget();
+            }
+        }
+
+        // with no Defeated frames the idle loop stops and the still picture is shown (greyed by the fallen colour)
+        private UniTask PlayDefeatedFrames()
+        {
+            if (_pilotAnimation == null || _animatedPilot == null)
+            {
+                return UniTask.CompletedTask;
+            }
+
+            if (_pilotAnimation.HasDefeated)
+            {
+                return _pilotAnimation.PlayDefeatedAnimation();
+            }
+
+            _pilotAnimation.Stop();
+            var source = _animatedPilot.Source as PilotTokenConfiguration;
+            if (source != null)
+            {
+                _pilotRenderer.sprite = source.Sprite;
+            }
+
+            return UniTask.CompletedTask;
         }
 
         public void Punch(float strength = 0.2f)

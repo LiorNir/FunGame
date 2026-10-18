@@ -125,6 +125,21 @@ namespace FunGame.EditorTools
                     position.z);
             }
 
+            // rows above the first branch row step outward, so a link between two rows is long enough on the tilted board
+            // for its operator to sit clear of both slots
+            var rows = positions.Values.Select(position => Mathf.Round(position.y * 100f)).Distinct().OrderBy(y => y).ToList();
+            foreach (var id in positions.Keys.ToList())
+            {
+                var position = positions[id];
+                var row = rows.IndexOf(Mathf.Round(position.y * 100f));
+                var outward = position.x - layout.BoardCenter.x;
+                if (row >= 2 && Mathf.Abs(outward) > 0.01f)
+                {
+                    position.x += Mathf.Sign(outward) * DiagonalStep * (row - 1);
+                    positions[id] = position;
+                }
+            }
+
             return positions;
         }
 
@@ -136,6 +151,8 @@ namespace FunGame.EditorTools
         private const float SideStretch = 1.4f;
         private const float MaxStretchedHalfWidth = 4.5f;
         private const float MaxHalfWidth = 6.6f;
+        // how far each row above the first branch row moves outward (the stat boxes beside the slots need the room)
+        private const float DiagonalStep = 2f;
 
         private static float Place(
             string id,
