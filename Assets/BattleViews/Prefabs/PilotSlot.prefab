@@ -20300,6 +20300,7 @@ GameObject:
   - component: {fileID: 4334227882096000415}
   - component: {fileID: 1031372109895090228}
   - component: {fileID: 1460986902086558866}
+  - component: {fileID: 153854351443886124}
   m_Layer: 0
   m_Name: PilotSlot
   m_TagString: Untagged
@@ -20441,12 +20442,30 @@ MonoBehaviour:
   _summon: {fileID: 4429682389548843894}
   _ability: {fileID: 7952741878599739636}
   _hit: {fileID: 7179130124068099176}
+  _hitAnimation: {fileID: 153854351443886124}
   _defeated: {fileID: 345602209946289956}
   _buff: {fileID: 5706813554724036144}
   _debuff: {fileID: 4721095598163288530}
   _targeted: {fileID: 4384713291326319774}
   _abilityReady: {fileID: 6939128304371264871}
   _tintSummonByRole: 1
+--- !u!111 &153854351443886124
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689346715450277248}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 671a35e8d872f424c91433f480da3ffe, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 671a35e8d872f424c91433f480da3ffe, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &5759516573830813736
 GameObject:
   m_ObjectHideFlags: 0
@@ -21492,7 +21511,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 0.55
           inSlope: 2
           outSlope: 2
           tangentMode: 0

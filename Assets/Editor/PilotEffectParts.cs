@@ -13,6 +13,7 @@ namespace FunGame.EditorTools
     public static class PilotEffectParts
     {
         private const string MaterialPath = "Assets/Art/Effects/Particle Placeholder.mat";
+        private const string HitShakePath = "Assets/Art/Effects/Slot Hit Shake.anim";
         private const int SortingOrder = 12;
 
         private sealed class Look
@@ -63,8 +64,47 @@ namespace FunGame.EditorTools
                 serialized.FindProperty(look.Field).objectReferenceValue = system;
             }
 
+            serialized.FindProperty("_hitAnimation").objectReferenceValue = EnsureHitShake(slotRoot, parent);
             serialized.ApplyModifiedPropertiesWithoutUndo();
             return effects;
+        }
+
+        /// <summary>
+        /// The slot's legacy Animation with the Hit Shake clip: the slot's look (GeneralScaler) jolts sideways and settles
+        /// in 0.3 s. The clip is shared by every slot; an existing Animation or clip is kept as it is.
+        /// </summary>
+        private static Animation EnsureHitShake(GameObject slotRoot, Transform looks)
+        {
+            var animation = slotRoot.GetComponent<Animation>();
+            if (animation == null)
+            {
+                animation = slotRoot.AddComponent<Animation>();
+            }
+
+            animation.playAutomatically = false;
+            if (animation.clip != null)
+            {
+                return animation;
+            }
+
+            var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(HitShakePath);
+            if (clip == null)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(HitShakePath));
+                clip = new AnimationClip { name = "Slot Hit Shake", legacy = true, wrapMode = WrapMode.Once };
+                // a quick, decaying side-to-side jolt; the last key brings it back to rest
+                var path = AnimationUtility.CalculateTransformPath(looks, slotRoot.transform);
+                var x = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(0.04f, 0.09f), new Keyframe(0.09f, -0.08f),
+                    new Keyframe(0.15f, 0.05f), new Keyframe(0.21f, -0.03f), new Keyframe(0.26f, 0.012f), new Keyframe(0.3f, 0f));
+                var y = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(0.05f, -0.03f), new Keyframe(0.12f, 0.015f), new Keyframe(0.3f, 0f));
+                AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve(path, typeof(Transform), "m_LocalPosition.x"), x);
+                AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve(path, typeof(Transform), "m_LocalPosition.y"), y);
+                AssetDatabase.CreateAsset(clip, HitShakePath);
+            }
+
+            animation.AddClip(clip, clip.name);
+            animation.clip = clip;
+            return animation;
         }
 
         private static ParticleSystem Create(Transform group, Look look)

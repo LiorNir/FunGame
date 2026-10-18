@@ -18,6 +18,9 @@ namespace BattleView
         [Tooltip("The pilot's chain takes a hit (before Defeated, when the hit makes it fall).")]
         [SerializeField] private ParticleSystem _hit;
 
+        [Tooltip("Optional: a legacy Animation whose clip plays with Hit (the slot shakes). Edit its clip in the Animation window with the PilotSlot prefab open.")]
+        [SerializeField] private Animation _hitAnimation;
+
         [Tooltip("The pilot falls.")]
         [SerializeField] private ParticleSystem _defeated;
 
@@ -48,7 +51,16 @@ namespace BattleView
             Play(_summon);
         }
         public void PlayAbility() => Play(_ability);
-        public void PlayHit() => Play(_hit);
+        public void PlayHit()
+        {
+            Play(_hit);
+            if (_hitAnimation != null && _hitAnimation.clip != null)
+            {
+                _hitAnimation.Stop();
+                _hitAnimation.Play(_hitAnimation.clip.name);
+            }
+        }
+
         public void PlayDefeated() => Play(_defeated);
         public void PlayBuff() => Play(_buff);
         public void PlayDebuff() => Play(_debuff);
