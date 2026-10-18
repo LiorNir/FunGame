@@ -101,16 +101,8 @@ namespace FunGame.EditorTools
             }
 
             var pilot = EnsureSprite(parent, "Pilot", null, null, Color.white, OrderPilot, Vector3.zero, out _);
-            // plays the pilot asset's Idle / Attack / Defeated frames on the picture (the frames come from the pilot asset)
-            var pilotAnimation = pilot.GetComponent<Views.PilotAnimationView>();
-            if (pilotAnimation == null)
-            {
-                pilotAnimation = pilot.gameObject.AddComponent<Views.PilotAnimationView>();
-            }
-
-            var animationSerialized = new SerializedObject(pilotAnimation);
-            Assign(animationSerialized, "_spriteRenderer", pilot);
-            animationSerialized.ApplyModifiedPropertiesWithoutUndo();
+            // plays the pilot's Idle / Attack / Defeated clips (from its animation prefab) on the picture
+            var pilotAnimation = AnimationParts.Ensure(pilot.gameObject);
 
             // the ring is decoration with its own graphic and material; an old placeholder disc would hide the pilot
             var ring = EnsureSprite(parent, "Ring", null, null, Color.white, OrderRing, Vector3.zero, out _);

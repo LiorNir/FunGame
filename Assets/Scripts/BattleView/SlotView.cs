@@ -403,11 +403,11 @@ namespace BattleView
             _animatedPilot = pilot;
             if (pilot == null || source == null)
             {
-                _pilotAnimation.SetSequences(null, null, null);
+                _pilotAnimation.SetSource(null);
                 return;
             }
 
-            _pilotAnimation.SetSequences(source.IdleAnimation, source.AttackAnimation, source.DefeatedAnimation);
+            _pilotAnimation.SetSource(source.AnimationSource);
             if (fallen)
             {
                 PlayDefeatedFrames().Forget();

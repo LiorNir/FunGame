@@ -590,9 +590,8 @@ namespace FunGame.EditorTools
             var picture = ViewFactory.CreateImage(rect, "Picture", Color.white, new Vector2(130f, 120f), new Vector2(0f, 38f));
             picture.raycastTarget = false;
             picture.preserveAspect = true;
-            // plays the pilot asset's Idle frames on the picture
-            var pictureAnimation = picture.gameObject.AddComponent<Views.PilotAnimationView>();
-            Assign(pictureAnimation, "_image", picture);
+            // plays the pilot's Idle clip (from its animation prefab) on the picture
+            var pictureAnimation = AnimationParts.Ensure(picture.gameObject);
             var name = ViewFactory.CreateUiText(rect, "Name", string.Empty, 30f, Color.white, new Vector2(160f, 40f), new Vector2(0f, -40f));
             var stats = ViewFactory.CreateUiText(rect, "Stats", string.Empty, 28f, Color.white, new Vector2(160f, 80f), new Vector2(0f, -92f));
 

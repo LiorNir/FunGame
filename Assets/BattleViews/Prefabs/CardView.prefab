@@ -462,6 +462,8 @@ GameObject:
   - component: {fileID: 4597797001512842660}
   - component: {fileID: 6618857992175854853}
   - component: {fileID: 6723483892551621014}
+  - component: {fileID: 6790793217046864883}
+  - component: {fileID: 8203216092474911111}
   m_Layer: 0
   m_Name: Picture
   m_TagString: Untagged
@@ -538,24 +540,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7e1c2a9d3f4e58a6c0d1e2f3a4b5c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Views.PilotAnimationView
-  _animation: {fileID: 0}
-  _spriteRenderer: {fileID: 0}
-  _image: {fileID: 6618857992175854853}
-  _idle:
-    _sprites: []
-    _spriteChangeTime: 0.1
-    _loop: 1
-  _attack:
-    _sprites: []
-    _spriteChangeTime: 0.1
-    _loop: 1
-  _defeated:
-    _sprites: []
-    _spriteChangeTime: 0.1
-    _loop: 1
+  _animation: {fileID: 6790793217046864883}
+  _frames: {fileID: 8203216092474911111}
   ShouldPlayIdle: 0
   ShouldPlayAttack: 0
   ShouldPlayDefeated: 0
+--- !u!111 &6790793217046864883
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3706130987430145058}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!114 &8203216092474911111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3706130987430145058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a0f2d24d0db364cbab82bad40ada96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Views.SpriteFrames
+  Frame: 0
+  _frames: []
+  _spriteRenderer: {fileID: 0}
+  _image: {fileID: 0}
 --- !u!1 &3733265679428435124
 GameObject:
   m_ObjectHideFlags: 0

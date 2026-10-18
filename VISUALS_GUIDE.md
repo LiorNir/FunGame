@@ -40,9 +40,10 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 |---|---|
 | `Assets/Campaign/Tutorial.asset` | Every tutorial line: encounter, when it shows, text (see `TUTORIAL_LINES.md`). |
 | `Assets/Rules/BattleVisuals.asset` | The battle's shared looks: which prefabs the battle uses, operator sprites, attack / defense / both / unused colours (lines, chain labels, stat texts all read these), and the "show remaining defense" switch. |
-| `Assets/Scripts/Configurations/Pilots/*.asset` | Each pilot's picture (`Sprite`), optional animation frames (`Idle Frames` loop, `Attack Frames` and `Defeated Frames` play once: sprites and frame time; played by the `PilotAnimationView` on the PilotSlot's `Pilot` picture), name and stats. Upgraded test-deck copies live in `Pilots/Upgrades`. |
+| `Assets/Scripts/Configurations/Pilots/*.asset` | Each pilot's picture (`Sprite`), its animation prefab (`Animation Prefab`; upgraded copies use their `Base Pilot`'s), name and stats. Upgraded test-deck copies live in `Pilots/Upgrades`. |
 | `Assets/Encounters/World N/*.asset` | Each enemy's picture, **Scale** (1 = the standard size set on the `EnemyView` prefab), name, health and actions, each encounter's display name and its three **Stars** (conditions). |
 | `Assets/Boards/World N/*.prefab` | Each encounter's board layout (slot positions; slots are `PilotSlot` / `OperatorSlot` instances, so their look comes from those prefabs). |
+| `Assets/Art/PilotAnimations/<pilot>/` | Each pilot's animation prefab: its frames (`Sprite Frames`) and its legacy clips Idle (loops), Attack and Defeated (play once). The clips key the frame number (and anything else, such as scale or position); open the prefab and edit them in the Animation window, which previews the frames. |
 | `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson), the connection strip (`ConnectionStrip`) and the shadow circle (`Circle`, a copy of Unity's default circle). |
 
 ## Draw order (Order in Layer, all on the Default sorting layer)

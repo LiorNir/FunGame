@@ -1,172 +1,170 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
-using Configurations;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Views
 {
     /// <summary>
-    /// Plays a pilot's Idle / Attack / Defeated sprite sequences on a sprite renderer (board) or a UI image (hand card); a
-    /// new play call cancels the running one. The sequences are set in the Inspector or, in battle, from the pilot's asset
-    /// (<see cref="SetSequences"/>). A missing or empty sequence is skipped: whatever is showing keeps showing. Idle loops; Attack
-    /// and Defeated play once (Attack then goes back to Idle, Defeated stays on its last frame). Idle starts at the frame the
-    /// clock says, so a picture that is rebuilt (the hand is redrawn on every change)
-    /// carries on smoothly instead of restarting.
+    /// Plays a pilot's Idle / Attack / Defeated clips (legacy Animation) on a picture: a board sprite or a hand card's UI
+    /// image. The clips and frames come from the pilot's animation prefab (<see cref="SetSource"/>) and key the
+    /// <see cref="SpriteFrames"/> on this object, so the same clip plays on both. Idle loops; Attack plays once and goes
+    /// back to Idle; Defeated plays once and stays on its last frame. A missing or empty clip is skipped: whatever is
+    /// showing keeps showing. Idle starts where the clock says, so a hand card that is redrawn carries on smoothly.
     /// </summary>
     public class PilotAnimationView : MonoBehaviour
     {
-        // a frame time of 0 would make a looping sequence spin without ever waiting
-        private const float MinFrameTime = 0.01f;
+        public const string IdleName = "Idle";
+        public const string AttackName = "Attack";
+        public const string DefeatedName = "Defeated";
 
         [SerializeField] private Animation _animation;
-        [Tooltip("The picture to animate on the board. Set this or Image.")]
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [Tooltip("The picture to animate in the UI (a hand card). Set this or Sprite Renderer.")]
-        [SerializeField] private Image _image;
+        [SerializeField] private SpriteFrames _frames;
 
-        [Header("Idle")]
-        [SerializeField] private SpriteSequence _idle;
+        private readonly List<string> _loadedClips = new List<string>();
+        private CancellationTokenSource _attackCts;
 
-        [Header("Attack")]
-        [Tooltip("Played once, then back to the Idle loop.")]
-        [SerializeField] private SpriteSequence _attack;
-
-        [Header("Defeated")]
-        [SerializeField] private SpriteSequence _defeated;
-
-        private CancellationTokenSource _sequenceCts;
-
-        /// <summary>True from the first frame shown until <see cref="Stop"/>: the renderer shows this view's frames, not a still picture.</summary>
+        /// <summary>True while this view drives the picture (a clip is playing or holds its last frame), not a still picture.</summary>
         public bool IsShowingFrames { get; private set; }
 
-        public bool HasIdle => _idle != null && _idle.HasFrames;
-        public bool HasAttack => _attack != null && _attack.HasFrames;
-        public bool HasDefeated => _defeated != null && _defeated.HasFrames;
+        public bool HasIdle => Has(IdleName);
+        public bool HasAttack => Has(AttackName);
+        public bool HasDefeated => Has(DefeatedName);
 
-        /// <summary>Replaces the sequences (any may be null) and stops what is playing.</summary>
-        public void SetSequences(SpriteSequence idle, SpriteSequence attack, SpriteSequence defeated)
+        /// <summary>Loads the frames and clips of a pilot's animation prefab (null for none) and stops what is playing.</summary>
+        public void SetSource(GameObject animationPrefab)
         {
             Stop();
-            _idle = idle;
-            _attack = attack;
-            _defeated = defeated;
-        }
-
-        public UniTask PlayIdleAnimation() => PlaySequence(_idle, true).AsUniTask();
-
-        public async UniTask PlayAttackAnimation()
-        {
-            if (!HasAttack)
+            if (_animation == null || _frames == null)
             {
                 return;
             }
 
-            var finished = await PlaySequence(_attack, false);
-            if (finished)
+            foreach (var name in _loadedClips)
+            {
+                if (_animation.GetClip(name) != null)
+                {
+                    _animation.RemoveClip(name);
+                }
+            }
+
+            _loadedClips.Clear();
+            var sourceFrames = animationPrefab != null ? animationPrefab.GetComponent<SpriteFrames>() : null;
+            var sourceAnimation = animationPrefab != null ? animationPrefab.GetComponent<Animation>() : null;
+            _frames.SetFrames(sourceFrames != null ? sourceFrames.Frames : null);
+            if (sourceAnimation == null)
+            {
+                return;
+            }
+
+            foreach (AnimationState state in sourceAnimation)
+            {
+                if (state.clip != null && state.clip.legacy && _animation.GetClip(state.name) == null)
+                {
+                    _animation.AddClip(state.clip, state.name);
+                    _loadedClips.Add(state.name);
+                }
+            }
+        }
+
+        public UniTask PlayIdleAnimation()
+        {
+            if (!Begin(IdleName, WrapMode.Loop))
+            {
+                return UniTask.CompletedTask;
+            }
+
+            // in step with the clock, so a picture that is rebuilt (a redrawn hand card) does not restart its idle
+            var state = _animation[IdleName];
+            state.time = state.length > 0f ? Time.time % state.length : 0f;
+            return UniTask.CompletedTask;
+        }
+
+        public async UniTask PlayAttackAnimation()
+        {
+            if (!Begin(AttackName, WrapMode.Once))
+            {
+                return;
+            }
+
+            _attackCts = new CancellationTokenSource();
+            var cancelled = await UniTask.Delay(TimeSpan.FromSeconds(_animation[AttackName].length), cancellationToken: _attackCts.Token)
+                .SuppressCancellationThrow();
+            if (!cancelled && this != null)
             {
                 PlayIdleAnimation().Forget();
             }
         }
 
-        /// <summary>Plays the Defeated frames once (the last one stays); the task ends when they have played.</summary>
+        /// <summary>Plays the Defeated clip once (its last frame stays); the task ends when it has played.</summary>
         public UniTask PlayDefeatedAnimation()
         {
-            if (!HasDefeated || !HasTarget)
-            {
-                return UniTask.CompletedTask;
-            }
-
-            return PlaySequence(_defeated, false).AsUniTask();
+            return Begin(DefeatedName, WrapMode.ClampForever)
+                ? UniTask.Delay(TimeSpan.FromSeconds(_animation[DefeatedName].length))
+                : UniTask.CompletedTask;
         }
 
-        private bool HasTarget => _spriteRenderer != null || _image != null;
-
-        private static float FrameTime(SpriteSequence sequence) => Mathf.Max(sequence.SpriteChangeTime, MinFrameTime);
-
-
-        /// <summary>Stops the running sequence; the renderer keeps the last frame shown until someone changes it.</summary>
+        /// <summary>Stops playing; the picture keeps the last frame shown until someone changes it.</summary>
         public void Stop()
         {
-            StopCurrentSequence();
-            IsShowingFrames = false;
-        }
-
-        /// <summary>Plays a sequence, looping or once; true if a one-time sequence ran to its end, false if it was skipped or cancelled.</summary>
-        private async UniTask<bool> PlaySequence(SpriteSequence sequence, bool loop)
-        {
-            if (sequence == null || !sequence.HasFrames || !HasTarget)
-            {
-                return false;
-            }
-
-            StopCurrentSequence();
-            _sequenceCts = new CancellationTokenSource();
-            var token = _sequenceCts.Token;
+            CancelAttack();
             if (_animation != null)
             {
                 _animation.Stop();
             }
 
-            var frameTime = FrameTime(sequence);
-            var frames = sequence.Sprites.FindAll(sprite => sprite != null);
-            var start = loop ? (int)(Time.unscaledTime / frameTime) % frames.Count : 0;
-            while (true)
+            if (_frames != null)
             {
-                for (var step = 0; step < frames.Count; step++)
-                {
-                    if (!ShowFrame(frames[(start + step) % frames.Count]))
-                    {
-                        return false;
-                    }
-
-                    IsShowingFrames = true;
-                    var wasCancelled = await UniTask.Delay(TimeSpan.FromSeconds(frameTime), cancellationToken: token)
-                        .SuppressCancellationThrow();
-                    if (wasCancelled)
-                    {
-                        return false;
-                    }
-                }
-
-                if (!loop)
-                {
-                    return true;
-                }
+                _frames.Driving = false;
             }
+
+            IsShowingFrames = false;
         }
 
-        // false once the picture is gone (its object destroyed)
-        private bool ShowFrame(Sprite sprite)
+        private bool Has(string clipName)
         {
-            if (_spriteRenderer != null)
+            if (_animation == null || _frames == null || !_frames.HasFrames)
             {
-                _spriteRenderer.sprite = sprite;
-                return true;
+                return false;
             }
 
-            if (_image != null)
-            {
-                _image.sprite = sprite;
-                return true;
-            }
-
-            return false;
+            var clip = _animation.GetClip(clipName);
+            return clip != null && clip.length > 0f && !clip.empty;
         }
 
-        private void StopCurrentSequence()
+        private bool Begin(string clipName, WrapMode wrapMode)
         {
-            if (_sequenceCts == null) return;
+            if (!Has(clipName))
+            {
+                return false;
+            }
 
-            _sequenceCts.Cancel();
-            _sequenceCts.Dispose();
-            _sequenceCts = null;
+            CancelAttack();
+            _animation[clipName].wrapMode = wrapMode;
+            _frames.Driving = true;
+            _animation.Play(clipName);
+            _animation.Sample();
+            _frames.Apply();
+            IsShowingFrames = true;
+            return true;
+        }
+
+        private void CancelAttack()
+        {
+            if (_attackCts == null)
+            {
+                return;
+            }
+
+            _attackCts.Cancel();
+            _attackCts.Dispose();
+            _attackCts = null;
         }
 
         private void OnDestroy()
         {
-            StopCurrentSequence();
+            CancelAttack();
         }
 
         //TODO: DELETE ALL THIS

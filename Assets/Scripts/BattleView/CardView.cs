@@ -73,7 +73,7 @@ namespace BattleView
 
             if (_pictureAnimation != null)
             {
-                _pictureAnimation.SetSequences(source != null ? source.IdleAnimation : null, null, null);
+                _pictureAnimation.SetSource(source != null ? source.AnimationSource : null);
                 _pictureAnimation.PlayIdleAnimation().Forget();
             }
 
