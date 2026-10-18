@@ -27,6 +27,9 @@ namespace FunGame.Progress
         /// <summary>Ids of the tutorial lines already shown (each is shown once per save).</summary>
         public List<string> SeenTutorials = new List<string>();
 
+        /// <summary>The stars earned per encounter (an older save without it simply has none yet).</summary>
+        public List<EncounterStars> Stars = new List<EncounterStars>();
+
         /// <summary>A fresh profile that owns the campaign's starting pilots.</summary>
         public static PlayerProfile StartOf(CampaignPlan plan)
         {
@@ -43,6 +46,14 @@ namespace FunGame.Progress
         public string PilotId;
         public int Attack;
         public int Defense;
+    }
+
+    /// <summary>The stars earned in one encounter, as bits (star 1 = bit 0; see <see cref="StarRating"/>).</summary>
+    [Serializable]
+    public sealed class EncounterStars
+    {
+        public string EncounterId;
+        public int Earned;
     }
 
     /// <summary>One of a pilot's two stats.</summary>

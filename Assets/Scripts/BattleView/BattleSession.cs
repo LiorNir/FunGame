@@ -766,10 +766,16 @@ namespace BattleView
             {
                 details = $"({_engine.DefeatReason})\n" + details;
             }
+            // the stars this battle met; in the campaign they are kept (each star stays once earned)
+            var stars = _encounter.Stars;
+            var metStars = FunGame.Progress.StarRating.Evaluate(stars, FunGame.Progress.BattleEnd.Of(_engine));
+            var newStars = 0;
             if (_engine.Outcome == BattleOutcome.Victory && _campaignMode)
             {
                 // the win is recorded and saved right away
-                var reward = Campaign.CampaignSession.Progression.ClaimVictory(Campaign.CampaignDefinition.IdOf(_encounter));
+                var id = Campaign.CampaignDefinition.IdOf(_encounter);
+                var reward = Campaign.CampaignSession.Progression.ClaimVictory(id);
+                newStars = Campaign.CampaignSession.Progression.RecordStars(id, metStars);
                 Campaign.CampaignSession.Save();
                 details += reward.FirstClear ? $"\nReward: {Campaign.CampaignSession.Describe(reward)}" : "\n(already cleared: no new reward)";
             }
@@ -778,10 +784,12 @@ namespace BattleView
                 details += $"\nReward: {_encounter.RewardSkillPoints} SP";
             }
 
+            details += "\n\n" + Campaign.StarText.Lines(stars, metStars, newStars, _engine.Setup.Rules.PlayerMaxHealth);
             _hud.ShowOutcome(_engine.Outcome, details);
+            var starsLogged = $", stars {FunGame.Progress.StarRating.Count(metStars)}/{stars.Count}";
             WriteBattleLog(_engine.Outcome == BattleOutcome.Defeat && _engine.DefeatReason != null
-                ? $"Defeat ({_engine.DefeatReason}) on turn {_engine.Turn}"
-                : $"{_engine.Outcome} on turn {_engine.Turn}, HP {DisplayFormat.Value(_engine.PlayerHealth)}");
+                ? $"Defeat ({_engine.DefeatReason}) on turn {_engine.Turn}{starsLogged}"
+                : $"{_engine.Outcome} on turn {_engine.Turn}, HP {DisplayFormat.Value(_engine.PlayerHealth)}{starsLogged}");
         }
 
         /// <summary>Every pilot of the event falls at once; the task ends when the last Defeated animation has played.</summary>

@@ -21,6 +21,13 @@ MonoBehaviour:
   _rewardSkillPoints: 0
   _allowReplace: 0
   _allowEject: 0
+  _stars:
+  - Kind: 0
+    Value: 0
+  - Kind: 1
+    Value: 1
+  - Kind: 3
+    Value: 2
   _testDeck: {fileID: 0}
   _openingHand: []
   _assetId: c79952171acde5543adaf2cf3ac610f7

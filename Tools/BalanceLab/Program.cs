@@ -34,6 +34,8 @@ namespace BalanceLab
                     return Ablate.Run(args);
                 case "builds":
                     return Builds.Run(args);
+                case "stars":
+                    return Stars.Run(args);
                 case "quick":
                     return Quick(args.Length > 1 ? int.Parse(args[1]) : 100, args.Length > 2 ? args[2] : null);
                 default:

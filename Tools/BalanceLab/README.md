@@ -15,6 +15,10 @@ Plays the game's encounters with simulated players and writes a report you can r
 
 If there are no exported encounters, the report uses a built-in sample set so the tool can always be tried.
 
+Quick checks of the built-in World encounters (`run-lab.bat <command> N "filter"`, N battles per bot): `ablate` (each mechanic
+taken away), `builds` (World 2+ with different SP upgrade paths), `stars` (how often the Casual and Careful bots would meet
+each possible star condition: win with 50% to 100% health, without losing a pilot, by turn T; used to set each encounter's stars).
+
 ## How difficulty is measured
 
 Pilots do not level up in the test. Each encounter is played with the starter roster at different **power**: every stat of

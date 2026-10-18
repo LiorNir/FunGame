@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Encounters;
 using FunGame.Progress;
 using TMPro;
@@ -53,7 +54,8 @@ namespace Campaign
             }
 
             _rows.Clear();
-            _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}";
+            var allStars = campaign.Worlds.Sum(world => world.Encounters.Where(encounter => encounter != null).Sum(encounter => encounter.Stars.Count));
+            _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}   Stars: {progression.TotalStars}/{allStars}";
             SetLabel(_unlockAll, progression.UnlockAll ? "Unlock all: on" : "Unlock all: off");
 
             for (var worldIndex = 0; worldIndex < campaign.Worlds.Count; worldIndex++)
@@ -68,7 +70,8 @@ namespace Campaign
                     var encounter = world.Encounters[index];
                     var state = progression.StateOf(worldIndex, index);
                     var title = encounter.DisplayName.StartsWith("World ") ? encounter.DisplayName.Substring(6) : encounter.DisplayName;
-                    var footer = state == EncounterState.Cleared ? "cleared"
+                    // a cleared encounter shows its stars (the button's colour already says it is cleared)
+                    var footer = state == EncounterState.Cleared ? StarText.Row(progression.StarsOf(CampaignDefinition.IdOf(encounter)), encounter.Stars.Count)
                         : state == EncounterState.Locked ? "locked"
                         : CampaignSession.Describe(progression.RewardFor(CampaignDefinition.IdOf(encounter)));
                     var button = Instantiate(_encounterPrefab, row.Encounters);

@@ -109,6 +109,35 @@ namespace FunGame.Progress
             return reward;
         }
 
+        /// <summary>The stars earned in the encounter so far, as bits (0 for none).</summary>
+        public int StarsOf(string encounterId)
+        {
+            return Profile.Stars?.FirstOrDefault(entry => entry.EncounterId == encounterId)?.Earned ?? 0;
+        }
+
+        /// <summary>Every star earned in the campaign.</summary>
+        public int TotalStars => Profile.Stars?.Sum(entry => StarRating.Count(entry.Earned)) ?? 0;
+
+        /// <summary>Adds the stars a battle met to the encounter's earned stars (each star stays once earned); returns the newly earned ones.</summary>
+        public int RecordStars(string encounterId, int met)
+        {
+            if (Profile.Stars == null)
+            {
+                Profile.Stars = new List<EncounterStars>();
+            }
+
+            var entry = Profile.Stars.FirstOrDefault(candidate => candidate.EncounterId == encounterId);
+            if (entry == null)
+            {
+                entry = new EncounterStars { EncounterId = encounterId };
+                Profile.Stars.Add(entry);
+            }
+
+            var newlyEarned = met & ~entry.Earned;
+            entry.Earned |= met;
+            return newlyEarned;
+        }
+
         /// <summary>The stat points bought for the pilot so far.</summary>
         public (int Attack, int Defense) UpgradesOf(string pilotId)
         {

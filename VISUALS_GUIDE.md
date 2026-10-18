@@ -41,7 +41,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `Assets/Campaign/Tutorial.asset` | Every tutorial line: encounter, when it shows, text (see `TUTORIAL_LINES.md`). |
 | `Assets/Rules/BattleVisuals.asset` | The battle's shared looks: which prefabs the battle uses, operator sprites, attack / defense / both / unused colours (lines, chain labels, stat texts all read these), and the "show remaining defense" switch. |
 | `Assets/Scripts/Configurations/Pilots/*.asset` | Each pilot's picture (`Sprite`), optional animation frames (`Idle Frames` loop, `Attack Frames` and `Defeated Frames` play once: sprites and frame time; played by the `PilotAnimationView` on the PilotSlot's `Pilot` picture), name and stats. Upgraded test-deck copies live in `Pilots/Upgrades`. |
-| `Assets/Encounters/World N/*.asset` | Each enemy's picture, **Scale** (1 = the standard size set on the `EnemyView` prefab), name, health and actions, and each encounter's display name. |
+| `Assets/Encounters/World N/*.asset` | Each enemy's picture, **Scale** (1 = the standard size set on the `EnemyView` prefab), name, health and actions, each encounter's display name and its three **Stars** (conditions). |
 | `Assets/Boards/World N/*.prefab` | Each encounter's board layout (slot positions; slots are `PilotSlot` / `OperatorSlot` instances, so their look comes from those prefabs). |
 | `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson), the connection strip (`ConnectionStrip`) and the shadow circle (`Circle`, a copy of Unity's default circle). |
 
@@ -65,4 +65,5 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 - Intent colours for ASSASSINATE and STUNNED: `EnemyView.SetIntent`.
 - The divide-by-zero gag animation: `SlotView.PlayDivideByZero`; the red "ERROR" chain label: `BoardView.Refresh`.
 - The dark backing behind status lines: `SlotView.SetStatus`.
+- Star dots on the end screen and the map (gold earned, grey missing; the font has no star glyph): `Campaign.StarText`.
 - The hover explanation texts: `HoverTexts` (operators, bonuses, enemies) and `BoardView.DescribeSlot` (slots and pilots); the placement preview arrow on chain labels: `BoardView.Refresh`.

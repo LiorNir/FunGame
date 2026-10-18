@@ -127,5 +127,54 @@ namespace FunGame.Board.Tests
             progression.UnlockAll = true;
             Assert.AreEqual(EncounterState.Open, progression.StateOf(1, 1));
         }
+
+        // ---------- stars ----------
+
+        private static int Rate(bool won, float health, int lost, int turns)
+        {
+            return StarRating.Evaluate(StarRating.Default, new BattleEnd(won, health, 10f, lost, turns));
+        }
+
+        [Test]
+        public void AWin_EarnsEachStarWhoseConditionItMeets()
+        {
+            Assert.AreEqual(0b111, Rate(true, 6f, 0, 5)); // 6 HP is exactly 60%
+            Assert.AreEqual(0b101, Rate(true, 5.75f, 0, 5)); // short of the health star
+            Assert.AreEqual(0b011, Rate(true, 9f, 1, 5)); // a pilot lost
+        }
+
+        [Test]
+        public void ALostBattle_EarnsNoStar_EvenWithHealthAndPilotsLeft()
+        {
+            Assert.AreEqual(0, Rate(false, 9f, 0, 3)); // for example given up early
+        }
+
+        [Test]
+        public void NoStarIsRequiredForAnother()
+        {
+            var stars = new[] { new StarCondition(StarConditionKind.WinWithoutLosses), new StarCondition(StarConditionKind.WinWithinTurns, 4f) };
+            Assert.AreEqual(0b10, StarRating.Evaluate(stars, new BattleEnd(true, 2f, 10f, 2, 4)));
+            Assert.AreEqual(0b01, StarRating.Evaluate(stars, new BattleEnd(true, 2f, 10f, 0, 5)));
+        }
+
+        [Test]
+        public void EarnedStars_StayEarned_AcrossReplays()
+        {
+            var progression = Fresh();
+            Assert.AreEqual(0b011, progression.RecordStars("1-1", 0b011));
+            Assert.AreEqual(0b100, progression.RecordStars("1-1", 0b101)); // only the third is new
+            Assert.AreEqual(0, progression.RecordStars("1-1", 0b001)); // a worse replay takes nothing away
+            Assert.AreEqual(0b111, progression.StarsOf("1-1"));
+            Assert.AreEqual(3, progression.TotalStars);
+            Assert.AreEqual(0, progression.StarsOf("1-2"));
+        }
+
+        [Test]
+        public void TheHealthStar_NeedsItsShareRoundedUpToTheQuarterStep()
+        {
+            var star = new StarCondition(StarConditionKind.WinWithHealth, 0.65f);
+            Assert.AreEqual(6.5f, star.RequiredHealth(10f), 0.0001f);
+            Assert.AreEqual("Win with 6.5+ HP", star.Describe(10f));
+        }
     }
 }

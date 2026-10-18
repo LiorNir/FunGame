@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BoardAuthoring;
 using Combat;
 using Configurations;
+using FunGame.Progress;
 using UnityEngine;
 
 namespace Encounters
@@ -32,6 +33,10 @@ namespace Encounters
         [Tooltip("Off until the game has taught taking a pilot back into the hand. Early encounters switch it off.")]
         [SerializeField] private bool _allowEject = true;
 
+        [Header("Stars")]
+        [Tooltip("The encounter's stars, each a condition on how it was won (Value: the health share for Win With Health, the last turn for Win Within Turns). Every star stands on its own; earned stars stay earned.")]
+        [SerializeField] private List<StarCondition> _stars = new List<StarCondition>(StarRating.Default);
+
         [Header("Testing (until progression exists)")]
         [Tooltip("Optional. Plays this encounter with this deck instead of the starter deck: the pilots the player would have by this point (upgrades and recruited pilots), until SP spending and rewards exist.")]
         [SerializeField] private PilotDeck _testDeck;
@@ -58,6 +63,14 @@ namespace Encounters
         public int RewardSkillPoints => _rewardSkillPoints;
         public bool AllowReplace => _allowReplace;
         public bool AllowEject => _allowEject;
+
+        /// <summary>The encounter's star conditions (the usual three when none are set).</summary>
+        public IReadOnlyList<StarCondition> Stars => _stars != null && _stars.Count > 0 ? _stars : StarRating.Default;
+
+        public void SetStars(List<StarCondition> stars)
+        {
+            _stars = stars;
+        }
 
         /// <summary>The deck this encounter is played with instead of the starter deck, or null for the starter deck.</summary>
         public PilotDeck TestDeck => _testDeck;
