@@ -46,6 +46,9 @@ namespace BattleView
         [Tooltip("Created if empty. Only used for lanes that have no anchor.")]
         [SerializeField] private EnemiesView _enemiesView;
 
+        [Tooltip("Optional: shows the encounter's world look (board art and background).")]
+        [SerializeField] private WorldLookView _worldLook;
+
         [Tooltip("Where the enemy of each lane stands, in lane order. Move these objects by hand to place the enemies.")]
         [SerializeField] private List<Transform> _enemyAnchors = new List<Transform>();
 
@@ -269,6 +272,11 @@ namespace BattleView
 
             _board = _boardView != null ? _boardView : CreateChild<BoardView>("Board");
             _enemies = _enemiesView != null ? _enemiesView : CreateChild<EnemiesView>("Enemies");
+            if (_worldLook == null && _visuals.WorldLookPrefab != null)
+            {
+                _worldLook = Instantiate(_visuals.WorldLookPrefab, transform);
+                _worldLook.name = "World Look";
+            }
             _selection = CreateChild<SelectionController>("Selection");
 
             _hud = Instantiate(_visuals.HudPrefab, _canvas.transform);
@@ -366,6 +374,10 @@ namespace BattleView
             _engine.DrainEvents();
 
             _board.Build(_encounter.Board, _engine, _visuals);
+            if (_worldLook != null)
+            {
+                _worldLook.Show(_encounter.Look, _visuals.DefaultLook);
+            }
             _enemies.Build(_engine, _visuals, _enemyAnchors);
             RefreshAll();
             _hud.ClearTutorial();

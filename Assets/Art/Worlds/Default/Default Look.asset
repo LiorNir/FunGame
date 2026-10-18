@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869a6e2b6f21eb24092de83eaeaf2617, type: 3}
+  m_Name: Default Look
+  m_EditorClassIdentifier: Assembly-CSharp::Encounters.WorldLook
+  Board: {fileID: 21300000, guid: fb9e61a3bf6c37b4c994b0d0e3a16ecc, type: 3}
+  Background: {fileID: 21300000, guid: 945d54e7ed3618446af515a8739c90fc, type: 3}

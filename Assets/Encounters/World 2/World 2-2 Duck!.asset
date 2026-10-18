@@ -20,6 +20,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 62ace957833ecd94fbb856d796777039, type: 2}
     - {fileID: 11400000, guid: 5f24e999c5b78174da50ef66c3d90266, type: 2}
   _rewardSkillPoints: 0
+  _look: {fileID: 11400000, guid: 06e3fe8d9e47da34cbbfa47b49379722, type: 2}
   _allowReplace: 1
   _allowEject: 1
   _stars:

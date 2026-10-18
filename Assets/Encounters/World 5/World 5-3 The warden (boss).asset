@@ -22,6 +22,7 @@ MonoBehaviour:
     Enemies:
     - {fileID: 11400000, guid: cb7a2f2599f99d44d9e50fe492f49e32, type: 2}
   _rewardSkillPoints: 1
+  _look: {fileID: 11400000, guid: 62f0a54cdd23dc3419b1f81db908d04f, type: 2}
   _allowReplace: 1
   _allowEject: 1
   _stars:

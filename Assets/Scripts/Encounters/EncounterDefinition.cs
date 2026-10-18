@@ -26,6 +26,9 @@ namespace Encounters
 
         [Min(0)] [SerializeField] private int _rewardSkillPoints;
 
+        [Tooltip("The world's look (board and background art). Empty: the default look of the Battle Visuals asset.")]
+        [SerializeField] private WorldLook _look;
+
         [Header("Mechanics the encounter allows")]
         [Tooltip("Off until the game has taught replacing a pilot that is already on the board. Early encounters switch it off.")]
         [SerializeField] private bool _allowReplace = true;
@@ -61,6 +64,12 @@ namespace Encounters
         public BoardLayoutAuthoring Board => _board;
         public IReadOnlyList<LaneEnemies> Lanes => _lanes;
         public int RewardSkillPoints => _rewardSkillPoints;
+        public WorldLook Look => _look;
+
+        public void SetLook(WorldLook look)
+        {
+            _look = look;
+        }
         public bool AllowReplace => _allowReplace;
         public bool AllowEject => _allowEject;
 

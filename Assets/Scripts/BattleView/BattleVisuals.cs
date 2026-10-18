@@ -30,6 +30,13 @@ namespace BattleView
         [Tooltip("The connection drawn between slots and operators on the board.")]
         public ConnectionView ConnectionPrefab;
 
+        [Header("World looks")]
+        [Tooltip("The board and background art for a world whose look (or part of it) is not set.")]
+        public Encounters.WorldLook DefaultLook;
+
+        [Tooltip("Where the world's board art and background are shown (their size, place and draw order); placed in the battle scene unless it has its own.")]
+        public WorldLookView WorldLookPrefab;
+
         [Header("Sprites used when a prefab has none")]
         public Sprite SlotBase;
         public Sprite BarSprite;
