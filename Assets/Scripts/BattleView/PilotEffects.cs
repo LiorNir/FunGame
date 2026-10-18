@@ -30,7 +30,20 @@ namespace BattleView
         [Tooltip("Loops while an announced enemy effect is aimed at the pilot (a lock, a snipe...). Set its Looping on.")]
         [SerializeField] private ParticleSystem _targeted;
 
-        public void PlaySummon() => Play(_summon);
+        [Tooltip("On: Summon's particles take the slot's role colour (attack red, defense blue, both purple), replacing their Start Color. Off: Summon keeps the colours set on it.")]
+        [SerializeField] private bool _tintSummonByRole = true;
+
+        /// <summary>Plays Summon, in the slot's role colour unless <see cref="_tintSummonByRole"/> is off.</summary>
+        public void PlaySummon(Color roleColor)
+        {
+            if (_summon != null && _tintSummonByRole)
+            {
+                var main = _summon.main;
+                main.startColor = roleColor;
+            }
+
+            Play(_summon);
+        }
         public void PlayAbility() => Play(_ability);
         public void PlayHit() => Play(_hit);
         public void PlayDefeated() => Play(_defeated);

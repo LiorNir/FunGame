@@ -406,7 +406,7 @@ namespace BattleView
         /// <summary>The Summon effect (a pilot was placed here).</summary>
         public void PlaySummon()
         {
-            _effects?.PlaySummon();
+            _effects?.PlaySummon(_roleColor);
         }
 
         /// <summary>The Ability effect and the pilot's attack frames (it used its ability).</summary>
