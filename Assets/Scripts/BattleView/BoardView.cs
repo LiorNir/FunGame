@@ -189,26 +189,10 @@ namespace BattleView
                 parts.Add(multiplier <= 0.001f ? "ATK 0 this turn" : $"ATK x{DisplayFormat.Value(multiplier)} this turn");
             }
 
-            var ability = DescribeUnusedAbility(slotId, pilot);
-            if (ability.Length > 0)
-            {
-                parts.Add(ability);
-            }
-
+            // an ability that can be used is shown by the slot's Ability Ready effect and the hand card, not here
             return parts;
         }
 
-        private string DescribeUnusedAbility(string slotId, PilotUnit pilot)
-        {
-            if (!pilot.HasUnusedAbility)
-            {
-                return string.Empty;
-            }
-
-            return _engine.CanActivate(slotId)
-                ? $"<color=#FFD24A>{pilot.Ability.Name} ready</color>"
-                : $"<color=#8C8C8C>{pilot.Ability.Name}: needs {pilot.Ability.ApCost} AP</color>";
-        }
 
         /// <summary>Points the board at another copy of the same battle (an undo), without rebuilding it.</summary>
         public void Rebind(BattleEngine engine)
