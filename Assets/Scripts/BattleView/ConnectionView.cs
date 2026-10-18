@@ -4,8 +4,9 @@ namespace BattleView
 {
     /// <summary>
     /// The look of one connection between two board positions, as a prefab: a strip picture that lies on the board and is
-    /// stretched from one end to the other. The strip is tinted with the role colour (attack, defense, both), so a white
-    /// picture shows the colours as they are. Widths and the faded look of an unpowered connection are set here.
+    /// stretched from one end to the other. Its material gets the role colour (attack, defense, both) and, while the line
+    /// is active (a pilot powers it), the noise switched on; both per line, through a property block, so every line shares
+    /// one material. Widths and the faded look of an unpowered connection are set here.
     /// </summary>
     public class ConnectionView : MonoBehaviour
     {
@@ -18,7 +19,14 @@ namespace BattleView
         [Range(0f, 1f)]
         [SerializeField] private float _unpoweredAlpha = 0.35f;
 
+        [Header("Material")]
+        [Tooltip("The material's colour property; it gets the role colour.")]
+        [SerializeField] private string _colorProperty = "_MainColor";
+        [Tooltip("The material's noise property: 1 while the line is active, 0 otherwise.")]
+        [SerializeField] private string _noiseProperty = "_NoiseAmount";
+
         private float _length;
+        private MaterialPropertyBlock _properties;
 
         /// <summary>Lays the strip from one point to the other, both in the parent's space (the board's).</summary>
         public void Connect(Vector3 localFrom, Vector3 localTo)
@@ -29,6 +37,7 @@ namespace BattleView
             transform.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
         }
 
+        /// <param name="powered">The line is active: it connects pilots that count (noise on, wider).</param>
         public void SetStyle(Color color, bool powered)
         {
             if (_strip == null)
@@ -41,7 +50,22 @@ namespace BattleView
                 color.a *= _unpoweredAlpha;
             }
 
+            // a material that reads the sprite's own colour still gets it this way too
             _strip.color = color;
+            _properties ??= new MaterialPropertyBlock();
+            _strip.GetPropertyBlock(_properties);
+            if (!string.IsNullOrEmpty(_colorProperty))
+            {
+                _properties.SetColor(_colorProperty, color);
+            }
+
+            if (!string.IsNullOrEmpty(_noiseProperty))
+            {
+                _properties.SetFloat(_noiseProperty, powered ? 1f : 0f);
+            }
+
+            _strip.SetPropertyBlock(_properties);
+
             var size = _strip.sprite != null ? _strip.sprite.bounds.size : Vector3.one;
             var width = powered ? _poweredWidth : _width;
             _strip.transform.localScale = new Vector3(
