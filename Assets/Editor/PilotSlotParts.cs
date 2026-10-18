@@ -64,6 +64,7 @@ namespace FunGame.EditorTools
         private const int OrderBackground = 2;
         private const int OrderPilot = 3;
         private const int OrderRing = 4;
+        private const int OrderLockedOverlay = 5;
         private const int OrderStatsBorder = 7;
         private const int OrderStatsBackground = 8;
         private const int OrderStatFill = 9;
@@ -163,10 +164,17 @@ namespace FunGame.EditorTools
                 statusText.text = "SURGE: ATK x2\nnext: SNIPE -50%";
             }
 
+            // drawn over the pilot while an enemy has locked it (assign a picture, for example chains)
+            var lockedOverlay = EnsureSprite(parent, "LockedOverlay", null, null, Color.white, OrderLockedOverlay, Vector3.zero, out _);
+            lockedOverlay.enabled = false;
+            var effects = PilotEffectParts.Ensure(view.gameObject, parent);
+
             var serialized = new SerializedObject(view);
             Assign(serialized, "_pilotBackground", background);
             Assign(serialized, "_pilotRenderer", pilot);
             Assign(serialized, "_pilotAnimation", pilotAnimation);
+            Assign(serialized, "_effects", effects);
+            Assign(serialized, "_lockedOverlay", lockedOverlay);
             Assign(serialized, "_attackBox", attackBox);
             Assign(serialized, "_defenseBox", defenseBox);
             Assign(serialized, "_ring", ring);

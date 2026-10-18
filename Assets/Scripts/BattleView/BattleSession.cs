@@ -379,7 +379,7 @@ namespace BattleView
                 _worldLook.Show(_encounter.Look, _visuals.DefaultLook);
             }
             _enemies.Build(_engine, _visuals, _enemyAnchors);
-            RefreshAll();
+            RefreshQuietly();
             _hud.ClearTutorial();
             _hud.HideTooltip();
             ShowTutorial(TutorialTrigger.BattleStart);
@@ -484,7 +484,21 @@ namespace BattleView
             _menu.Close();
             _board.Rebind(_engine);
             _enemies.Rebind(_engine);
-            RefreshAll();
+            RefreshQuietly();
+        }
+
+        /// <summary>Refreshes everything without playing effects (the board jumps to a state: a battle start, an undo).</summary>
+        private void RefreshQuietly()
+        {
+            _board.MuteEffects = true;
+            try
+            {
+                RefreshAll();
+            }
+            finally
+            {
+                _board.MuteEffects = false;
+            }
         }
 
         // the log's length when each snapshot was taken (the copies have no log of their own)
@@ -506,7 +520,12 @@ namespace BattleView
             if (!IsBusy && _engine.TryPlace(handIndex, slotId))
             {
                 RefreshAll();
-                _board.GetSlot(slotId)?.Punch();
+                var placed = _board.GetSlot(slotId);
+                if (placed != null)
+                {
+                    placed.Punch();
+                    placed.PlaySummon();
+                }
             }
         }
 
@@ -524,7 +543,7 @@ namespace BattleView
                 if (slot != null)
                 {
                     slot.Punch(0.3f);
-                    slot.PlayAttack();
+                    slot.PlayAbility();
                     ViewFactory.ShowPopup(slot.transform.position + Vector3.up * 0.9f, _engine.PilotBySlot[slotId].Ability.Name + "!", new Color(1f, 0.82f, 0.29f), 0.5f);
                 }
 
@@ -695,7 +714,12 @@ namespace BattleView
                     case BattleEventType.ChainAbsorbed:
                         for (var index = 0; index < battleEvent.Slots.Count; index++)
                         {
-                            _board.GetSlot(battleEvent.Slots[index])?.SetWoundAnimated(battleEvent.SlotValues[index], 0.5f);
+                            var hit = _board.GetSlot(battleEvent.Slots[index]);
+                            if (hit != null)
+                            {
+                                hit.PlayHit();
+                                hit.SetWoundAnimated(battleEvent.SlotValues[index], 0.5f);
+                            }
                         }
 
                         PopupAtFirstSlot(battleEvent, "Absorbed " + DisplayFormat.Value(battleEvent.A), _visuals.DefenseColor);
@@ -812,8 +836,21 @@ namespace BattleView
             return UniTask.WhenAll(battleEvent.Slots
                 .Select(slotId => _board.GetSlot(slotId))
                 .Where(slot => slot != null)
-                .Select(slot => slot.PlayFallen()));
+                .Select(HitThenFall));
         }
+
+        // the hit that makes a pilot fall plays first, then the fall
+        private static async UniTask HitThenFall(SlotView slot)
+        {
+            slot.PlayHit();
+            await UniTask.Delay(TimeSpan.FromSeconds(HitBeforeFallSeconds));
+            if (slot != null)
+            {
+                await slot.PlayFallen();
+            }
+        }
+
+        private const float HitBeforeFallSeconds = 0.25f;
 
         private static UniTask Wait(float seconds, CancellationToken token)
         {

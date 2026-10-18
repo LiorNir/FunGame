@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleView.HandView
   _area: {fileID: 8685558659801295440}
-  _spacing: 205
+  _spacing: 232
   _raiseWhenSelected: 36
 --- !u!1 &3034937750862572407
 GameObject:

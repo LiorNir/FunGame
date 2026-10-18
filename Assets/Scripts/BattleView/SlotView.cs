@@ -43,6 +43,10 @@ namespace BattleView
         [SerializeField] private SpriteRenderer _pilotRenderer;
         [Tooltip("Optional: plays the pilot's Idle / Attack / Defeated frames (from its pilot asset) on the Pilot picture. Pilots without frames keep their still picture.")]
         [SerializeField] private Views.PilotAnimationView _pilotAnimation;
+        [Tooltip("Optional: the slot's particle effects (summon, ability, hit, defeated, buff, debuff, targeted).")]
+        [SerializeField] private PilotEffects _effects;
+        [Tooltip("Optional: drawn over the pilot while an enemy has locked it (for example chains).")]
+        [SerializeField] private SpriteRenderer _lockedOverlay;
         [SerializeField] private StatBoxView _attackBox;
         [SerializeField] private StatBoxView _defenseBox;
         [SerializeField] private TextMeshPro _bonusText;
@@ -96,6 +100,10 @@ namespace BattleView
         private Color _bonusBadgeBaseColor;
         private PilotUnit _pilot;
         private PilotUnit _animatedPilot;
+        // the pilot and stat multipliers last shown, to play Buff / Debuff when a multiplier changes
+        private int _effectPilotId = -1;
+        private float _attackFactor = 1f;
+        private float _defenseFactor = 1f;
         private bool _defeatPlaying;
         private float _displayWound;
         private bool _locked;
@@ -115,6 +123,9 @@ namespace BattleView
 
         public string SlotId { get; private set; }
         public PilotUnit Pilot => _pilot;
+
+        /// <summary>While on, changes shown by <see cref="Apply"/> play no effects (an undo, a battle start).</summary>
+        public bool MuteEffects { get; set; }
         public event Action<SlotView> Clicked;
 
         /// <summary>The mouse entered (true) or left (false) the slot.</summary>
@@ -236,6 +247,12 @@ namespace BattleView
             }
 
             ShowLock(locked, lockDescription);
+            UpdateStatEffects(pilot, fallen);
+            if (_lockedOverlay != null)
+            {
+                _lockedOverlay.enabled = hasPilot && !fallen && pilot.IsLocked;
+            }
+
             SetText(_pilotNameText, !locked && hasPilot && sprite == null ? pilot.Name : string.Empty);
             // INACTIVE LABEL: SetText(_inactiveText, _inactive ? "<b>INACTIVE</b>" : string.Empty);
 
@@ -371,6 +388,12 @@ namespace BattleView
             transform.DOPunchScale(Vector3.one * 0.25f, 0.35f);
             SetPilotPartsVisible(false);
             SetState(SlotVisualState.Fallen);
+            if (_effects != null)
+            {
+                _effects.SetTargeted(false);
+                _effects.PlayDefeated();
+            }
+
             _defeatPlaying = true;
             await PlayDefeatedFrames();
             _defeatPlaying = false;
@@ -378,6 +401,62 @@ namespace BattleView
             {
                 ViewFactory.TweenColor(_pilotRenderer, _fallenColor, 0.4f);
             }
+        }
+
+        /// <summary>The Summon effect (a pilot was placed here).</summary>
+        public void PlaySummon()
+        {
+            _effects?.PlaySummon();
+        }
+
+        /// <summary>The Ability effect and the pilot's attack frames (it used its ability).</summary>
+        public void PlayAbility()
+        {
+            _effects?.PlayAbility();
+            PlayAttack();
+        }
+
+        /// <summary>The Hit effect (the pilot's chain took a hit).</summary>
+        public void PlayHit()
+        {
+            if (_pilot != null)
+            {
+                _effects?.PlayHit();
+            }
+        }
+
+        /// <summary>Loops the Targeted effect while an announced enemy effect is aimed at the pilot.</summary>
+        public void SetTargeted(bool targeted)
+        {
+            _effects?.SetTargeted(targeted && _pilot != null && !_pilot.Fallen);
+        }
+
+        // Buff / Debuff when the same pilot's attack or defense multiplier (abilities, enemy effects; not wounds) changes
+        private void UpdateStatEffects(PilotUnit pilot, bool fallen)
+        {
+            var id = pilot != null && !fallen ? pilot.Id : -1;
+            var attack = pilot != null ? StatModifier.Product(pilot.AttackModifiers) : 1f;
+            var defense = pilot != null ? StatModifier.Product(pilot.DefenseModifiers) : 1f;
+            if (_effects != null && !MuteEffects && id >= 0 && id == _effectPilotId)
+            {
+                if (attack > _attackFactor + 0.001f || defense > _defenseFactor + 0.001f)
+                {
+                    _effects.PlayBuff();
+                }
+                else if (attack < _attackFactor - 0.001f || defense < _defenseFactor - 0.001f)
+                {
+                    _effects.PlayDebuff();
+                }
+            }
+
+            if (_effects != null && id < 0)
+            {
+                _effects.SetTargeted(false);
+            }
+
+            _effectPilotId = id;
+            _attackFactor = attack;
+            _defenseFactor = defense;
         }
 
         /// <summary>The pilot's attack frames (when its attack chain hits); nothing if it has none.</summary>

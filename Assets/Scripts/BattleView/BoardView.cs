@@ -56,6 +56,9 @@ namespace BattleView
         /// <summary>The mouse entered (true) or left (false) an operator.</summary>
         public event Action<OperatorView, bool> OperatorHovered;
 
+        /// <summary>While on, refreshing the board plays no effects (an undo or a battle start shows a state, not a change).</summary>
+        public bool MuteEffects { get; set; }
+
         // chain values a placement would give (shown on the chain labels while placing); null for none
         private Dictionary<string, float> _preview;
 
@@ -256,7 +259,9 @@ namespace BattleView
             {
                 _engine.PilotBySlot.TryGetValue(pair.Key, out var pilot);
                 var locked = !_engine.IsUnlocked(pair.Key);
+                pair.Value.MuteEffects = MuteEffects;
                 pair.Value.Apply(pilot, locked, _activeSlots.Contains(pair.Key), DescribeLock(pair.Key));
+                pair.Value.SetTargeted(aimedAt.ContainsKey(pair.Key));
                 pair.Value.SetStatus(DescribePilotStatus(pair.Key, pilot, aimedAt.TryGetValue(pair.Key, out var aimed) ? aimed : null));
                 var abilityReady = pilot != null && !pilot.Fallen && pilot.HasUnusedAbility;
                 pair.Value.SetAbilityReady(abilityReady, abilityReady && _engine.CanActivate(pair.Key));
