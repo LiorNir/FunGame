@@ -170,6 +170,28 @@ namespace FunGame.Board.Tests
         }
 
         [Test]
+        public void DuringTheBattle_AStarIsLostOnceItCanNoLongerBeMet()
+        {
+            BattleEnd Now(float health, int lost, int turn) => new BattleEnd(false, health, 10f, lost, turn, finished: false);
+            var health = new StarCondition(StarConditionKind.WinWithHealth, 0.8f);
+            var noLoss = new StarCondition(StarConditionKind.WinWithoutLosses);
+            var quick = new StarCondition(StarConditionKind.WinWithinTurns, 4f);
+            var clear = new StarCondition(StarConditionKind.Clear);
+
+            Assert.IsTrue(health.IsStillPossible(Now(8f, 0, 2)));
+            Assert.IsFalse(health.IsStillPossible(Now(7.75f, 0, 2)));
+            Assert.IsTrue(noLoss.IsStillPossible(Now(10f, 0, 2)));
+            Assert.IsFalse(noLoss.IsStillPossible(Now(10f, 1, 2)));
+            Assert.IsTrue(quick.IsStillPossible(Now(10f, 0, 4)));
+            Assert.IsFalse(quick.IsStillPossible(Now(10f, 0, 5)));
+            Assert.IsTrue(clear.IsStillPossible(Now(1f, 3, 9)));
+
+            // once it is over, a lost battle keeps none of them
+            Assert.IsFalse(clear.IsStillPossible(new BattleEnd(false, 5f, 10f, 0, 3)));
+            Assert.IsTrue(health.IsStillPossible(new BattleEnd(true, 9f, 10f, 0, 3)));
+        }
+
+        [Test]
         public void TheHealthStar_NeedsItsShareRoundedUpToTheQuarterStep()
         {
             var star = new StarCondition(StarConditionKind.WinWithHealth, 0.65f);

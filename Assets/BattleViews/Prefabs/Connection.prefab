@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleView.ConnectionView
   _strip: {fileID: 8807976209978826393}
-  _width: 0.12
-  _poweredWidth: 0.2
-  _unpoweredAlpha: 0.85
+  _width: 0.16
+  _poweredWidth: 0.24
+  _unpoweredAlpha: 1

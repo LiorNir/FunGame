@@ -585,6 +585,8 @@ namespace BattleView
             _enemies.Refresh();
             _hand.Refresh(_engine, _selection.IsPlacing ? _selection.SelectedHandIndex : -1);
             _hud.Refresh(_engine, !IsBusy);
+            // which stars can still be earned (health lost, pilots lost and turns so far)
+            _hud.SetStars(Campaign.StarText.Live(_encounter.Stars, FunGame.Progress.BattleEnd.Of(_engine)));
             _hud.SetUndoEnabled(!IsBusy && _undoSnapshots.Count > 0 && _engine.Outcome == BattleOutcome.InProgress);
             ShowTestPanel(true);
         }

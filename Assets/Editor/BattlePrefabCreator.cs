@@ -65,6 +65,7 @@ namespace FunGame.EditorTools
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudMapButton, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudTutorial, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudTooltip, changed);
+            AddParts($"{Folder}/BattleHud.prefab", EnsureHudStars, changed);
             Debug.Log(changed.Count == 0 ? "The battle prefabs already have every part." : $"Parts added to: {string.Join(", ", changed)}. Nothing else on them was changed.");
         }
 
@@ -88,6 +89,27 @@ namespace FunGame.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(contents);
             }
+        }
+
+        /// <summary>The encounter's stars, one line each, under the turn number at the top right. Returns true if it was added.</summary>
+        private static bool EnsureHudStars(GameObject hud)
+        {
+            var view = hud.GetComponent<HudView>();
+            if (view == null || hud.transform.Find("Stars") != null)
+            {
+                return false;
+            }
+
+            var stars = CornerText(hud.transform, "Stars", new Vector2(1f, 1f), new Vector2(-30f, -95f), TextAlignmentOptions.TopRight, 24f);
+            stars.rectTransform.sizeDelta = new Vector2(460f, 110f);
+            var turn = hud.transform.Find("Turn");
+            if (turn != null)
+            {
+                stars.transform.SetSiblingIndex(turn.GetSiblingIndex() + 1);
+            }
+
+            Assign(view, "_stars", stars);
+            return true;
         }
 
         /// <summary>The end screen's "Back to map" button, under "Play again". Returns true if it was added.</summary>

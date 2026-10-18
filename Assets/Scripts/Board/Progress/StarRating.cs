@@ -65,6 +65,32 @@ namespace FunGame.Progress
             }
         }
 
+        /// <summary>
+        /// While the battle goes on: false once nothing can still earn the star (health below the bar, a pilot lost, the turn
+        /// limit passed; the player's health never comes back). Once it is over: whether the star was met.
+        /// </summary>
+        public bool IsStillPossible(BattleEnd battle)
+        {
+            if (battle.Finished)
+            {
+                return IsMet(battle);
+            }
+
+            switch (Kind)
+            {
+                case StarConditionKind.Clear:
+                    return true;
+                case StarConditionKind.WinWithHealth:
+                    return battle.HealthLeft >= RequiredHealth(battle.MaxHealth) - 0.0001f;
+                case StarConditionKind.WinWithoutLosses:
+                    return battle.PilotsLost == 0;
+                case StarConditionKind.WinWithinTurns:
+                    return battle.Turns <= Value + 0.0001f;
+                default:
+                    return false;
+            }
+        }
+
         /// <summary>The health a <see cref="StarConditionKind.WinWithHealth"/> star needs, in HP (rounded up to the 0.25 step).</summary>
         public float RequiredHealth(float maxHealth)
         {
@@ -90,10 +116,13 @@ namespace FunGame.Progress
         }
     }
 
-    /// <summary>How a battle ended, as the star conditions read it.</summary>
+    /// <summary>How a battle ended (or stands, while it goes on), as the star conditions read it.</summary>
     public sealed class BattleEnd
     {
         public bool Won { get; }
+
+        /// <summary>False while the battle goes on (the numbers are its current state).</summary>
+        public bool Finished { get; }
         public float HealthLeft { get; }
         public float MaxHealth { get; }
         public int PilotsLost { get; }
@@ -101,19 +130,22 @@ namespace FunGame.Progress
         /// <summary>The turn the battle ended on (1 = won during the first turn).</summary>
         public int Turns { get; }
 
-        public BattleEnd(bool won, float healthLeft, float maxHealth, int pilotsLost, int turns)
+        /// <param name="finished">Whether the battle is over; a won battle always is.</param>
+        public BattleEnd(bool won, float healthLeft, float maxHealth, int pilotsLost, int turns, bool finished = true)
         {
             Won = won;
+            Finished = finished || won;
             HealthLeft = healthLeft;
             MaxHealth = maxHealth;
             PilotsLost = pilotsLost;
             Turns = turns;
         }
 
+        /// <summary>The battle as it stands (over or not).</summary>
         public static BattleEnd Of(BattleEngine engine)
         {
             return new BattleEnd(engine.Outcome == BattleOutcome.Victory, engine.PlayerHealth,
-                engine.Setup.Rules.PlayerMaxHealth, engine.Stats.PilotsFallen, engine.Turn);
+                engine.Setup.Rules.PlayerMaxHealth, engine.Stats.PilotsFallen, engine.Turn, engine.Outcome != BattleOutcome.InProgress);
         }
     }
 

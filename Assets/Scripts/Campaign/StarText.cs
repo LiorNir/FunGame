@@ -26,6 +26,31 @@ namespace Campaign
             return text.Append("</size>").ToString();
         }
 
+        /// <summary>
+        /// During a battle: one line per star, gold while it can still be earned, crossed out in red once it cannot (health
+        /// below the bar, a pilot lost, the turn limit passed), so the player knows what is still at stake.
+        /// </summary>
+        public static string Live(IReadOnlyList<StarCondition> stars, BattleEnd now)
+        {
+            var text = new StringBuilder();
+            for (var index = 0; index < stars.Count; index++)
+            {
+                // a dark backing behind each line keeps it readable over the background art
+                var line = stars[index].Describe(now.MaxHealth);
+                text.Append("<mark=#000000A0 padding=\"8,8,2,2\">");
+                text.Append(stars[index].IsStillPossible(now)
+                    ? $"{line} {Earned}"
+                    : $"<color=#FF7A6E><s>{line}</s></color> {Missing}");
+                text.Append("</mark>");
+                if (index < stars.Count - 1)
+                {
+                    text.Append('\n');
+                }
+            }
+
+            return text.ToString();
+        }
+
         /// <summary>One line per star with its condition, marking the ones met this battle and the ones earned for the first time.</summary>
         public static string Lines(IReadOnlyList<StarCondition> stars, int metMask, int newMask, float maxHealth)
         {

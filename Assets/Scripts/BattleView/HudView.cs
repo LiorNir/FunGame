@@ -17,6 +17,8 @@ namespace BattleView
         [SerializeField] private TextMeshProUGUI _health;
         [SerializeField] private TextMeshProUGUI _actionPoints;
         [SerializeField] private TextMeshProUGUI _turn;
+        [Tooltip("Optional: the encounter's stars and whether each can still be earned (under the turn number).")]
+        [SerializeField] private TextMeshProUGUI _stars;
         [SerializeField] private TextMeshProUGUI _hint;
         [SerializeField] private Button _playTurn;
         [SerializeField] private GameObject _outcomePanel;
@@ -122,6 +124,7 @@ namespace BattleView
             _actionPoints.text = string.Empty;
             _turn.text = string.Empty;
             _hint.text = string.Empty;
+            SetStars(string.Empty);
             _playTurn.interactable = false;
             if (_giveUp != null)
             {
@@ -143,6 +146,15 @@ namespace BattleView
             if (_giveUp != null)
             {
                 _giveUp.interactable = enabled;
+            }
+        }
+
+        /// <summary>The stars list (see Campaign.StarText.Live); empty hides it.</summary>
+        public void SetStars(string text)
+        {
+            if (_stars != null)
+            {
+                _stars.text = text ?? string.Empty;
             }
         }
 
