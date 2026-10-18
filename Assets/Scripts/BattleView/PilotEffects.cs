@@ -4,8 +4,8 @@ namespace BattleView
 {
     /// <summary>
     /// The particle effects of one pilot slot. Each is an optional child particle system of the PilotSlot prefab (restyle
-    /// them freely there); a missing one is skipped. All but Targeted play once; Targeted loops while an announced enemy
-    /// effect is aimed at the pilot.
+    /// them freely there); a missing one is skipped. All but the two loops play once; Targeted loops while an announced enemy
+    /// effect is aimed at the pilot, Ability Ready while its ability can be used now (unused, and enough AP).
     /// </summary>
     public class PilotEffects : MonoBehaviour
     {
@@ -30,6 +30,9 @@ namespace BattleView
         [Tooltip("Loops while an announced enemy effect is aimed at the pilot (a lock, a snipe...). Set its Looping on.")]
         [SerializeField] private ParticleSystem _targeted;
 
+        [Tooltip("Loops while the pilot's ability can be used now: not used yet and enough AP. Set its Looping on.")]
+        [SerializeField] private ParticleSystem _abilityReady;
+
         [Tooltip("On: Summon's particles take the slot's role colour (attack red, defense blue, both purple), replacing their Start Color. Off: Summon keeps the colours set on it.")]
         [SerializeField] private bool _tintSummonByRole = true;
 
@@ -51,28 +54,33 @@ namespace BattleView
         public void PlayDebuff() => Play(_debuff);
 
         /// <summary>Starts or stops the Targeted loop (nothing happens if it is already in that state).</summary>
-        public void SetTargeted(bool targeted)
+        public void SetTargeted(bool targeted) => SetLoop(_targeted, targeted);
+
+        /// <summary>Starts or stops the Ability Ready loop (the ability can be used now).</summary>
+        public void SetAbilityReady(bool ready) => SetLoop(_abilityReady, ready);
+
+        private static void SetLoop(ParticleSystem system, bool on)
         {
             // emitting, not playing: a stopped loop still counts as playing while its last particles fade
-            if (_targeted == null || targeted == _targeted.isEmitting)
+            if (system == null || on == system.isEmitting)
             {
                 return;
             }
 
-            if (targeted)
+            if (on)
             {
-                _targeted.Play(true);
+                system.Play(true);
             }
             else
             {
-                _targeted.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                system.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
         }
 
         /// <summary>Stops everything at once (the slot is cleared or the battle restarts).</summary>
         public void StopAll()
         {
-            foreach (var system in new[] { _summon, _ability, _hit, _defeated, _buff, _debuff, _targeted })
+            foreach (var system in new[] { _summon, _ability, _hit, _defeated, _buff, _debuff, _targeted, _abilityReady })
             {
                 if (system != null)
                 {

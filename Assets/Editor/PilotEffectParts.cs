@@ -6,8 +6,8 @@ using UnityEngine;
 namespace FunGame.EditorTools
 {
     /// <summary>
-    /// The particle effects of the pilot slot prefab: an Effects group with seven placeholder particle systems (summon,
-    /// ability, hit, defeated, buff, debuff, targeted), each a different colour so they can be told apart until they are
+    /// The particle effects of the pilot slot prefab: an Effects group with eight placeholder particle systems (summon,
+    /// ability, hit, defeated, buff, debuff, and the looping targeted and ability ready), each a different colour so they can be told apart until they are
     /// restyled, and the Pilot Effects component that plays them. Adds what is missing; existing systems are never changed.
     /// </summary>
     public static class PilotEffectParts
@@ -35,7 +35,8 @@ namespace FunGame.EditorTools
             new Look { Name = "Defeated", Field = "_defeated", Color = new Color(0.45f, 0.35f, 0.55f), Burst = 30, Speed = 0.8f, Lifetime = 1f, Gravity = -0.3f },
             new Look { Name = "Buff", Field = "_buff", Color = new Color(0.45f, 1f, 0.45f), Burst = 20, Speed = 0.8f, Lifetime = 0.8f, Gravity = -0.6f },
             new Look { Name = "Debuff", Field = "_debuff", Color = new Color(0.8f, 0.3f, 0.9f), Burst = 20, Speed = 0.8f, Lifetime = 0.8f, Gravity = 0.6f },
-            new Look { Name = "Targeted", Field = "_targeted", Color = new Color(1f, 0.25f, 0.25f), Speed = 0.1f, Lifetime = 0.8f, Loop = true }
+            new Look { Name = "Targeted", Field = "_targeted", Color = new Color(1f, 0.25f, 0.25f), Speed = 0.1f, Lifetime = 0.8f, Loop = true },
+            new Look { Name = "AbilityReady", Field = "_abilityReady", Color = new Color(1f, 0.9f, 0.45f), Speed = 0.1f, Lifetime = 0.8f, Gravity = -0.2f, Loop = true }
         };
 
         /// <summary>Makes sure the slot has its Pilot Effects and every effect; returns the component.</summary>

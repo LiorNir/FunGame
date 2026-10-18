@@ -327,6 +327,8 @@ namespace BattleView
         /// </summary>
         public void SetAbilityReady(bool ready, bool usable)
         {
+            // the Ability Ready effect only while the ability can be used right now (unused and enough AP)
+            _effects?.SetAbilityReady(usable && _pilot != null && !_pilot.Fallen);
             if (_abilityGlow == null)
             {
                 return;
@@ -391,6 +393,7 @@ namespace BattleView
             if (_effects != null)
             {
                 _effects.SetTargeted(false);
+                _effects.SetAbilityReady(false);
                 _effects.PlayDefeated();
             }
 
