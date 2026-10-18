@@ -1,0 +1,1352 @@
+fileFormatVersion: 2
+guid: 01d4249fd0aba7348a588fb340e90a40
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7584379247348018246
+    second: LightRing_Texture_0
+  - first:
+      213: -5496828586206811723
+    second: LightRing_Texture_1
+  - first:
+      213: 7276438814334469248
+    second: LightRing_Texture_2
+  - first:
+      213: -7674995150353256958
+    second: LightRing_Texture_3
+  - first:
+      213: 3781908804498325244
+    second: LightRing_Texture_4
+  - first:
+      213: -8968163156735257342
+    second: LightRing_Texture_5
+  - first:
+      213: -9008222390966787319
+    second: LightRing_Texture_6
+  - first:
+      213: -8042036366577125351
+    second: LightRing_Texture_7
+  - first:
+      213: 828691894636232521
+    second: LightRing_Texture_8
+  - first:
+      213: -6273265646607873962
+    second: LightRing_Texture_9
+  - first:
+      213: -6093240602456974057
+    second: LightRing_Texture_10
+  - first:
+      213: -1099565303968747643
+    second: LightRing_Texture_11
+  - first:
+      213: 6233525334030685299
+    second: LightRing_Texture_12
+  - first:
+      213: -8485226246612868548
+    second: LightRing_Texture_13
+  - first:
+      213: -2145560409153270601
+    second: LightRing_Texture_14
+  - first:
+      213: 3817880834394092610
+    second: LightRing_Texture_15
+  - first:
+      213: -349825899285790265
+    second: LightRing_Texture_16
+  - first:
+      213: 7652153528593996941
+    second: LightRing_Texture_17
+  - first:
+      213: 6388608337391676613
+    second: LightRing_Texture_18
+  - first:
+      213: -6346878440170478089
+    second: LightRing_Texture_19
+  - first:
+      213: -3577269233878499251
+    second: LightRing_Texture_20
+  - first:
+      213: -1539063519846908245
+    second: LightRing_Texture_21
+  - first:
+      213: -5044880362782652807
+    second: LightRing_Texture_22
+  - first:
+      213: 3608841157780087538
+    second: LightRing_Texture_23
+  - first:
+      213: 5403708675042944868
+    second: LightRing_Texture_24
+  - first:
+      213: -1119807660404980751
+    second: LightRing_Texture_25
+  - first:
+      213: 6975870236691201575
+    second: LightRing_Texture_26
+  - first:
+      213: 5897783233359334667
+    second: LightRing_Texture_27
+  - first:
+      213: -7366220403454929332
+    second: LightRing_Texture_28
+  - first:
+      213: 7892803941186210102
+    second: LightRing_Texture_29
+  - first:
+      213: -3198033317955657850
+    second: LightRing_Texture_30
+  - first:
+      213: -4489431356212854789
+    second: LightRing_Texture_31
+  - first:
+      213: -3277352729131536644
+    second: LightRing_Texture_32
+  - first:
+      213: 148612225822805238
+    second: LightRing_Texture_33
+  - first:
+      213: 426542066690354429
+    second: LightRing_Texture_34
+  - first:
+      213: 7668093668812457920
+    second: LightRing_Texture_35
+  - first:
+      213: -4362758552973517714
+    second: LightRing_Texture_36
+  - first:
+      213: 6119908021125864396
+    second: LightRing_Texture_37
+  - first:
+      213: 836450037109695952
+    second: LightRing_Texture_38
+  - first:
+      213: 5566387340682558559
+    second: LightRing_Texture_39
+  - first:
+      213: -8136589081121604907
+    second: LightRing_Texture_40
+  - first:
+      213: -2680112780827449998
+    second: LightRing_Texture_41
+  - first:
+      213: 2842055000377056741
+    second: LightRing_Texture_42
+  - first:
+      213: 4675022374311425094
+    second: LightRing_Texture_43
+  - first:
+      213: -200407744502235471
+    second: LightRing_Texture_44
+  - first:
+      213: 2921509625844343599
+    second: LightRing_Texture_45
+  - first:
+      213: -1648803452218093563
+    second: LightRing_Texture_46
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 128
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LightRing_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 1186
+        width: 64
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64ce500edb0214960800000000000000
+      internalID: 7584379247348018246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 1195
+        width: 22
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b92ee7368757b3b0800000000000000
+      internalID: -5496828586206811723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 1195
+        width: 84
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0844546ac8a1bf460800000000000000
+      internalID: 7276438814334469248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 1196
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20e295a1390fc7590800000000000000
+      internalID: -7674995150353256958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1245
+        height: 1192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfe7b01350a0c7430800000000000000
+      internalID: 3781908804498325244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1173
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2059c03df1faa8380800000000000000
+      internalID: -8968163156735257342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 1173
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90364b8867d5cf280800000000000000
+      internalID: -9008222390966787319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 1177
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918b56b7882f46090800000000000000
+      internalID: -8042036366577125351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 1132
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94fb90833ea108b00800000000000000
+      internalID: 828691894636232521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 995
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 658c640b122e0f8a0800000000000000
+      internalID: -6273265646607873962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 982
+        width: 37
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71d909794f5707ba0800000000000000
+      internalID: -6093240602456974057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 971
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58f29998e2f8db0f0800000000000000
+      internalID: -1099565303968747643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 975
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3741c41c34ee18650800000000000000
+      internalID: 6233525334030685299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_13
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 964
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c32a1d37fab6e3a80800000000000000
+      internalID: -8485226246612868548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_14
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 937
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bc0740fc207932e0800000000000000
+      internalID: -2145560409153270601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_15
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 945
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 244f4d01466dbf430800000000000000
+      internalID: 3817880834394092610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_16
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 934
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c1c6d3b23b252bf0800000000000000
+      internalID: -349825899285790265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_17
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 929
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8cd8966719e13a60800000000000000
+      internalID: 7652153528593996941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_18
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 919
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc645f3f65e8a850800000000000000
+      internalID: 6388608337391676613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_19
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 873
+        width: 31
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f5ad059fab5be7a0800000000000000
+      internalID: -6346878440170478089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_20
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 877
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d400db0c59cfa5ec0800000000000000
+      internalID: -3577269233878499251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_21
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 866
+        width: 42
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bae33cc02e524aae0800000000000000
+      internalID: -1539063519846908245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_22
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 825
+        width: 17
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9760ff9f90cfcf9b0800000000000000
+      internalID: -5044880362782652807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_23
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 805
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f2aa4c99ed251230800000000000000
+      internalID: 3608841157780087538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_24
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 791
+        width: 34
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 467a1ade864ddfa40800000000000000
+      internalID: 5403708675042944868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_25
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 726
+        width: 35
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f3ccc8add4a570f0800000000000000
+      internalID: -1119807660404980751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_26
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 755
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ef23145054fc060800000000000000
+      internalID: 6975870236691201575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_27
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 761
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0d43aa5a9229d150800000000000000
+      internalID: 5897783233359334667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_28
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 746
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4695da229de5c990800000000000000
+      internalID: -7366220403454929332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_29
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 552
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 639053cdd5fd88d60800000000000000
+      internalID: 7892803941186210102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_30
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 391
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68f936724ad4e93d0800000000000000
+      internalID: -3198033317955657850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_31
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 339
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bffbe61b7f552b1c0800000000000000
+      internalID: -4489431356212854789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_32
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 337
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfe25789e018482d0800000000000000
+      internalID: -3277352729131536644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_33
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 320
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fcc271380aff0200800000000000000
+      internalID: 148612225822805238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_34
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 255
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfce6deefb16be500800000000000000
+      internalID: 426542066690354429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_35
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 192
+        width: 90
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c70df1809a8a6a60800000000000000
+      internalID: 7668093668812457920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_36
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 224
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6c5731063e5473c0800000000000000
+      internalID: -4362758552973517714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_37
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 79
+        width: 25
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccb5549abe74ee450800000000000000
+      internalID: 6119908021125864396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_38
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 101
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d5294680eaab9b00800000000000000
+      internalID: 836450037109695952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_39
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 79
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5c7d9b5bc7cf3d40800000000000000
+      internalID: 5566387340682558559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_40
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 105
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dabc681757051f80800000000000000
+      internalID: -8136589081121604907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_41
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 87
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 275abcc20a35ecad0800000000000000
+      internalID: -2680112780827449998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_42
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 37
+        width: 26
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5edd89907f1017720800000000000000
+      internalID: 2842055000377056741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_43
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 22
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 644f5d1841401e040800000000000000
+      internalID: 4675022374311425094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_44
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 23
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bef4bad732083df0800000000000000
+      internalID: -200407744502235471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_45
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f232650a6894b8820800000000000000
+      internalID: 2921509625844343599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LightRing_Texture_46
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 49
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5005a16fef54e19e0800000000000000
+      internalID: -1648803452218093563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LightRing_Texture_0: 7584379247348018246
+      LightRing_Texture_1: -5496828586206811723
+      LightRing_Texture_10: -6093240602456974057
+      LightRing_Texture_11: -1099565303968747643
+      LightRing_Texture_12: 6233525334030685299
+      LightRing_Texture_13: -8485226246612868548
+      LightRing_Texture_14: -2145560409153270601
+      LightRing_Texture_15: 3817880834394092610
+      LightRing_Texture_16: -349825899285790265
+      LightRing_Texture_17: 7652153528593996941
+      LightRing_Texture_18: 6388608337391676613
+      LightRing_Texture_19: -6346878440170478089
+      LightRing_Texture_2: 7276438814334469248
+      LightRing_Texture_20: -3577269233878499251
+      LightRing_Texture_21: -1539063519846908245
+      LightRing_Texture_22: -5044880362782652807
+      LightRing_Texture_23: 3608841157780087538
+      LightRing_Texture_24: 5403708675042944868
+      LightRing_Texture_25: -1119807660404980751
+      LightRing_Texture_26: 6975870236691201575
+      LightRing_Texture_27: 5897783233359334667
+      LightRing_Texture_28: -7366220403454929332
+      LightRing_Texture_29: 7892803941186210102
+      LightRing_Texture_3: -7674995150353256958
+      LightRing_Texture_30: -3198033317955657850
+      LightRing_Texture_31: -4489431356212854789
+      LightRing_Texture_32: -3277352729131536644
+      LightRing_Texture_33: 148612225822805238
+      LightRing_Texture_34: 426542066690354429
+      LightRing_Texture_35: 7668093668812457920
+      LightRing_Texture_36: -4362758552973517714
+      LightRing_Texture_37: 6119908021125864396
+      LightRing_Texture_38: 836450037109695952
+      LightRing_Texture_39: 5566387340682558559
+      LightRing_Texture_4: 3781908804498325244
+      LightRing_Texture_40: -8136589081121604907
+      LightRing_Texture_41: -2680112780827449998
+      LightRing_Texture_42: 2842055000377056741
+      LightRing_Texture_43: 4675022374311425094
+      LightRing_Texture_44: -200407744502235471
+      LightRing_Texture_45: 2921509625844343599
+      LightRing_Texture_46: -1648803452218093563
+      LightRing_Texture_5: -8968163156735257342
+      LightRing_Texture_6: -9008222390966787319
+      LightRing_Texture_7: -8042036366577125351
+      LightRing_Texture_8: 828691894636232521
+      LightRing_Texture_9: -6273265646607873962
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

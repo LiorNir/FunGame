@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  - {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,8 +108,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ec9b2c8d044c24283bff561cb3b6ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -133,8 +133,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 3.6000001
+  m_fontSizeBase: 3.6000001
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -334,7 +334,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  - {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -380,8 +380,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ec9b2c8d044c24283bff561cb3b6ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -405,8 +405,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2.6
-  m_fontSizeBase: 2.6
+  m_fontSize: 3.1200001
+  m_fontSizeBase: 3.1200001
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -667,7 +667,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  - {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -713,8 +713,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ec9b2c8d044c24283bff561cb3b6ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -738,8 +738,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.4
-  m_fontSizeBase: 3.4
+  m_fontSize: 4.0800004
+  m_fontSizeBase: 4.0800004
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -939,7 +939,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  - {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -985,8 +985,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Enemy 1/2   next: Grinder'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 14ba9098d6e7d1c4ead995fbcd92e710, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ec9b2c8d044c24283bff561cb3b6ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 47061709c44976f4186db4a7382b259f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1010,8 +1010,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2.2
-  m_fontSizeBase: 2.2
+  m_fontSize: 2.64
+  m_fontSizeBase: 2.64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
