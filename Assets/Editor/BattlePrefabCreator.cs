@@ -60,6 +60,8 @@ namespace FunGame.EditorTools
             AddParts($"{Folder}/CardView.prefab", EnsureStatBarPreviews, changed);
             AddParts($"{Folder}/CardView.prefab", EnsureCardAbilityParts, changed);
             AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyQueueText, changed);
+            AddParts($"{Folder}/EnemyView.prefab", EnsureEnemyBarFrame, changed);
+            AddParts($"{Folder}/CardView.prefab", EnsureCardBarFrames, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudGiveUp, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudUndo, changed);
             AddParts($"{Folder}/BattleHud.prefab", EnsureHudMapButton, changed);
@@ -351,6 +353,57 @@ namespace FunGame.EditorTools
         }
 
         /// <summary>A line under the enemy's health: which enemy of the lane it is and who comes next.</summary>
+        /// <summary>The black frame every bar wears (a hollow 9-sliced border, so it keeps one thickness on any bar).</summary>
+        private const string BarFramePath = "Assets/Art/Placeholders/BarFrame.png";
+
+        /// <summary>A black frame around the enemy's health bar, drawn over its fill. Returns true if it was added.</summary>
+        private static bool EnsureEnemyBarFrame(GameObject enemy)
+        {
+            var back = enemy.transform.Find("BarBack");
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(BarFramePath);
+            if (back == null || sprite == null || enemy.transform.Find("BarFrame") != null)
+            {
+                return false;
+            }
+
+            var frame = new GameObject("BarFrame").AddComponent<SpriteRenderer>();
+            frame.transform.SetParent(enemy.transform, false);
+            frame.transform.localPosition = back.localPosition;
+            frame.sprite = sprite;
+            frame.drawMode = SpriteDrawMode.Sliced;
+            frame.size = new Vector2(back.localScale.x + 0.04f, back.localScale.y + 0.04f);
+            var fill = enemy.transform.Find("BarFill");
+            frame.sortingOrder = (fill != null ? fill.GetComponent<SpriteRenderer>().sortingOrder : 4) + 1;
+            frame.transform.SetSiblingIndex(back.GetSiblingIndex() + 1);
+            return true;
+        }
+
+        /// <summary>A black frame just outside each stat bar of a card, under its label. Returns true if one was added.</summary>
+        private static bool EnsureCardBarFrames(GameObject card)
+        {
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(BarFramePath);
+            var added = false;
+            foreach (var bar in card.GetComponentsInChildren<CardStatBar>(true))
+            {
+                if (sprite == null || bar.transform.Find("Frame") != null)
+                {
+                    continue;
+                }
+
+                var frame = ViewFactory.CreateUiRoot(bar.transform, "Frame", Vector2.zero, Vector2.one, Vector2.zero, new Vector2(2f, 2f));
+                var image = frame.gameObject.AddComponent<Image>();
+                image.sprite = sprite;
+                image.type = Image.Type.Sliced;
+                image.pixelsPerUnitMultiplier = 1.5f;
+                image.raycastTarget = false;
+                var label = bar.transform.Find("Label");
+                frame.SetSiblingIndex(label != null ? label.GetSiblingIndex() : bar.transform.childCount - 1);
+                added = true;
+            }
+
+            return added;
+        }
+
         private static bool EnsureEnemyQueueText(GameObject enemy)
         {
             var view = enemy.GetComponent<EnemyView>();
