@@ -91,6 +91,23 @@ namespace BattleView
 
         // ---------- clicks ----------
 
+        // screen pixels between a hand card's top edge and the menu above it
+        private const float MenuGapAboveCard = 12f;
+
+        /// <summary>The top centre of the hand card on screen (the redrawn card if the hand was refreshed).</summary>
+        private Vector2 CardTopOnScreen(int index, RectTransform clicked)
+        {
+            var rect = _hand.GetCardRect(index);
+            if (rect == null)
+            {
+                rect = clicked;
+            }
+
+            var corners = new Vector3[4];
+            rect.GetWorldCorners(corners);
+            return RectTransformUtility.WorldToScreenPoint(null, (corners[1] + corners[2]) * 0.5f);
+        }
+
         private void OnCardClicked(int index, RectTransform cardRect)
         {
             if (_session.IsBusy)
@@ -105,29 +122,30 @@ namespace BattleView
 
             var rules = engine.Setup.Rules;
             var costText = rules.PlacePilotCost == rules.ReplacePilotCost
-                ? $"{rules.PlacePilotCost} AP"
-                : $"{rules.PlacePilotCost} AP, replace {rules.ReplacePilotCost} AP";
+                ? Icons.Ap(rules.PlacePilotCost)
+                : $"{Icons.Ap(rules.PlacePilotCost)}, replace {Icons.Ap(rules.ReplacePilotCost)}";
             var placeLabel = targets.Count > 0
                 ? $"Place  ({costText})"
                 : (engine.ActionPoints < Mathf.Min(engine.Setup.Rules.PlacePilotCost, engine.Setup.Rules.ReplacePilotCost)
                     ? "Place  (not enough AP)"
                     : "Place  (no free slot)");
 
+            // the card itself shows the pilot's name and stats, so the menu starts with the actions
             var options = new List<ActionMenuView.Option>
             {
-                new ActionMenuView.Option(_session.Visuals.ExactStats(pilot), false, null),
                 new ActionMenuView.Option(placeLabel, targets.Count > 0, () => BeginPlacing(index)),
                 new ActionMenuView.Option("Cancel", true, Cancel)
             };
             if (pilot.HasUnusedAbility)
             {
                 // the ability can be read from the hand; it is used once the pilot is on the board
-                options.Insert(1, new ActionMenuView.Option(
-                    $"{pilot.Ability.Name} ({pilot.Ability.ApCost} AP, on the board): {pilot.Ability.Describe()}", false, null));
+                options.Insert(0, new ActionMenuView.Option(
+                    $"{pilot.Ability.Name} ({Icons.Ap(pilot.Ability.ApCost)}, on the board): {pilot.Ability.Describe()}", false, null));
             }
 
             _hand.Refresh(engine, index);
-            _menu.Show(RectTransformUtility.WorldToScreenPoint(null, cardRect.position) + new Vector2(0f, 230f), options);
+            // above the card (as it stands once raised as the selected card), so the card stays visible
+            _menu.Show(CardTopOnScreen(index, cardRect) + new Vector2(0f, MenuGapAboveCard), options, above: true);
         }
 
         private void OnSlotClicked(SlotView slot)
@@ -176,8 +194,8 @@ namespace BattleView
                 if (rule != null && rule.UnlockApCost > 0)
                 {
                     var label = engine.CanUnlock(slotId)
-                        ? $"Unlock slot  ({rule.UnlockApCost} AP)"
-                        : $"Unlock slot  ({rule.UnlockApCost} AP, not enough AP)";
+                        ? $"Unlock slot  ({Icons.Ap(rule.UnlockApCost)})"
+                        : $"Unlock slot  ({Icons.Ap(rule.UnlockApCost)}, not enough AP)";
                     options.Add(new ActionMenuView.Option(label, engine.CanUnlock(slotId), () => _session.Unlock(slotId)));
                 }
                 else
@@ -202,7 +220,7 @@ namespace BattleView
                         var ability = pilot.Ability;
                         var abilityBlocker = engine.ActivateBlocker(slotId);
                         options.Add(new ActionMenuView.Option(
-                            $"Use {ability.Name}  ({ability.ApCost} AP{(abilityBlocker == null ? string.Empty : ", " + abilityBlocker)}): {ability.Describe()}",
+                            $"Use {ability.Name}  ({Icons.Ap(ability.ApCost)}{(abilityBlocker == null ? string.Empty : ", " + abilityBlocker)}): {ability.Describe()}",
                             abilityBlocker == null, () => _session.Activate(slotId)));
                     }
 
@@ -215,7 +233,7 @@ namespace BattleView
                     {
                         reason += $", rests x{DisplayFormat.Value(restBonus)}";
                     }
-                    options.Add(new ActionMenuView.Option($"Eject {pilot.Name} to hand  ({cost} AP{reason})", blocker == null, () => _session.Eject(slotId)));
+                    options.Add(new ActionMenuView.Option($"Eject {pilot.Name} to hand  ({Icons.Ap(cost)}{reason})", blocker == null, () => _session.Eject(slotId)));
                 }
             }
 

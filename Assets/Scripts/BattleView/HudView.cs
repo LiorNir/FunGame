@@ -108,7 +108,7 @@ namespace BattleView
             _maxHealth = engine.Setup.Rules.PlayerMaxHealth;
             _displayHealth = engine.PlayerHealth;
             UpdateHealthText();
-            _actionPoints.text = $"AP {engine.ActionPoints}/{engine.Setup.Rules.ActionPointsPerTurn}";
+            _actionPoints.text = $"{Icons.ApIcon} {engine.ActionPoints}/{engine.Setup.Rules.ActionPointsPerTurn}";
             _turn.text = $"Turn {engine.Turn}";
             _playTurn.interactable = canAct && engine.Outcome == BattleOutcome.InProgress;
             if (_giveUp != null)

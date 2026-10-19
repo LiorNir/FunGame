@@ -74,7 +74,7 @@ namespace Campaign
 
             _stats.text = Stat("ATK", pilot.AttackValue, attackUpgrades, _attackColor) + "   " + Stat("DEF", pilot.DefenseValue, defenseUpgrades, _defenseColor);
             var ability = PilotAbilities.Create(pilot.AbilityKind, pilot.AbilityApCost);
-            _ability.text = ability == null ? string.Empty : $"{ability.Name} ({ability.ApCost} AP): {ability.Describe()}";
+            _ability.text = ability == null ? string.Empty : $"{ability.Name} ({BattleView.Icons.Ap(ability.ApCost)}): {ability.Describe()}";
         }
 
         private static void SetLabel(Button button, string text)

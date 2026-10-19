@@ -33,7 +33,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `WorldLook` | Where a world's art is shown in battle: `Background` (full screen, order -30) and `Board Art` (the board picture facing the camera, its top surface under the slots, order -10). Size and place are set here; the pictures come from the encounter's World Look. Placed by the Battle Session unless the scene has its own. |
 | `ChainLabel` | The "ATK 5" / "DEF 3" text at the end of each chain. Stands upright on the tilted board (`FaceCamera`). |
 | `Popup` | The floating texts (damage, "Surge!", "Charge broken!", ...). |
-| `MenuOption` | One line of the click menu (Place, Eject, Use Surge, ...). |
+| `MenuOption` | One line of the click menu (Place, Eject, Use Surge, ...); a long label shrinks to fit. The hand-card menu opens above the card. |
 
 ## Assets
 
@@ -46,6 +46,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 | `Assets/Boards/World N/*.prefab` | Each encounter's board layout (slot positions; slots are `PilotSlot` / `OperatorSlot` instances, so their look comes from those prefabs). |
 | `Assets/Art/PilotAnimations/<pilot>/` | Each pilot's animation prefab: its frames (`Sprite Frames`) and its legacy clips Idle (loops), Attack and Defeated (play once). The clips key the frame number (and anything else, such as scale or position); open the prefab and edit them in the Animation window, which previews the frames. |
 | `Assets/Art/Worlds/` | `Default/Default Look` (the board and background used when a world sets none; on the Battle Visuals asset) and `World N/World N Look` (each world's board and background pictures; every encounter of the world points to it; empty = default). A world's pictures should share the default pictures' framing. |
+| `Assets/Art/TextIcons/Resources/Sprite Assets/` | Icons shown inside texts: `AP.png` is the AP icon (a white circle for now) used wherever a text gives an AP amount ("Place (1 + icon)", "Surge · 2 + icon", the HUD's AP count). **To change it, overwrite `AP.png` with the new picture (same name)**: its TextMeshPro sprite asset `AP.asset` is updated on import (`IconSpriteAssets`; *Tools > Fun Game > Rebuild Icon Sprite Assets* does it by hand). Code writes the icon through `BattleView.Icons`. |
 | `Assets/Art/Fonts/` | The fonts (the Pixelify Sans files; a TextMeshPro font asset `<font> SDF` per font in use) and one black-outline material per font (`<font> - Black Outline`). To change the game's font: select a font file or font asset in the Project window and run *Tools > Fun Game > Use Selected Font For All Texts* (makes the font asset the first time, with LiberationSans as fallback for symbols; switches every text in the battle and campaign prefabs and gives it the outline). *Apply Text Outline* re-applies only the outlines. Tune the outline's width and colour on the material. |
 | `Assets/Art/Placeholders/` | The placeholder pilot squares (orange, teal, crimson), the connection strip (`ConnectionStrip`), the shadow circle (`Circle`, a copy of Unity's default circle) and the bar frame (`BarFrame`: a hollow 9-sliced black border, used Sliced by the card bars' `Frame` and the enemy's `BarFrame`, so it keeps one thickness on any bar). |
 

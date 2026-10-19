@@ -347,7 +347,7 @@ namespace BattleView
                 lines.Add(_visuals.ExactStats(pilot));
                 if (pilot.Ability != null)
                 {
-                    var state = pilot.AbilityUsed ? "used" : $"{pilot.Ability.ApCost} AP, once per battle";
+                    var state = pilot.AbilityUsed ? "used" : $"{Icons.Ap(pilot.Ability.ApCost)}, once per battle";
                     lines.Add($"<b>{pilot.Ability.Name}</b> ({state}): {pilot.Ability.Describe()}");
                 }
 
@@ -509,7 +509,7 @@ namespace BattleView
 
             if (rule.UnlockApCost > 0)
             {
-                parts.Add($"{rule.UnlockApCost} AP");
+                parts.Add(Icons.Ap(rule.UnlockApCost));
             }
 
             return string.Join(" / ", parts);

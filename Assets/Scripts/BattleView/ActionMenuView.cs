@@ -51,7 +51,9 @@ namespace BattleView
             _blocker.gameObject.SetActive(false);
         }
 
-        public void Show(Vector2 screenPosition, IReadOnlyList<Option> options)
+        /// <param name="above">True: the menu's bottom edge sits at <paramref name="screenPosition"/> (it opens upward, for
+        /// example above a hand card); false: the menu is centred there.</param>
+        public void Show(Vector2 screenPosition, IReadOnlyList<Option> options, bool above = false)
         {
             foreach (Transform child in _panel)
             {
@@ -88,6 +90,11 @@ namespace BattleView
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasRect, screenPosition, null, out var local);
             var halfCanvas = _canvasRect.rect.size * 0.5f;
             var halfPanel = _panel.sizeDelta * 0.5f;
+            if (above)
+            {
+                local.y += halfPanel.y;
+            }
+
             local.x = Mathf.Clamp(local.x, -halfCanvas.x + halfPanel.x, halfCanvas.x - halfPanel.x);
             local.y = Mathf.Clamp(local.y, -halfCanvas.y + halfPanel.y, halfCanvas.y - halfPanel.y);
             _panel.anchoredPosition = local;

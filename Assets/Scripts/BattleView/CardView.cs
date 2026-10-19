@@ -25,7 +25,7 @@ namespace BattleView
         [Tooltip("Optional: attack and defense as bars (the defense bar shows how much of it is left). Without them the Stats text is used.")]
         [SerializeField] private CardStatBar _attackBar;
         [SerializeField] private CardStatBar _defenseBar;
-        [Tooltip("Optional: the ability's name and cost (\"Surge · 2 AP\"), shown while the pilot has an unused ability.")]
+        [Tooltip("Optional: the ability's name and cost (\"Surge · 2\" and the AP icon), shown while the pilot has an unused ability.")]
         [SerializeField] private TextMeshProUGUI _abilityText;
         [Tooltip("Optional: a frame switched on while the pilot has an unused ability (temporary look).")]
         [SerializeField] private Outline _abilityFrame;
@@ -105,7 +105,7 @@ namespace BattleView
             var ready = pilot.HasUnusedAbility;
             if (_abilityText != null)
             {
-                _abilityText.text = ready ? $"{pilot.Ability.Name} · {pilot.Ability.ApCost} AP" : string.Empty;
+                _abilityText.text = ready ? $"{pilot.Ability.Name} · {Icons.Ap(pilot.Ability.ApCost)}" : string.Empty;
             }
 
             if (_abilityFrame != null)
