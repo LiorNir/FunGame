@@ -164,6 +164,8 @@ namespace FunGame.EditorTools
             var lockedOverlay = EnsureSprite(parent, "LockedOverlay", null, null, Color.white, OrderLockedOverlay, Vector3.zero, out _);
             lockedOverlay.enabled = false;
             var effects = PilotEffectParts.Ensure(view.gameObject, parent);
+            // the circle look (these round parts) and the rectangle look; the Battle Visuals' Slot Shape picks one in battle
+            SlotShapeParts.Ensure(view.gameObject, parent, background, ring);
 
             var serialized = new SerializedObject(view);
             Assign(serialized, "_pilotBackground", background);

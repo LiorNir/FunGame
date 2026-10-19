@@ -30,6 +30,13 @@ namespace BattleView
         [Tooltip("The connection drawn between slots and operators on the board.")]
         public ConnectionView ConnectionPrefab;
 
+        [Header("Pilot slots")]
+        [Tooltip("The shape pilot slots are drawn with in battle (both looks live in the PilotSlot prefab). Operators stay round.")]
+        public PilotSlotShape SlotShape = PilotSlotShape.Circle;
+
+        [Tooltip("How long slot colours (background, frame, stat borders) take to change, in seconds; 0 changes them at once.")]
+        [Min(0f)] public float SlotColorFadeSeconds = 0.15f;
+
         [Header("World looks")]
         [Tooltip("The board and background art for a world whose look (or part of it) is not set.")]
         public Encounters.WorldLook DefaultLook;

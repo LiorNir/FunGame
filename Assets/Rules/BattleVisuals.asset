@@ -19,6 +19,8 @@ MonoBehaviour:
   ChainLabelPrefab: {fileID: 3195405671152437349, guid: d6a544f14eaf8f4468040aa7f4946970, type: 3}
   PopupPrefab: {fileID: 6568395860748345552, guid: 814eba75090fda64ab9297e4825a0378, type: 3}
   ConnectionPrefab: {fileID: 3183694170117421941, guid: 8e6881c0fbb79c94eba866636d6f38ff, type: 3}
+  SlotShape: 0
+  SlotColorFadeSeconds: 0.15
   DefaultLook: {fileID: 11400000, guid: 1b36f97b307565b40b64d3ec645c3ac5, type: 2}
   WorldLookPrefab: {fileID: 6020043873403533232, guid: babe0106074aad843ad4d6eaaa0fbfc8, type: 3}
   SlotBase: {fileID: 21300000, guid: 80ad388f502e1144d92759598a413967, type: 3}
@@ -29,7 +31,7 @@ MonoBehaviour:
   DivideSprite: {fileID: 21300000, guid: 839e51ecbff03c5478c50c955198d45c, type: 3}
   AttackIcon: {fileID: 21300000, guid: 6131852b416ab564bb5101c9b7c0b5a8, type: 3}
   DefenseIcon: {fileID: 21300000, guid: 8573391030ded704cb562f56fd2bdfea, type: 3}
-  AttackColor: {r: 1, g: 0.4, b: 0.3, a: 1}
-  DefenseColor: {r: 0.35, g: 0.65, b: 1, a: 1}
-  BothColor: {r: 0.8, g: 0.45, b: 1, a: 1}
+  AttackColor: {r: 1, g: 0.14525138, b: 0, a: 1}
+  DefenseColor: {r: 0, g: 0.61144805, b: 1, a: 1}
+  BothColor: {r: 0.63571453, g: 0, b: 1, a: 1}
   UnusedColor: {r: 0.55, g: 0.55, b: 0.6, a: 1}

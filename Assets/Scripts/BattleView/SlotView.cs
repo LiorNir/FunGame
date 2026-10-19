@@ -39,6 +39,9 @@ namespace BattleView
         [Header("Parts (assigned in the prefab)")]
         [FormerlySerializedAs("_coin")]
         [SerializeField] private SpriteRenderer _pilotBackground;
+        [Tooltip("The slot's two looks; the Battle Visuals' Slot Shape picks one when a battle starts (its background and frame then replace Pilot Background and Ring).")]
+        [SerializeField] private SlotShapeLook _circleLook;
+        [SerializeField] private SlotShapeLook _rectLook;
         [SerializeField] private SpriteRenderer _pilotRenderer;
         [Tooltip("Optional: plays the pilot's Idle / Attack / Defeated frames (from its pilot asset) on the Pilot picture. Pilots without frames keep their still picture.")]
         [SerializeField] private Views.PilotAnimationView _pilotAnimation;
@@ -106,6 +109,8 @@ namespace BattleView
         private bool _highlighted;
         private bool _inactive;
         private Color _backgroundBaseColor;
+        // false until the slot's colours are first shown; from then on colour changes fade (Slot Color Fade Seconds)
+        private bool _colorsShown;
         private Color _roleColor;
         private SlotVisualState _state;
         private bool _attackUsed;
@@ -140,6 +145,7 @@ namespace BattleView
             _attackUsed = (roles & BoardLayoutAuthoring.RoleFlags.Attack) != 0;
             _defenseUsed = (roles & BoardLayoutAuthoring.RoleFlags.Defense) != 0;
 
+            ShowShape(visuals.SlotShape);
             if (!HasRequiredParts())
             {
                 return;
@@ -535,13 +541,46 @@ namespace BattleView
                 return;
             }
 
-            if (_highlighted)
+            var color = _highlighted ? _highlightColor : _locked ? _lockedColor : _backgroundBaseColor;
+            _pilotBackground.DOKill();
+            if (FadeSeconds > 0f)
             {
-                _pilotBackground.color = _highlightColor;
+                _pilotBackground.DOColor(color, FadeSeconds).SetEase(Ease.OutQuad);
             }
             else
             {
-                _pilotBackground.color = _locked ? _lockedColor : _backgroundBaseColor;
+                _pilotBackground.color = color;
+            }
+        }
+
+        // how long a colour change takes: none until the slot's first colours are shown (a battle start)
+        private float FadeSeconds => _colorsShown && _visuals != null ? _visuals.SlotColorFadeSeconds : 0f;
+
+        /// <summary>Shows the look of the given shape (the circle if the slot has no such look) and makes its parts the slot's.</summary>
+        private void ShowShape(PilotSlotShape shape)
+        {
+            var look = shape == PilotSlotShape.Rectangle && _rectLook != null ? _rectLook : _circleLook;
+            if (look == null)
+            {
+                return;
+            }
+
+            foreach (var candidate in new[] { _circleLook, _rectLook })
+            {
+                if (candidate != null)
+                {
+                    candidate.Show(candidate == look);
+                }
+            }
+
+            if (look.Background != null)
+            {
+                _pilotBackground = look.Background;
+            }
+
+            if (look.Frame != null)
+            {
+                _ring = look.Frame;
             }
         }
 
@@ -554,12 +593,14 @@ namespace BattleView
             }
 
             _state = state;
-            LerpColorTint.Apply(_ring, _tints.For(state, _roleColor));
+            var fade = FadeSeconds;
+            LerpColorTint.Apply(_ring, _tints.For(state, _roleColor), fade);
             var attackBorder = _tints.For(state, _visuals.AttackColor);
             var defenseBorder = _tints.For(state, _visuals.DefenseColor);
-            _attackBox.SetBorder(_attackUsed ? attackBorder : _tints.Unused(attackBorder));
+            _attackBox.SetBorder(_attackUsed ? attackBorder : _tints.Unused(attackBorder), fade);
             // a toll pilot's defense is paid, not worn: shown like an unused stat
-            _defenseBox.SetBorder(_defenseUsed && _tollSymbol == null ? defenseBorder : _tints.Unused(defenseBorder));
+            _defenseBox.SetBorder(_defenseUsed && _tollSymbol == null ? defenseBorder : _tints.Unused(defenseBorder), fade);
+            _colorsShown = true;
         }
 
         private void ShowLock(bool locked, string description)

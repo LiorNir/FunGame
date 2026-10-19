@@ -40,9 +40,10 @@ namespace BattleView
             _text.fontStyle = change == StatChange.None ? FontStyles.Normal : FontStyles.Bold;
         }
 
-        public void SetBorder(ColorPair colors)
+        /// <param name="fadeSeconds">Fade from the current colours over this time; 0 sets them at once.</param>
+        public void SetBorder(ColorPair colors, float fadeSeconds = 0f)
         {
-            LerpColorTint.Apply(_border, colors);
+            LerpColorTint.Apply(_border, colors, fadeSeconds);
         }
 
         /// <summary>Fills the given fraction (0 to 1) of the box, from the left, in the given colour.</summary>
