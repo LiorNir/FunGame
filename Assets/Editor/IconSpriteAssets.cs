@@ -54,7 +54,7 @@ namespace FunGame.EditorTools
                 {
                     spriteAsset.spriteSheet = texture;
                     update.Invoke(null, new object[] { new MenuCommand(spriteAsset) });
-                    SitOnTheLine(spriteAsset);
+                    SitOnTheLine(spriteAsset, picturePath);
                     EditorUtility.SetDirty(spriteAsset);
                     AssetDatabase.SaveAssets();
                     Debug.Log($"Icon sprite asset updated: {assetPath}");
@@ -71,7 +71,7 @@ namespace FunGame.EditorTools
             var made = AssetDatabase.LoadAssetAtPath<TMP_SpriteAsset>(assetPath);
             if (made != null)
             {
-                SitOnTheLine(made);
+                SitOnTheLine(made, picturePath);
                 EditorUtility.SetDirty(made);
             }
 
@@ -86,10 +86,16 @@ namespace FunGame.EditorTools
         /// <summary>
         /// Lays each icon out like a letter: starting where the text is (no shift to the left), mostly above the baseline,
         /// and moving the text after it by its width plus a small gap. The import otherwise uses the picture's centred
-        /// pivot, which draws the icon half over the text before it and half below the line.
+        /// pivot, which draws the icon half over the text before it and half below the line. A one-icon picture is also
+        /// trimmed to its drawn area, so transparent padding around the art does not shrink the icon in the text.
         /// </summary>
-        private static void SitOnTheLine(TMP_SpriteAsset spriteAsset)
+        private static void SitOnTheLine(TMP_SpriteAsset spriteAsset, string picturePath)
         {
+            if (spriteAsset.spriteGlyphTable.Count == 1 && DrawnArea(picturePath, spriteAsset.spriteSheet, out var drawn))
+            {
+                spriteAsset.spriteGlyphTable[0].glyphRect = drawn;
+            }
+
             foreach (var glyph in spriteAsset.spriteGlyphTable)
             {
                 var width = glyph.glyphRect.width;
@@ -98,6 +104,49 @@ namespace FunGame.EditorTools
             }
 
             spriteAsset.UpdateLookupTables();
+        }
+
+        /// <summary>The part of the picture that is not transparent, in the imported sheet's pixels (it may be imported smaller).</summary>
+        private static bool DrawnArea(string picturePath, Texture sheet, out UnityEngine.TextCore.GlyphRect area)
+        {
+            area = default;
+            var file = new Texture2D(2, 2);
+            if (sheet == null || !file.LoadImage(File.ReadAllBytes(picturePath)))
+            {
+                return false;
+            }
+
+            var pixels = file.GetPixels32();
+            int minX = file.width, minY = file.height, maxX = -1, maxY = -1;
+            for (var y = 0; y < file.height; y++)
+            {
+                for (var x = 0; x < file.width; x++)
+                {
+                    if (pixels[y * file.width + x].a <= 10)
+                    {
+                        continue;
+                    }
+
+                    minX = Mathf.Min(minX, x);
+                    maxX = Mathf.Max(maxX, x);
+                    minY = Mathf.Min(minY, y);
+                    maxY = Mathf.Max(maxY, y);
+                }
+            }
+
+            var scale = (float)sheet.width / file.width;
+            Object.DestroyImmediate(file);
+            if (maxX < 0)
+            {
+                return false;
+            }
+
+            var left = Mathf.FloorToInt(minX * scale);
+            var bottom = Mathf.FloorToInt(minY * scale);
+            area = new UnityEngine.TextCore.GlyphRect(left, bottom,
+                Mathf.Max(1, Mathf.CeilToInt((maxX + 1) * scale) - left),
+                Mathf.Max(1, Mathf.CeilToInt((maxY + 1) * scale) - bottom));
+            return true;
         }
 
         private static MethodInfo TextMeshProMenu(string name)

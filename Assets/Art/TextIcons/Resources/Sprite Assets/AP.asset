@@ -88,16 +88,16 @@ MonoBehaviour:
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 256
-      m_Height: 256
+      m_Width: 44
+      m_Height: 45
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 217.6
-      m_HorizontalAdvance: 276.48
+      m_HorizontalBearingY: 38.25
+      m_HorizontalAdvance: 47.52
     m_GlyphRect:
-      m_X: 0
-      m_Y: 0
-      m_Width: 256
-      m_Height: 256
+      m_X: 42
+      m_Y: 42
+      m_Width: 44
+      m_Height: 45
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
