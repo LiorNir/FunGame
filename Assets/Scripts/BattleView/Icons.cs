@@ -7,6 +7,9 @@ namespace BattleView
     /// </summary>
     public static class Icons
     {
+        /// <summary>The HP icon on its own (before the player's health, "10/10").</summary>
+        public const string HpIcon = "<sprite=\"HP\" index=0>";
+
         /// <summary>The AP icon on its own (for example before "3/3").</summary>
         public const string ApIcon = "<sprite=\"AP\" index=0>";
 

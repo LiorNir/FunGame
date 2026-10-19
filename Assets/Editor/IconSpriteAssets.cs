@@ -47,6 +47,15 @@ namespace FunGame.EditorTools
 
             var assetPath = Path.ChangeExtension(picturePath, ".asset");
             var spriteAsset = AssetDatabase.LoadAssetAtPath<TMP_SpriteAsset>(assetPath);
+            // updating keeps glyphs the picture no longer has (for example after it was re-cut into one sprite), so a
+            // sprite asset that no longer matches the picture's sprites is made again instead
+            var spriteCount = AssetDatabase.LoadAllAssetsAtPath(picturePath).OfType<Sprite>().Count();
+            if (spriteAsset != null && spriteAsset.spriteGlyphTable.Count != spriteCount)
+            {
+                AssetDatabase.DeleteAsset(assetPath);
+                spriteAsset = null;
+            }
+
             if (spriteAsset != null)
             {
                 var update = TextMeshProMenu("UpdateSpriteAsset");

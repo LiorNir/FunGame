@@ -735,7 +735,9 @@ namespace BattleView
 
                     case BattleEventType.PlayerDamaged:
                         _hud.FlashHealth();
-                        ViewFactory.ShowPopup(_playerAnchor != null ? _playerAnchor.position : new Vector3(-7.5f, 4.4f, 0f), "-" + DisplayFormat.Value(battleEvent.A), Color.red, 0.6f);
+                        // over the player's health, wherever the HUD shows it
+                        var healthAt = _playerAnchor != null ? _playerAnchor.position : _hud.HealthWorldPosition(Camera.main) + Vector3.up * 0.6f;
+                        ViewFactory.ShowPopup(healthAt, "-" + DisplayFormat.Value(battleEvent.A), Color.red, 0.6f);
                         await _hud.SetHealthAnimated(battleEvent.B).AwaitForComplete(cancellationToken: token);
                         break;
 

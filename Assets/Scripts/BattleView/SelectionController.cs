@@ -91,8 +91,9 @@ namespace BattleView
 
         // ---------- clicks ----------
 
-        // screen pixels between a hand card's top edge and the menu above it
-        private const float MenuGapAboveCard = 12f;
+        // screen pixels between a hand card's top edge and the menu above it; negative because the card frame's
+        // picture has transparent space above its visible top edge (about 24 pixels at 1080p)
+        private const float MenuGapAboveCard = -18f;
 
         /// <summary>The top centre of the hand card on screen (the redrawn card if the hand was refreshed).</summary>
         private Vector2 CardTopOnScreen(int index, RectTransform clicked)

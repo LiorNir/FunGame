@@ -514,6 +514,8 @@ namespace BattleView
             SetState(SlotVisualState.Empty);
             transform.DOKill(true);
             transform.DOPunchScale(Vector3.one * 0.3f, 0.4f);
+            // a slot that opens gets the same burst as a pilot arriving, in its role colour
+            _effects?.PlaySummon(_roleColor);
         }
 
         private void OnMouseUpAsButton()

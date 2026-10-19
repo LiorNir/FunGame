@@ -172,6 +172,15 @@ namespace BattleView
             }, health, 0.4f).SetEase(Ease.OutCubic);
         }
 
+        /// <summary>Where the health text is, in the world (for popups such as the damage taken).</summary>
+        public Vector3 HealthWorldPosition(Camera camera)
+        {
+            var corners = new Vector3[4];
+            _health.rectTransform.GetWorldCorners(corners);
+            var screen = (corners[0] + corners[2]) * 0.5f;
+            return camera != null ? camera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -camera.transform.position.z)) : Vector3.zero;
+        }
+
         public void FlashHealth()
         {
             _health.transform.DOKill(true);
@@ -234,7 +243,7 @@ namespace BattleView
 
         private void UpdateHealthText()
         {
-            _health.text = $"HP {DisplayFormat.Value(_displayHealth)}/{DisplayFormat.Value(_maxHealth)}";
+            _health.text = $"{Icons.HpIcon} {DisplayFormat.Value(_displayHealth)}/{DisplayFormat.Value(_maxHealth)}";
         }
     }
 }
