@@ -708,6 +708,24 @@ namespace FunGame.Board.Tests
             Assert.AreEqual(5f, engine.PilotBySlot["R"].EffectiveAttack, Tolerance); // the original is untouched
         }
 
+        [Test]
+        public void DefeatsAnEnemyWithMoreToCome_OnlyWhenTheBoardKillsAnEnemyThatHasAnotherBehindIt()
+        {
+            var idle = new[] { new EnemyActionData("Idle", 0, 0) };
+            var deck = new[] { new PilotStats("Striker", 4f, 2f), new PilotStats("Wall", 1f, 4f) };
+            var engine = new BattleEngine(Setup(TwoSlotChain(Operation.Add), new[] { new EnemySpec("A", 5, idle, false), new EnemySpec("B", 5, idle, false) }, deck));
+            engine.Start();
+            PlaceByName(engine, "Wall", "R");
+            Assert.IsFalse(engine.DefeatsAnEnemyWithMoreToCome()); // 1 attack against 5 health
+            PlaceByName(engine, "Striker", "S");
+            Assert.IsTrue(engine.DefeatsAnEnemyWithMoreToCome()); // 5 attack: A falls and B is still to come
+            Assert.AreEqual(5f, engine.Lanes[0].Current.Health, Tolerance); // only a copy fought
+
+            engine.ResolveTurn();
+            engine.ResolveTurn(); // B arrived and is the last enemy
+            Assert.IsFalse(engine.DefeatsAnEnemyWithMoreToCome());
+        }
+
         // ---------- snipe ----------
 
         // turn 1 the enemy idles; on turn 2 it reveals a snipe at the highest attacker, which lands for the next turn
@@ -753,6 +771,20 @@ namespace FunGame.Board.Tests
             engine.ResolveTurn();
 
             Assert.AreEqual(0, engine.Stats.PilotsSniped);
+        }
+
+        [Test]
+        public void Snipe_Misses_WhenItsTargetLeftTheBoardAndCameBack()
+        {
+            var engine = SnipedBoard(0.5f, 1);
+            Assert.IsTrue(engine.TryEject("S"));
+            PlaceByName(engine, "Striker", "S");
+            Assert.IsEmpty(engine.IntentTargets()); // no mark on it any more
+
+            engine.ResolveTurn();
+
+            Assert.AreEqual(0, engine.Stats.PilotsSniped);
+            Assert.AreEqual(4f, engine.PilotBySlot["S"].EffectiveAttack, Tolerance);
         }
 
         [Test]

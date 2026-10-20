@@ -157,14 +157,11 @@ namespace BattleView
         }
 
         /// <summary>
-        /// What is changing the pilot right now, one line each (temporary look): a snipe (\"SNIPED -50%\"), an attack change
-        /// (\"SURGE: ATK x2\", \"CRASHED: ATK 0 until rested\"), and an unused ability (\"Surge ready\", greyed with its cost
-        /// while the AP is short).
+        /// What enemies are doing to the pilot right now, one line each (temporary look): a snipe (\"SNIPED -50%\").
         /// </summary>
         private List<string> DescribeEffects(string slotId, PilotUnit pilot)
         {
             var parts = new List<string>();
-            var multiplier = StatModifier.Product(pilot.AttackModifiers);
             var defenseMultiplier = StatModifier.Product(pilot.DefenseModifiers);
 
             // a snipe lowers both stats by the same share, so the defense shows it
@@ -173,23 +170,8 @@ namespace BattleView
                 parts.Add($"<color=#FF7A5C>SNIPED -{DisplayFormat.Value((1f - defenseMultiplier) * 100f)}%</color>");
             }
 
-            var crash = pilot.AttackModifiers.FirstOrDefault(modifier => modifier.IsActive && modifier.LastsUntilRested);
-            if (crash != null)
-            {
-                parts.Add(crash.Multiplier <= 0.001f
-                    ? "<color=#FF7070>CRASHED: ATK 0, recovers in the hand</color>"
-                    : $"<color=#FF7070>CRASHED: ATK x{DisplayFormat.Value(crash.Multiplier)}, recovers in the hand</color>");
-            }
-            else if (multiplier > 1.001f)
-            {
-                parts.Add($"<color=#FFD24A>{(pilot.Ability?.Name ?? "BOOST").ToUpperInvariant()}: ATK x{DisplayFormat.Value(multiplier)}</color>");
-            }
-            else if (multiplier < 0.999f && System.Math.Abs(multiplier - defenseMultiplier) > 0.001f)
-            {
-                parts.Add(multiplier <= 0.001f ? "ATK 0 this turn" : $"ATK x{DisplayFormat.Value(multiplier)} this turn");
-            }
-
-            // an ability that can be used is shown by the slot's Ability Ready effect and the hand card, not here
+            // what the pilot's own abilities do to it (a boost, the Surge crash) is shown by its stat numbers' colours, not
+            // here (the user, 2026-10-20); an ability that can be used is shown by the slot's Ability Ready effect
             return parts;
         }
 
@@ -258,7 +240,8 @@ namespace BattleView
             }
 
             var perSlotCount = new Dictionary<string, int>();
-            foreach (var label in _labels)
+            // labels on one slot stack upward: defense first, so attack reads on top as everywhere else
+            foreach (var label in _labels.OrderBy(label => label.Chain.Role == ChainRole.Attack ? 1 : 0))
             {
                 var terminal = GetSlot(label.Chain.TerminalId);
                 if (terminal == null)

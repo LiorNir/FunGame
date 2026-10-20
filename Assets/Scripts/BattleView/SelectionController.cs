@@ -128,7 +128,7 @@ namespace BattleView
             var placeLabel = targets.Count > 0
                 ? $"Place  ({costText})"
                 : (engine.ActionPoints < Mathf.Min(engine.Setup.Rules.PlacePilotCost, engine.Setup.Rules.ReplacePilotCost)
-                    ? "Place  (not enough AP)"
+                    ? $"Place  (not enough {Icons.ApIcon})"
                     : "Place  (no free slot)");
 
             // the card itself shows the pilot's name and stats, so the menu starts with the actions
@@ -196,7 +196,7 @@ namespace BattleView
                 {
                     var label = engine.CanUnlock(slotId)
                         ? $"Unlock slot  ({Icons.Ap(rule.UnlockApCost)})"
-                        : $"Unlock slot  ({Icons.Ap(rule.UnlockApCost)}, not enough AP)";
+                        : $"Unlock slot  ({Icons.Ap(rule.UnlockApCost)}, not enough {Icons.ApIcon})";
                     options.Add(new ActionMenuView.Option(label, engine.CanUnlock(slotId), () => _session.Unlock(slotId)));
                 }
                 else
@@ -219,14 +219,14 @@ namespace BattleView
                     if (pilot.Ability != null)
                     {
                         var ability = pilot.Ability;
-                        var abilityBlocker = engine.ActivateBlocker(slotId);
+                        var abilityBlocker = Icons.WithApIcons(engine.ActivateBlocker(slotId));
                         options.Add(new ActionMenuView.Option(
                             $"Use {ability.Name}  ({Icons.Ap(ability.ApCost)}{(abilityBlocker == null ? string.Empty : ", " + abilityBlocker)}): {ability.Describe()}",
                             abilityBlocker == null, () => _session.Activate(slotId)));
                     }
 
                     var cost = engine.Setup.Rules.EjectPilotCost;
-                    var blocker = engine.EjectBlocker(slotId);
+                    var blocker = Icons.WithApIcons(engine.EjectBlocker(slotId));
                     var reason = blocker == null ? string.Empty : ", " + blocker;
                     // a wounded pilot pulled back to rest recovers faster on its first turn in the hand: say so where it is chosen
                     var restBonus = engine.Setup.Rules.EjectedRecoveryMultiplier;

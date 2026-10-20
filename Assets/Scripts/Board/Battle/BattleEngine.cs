@@ -299,6 +299,7 @@ namespace FunGame.Battle
             else if (occupant != null)
             {
                 Hand.Add(occupant);
+                DodgeAims(occupant);
             }
 
             _pilotBySlot[slotId] = pilot;
@@ -441,6 +442,7 @@ namespace FunGame.Battle
             var cost = Setup.Rules.EjectPilotCost;
             _pilotBySlot.Remove(slotId);
             Hand.Add(pilot);
+            DodgeAims(pilot);
             _ejectedThisTurn.Add(pilot);
             ActionPoints -= cost;
             Stats.ApSpent += cost;
@@ -598,6 +600,24 @@ namespace FunGame.Battle
             return EvaluateChains().Values
                 .Where(result => result.Chain.Role == role && (laneId == null || result.Chain.LaneId == laneId))
                 .Sum(result => result.Value);
+        }
+
+        /// <summary>
+        /// True if the board as it is would defeat a lane's enemy this turn while another enemy waits behind it: the next
+        /// enemy only arrives next turn, so pilots ejected now rest for free. Plays the turn out on a copy.
+        /// </summary>
+        public bool DefeatsAnEnemyWithMoreToCome()
+        {
+            if (Outcome != BattleOutcome.InProgress || !Lanes.Any(lane => lane.Current != null && lane.HasMoreEnemies))
+            {
+                return false;
+            }
+
+            var probe = Clone();
+            probe.Logging = false;
+            probe.RecordEvents = false;
+            probe.ResolveCombat();
+            return Lanes.Where((lane, index) => lane.Current != null && lane.HasMoreEnemies && probe.Lanes[index].Current == null).Any();
         }
 
         // ---------- resolution ----------
@@ -1003,6 +1023,26 @@ namespace FunGame.Battle
         private string WhyMissed(int pilotId)
         {
             return _pilotBySlot.Values.Any(pilot => pilot.Id == pilotId && pilot.Fallen) ? "target fell" : "target swapped out";
+        }
+
+        // stands in for a pilot that dodged an aimed effect (no pilot has this id), so the effect misses as "target swapped out"
+        private const int DodgedTarget = -1;
+
+        /// <summary>
+        /// A pilot taken off the board dodges every enemy effect aimed at it: placing it back (anywhere) does not bring the
+        /// aim back. The target lists are replaced, not changed, since copies of the battle (undo) share them.
+        /// </summary>
+        private void DodgeAims(PilotUnit pilot)
+        {
+            foreach (var enemy in Lanes.Select(lane => lane.Current).Where(enemy => enemy != null))
+            {
+                if (enemy.IntentTargets.Any(ids => ids.Contains(pilot.Id)))
+                {
+                    enemy.IntentTargets = enemy.IntentTargets
+                        .Select(ids => (IReadOnlyList<int>)ids.Select(id => id == pilot.Id ? DodgedTarget : id).ToList())
+                        .ToList();
+                }
+            }
         }
 
         /// <summary>The slot of a living pilot on the board, or null if the pilot is not there.</summary>

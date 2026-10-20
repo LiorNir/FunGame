@@ -38,7 +38,13 @@ namespace Encounters
         ChargeBroken,
 
         /// <summary>The first time the player uses a pilot ability.</summary>
-        AbilityUsed
+        AbilityUsed,
+
+        /// <summary>
+        /// While planning, when the board would defeat a lane's enemy this turn and another enemy comes after it: the next
+        /// enemy only arrives next turn, so pilots ejected now rest for free.
+        /// </summary>
+        FreeRest
     }
 
     [Serializable]

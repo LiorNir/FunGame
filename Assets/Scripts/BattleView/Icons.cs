@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace BattleView
 {
     /// <summary>
@@ -17,6 +19,21 @@ namespace BattleView
         public static string Ap(int amount)
         {
             return $"{amount}{ApIcon}";
+        }
+
+        /// <summary>
+        /// The text with every "AP" written as the AP icon ("costs 1 AP" becomes "costs 1" and the icon), for texts written
+        /// in words: tutorial lines and the rules' reasons ("not enough AP").
+        /// </summary>
+        public static string WithApIcons(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return text;
+            }
+
+            // one pass, and never the "AP" of an icon tag ("AP" in quotes), so a text is not changed twice
+            return Regex.Replace(text, @"(?<=\d) AP\b(?!"")|(?<!"")\bAP\b(?!"")", ApIcon);
         }
     }
 }

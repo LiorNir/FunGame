@@ -153,6 +153,16 @@ namespace BattleView
             }
         }
 
+        // the free-rest line needs the turn played out on a copy, so it is only checked when the encounter has one
+        private void ShowFreeRestTutorial()
+        {
+            if (_tutorial != null && _tutorial.Lines.Any(line => line.Encounter == _encounter && line.Trigger == TutorialTrigger.FreeRest) &&
+                _engine.DefeatsAnEnemyWithMoreToCome())
+            {
+                ShowTutorial(TutorialTrigger.FreeRest);
+            }
+        }
+
         // on the test bench a line is shown once per battle
         private readonly HashSet<string> _shownTutorials = new HashSet<string>();
 
@@ -181,6 +191,7 @@ namespace BattleView
 
             ShowTutorial(TutorialTrigger.TurnStart);
             ShowIntentTutorials();
+            ShowFreeRestTutorial();
         }
 
         private void ShowIntentTutorials()
@@ -526,6 +537,7 @@ namespace BattleView
                     placed.Punch();
                     placed.PlaySummon();
                 }
+                ShowFreeRestTutorial();
             }
         }
 
@@ -548,6 +560,7 @@ namespace BattleView
                 }
 
                 ShowTutorial(TutorialTrigger.AbilityUsed);
+                ShowFreeRestTutorial();
             }
         }
 
@@ -575,6 +588,7 @@ namespace BattleView
             {
                 RefreshAll();
                 _board.GetSlot(slotId)?.PlayUnlock();
+                ShowFreeRestTutorial();
             }
         }
 

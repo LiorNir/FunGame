@@ -95,8 +95,8 @@ namespace BattleView
                 return string.Empty;
             }
 
-            var next = ordinal < count ? $"   next: {lane.Spec.Enemies[ordinal].Name}" : "   last one";
-            return $"Enemy {ordinal}/{count}{next}";
+            var next = ordinal < count ? $"next: {lane.Spec.Enemies[ordinal].Name}" : "last one";
+            return $"Enemy {ordinal}/{count}  {next}";
         }
 
         /// <summary>Shows the current state of every lane.</summary>

@@ -53,12 +53,13 @@ MonoBehaviour:
     Trigger: 0
     Turn: 1
     Text: 'New: you can place a pilot on top of another (a replace). The replaced
-      pilot goes back to your hand, where it recovers defense every turn.'
+      pilot goes back to your hand, where its stats recover every turn.'
   - Encounter: {fileID: 11400000, guid: 92bda8b75849b6b4c90cc1b560ad134d, type: 2}
-    Trigger: 4
+    Trigger: 11
     Turn: 1
-    Text: 'A fresh enemy. Worn pilots can rest: click one and choose Eject. An ejected
-      pilot that rests a whole turn in your hand recovers twice as fast.'
+    Text: 'Your board will defeat this enemy this turn, and the next one only arrives
+      next turn: a free turn to rest. Click a worn pilot and choose Eject. A pilot
+      that rests a whole turn in your hand after an eject recovers twice as fast.'
   - Encounter: {fileID: 11400000, guid: ba75165afa3199943bd64cd0789f2ad8, type: 2}
     Trigger: 0
     Turn: 1
@@ -71,13 +72,13 @@ MonoBehaviour:
   - Encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
     Trigger: 0
     Turn: 1
-    Text: Stinger has an ability, Surge. Place Stinger, then click it to use the ability
+    Text: One of your pilots has an ability. Place it, then click it to use the ability
       (once per battle, it costs AP). A glow marks a pilot whose ability is ready.
   - Encounter: {fileID: 11400000, guid: 759977f9fb0a0164cae460db6c021532, type: 2}
     Trigger: 10
     Turn: 1
-    Text: Surge doubles Stinger's attack this turn, then its attack drops to 0 until
-      it rests in your hand. Plan the swap.
+    Text: That ability doubles the pilot's attack this turn, then its attack drops
+      to 0 until it rests in your hand. Plan the swap.
   - Encounter: {fileID: 11400000, guid: 2445fde2610969549845bc81838c3a88, type: 2}
     Trigger: 6
     Turn: 1
@@ -91,9 +92,9 @@ MonoBehaviour:
   - Encounter: {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
     Trigger: 0
     Turn: 1
-    Text: 'A subtract slot is a toll: its pilot''s stat is taken away from the chain.
-      Put your weakest pilot there (0 pays nothing); the x2 bonus after it is the
-      reward. Toll pilots are never wounded.'
+    Text: 'A minus slot is a toll: the chain loses its pilot''s stat there instead
+      of gaining it. Pay with your weakest pilot (a 0 costs nothing) to reach the
+      x2 slot behind it. A pilot on a toll never takes damage.'
   - Encounter: {fileID: 11400000, guid: 0eecf380231bbda4eab568e88890216a, type: 2}
     Trigger: 1
     Turn: 2
@@ -113,12 +114,12 @@ MonoBehaviour:
   - Encounter: {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
     Trigger: 8
     Turn: 1
-    Text: 'The ram is charging: a big guard now and a huge Unleash next turn. Break
+    Text: 'The enemy is charging: a big guard now and a huge attack next turn. Break
       through the whole guard this turn and it is stunned instead.'
   - Encounter: {fileID: 11400000, guid: 2e9d8e73ef32d37449a447a066d7a2a3, type: 2}
     Trigger: 9
     Turn: 1
-    Text: 'Charge broken: the Unleash will not happen.'
+    Text: 'Charge broken: the huge attack will not happen.'
   - Encounter: {fileID: 11400000, guid: dd744bbe49865054985066c78cb2bf61, type: 2}
     Trigger: 0
     Turn: 1
@@ -132,5 +133,5 @@ MonoBehaviour:
   - Encounter: {fileID: 11400000, guid: eee376dfa28ba7c42801fa0b1911c383, type: 2}
     Trigger: 5
     Turn: 1
-    Text: 'The warden will lock the marked pilot: it cannot be replaced or ejected
+    Text: 'The enemy will lock the marked pilot: it cannot be replaced or ejected
       for 2 turns. Swap it out now if you want it free.'

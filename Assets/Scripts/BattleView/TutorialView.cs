@@ -25,7 +25,8 @@ namespace BattleView
 
         public void Show(string line)
         {
-            _waiting.Enqueue(line);
+            // lines are written with "AP" in words; it is shown as the icon
+            _waiting.Enqueue(Icons.WithApIcons(line));
             if (!_panel.activeSelf)
             {
                 ShowNext();

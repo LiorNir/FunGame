@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Encounters;
 using FunGame.Progress;
 using TMPro;
@@ -27,7 +28,15 @@ namespace Campaign
         [Tooltip("Optional: opens the folder with the playtest logs (to zip and send).")]
         [SerializeField] private Button _openLogs;
 
+        [Header("Unspent skill points")]
+        [Tooltip("While the player has SP to spend, the Pilots button and the SP text flash to this colour and back.")]
+        [SerializeField] private Color _unspentFlashColor = new Color(1f, 0.82f, 0.25f);
+        [SerializeField] private float _unspentFlashSeconds = 0.6f;
+
         private readonly List<GameObject> _rows = new List<GameObject>();
+        private readonly List<Tween> _flashes = new List<Tween>();
+        private Color _pilotsColor;
+        private Color _skillPointsColor;
 
         public event Action PilotsClicked;
         public event Action UnlockAllClicked;
@@ -37,6 +46,8 @@ namespace Campaign
 
         private void Awake()
         {
+            _pilotsColor = _pilots.targetGraphic != null ? _pilots.targetGraphic.color : Color.white;
+            _skillPointsColor = _skillPoints.color;
             _pilots.onClick.AddListener(() => PilotsClicked?.Invoke());
             _unlockAll.onClick.AddListener(() => UnlockAllClicked?.Invoke());
             _reset.onClick.AddListener(() => ResetClicked?.Invoke());
@@ -57,6 +68,7 @@ namespace Campaign
             var allStars = campaign.Worlds.Sum(world => world.Encounters.Where(encounter => encounter != null).Sum(encounter => encounter.Stars.Count));
             _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}   Stars: {progression.TotalStars}/{allStars}";
             SetLabel(_unlockAll, progression.UnlockAll ? "Unlock all: on" : "Unlock all: off");
+            FlashUnspent(progression.Profile.SkillPoints > 0);
 
             for (var worldIndex = 0; worldIndex < campaign.Worlds.Count; worldIndex++)
             {
@@ -78,6 +90,33 @@ namespace Campaign
                     button.Set(title, footer, state);
                     button.Clicked += () => EncounterClicked?.Invoke(encounter);
                 }
+            }
+        }
+
+        // points the player at the Pilots screen while there are SP to spend there
+        private void FlashUnspent(bool flash)
+        {
+            foreach (var running in _flashes)
+            {
+                running.Kill();
+            }
+
+            _flashes.Clear();
+            _skillPoints.color = _skillPointsColor;
+            if (_pilots.targetGraphic != null)
+            {
+                _pilots.targetGraphic.color = _pilotsColor;
+            }
+
+            if (!flash || _unspentFlashSeconds <= 0f)
+            {
+                return;
+            }
+
+            _flashes.Add(_skillPoints.DOColor(_unspentFlashColor, _unspentFlashSeconds).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetLink(gameObject));
+            if (_pilots.targetGraphic != null)
+            {
+                _flashes.Add(_pilots.targetGraphic.DOColor(_unspentFlashColor, _unspentFlashSeconds).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine).SetLink(gameObject));
             }
         }
 

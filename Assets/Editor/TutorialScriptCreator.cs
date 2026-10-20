@@ -27,23 +27,23 @@ namespace FunGame.EditorTools
             ("World 1-3 The gatekeeper (boss)", TutorialTrigger.BattleStart, 1, "The board splits: one branch attacks, the other defends, and the root counts for both. The x slot multiplies everything before it."),
             ("World 1-3 The gatekeeper (boss)", TutorialTrigger.ChainAtZero, 1, "A hit equal to a chain's defense leaves it standing at 0. The next hit that reaches it breaks it."),
             ("World 1-3 The gatekeeper (boss)", TutorialTrigger.ChainBroken, 1, "A broken chain's pilots fall and block their slots. Place a new pilot on a fallen one to clear it."),
-            ("World 2-1 Fresh legs", TutorialTrigger.BattleStart, 1, "New: you can place a pilot on top of another (a replace). The replaced pilot goes back to your hand, where it recovers defense every turn."),
-            ("World 2-1 Fresh legs", TutorialTrigger.NextEnemy, 1, "A fresh enemy. Worn pilots can rest: click one and choose Eject. An ejected pilot that rests a whole turn in your hand recovers twice as fast."),
+            ("World 2-1 Fresh legs", TutorialTrigger.BattleStart, 1, "New: you can place a pilot on top of another (a replace). The replaced pilot goes back to your hand, where its stats recover every turn."),
+            ("World 2-1 Fresh legs", TutorialTrigger.FreeRest, 1, "Your board will defeat this enemy this turn, and the next one only arrives next turn: a free turn to rest. Click a worn pilot and choose Eject. A pilot that rests a whole turn in your hand after an eject recovers twice as fast."),
             ("World 2-2 Duck!", TutorialTrigger.BattleStart, 1, "Ejecting also dodges: a pilot that is not on the board cannot be hit. The damage reaches you instead, but the pilot survives."),
             ("World 2-3 The foreman (boss)", TutorialTrigger.BattleStart, 1, "This locked slot can be opened now by paying AP: click it."),
-            ("World 3-1 Power surge", TutorialTrigger.BattleStart, 1, "Stinger has an ability, Surge. Place Stinger, then click it to use the ability (once per battle, it costs AP). A glow marks a pilot whose ability is ready."),
-            ("World 3-1 Power surge", TutorialTrigger.AbilityUsed, 1, "Surge doubles Stinger's attack this turn, then its attack drops to 0 until it rests in your hand. Plan the swap."),
+            ("World 3-1 Power surge", TutorialTrigger.BattleStart, 1, "One of your pilots has an ability. Place it, then click it to use the ability (once per battle, it costs AP). A glow marks a pilot whose ability is ready."),
+            ("World 3-1 Power surge", TutorialTrigger.AbilityUsed, 1, "That ability doubles the pilot's attack this turn, then its attack drops to 0 until it rests in your hand. Plan the swap."),
             ("World 3-3 The marksman (boss)", TutorialTrigger.EnemySnipes, 1, "The enemy aims a snipe at the marked pilot: -50% to both its stats next turn. Swap the pilot out to dodge it, or take the hit."),
             ("World 3-3 The marksman (boss)", TutorialTrigger.EnemyAssassinates, 1, "A snipe aimed at a pilot with nothing left assassinates it: the pilot falls."),
-            ("World 4-1 Pay the toll", TutorialTrigger.BattleStart, 1, "A subtract slot is a toll: its pilot's stat is taken away from the chain. Put your weakest pilot there (0 pays nothing); the x2 bonus after it is the reward. Toll pilots are never wounded."),
+            ("World 4-1 Pay the toll", TutorialTrigger.BattleStart, 1, "A minus slot is a toll: the chain loses its pilot's stat there instead of gaining it. Pay with your weakest pilot (a 0 costs nothing) to reach the x2 slot behind it. A pilot on a toll never takes damage."),
             ("World 4-1 Pay the toll", TutorialTrigger.TurnStart, 2, "The enemy hunkers down: a big guard and no attack. Haze's No Guard halves both sides' defense this turn, which costs you nothing while the enemy is not attacking."),
             ("World 4-2 Divide and conquer", TutorialTrigger.BattleStart, 1, "A divide slot divides the chain by its pilot's stat. Dividing by less than 1 multiplies! Dividing by 0 is a very bad idea."),
             ("World 4-3 The ram (boss)", TutorialTrigger.BattleStart, 1, "Defense can multiply too: the x slot on the blue chain multiplies everything before it."),
-            ("World 4-3 The ram (boss)", TutorialTrigger.EnemyCharges, 1, "The ram is charging: a big guard now and a huge Unleash next turn. Break through the whole guard this turn and it is stunned instead."),
-            ("World 4-3 The ram (boss)", TutorialTrigger.ChargeBroken, 1, "Charge broken: the Unleash will not happen."),
+            ("World 4-3 The ram (boss)", TutorialTrigger.EnemyCharges, 1, "The enemy is charging: a big guard now and a huge attack next turn. Break through the whole guard this turn and it is stunned instead."),
+            ("World 4-3 The ram (boss)", TutorialTrigger.ChargeBroken, 1, "Charge broken: the huge attack will not happen."),
             ("World 5-1 Two fronts", TutorialTrigger.BattleStart, 1, "Two lanes: each enemy attacks the defense on its side, and each side's attack hits its own enemy. 3 AP for both fronts: choose where to spend them."),
             ("World 5-2 The hub", TutorialTrigger.BattleStart, 1, "The hub slot feeds all four chains. Strong, but both enemies wear it down, and if it breaks every chain is cut."),
-            ("World 5-3 The warden (boss)", TutorialTrigger.EnemyLocks, 1, "The warden will lock the marked pilot: it cannot be replaced or ejected for 2 turns. Swap it out now if you want it free.")
+            ("World 5-3 The warden (boss)", TutorialTrigger.EnemyLocks, 1, "The enemy will lock the marked pilot: it cannot be replaced or ejected for 2 turns. Swap it out now if you want it free.")
         };
 
         [MenuItem("Tools/Fun Game/Create Tutorial Script")]

@@ -75,7 +75,7 @@ namespace FunGame.Battle
 
         public string Describe()
         {
-            return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, then ATK 0, recovered in the hand like a wound";
+            return $"ATK x{DisplayFormat.Value(Multiplier)} this turn, then ATK 0";
         }
 
         public void Activate(PilotUnit pilot, BattleEngine engine)

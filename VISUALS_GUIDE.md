@@ -68,7 +68,7 @@ Everything the player sees is a **prefab** or an **asset**. Scripts only fill in
 
 ## Still set in code (temporary looks, to move into prefabs when they are restyled)
 
-- Status line colours beside a pilot ("Surge ready", "SNIPED", "CRASHED", "next: LOCK"): `BoardView.DescribeEffects`.
+- Status line colours beside a pilot ("SNIPED", "next: LOCK"): `BoardView.DescribeEffects` (what a pilot's own ability does to it is shown only by its stat colours).
 - Popup texts and colours during a turn: `BattleSession.PlayEvents`.
 - Intent colours for ASSASSINATE and STUNNED: `EnemyView.SetIntent`.
 - The divide-by-zero gag animation: `SlotView.PlayDivideByZero`; the red "ERROR" chain label: `BoardView.Refresh`.
