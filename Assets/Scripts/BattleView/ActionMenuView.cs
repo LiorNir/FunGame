@@ -32,6 +32,10 @@ namespace BattleView
         [Tooltip("One of these is created per option. Its height and width set the size of the options.")]
         [SerializeField] private Button _optionPrefab;
         [SerializeField] private float _spacing = 8f;
+        [Tooltip("The button colour of an option that cannot be chosen now (an ability without enough AP, an eject not allowed yet, an info line).")]
+        [SerializeField] private Color _unavailableColor = new Color(0.32f, 0.32f, 0.36f);
+        [Tooltip("The text colour of an option that cannot be chosen now.")]
+        [SerializeField] private Color _unavailableTextColor = new Color(0.75f, 0.75f, 0.75f);
 
         private RectTransform _canvasRect;
 
@@ -79,6 +83,22 @@ namespace BattleView
                 }
 
                 button.interactable = option.Enabled;
+                if (!option.Enabled)
+                {
+                    // grey instead of a faded copy of the normal colour, so what can be chosen stands out
+                    if (button.targetGraphic != null)
+                    {
+                        button.targetGraphic.color = _unavailableColor;
+                    }
+
+                    var colors = button.colors;
+                    colors.disabledColor = Color.white;
+                    button.colors = colors;
+                    if (label != null)
+                    {
+                        label.color = _unavailableTextColor;
+                    }
+                }
                 var onChosen = option.OnChosen;
                 button.onClick.AddListener(() =>
                 {

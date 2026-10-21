@@ -139,9 +139,9 @@ namespace BattleView
             };
             if (pilot.HasUnusedAbility)
             {
-                // the ability can be read from the hand; it is used once the pilot is on the board
+                // the ability's name and cost; it is used once the pilot is on the board (hovering the pilot explains it)
                 options.Insert(0, new ActionMenuView.Option(
-                    $"{pilot.Ability.Name} ({Icons.Ap(pilot.Ability.ApCost)}, on the board): {pilot.Ability.Describe()}", false, null));
+                    $"{pilot.Ability.Name} ({Icons.Ap(pilot.Ability.ApCost)}, on the board)", false, null));
             }
 
             _hand.Refresh(engine, index);
@@ -221,7 +221,8 @@ namespace BattleView
                         var ability = pilot.Ability;
                         var abilityBlocker = Icons.WithApIcons(engine.ActivateBlocker(slotId));
                         options.Add(new ActionMenuView.Option(
-                            $"Use {ability.Name}  ({Icons.Ap(ability.ApCost)}{(abilityBlocker == null ? string.Empty : ", " + abilityBlocker)}): {ability.Describe()}",
+                            // the name only: hovering the pilot explains the ability
+                            $"Use {ability.Name}  ({Icons.Ap(ability.ApCost)}{(abilityBlocker == null ? string.Empty : ", " + abilityBlocker)})",
                             abilityBlocker == null, () => _session.Activate(slotId)));
                     }
 
