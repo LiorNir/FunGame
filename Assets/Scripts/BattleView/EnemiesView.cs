@@ -86,7 +86,7 @@ namespace BattleView
             return _views.TryGetValue(laneId, out var view) ? view.transform.position : transform.position;
         }
 
-        /// <summary>"Enemy 1/2  next: Grinder" for a lane with several enemies; empty for a lane with one.</summary>
+        /// <summary>"Enemy 1/2  next: Grinder" while another enemy follows; empty for the last (or only) one.</summary>
         private static string QueueText(LaneState lane, int ordinal)
         {
             var count = lane.Spec.Enemies.Count;
@@ -95,8 +95,8 @@ namespace BattleView
                 return string.Empty;
             }
 
-            var next = ordinal < count ? $"next: {lane.Spec.Enemies[ordinal].Name}" : "last one";
-            return $"Enemy {ordinal}/{count}  {next}";
+            // nothing to say once the last enemy of the lane is out (the user, 2026-10-21)
+            return ordinal < count ? $"Enemy {ordinal}/{count}  next: {lane.Spec.Enemies[ordinal].Name}" : string.Empty;
         }
 
         /// <summary>Shows the current state of every lane.</summary>

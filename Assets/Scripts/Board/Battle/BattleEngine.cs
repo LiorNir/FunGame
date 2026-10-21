@@ -985,6 +985,9 @@ namespace FunGame.Battle
             return effect is SnipeEffect && IsSpent(slotId) ? SnipeEffect.AssassinateText : effect.Describe();
         }
 
+        /// <summary>Added to an aimed effect's intent text when it is aimed at no pilot on the board (it will do nothing).</summary>
+        public const string NoTargetText = " (no target)";
+
         /// <summary>The texts of a lane's revealed intent, one per effect, with the ones aimed at a spent pilot named for what they will do.</summary>
         public IReadOnlyList<string> DescribeIntent(LaneState lane)
         {
@@ -1001,7 +1004,12 @@ namespace FunGame.Battle
                 var targets = index < enemy.IntentTargets.Count ? enemy.IntentTargets[index] : new int[0];
                 var spentTarget = targets.Select(SlotOfPilot).FirstOrDefault(slotId => slotId != null && IsSpent(slotId));
                 var text = spentTarget != null ? DescribeEffectOn(effect, spentTarget) : effect.Describe();
-                if (effect is UnleashEffect && enemy.ChargeBroken)
+                if (effect is ITargetedEffect && !targets.Any(id => SlotOfPilot(id) != null))
+                {
+                    // aimed at nobody: no pilot counted in a chain when it was revealed, or its target left the board
+                    text += NoTargetText;
+                }
+                else if (effect is UnleashEffect && enemy.ChargeBroken)
                 {
                     text = UnleashEffect.StunnedText;
                 }

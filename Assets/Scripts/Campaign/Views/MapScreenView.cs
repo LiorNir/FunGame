@@ -66,7 +66,7 @@ namespace Campaign
 
             _rows.Clear();
             var allStars = campaign.Worlds.Sum(world => world.Encounters.Where(encounter => encounter != null).Sum(encounter => encounter.Stars.Count));
-            _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}   Stars: {progression.TotalStars}/{allStars}";
+            _skillPoints.text = $"Skill points: {BattleView.Icons.SpIcon} {progression.Profile.SkillPoints}   Stars: {progression.TotalStars}/{allStars}";
             SetLabel(_unlockAll, progression.UnlockAll ? "Unlock all: on" : "Unlock all: off");
             FlashUnspent(progression.Profile.SkillPoints > 0);
 

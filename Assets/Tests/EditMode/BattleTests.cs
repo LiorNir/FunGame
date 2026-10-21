@@ -788,6 +788,16 @@ namespace FunGame.Board.Tests
         }
 
         [Test]
+        public void ASnipeAimedAtNobody_SaysSoInItsIntent()
+        {
+            var engine = SnipedBoard(0.5f, 1);
+            Assert.AreEqual("SNIPE -50%", engine.DescribeIntent(engine.Lanes[0]).Single()); // aimed at the striker
+            Assert.IsTrue(engine.TryEject("S"));
+
+            Assert.AreEqual("SNIPE -50%" + BattleEngine.NoTargetText, engine.DescribeIntent(engine.Lanes[0]).Single());
+        }
+
+        [Test]
         public void Snipe_OnASpentPilot_Assassinates_ItFallsAndCutsItsChains()
         {
             // the root has nothing left in either chain it serves; the snipe picks it (the most wounded, ties by slot order)

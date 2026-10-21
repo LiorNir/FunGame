@@ -200,7 +200,9 @@ namespace BattleView
             {
                 var effects = lane.Current.Intent.Effects;
                 var texts = _engine.DescribeIntent(lane);
-                if (effects.Any(effect => effect is LockEffect))
+                // a lock or snipe aimed at nobody does nothing, so it is not the moment to explain it
+                var aimed = _engine.IntentTargets().Where(target => target.LaneId == lane.Spec.Id).Select(target => target.Effect).ToList();
+                if (aimed.Any(effect => effect is LockEffect))
                 {
                     ShowTutorial(TutorialTrigger.EnemyLocks);
                 }
@@ -209,7 +211,7 @@ namespace BattleView
                 {
                     ShowTutorial(TutorialTrigger.EnemyAssassinates);
                 }
-                else if (effects.Any(effect => effect is SnipeEffect))
+                else if (aimed.Any(effect => effect is SnipeEffect))
                 {
                     ShowTutorial(TutorialTrigger.EnemySnipes);
                 }
@@ -835,7 +837,7 @@ namespace BattleView
             }
             else if (_engine.Outcome == BattleOutcome.Victory)
             {
-                details += $"\nReward: {_encounter.RewardSkillPoints} SP";
+                details += $"\nReward: +{Icons.Sp(_encounter.RewardSkillPoints)}";
             }
 
             details += "\n\n" + Campaign.StarText.Lines(stars, metStars, newStars, _engine.Setup.Rules.PlayerMaxHealth);

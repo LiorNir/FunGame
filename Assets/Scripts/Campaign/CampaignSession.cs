@@ -136,7 +136,7 @@ namespace Campaign
             var parts = new List<string>();
             if (reward.SkillPoints > 0)
             {
-                parts.Add($"+{reward.SkillPoints} SP");
+                parts.Add($"+{BattleView.Icons.Sp(reward.SkillPoints)}");
             }
 
             parts.AddRange(reward.NewPilots.Select(id =>

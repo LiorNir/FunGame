@@ -62,8 +62,9 @@ namespace Campaign
             _refund.gameObject.SetActive(owned && attackUpgrades + defenseUpgrades > 0);
             _upgradeAttack.interactable = canUpgradeAttack;
             _upgradeDefense.interactable = canUpgradeDefense;
-            SetLabel(_upgradeAttack, $"+1 ATK ({attackCost} SP)");
-            SetLabel(_upgradeDefense, $"+1 DEF ({defenseCost} SP)");
+            // one line (the prefab labels do not wrap), so the price never breaks away from its stat
+            SetLabel(_upgradeAttack, $"+1 ATK  {BattleView.Icons.Sp(attackCost)}");
+            SetLabel(_upgradeDefense, $"+1 DEF  {BattleView.Icons.Sp(defenseCost)}");
 
             if (!owned)
             {

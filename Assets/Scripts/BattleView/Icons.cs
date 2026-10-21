@@ -12,6 +12,9 @@ namespace BattleView
         /// <summary>The HP icon on its own (before the player's health, "10/10").</summary>
         public const string HpIcon = "<sprite=\"HP\" index=0>";
 
+        /// <summary>The SP (skill point) icon on its own.</summary>
+        public const string SpIcon = "<sprite=\"SP\" index=0>";
+
         /// <summary>The AP icon on its own (for example before "3/3").</summary>
         public const string ApIcon = "<sprite=\"AP\" index=0>";
 
@@ -19,6 +22,12 @@ namespace BattleView
         public static string Ap(int amount)
         {
             return $"{amount}{ApIcon}";
+        }
+
+        /// <summary>An SP amount: the number followed by the SP icon, for example an upgrade's price.</summary>
+        public static string Sp(int amount)
+        {
+            return $"{amount}{SpIcon}";
         }
 
         /// <summary>

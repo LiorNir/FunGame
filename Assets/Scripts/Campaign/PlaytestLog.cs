@@ -45,7 +45,9 @@ namespace Campaign
             {
                 _battleCount++;
                 var safeName = string.Join("_", encounterName.Split(Path.GetInvalidFileNameChars()));
-                var path = Path.Combine(SessionFolder, $"{_battleCount:00} {safeName} - {result}.txt");
+                // the result has "stars 2/3" in it: no part of the name may hold a character a file name cannot
+                var safeResult = string.Join("_", result.Split(Path.GetInvalidFileNameChars()));
+                var path = Path.Combine(SessionFolder, $"{_battleCount:00} {safeName} - {safeResult}.txt");
                 var lines = new List<string> { $"# {encounterName}: {result} ({DateTime.Now:yyyy-MM-dd HH:mm:ss})", string.Empty, setupText, "# battle log" };
                 lines.AddRange(log);
                 File.WriteAllLines(path, lines);

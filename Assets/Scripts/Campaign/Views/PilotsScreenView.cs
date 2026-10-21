@@ -40,7 +40,7 @@ namespace Campaign
             }
 
             _shown.Clear();
-            _skillPoints.text = $"Skill points: {progression.Profile.SkillPoints}   (each further +1 to the same stat costs 1 SP more)";
+            _skillPoints.text = $"Skill points: {BattleView.Icons.SpIcon} {progression.Profile.SkillPoints}    (each further +1 to a stat costs 1 more)";
 
             // owned pilots first, in the order they joined; then the ones still to recruit, in campaign order
             var owned = progression.Profile.OwnedPilots.Select(campaign.FindPilot).Where(pilot => pilot != null).ToList();

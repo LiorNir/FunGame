@@ -87,7 +87,7 @@ namespace BattleView
         [Tooltip("Colours of the ring and the stat borders for each state (empty, locked, inactive, active).")]
         [SerializeField] private SlotTints _tints = new SlotTints();
         [Tooltip("The background while the slot is a valid target for the action being chosen.")]
-        [SerializeField] private Color _highlightColor = new Color(0.4f, 1f, 0.5f);
+        [SerializeField] private Color _highlightColor = new Color(1f, 0.98f, 0.86f);
         [SerializeField] private Color _lockedColor = new Color(0.25f, 0.25f, 0.3f);
         [SerializeField] private Color _inactiveColor = new Color(0.45f, 0.45f, 0.45f, 0.8f);
         [SerializeField] private Color _fallenColor = new Color(0.04f, 0.04f, 0.05f, 1f);
@@ -545,7 +545,7 @@ namespace BattleView
             _pilotBackground.DOKill();
             if (FadeSeconds > 0f)
             {
-                _pilotBackground.DOColor(color, FadeSeconds).SetEase(Ease.OutQuad);
+                _pilotBackground.DOColor(color, FadeSeconds).SetEase(Ease.OutQuad).SetLink(_pilotBackground.gameObject);
             }
             else
             {
