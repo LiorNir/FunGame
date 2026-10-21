@@ -68,6 +68,7 @@ namespace Campaign
             var allStars = campaign.Worlds.Sum(world => world.Encounters.Where(encounter => encounter != null).Sum(encounter => encounter.Stars.Count));
             _skillPoints.text = $"Skill points: {BattleView.Icons.SpIcon} {progression.Profile.SkillPoints}   Stars: {progression.TotalStars}/{allStars}";
             SetLabel(_unlockAll, progression.UnlockAll ? "Unlock all: on" : "Unlock all: off");
+            _unlockAll.gameObject.SetActive(CampaignSession.TestingTools);
             FlashUnspent(progression.Profile.SkillPoints > 0);
 
             for (var worldIndex = 0; worldIndex < campaign.Worlds.Count; worldIndex++)

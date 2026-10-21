@@ -25,10 +25,16 @@ namespace Campaign
         /// <summary>The save file: one profile, in the player's data folder.</summary>
         public static string SavePath => Path.Combine(Application.persistentDataPath, "profile.json");
 
-        /// <summary>For testing: every encounter counts as open (kept on this computer, not in the save).</summary>
+        /// <summary>
+        /// Whether the testing helpers (Unlock all, Refund upgrades) exist: in the editor only, so players of a build
+        /// cannot use them (the user, 2026-10-21: disable what testers should not do rather than ask them not to).
+        /// </summary>
+        public static bool TestingTools => Application.isEditor;
+
+        /// <summary>For testing: every encounter counts as open (kept on this computer, not in the save; always off in a build).</summary>
         public static bool UnlockAll
         {
-            get => PlayerPrefs.GetInt(UnlockAllKey, 0) == 1;
+            get => TestingTools && PlayerPrefs.GetInt(UnlockAllKey, 0) == 1;
             set => PlayerPrefs.SetInt(UnlockAllKey, value ? 1 : 0);
         }
 

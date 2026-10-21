@@ -10,10 +10,9 @@ Thanks for trying it! This is an early prototype: the art is placeholder and som
 ## Playing
 
 - The map shows five worlds. Clear the encounters of a world in order; beating a world's boss opens the next world, gives a skill point (SP) and may recruit a new pilot.
-- **Pilots** (button on the map): spend SP to give a pilot +1 attack or +1 defense. Each further +1 to the same stat of the same pilot costs 1 SP more. "Refund upgrades" gives the SP back (a testing helper).
+- **Pilots** (button on the map): spend SP to give a pilot +1 attack or +1 defense. Each further +1 to the same stat of the same pilot costs 1 SP more.
 - In a battle, click a card in your hand or a pilot on the board to see what you can do with it. Hover a slot to see more. **Undo** takes back your last action of the turn; **Give up** ends the battle.
 - Each encounter has three stars (shown at the top right during a battle): clearing it, and two harder goals. Replaying for missed stars is optional.
-- "Unlock all" and "Refund upgrades" are testing helpers: please leave them alone unless you are stuck.
 - Please play the way you naturally would. There is no wrong way to play; confusion is useful information.
 
 ## Sending your results

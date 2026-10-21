@@ -59,7 +59,7 @@ namespace Campaign
 
             _upgradeAttack.gameObject.SetActive(owned);
             _upgradeDefense.gameObject.SetActive(owned);
-            _refund.gameObject.SetActive(owned && attackUpgrades + defenseUpgrades > 0);
+            _refund.gameObject.SetActive(CampaignSession.TestingTools && owned && attackUpgrades + defenseUpgrades > 0);
             _upgradeAttack.interactable = canUpgradeAttack;
             _upgradeDefense.interactable = canUpgradeDefense;
             // one line (the prefab labels do not wrap), so the price never breaks away from its stat
