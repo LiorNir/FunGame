@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Collector
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Collector
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 7b8610fb0c52d0a40be5933449e7c7ff, type: 3}
+  _scale: 1
   _maxHealth: 18
   _selectionMode: 0
   _actions:

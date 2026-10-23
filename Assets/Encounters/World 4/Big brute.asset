@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Big brute
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Big brute
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 62194433c15b031429b0edba30b412de, type: 3}
+  _scale: 1
   _maxHealth: 22
   _selectionMode: 0
   _actions:

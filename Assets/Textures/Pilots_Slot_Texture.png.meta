@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: d59c1abd4288f734ebb30a204ee54823
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4166761335399638682
+    second: Pilots_Slot_Texture_0
+  - first:
+      213: -5916600961649354268
+    second: Pilots_Slot_Texture_1
+  - first:
+      213: 7153572496102396192
+    second: Pilots_Slot_Texture_2
+  - first:
+      213: 1887634899245542177
+    second: Pilots_Slot_Texture_3
+  - first:
+      213: -5032908650504976242
+    second: Pilots_Slot_Texture_4
+  - first:
+      213: 4439503443512843632
+    second: Pilots_Slot_Texture_5
+  - first:
+      213: -3588781899760250678
+    second: Pilots_Slot_Texture_6
+  - first:
+      213: -5468189768694673956
+    second: Pilots_Slot_Texture_7
+  - first:
+      213: 5804751310466577777
+    second: Pilots_Slot_Texture_8
+  - first:
+      213: -4020240804828093127
+    second: Pilots_Slot_Texture_9
+  - first:
+      213: 8970452462253541507
+    second: Pilots_Slot_Texture_10
+  - first:
+      213: -9061663309796105760
+    second: Pilots_Slot_Texture_11
+  - first:
+      213: 170034461515055088
+    second: Pilots_Slot_Texture_12
+  - first:
+      213: 4529823211592520114
+    second: Pilots_Slot_Texture_13
+  - first:
+      213: 8682244370366339552
+    second: Pilots_Slot_Texture_14
+  - first:
+      213: -620720548971129026
+    second: Pilots_Slot_Texture_15
+  - first:
+      213: -2836115624419111441
+    second: Pilots_Slot_Texture_16
+  - first:
+      213: -5537179974526790985
+    second: Pilots_Slot_Texture_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 994
+        width: 195
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6691ca354a0bc26c0800000000000000
+      internalID: -4166761335399638682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1012
+        width: 120
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e9d72bd5c204eda0800000000000000
+      internalID: -5916600961649354268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 1004
+        width: 262
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0211031b848964360800000000000000
+      internalID: 7153572496102396192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 1026
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12b292390f9323a10800000000000000
+      internalID: 1887634899245542177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 1016
+        width: 25
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8809a37f34872ab0800000000000000
+      internalID: -5032908650504976242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 1044
+        width: 24
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07dd4b14cd84c9d30800000000000000
+      internalID: 4439503443512843632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 1036
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0507850e5123ec0800000000000000
+      internalID: -3588781899760250678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 1044
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd478880661d14b0800000000000000
+      internalID: -5468189768694673956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 1014
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 175f7dddf8e9e8050800000000000000
+      internalID: 5804751310466577777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 1018
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 935e0b4c94c3538c0800000000000000
+      internalID: -4020240804828093127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 982
+        width: 71
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3888627acf27d7c70800000000000000
+      internalID: 8970452462253541507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 49
+        width: 1161
+        height: 886
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1a9610b318e3280800000000000000
+      internalID: -9061663309796105760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 222
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fffd2e11751c5200800000000000000
+      internalID: 170034461515055088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_13
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 212
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b19a4ef53a2dde30800000000000000
+      internalID: 4529823211592520114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_14
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 191
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e912dc11478d7870800000000000000
+      internalID: 8682244370366339552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_15
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 224
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e375acd03f1c267f0800000000000000
+      internalID: -620720548971129026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_16
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 216
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fed4090bdd714a8d0800000000000000
+      internalID: -2836115624419111441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pilots_Slot_Texture_17
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 272
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b29ce0862cf723b0800000000000000
+      internalID: -5537179974526790985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pilots_Slot_Texture_0: -4166761335399638682
+      Pilots_Slot_Texture_1: -5916600961649354268
+      Pilots_Slot_Texture_10: 8970452462253541507
+      Pilots_Slot_Texture_11: -9061663309796105760
+      Pilots_Slot_Texture_12: 170034461515055088
+      Pilots_Slot_Texture_13: 4529823211592520114
+      Pilots_Slot_Texture_14: 8682244370366339552
+      Pilots_Slot_Texture_15: -620720548971129026
+      Pilots_Slot_Texture_16: -2836115624419111441
+      Pilots_Slot_Texture_17: -5537179974526790985
+      Pilots_Slot_Texture_2: 7153572496102396192
+      Pilots_Slot_Texture_3: 1887634899245542177
+      Pilots_Slot_Texture_4: -5032908650504976242
+      Pilots_Slot_Texture_5: 4439503443512843632
+      Pilots_Slot_Texture_6: -3588781899760250678
+      Pilots_Slot_Texture_7: -5468189768694673956
+      Pilots_Slot_Texture_8: 5804751310466577777
+      Pilots_Slot_Texture_9: -4020240804828093127
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

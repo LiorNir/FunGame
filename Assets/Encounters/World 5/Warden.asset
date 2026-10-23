@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Warden
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Warden
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 61f4666aa6a6a1b46913a7a48102bfb7, type: 3}
+  _scale: 2
   _maxHealth: 26
   _selectionMode: 0
   _actions:

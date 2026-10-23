@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: 01ac23fb7b048624185e27e810294fa2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4723100786555717201
+    second: Enemis_Fog2_Texture_0
+  - first:
+      213: 8935216356601826308
+    second: Enemis_Fog2_Texture_1
+  - first:
+      213: 5974156361345453689
+    second: Enemis_Fog2_Texture_2
+  - first:
+      213: 6695985410371973978
+    second: Enemis_Fog2_Texture_3
+  - first:
+      213: -7512698312957492523
+    second: Enemis_Fog2_Texture_4
+  - first:
+      213: -4009974229577942163
+    second: Enemis_Fog2_Texture_5
+  - first:
+      213: -5867283905762853362
+    second: Enemis_Fog2_Texture_6
+  - first:
+      213: -8931475995279195543
+    second: Enemis_Fog2_Texture_7
+  - first:
+      213: 4640960472650844222
+    second: Enemis_Fog2_Texture_8
+  - first:
+      213: -4901917289280826192
+    second: Enemis_Fog2_Texture_9
+  - first:
+      213: -4185688957186971854
+    second: Enemis_Fog2_Texture_10
+  - first:
+      213: 9090734817034340121
+    second: Enemis_Fog2_Texture_11
+  - first:
+      213: -5263500395173247659
+    second: Enemis_Fog2_Texture_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1235
+        height: 1234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 156850d2423db8140800000000000000
+      internalID: 4723100786555717201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_1
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 1203
+        width: 38
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c038e7fe3400c70800000000000000
+      internalID: 8935216356601826308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_2
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1191
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97ec2a6ee8778e250800000000000000
+      internalID: 5974156361345453689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_3
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 779
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a537b6ef04becec50800000000000000
+      internalID: 6695985410371973978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_4
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 728
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d20e7730b88db790800000000000000
+      internalID: -7512698312957492523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_5
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 660
+        width: 63
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6b39871fa5b958c0800000000000000
+      internalID: -4009974229577942163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_6
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 696
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0e73a8bf58339ea0800000000000000
+      internalID: -5867283905762853362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_7
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 469
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 962847d37e50d0480800000000000000
+      internalID: -8931475995279195543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_8
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 448
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e388bf406f0086040800000000000000
+      internalID: 4640960472650844222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_9
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 432
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b412166234e8fbb0800000000000000
+      internalID: -4901917289280826192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_10
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 385
+        width: 40
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2376896f11279e5c0800000000000000
+      internalID: -4185688957186971854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_11
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 359
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9178b9cb627c82e70800000000000000
+      internalID: 9090734817034340121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemis_Fog2_Texture_12
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 300
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 555029e174a44f6b0800000000000000
+      internalID: -5263500395173247659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Enemis_Fog2_Texture_0: 4723100786555717201
+      Enemis_Fog2_Texture_1: 8935216356601826308
+      Enemis_Fog2_Texture_10: -4185688957186971854
+      Enemis_Fog2_Texture_11: 9090734817034340121
+      Enemis_Fog2_Texture_12: -5263500395173247659
+      Enemis_Fog2_Texture_2: 5974156361345453689
+      Enemis_Fog2_Texture_3: 6695985410371973978
+      Enemis_Fog2_Texture_4: -7512698312957492523
+      Enemis_Fog2_Texture_5: -4009974229577942163
+      Enemis_Fog2_Texture_6: -5867283905762853362
+      Enemis_Fog2_Texture_7: -8931475995279195543
+      Enemis_Fog2_Texture_8: 4640960472650844222
+      Enemis_Fog2_Texture_9: -4901917289280826192
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

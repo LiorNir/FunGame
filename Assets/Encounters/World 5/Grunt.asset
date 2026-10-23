@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Grunt
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Grunt
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 7d9a1cefaa33b0f469e12d1946764936, type: 3}
+  _scale: 1
   _maxHealth: 8
   _selectionMode: 0
   _actions:

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Marksman
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Marksman
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: cb75a756070120441b695d764a42e638, type: 3}
+  _scale: 1.3
   _maxHealth: 48
   _selectionMode: 0
   _actions:
@@ -25,6 +26,8 @@ MonoBehaviour:
     SnipePercent: 0
     SnipeTurns: 1
     SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0
   - Name: Aim
     Attack: 1
     Defense: 0
@@ -33,6 +36,8 @@ MonoBehaviour:
     SnipePercent: 50
     SnipeTurns: 1
     SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0
   - Name: Crush
     Attack: 6
     Defense: 0
@@ -41,3 +46,5 @@ MonoBehaviour:
     SnipePercent: 0
     SnipeTurns: 1
     SnipeTarget: 2
+    ChargeDefense: 0
+    UnleashAttack: 0

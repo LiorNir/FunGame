@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Guard dog
   m_EditorClassIdentifier: Assembly-CSharp::Combat.EnemyDefinition
   _displayName: Guard dog
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 9607f51167057cd4083096551a713ebd, type: 3}
+  _scale: 1
   _maxHealth: 10
   _selectionMode: 0
   _actions:
